@@ -1,0 +1,81 @@
+{
+    "name": "Yapily",
+    "description": "<p>Yapily is how people connect to banks, easily! We are an 'API Only'\u200b technology provider whose mission is to enable innovative products to connect to banks, empowering a new generation of financial services.&nbsp;<\/p>",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/yapily-logo.png",
+    "tags": [
+        "banking",
+        "financial",
+        "have api",
+        "openapi",
+        "postman",
+        "relative data",
+        "service api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/yapily\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Yapily API",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/yapily-logo.png",
+            "humanURL": "https:\/\/www.yapily.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/yapily-api.json"
+                },
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/yapily-api-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/yapily-api-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Authentication",
+            "url": "https:\/\/doc.yapily.com\/#api-authentication"
+        },
+        {
+            "type": "Documentation",
+            "url": "https:\/\/doc.yapily.com\/"
+        },
+        {
+            "type": "Email",
+            "url": "hello@yapily.com"
+        },
+        {
+            "type": "Email",
+            "url": "developers@yapily.com"
+        },
+        {
+            "type": "Email",
+            "url": "info@yapily.com"
+        },
+        {
+            "type": "Getting Started",
+            "url": "https:\/\/doc.yapily.com\/#get-started"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/yapily"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/YapilyLtd"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.yapily.com"
+        }
+    ]
+}
