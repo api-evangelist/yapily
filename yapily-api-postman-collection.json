@@ -1,0 +1,496 @@
+{
+    "id": "1be384affeac7530e4209135598edc02",
+    "name": "Yapily API",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "27bb175062ca6dfe2f7e0491cf916662",
+            "name": "Get accounts",
+            "url": "httpsapi.yapily.com:443\/\/accounts",
+            "description": "Get accounts.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "consent",
+                    "description": "Consent Token",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "680c3cacf72e39d9c093944fae0f831b",
+            "name": "Get account",
+            "url": "httpsapi.yapily.com:443\/\/accounts\/{accountId}",
+            "description": "Get account.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "accountId",
+                    "description": "accountId",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "consent",
+                    "description": "Consent Token",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "957f420ec36594dfb6e172f9922b8d5d",
+            "name": "Get account transactions",
+            "url": "httpsapi.yapily.com:443\/\/accounts\/{accountId}\/transactions",
+            "description": "Get account transactions.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "consent",
+                    "description": "Consent Token",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "accountId",
+                    "description": "accountId",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "5365d517b44210b8bf693e2def11c3a2",
+            "name": "Get identity",
+            "url": "httpsapi.yapily.com:443\/\/identity",
+            "description": "Get identity.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "consent",
+                    "description": "Consent Token",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "2c78c4f5abf56f383b153627e7d98c32",
+            "name": "Retrieves the list of institutions available in Yapily",
+            "url": "httpsapi.yapily.com:443\/\/institutions",
+            "description": "Retrieves the list of institutions available in yapily.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "1849a23c564cc73db9d795e7f2a142fc",
+            "name": "Retrieves details of a specific institution available in Yapily",
+            "url": "httpsapi.yapily.com:443\/\/institutions\/{institutionId}",
+            "description": "Retrieves details of a specific institution available in yapily.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "institutionId",
+                    "description": "institutionId",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "c9c96f4642c9b3182445e3f8bfd08013",
+            "name": "Retrieves details of personal current accounts for an institution",
+            "url": "httpsapi.yapily.com:443\/\/institutions\/{institutionId}\/personal-current-accounts",
+            "description": "Retrieves details of personal current accounts for an institution.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "institutionId",
+                    "description": "institutionId",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "6ec76dafbaff5652cee4ab53a92470cb",
+            "name": "Returns the details of the application which owns the request credentials",
+            "url": "httpsapi.yapily.com:443\/\/me",
+            "description": "Returns the details of the application which owns the request credentials.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "82d4411934b39544ec8ca796a1ac04af",
+            "name": "Get application users",
+            "url": "httpsapi.yapily.com:443\/\/users",
+            "description": "Get application users.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "bb28a10a87c1da9e884572603f1ba5f3",
+            "name": "Add an application user",
+            "url": "httpsapi.yapily.com:443\/\/users",
+            "description": "Add an application user.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "applicationUser",
+                    "description": "applicationUser",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "f9571b4cddf03d76797772c50623b0be",
+            "name": "Get consent",
+            "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents",
+            "description": "Get consent.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "userUuid",
+                    "description": "userUuid",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "institutionId",
+                    "description": "institutionId",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "6efa90a94af619d5f57b9321e4d52c2e",
+            "name": "Post consent",
+            "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents",
+            "description": "Post consent.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "userUuid",
+                    "description": "userUuid",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "createConsentApiKey",
+                    "description": "createConsentApiKey",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "4b667ed45560e1f2ba8461a749c82286",
+            "name": "Delete consent",
+            "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents\/{consentToken}",
+            "description": "Delete consent.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "delete",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "userUuid",
+                    "description": "userUuid",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "consentToken",
+                    "description": "consentToken",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "ba02c577905ef85d17b16ee9d3649ec2",
+            "name": "Get an application user",
+            "url": "httpsapi.yapily.com:443\/\/users\/{uuid}",
+            "description": "Get an application user.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uuid",
+                    "description": "uuid",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        },
+        {
+            "id": "835f8047e50c0d7e875db14fd8f798b7",
+            "name": "Update an application user",
+            "url": "httpsapi.yapily.com:443\/\/users\/{uuid}",
+            "description": "Update an application user.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "put",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uuid",
+                    "description": "uuid",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "applicationUser",
+                    "description": "applicationUser",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1be384affeac7530e4209135598edc02",
+            "rawModeData": ""
+        }
+    ]
+}
