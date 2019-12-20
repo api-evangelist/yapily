@@ -1,0 +1,1673 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "",
+        "title": "Yapily API",
+        "description": "To access endpoints that require authentication, use your Application key and secret created in the Dashboard (https:\/\/dashboard.yapily.com)",
+        "termsOfService": ""
+    },
+    "servers": [
+        "httpsapi.yapily.com:443\/"
+    ],
+    "paths": {
+        "\/accounts": {
+            "get": {
+                "summary": "Get accounts",
+                "description": "Get accounts.",
+                "operationId": "GetAccountsUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "consent",
+                        "in": "header",
+                        "description": "Consent Token"
+                    }
+                ]
+            }
+        },
+        "\/accounts\/{accountId}": {
+            "get": {
+                "summary": "Get account",
+                "description": "Get account.",
+                "operationId": "GetAccountUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "description": "accountId"
+                    },
+                    {
+                        "name": "consent",
+                        "in": "header",
+                        "description": "Consent Token"
+                    }
+                ]
+            }
+        },
+        "\/accounts\/{accountId}\/transactions": {
+            "get": {
+                "summary": "Get account transactions",
+                "description": "Get account transactions.",
+                "operationId": "GetTransactionsUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "consent",
+                        "in": "header",
+                        "description": "Consent Token"
+                    },
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "description": "accountId"
+                    }
+                ]
+            }
+        },
+        "\/identity": {
+            "get": {
+                "summary": "Get identity",
+                "description": "Get identity.",
+                "operationId": "IdentityUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "consent",
+                        "in": "header",
+                        "description": "Consent Token"
+                    }
+                ]
+            }
+        },
+        "\/institutions": {
+            "get": {
+                "summary": "Retrieves the list of institutions available in Yapily",
+                "description": "Retrieves the list of institutions available in yapily.",
+                "operationId": "GetInstitutionsUsingGET",
+                "deprecated": 0,
+                "parameters": []
+            }
+        },
+        "\/institutions\/{institutionId}": {
+            "get": {
+                "summary": "Retrieves details of a specific institution available in Yapily",
+                "description": "Retrieves details of a specific institution available in yapily.",
+                "operationId": "GetInstitutionUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "institutionId",
+                        "in": "path",
+                        "description": "institutionId"
+                    }
+                ]
+            }
+        },
+        "\/institutions\/{institutionId}\/personal-current-accounts": {
+            "get": {
+                "summary": "Retrieves details of personal current accounts for an institution",
+                "description": "Retrieves details of personal current accounts for an institution.",
+                "operationId": "GetPersonalCurrentAccountsUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "institutionId",
+                        "in": "path",
+                        "description": "institutionId"
+                    }
+                ]
+            }
+        },
+        "\/me": {
+            "get": {
+                "summary": "Returns the details of the application which owns the request credentials",
+                "description": "Returns the details of the application which owns the request credentials.",
+                "operationId": "GetApplicationMeUsingGET",
+                "deprecated": 0,
+                "parameters": []
+            }
+        },
+        "\/users": {
+            "get": {
+                "summary": "Get application users",
+                "description": "Get application users.",
+                "operationId": "GetUsersUsingGET",
+                "deprecated": 0,
+                "parameters": []
+            },
+            "post": {
+                "summary": "Add an application user",
+                "description": "Add an application user.",
+                "operationId": "AddUserUsingPOST",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "applicationUser",
+                        "in": "body",
+                        "description": "applicationUser"
+                    }
+                ]
+            }
+        },
+        "\/users\/{userUuid}\/consents": {
+            "get": {
+                "summary": "Get consent",
+                "description": "Get consent.",
+                "operationId": "GetUserConsentsUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "userUuid",
+                        "in": "path",
+                        "description": "userUuid"
+                    },
+                    {
+                        "name": "institutionId",
+                        "in": "query",
+                        "description": "institutionId"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Post consent",
+                "description": "Post consent.",
+                "operationId": "AddConsentUsingPOST",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "userUuid",
+                        "in": "path",
+                        "description": "userUuid"
+                    },
+                    {
+                        "name": "createConsentApiKey",
+                        "in": "body",
+                        "description": "createConsentApiKey"
+                    }
+                ]
+            }
+        },
+        "\/users\/{userUuid}\/consents\/{consentToken}": {
+            "delete": {
+                "summary": "Delete consent",
+                "description": "Delete consent.",
+                "operationId": "DeleteUsingDELETE",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "userUuid",
+                        "in": "path",
+                        "description": "userUuid"
+                    },
+                    {
+                        "name": "consentToken",
+                        "in": "path",
+                        "description": "consentToken"
+                    }
+                ]
+            }
+        },
+        "\/users\/{uuid}": {
+            "get": {
+                "summary": "Get an application user",
+                "description": "Get an application user.",
+                "operationId": "GetUserUsingGET",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "uuid"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "Update an application user",
+                "description": "Update an application user.",
+                "operationId": "UpdateUserUsingPUT",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "uuid"
+                    },
+                    {
+                        "name": "applicationUser",
+                        "in": "body",
+                        "description": "applicationUser"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Account": {
+                "type": "object",
+                "properties": {
+                    "balance": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "currency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeeType1": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCategory": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftTierBand": {
+                "type": "object",
+                "properties": {
+                    "BankGuaranteedIndicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "EAR": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftFeesCharges": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftInterestChargingCoverage": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierValueMax": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierValueMin": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Eligibility": {
+                "type": "object",
+                "properties": {
+                    "OtherEligibility": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeesChargesFeeChargeDetail": {
+                "type": "object",
+                "properties": {
+                    "ApplicationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "CalculationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCategory": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeRate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeRateType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeesCharges": {
+                "type": "object",
+                "properties": {
+                    "FeeChargeCap": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeChargeDetail": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefitsFeatureBenefitEligibility": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Indicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Period": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Textual": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefitsFeatureBenefitGroup": {
+                "type": "object",
+                "properties": {
+                    "ApplicationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "BenefitGroupNominalValue": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "CalculationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeatureBenefitEligibility": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeatureBenefitItem": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Fee": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApiResponseOfIdentity": {
+                "type": "object"
+            },
+            "Institution": {
+                "type": "object",
+                "properties": {
+                    "countries": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "credentialsType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "environmentType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "fullName": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "media": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftFeeChargeDetail": {
+                "type": "object",
+                "properties": {
+                    "ApplicationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "CalculationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeRate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeRateType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "IncrementalBorrowingAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftControlIndicator": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "IdentityAddress": {
+                "type": "object",
+                "properties": {
+                    "addressLines": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "city": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeeRateType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Consent": {
+                "type": "object",
+                "properties": {
+                    "consentToken": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "tokenType": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefitsCard": {
+                "type": "object",
+                "properties": {
+                    "ContactlessIndicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Scheme": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "PersonalCurrentAccountData": {
+                "type": "object",
+                "properties": {
+                    "Brand": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Identity": {
+                "type": "object",
+                "properties": {
+                    "addresses": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "birthdate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "email": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "firstName": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "gender": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "lastName": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "phone": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ResidencyEligibility": {
+                "type": "object",
+                "properties": {
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ResidencyIncluded": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ResidencyType": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreditInterestCreditInterestEligibility": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Indicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Period": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Textual": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApplicationUser": {
+                "type": "object",
+                "properties": {
+                    "appUserId": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "applicationUuid": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "institutionConsents": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "uuid": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApiResponseOfListOfAccount": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "AgeEligibility": {
+                "type": "object",
+                "properties": {
+                    "MaximumAge": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MinimumAge": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftFeeChargeCap": {
+                "type": "object",
+                "properties": {
+                    "CappingPeriod": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCapAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCapOccurrence": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeMinMaxType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OtherFeeType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftControlIndicator": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "PersonalCurrentAccountBrand": {
+                "type": "object",
+                "properties": {
+                    "BrandName": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "PCA": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Media": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherApplicationFrequency2": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherBankInterestType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreditCheck": {
+                "type": "object",
+                "properties": {
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ScoringType": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherApplicationFrequency1": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftFeesCharges": {
+                "type": "object",
+                "properties": {
+                    "OverdraftFeeChargeCap": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftFeeChargeDetail": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefitsMobileWallet": {
+                "type": "object",
+                "properties": {
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreditInterest": {
+                "type": "object",
+                "properties": {
+                    "TierBandSet": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Transaction": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "currency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "date": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftTierBandSet": {
+                "type": "object",
+                "properties": {
+                    "AuthorisedIndicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "BufferAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftFeesCharges": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftTierBand": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierBandMethod": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Country": {
+                "type": "object",
+                "properties": {
+                    "countryCode2": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "displayName": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeesChargesFeeChargeCap": {
+                "type": "object",
+                "properties": {
+                    "CappingPeriod": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCapAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeCapOccurrence": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeMinMaxType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeeType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OtherFeeType": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Application": {
+                "type": "object",
+                "properties": {
+                    "active": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "authCallbacks": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "institutions": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "media": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "updated": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "uuid": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "PersonalCurrentAccountPCA": {
+                "type": "object",
+                "properties": {
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "PCAMarketingState": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Segment": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefits": {
+                "type": "object",
+                "properties": {
+                    "Card": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeatureBenefitGroup": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeatureBenefitItem": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MobileWallet": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOtherFeeType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeeType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "InstitutionConsent": {
+                "type": "object",
+                "properties": {
+                    "institutionId": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherApplicationFrequency": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherCalculationFrequency2": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherCalculationFrequency1": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "Overdraft": {
+                "type": "object",
+                "properties": {
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftTierBandSet": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TcsAndCsURL": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreateConsentApiKey": {
+                "type": "object",
+                "properties": {
+                    "apiKey": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "institutionId": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreditInterestTierBandSet": {
+                "type": "object",
+                "properties": {
+                    "CalculationMethod": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "CreditInterestEligibility": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Destination": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierBand": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierBandMethod": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "PersonalCurrentAccountPCAMarketingState": {
+                "type": "object",
+                "properties": {
+                    "FirstMarketedDate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "LastMarketedDate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MarketingState": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "PredecessorID": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "StateTenureLength": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "StateTenurePeriod": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherResidencyType": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherCalculationFrequency": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherFeeRateType1": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "IDVerificationCheck": {
+                "type": "object",
+                "properties": {
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "URL": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "CreditInterestTierBand": {
+                "type": "object",
+                "properties": {
+                    "AER": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ApplicationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "BankInterestRateType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "CalculationFrequency": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "DepositInterestAppliedCoverage": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FixedVariableInterestRateType": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierValueMaximum": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TierValueMinimum": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ResponseEntity": {
+                "type": "object",
+                "properties": {
+                    "body": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "statusCode": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "statusCodeValue": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftOverdraftFeesCharges1": {
+                "type": "object",
+                "properties": {
+                    "OverdraftFeeChargeCap": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "OverdraftFeeChargeDetail": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherType2": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApiResponseOfListOfPersonalCurrentAccountData": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherType3": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApiResponseOfAccount": {
+                "type": "object"
+            },
+            "CoreProduct": {
+                "type": "object",
+                "properties": {
+                    "MonthlyMaximumCharge": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ProductDescription": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ProductURL": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "SalesAccessChannels": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "ServicingAccessChannels": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "TcsAndCsURL": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "EligibilityOtherEligibility": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Indicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Period": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Textual": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherType1": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "ApiResponseOfListOfTransaction": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OtherScheme": {
+                "type": "object",
+                "properties": {
+                    "Code": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "FeaturesAndBenefitsFeatureBenefitItem": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "FeatureBenefitEligibility": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Identification": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Indicator": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Notes": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "Textual": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            },
+            "OverdraftFeeApplicableRange": {
+                "type": "object",
+                "properties": {
+                    "MaximumAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MaximumRate": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MinimumAmount": {
+                        "description": "",
+                        "type": "put"
+                    },
+                    "MinimumRate": {
+                        "description": "",
+                        "type": "put"
+                    }
+                }
+            }
+        }
+    }
+}
