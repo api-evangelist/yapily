@@ -1,5 +1,5 @@
 {
-    "id": "1be384affeac7530e4209135598edc02",
+    "id": "fb1eb32515a2069c4c21f3f6d24a2189",
     "name": "Yapily API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "27bb175062ca6dfe2f7e0491cf916662",
+            "id": "b36e91bb7c1743a72580907830c1de3c",
             "name": "Get accounts",
             "url": "httpsapi.yapily.com:443\/\/accounts",
             "description": "Get accounts.",
@@ -37,11 +37,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "680c3cacf72e39d9c093944fae0f831b",
+            "id": "b4375a3dc1aa6599d446d2c3f339b12c",
             "name": "Get account",
             "url": "httpsapi.yapily.com:443\/\/accounts\/{accountId}",
             "description": "Get account.",
@@ -75,11 +75,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "957f420ec36594dfb6e172f9922b8d5d",
+            "id": "ebaff7370e9827daffa34e27509ac3a5",
             "name": "Get account transactions",
             "url": "httpsapi.yapily.com:443\/\/accounts\/{accountId}\/transactions",
             "description": "Get account transactions.",
@@ -113,11 +113,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "5365d517b44210b8bf693e2def11c3a2",
+            "id": "f1e87609e514a6ccd0c3bd6f5352ff0f",
             "name": "Get identity",
             "url": "httpsapi.yapily.com:443\/\/identity",
             "description": "Get identity.",
@@ -144,11 +144,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "2c78c4f5abf56f383b153627e7d98c32",
+            "id": "9431c23c51ec6a4ac6ac86027848f8a7",
             "name": "Retrieves the list of institutions available in Yapily",
             "url": "httpsapi.yapily.com:443\/\/institutions",
             "description": "Retrieves the list of institutions available in yapily.",
@@ -167,11 +167,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "1849a23c564cc73db9d795e7f2a142fc",
+            "id": "d72c690b70b1191bac37110014e112b6",
             "name": "Retrieves details of a specific institution available in Yapily",
             "url": "httpsapi.yapily.com:443\/\/institutions\/{institutionId}",
             "description": "Retrieves details of a specific institution available in yapily.",
@@ -198,11 +198,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "c9c96f4642c9b3182445e3f8bfd08013",
+            "id": "f18692000331735536a3f52145f4af24",
             "name": "Retrieves details of personal current accounts for an institution",
             "url": "httpsapi.yapily.com:443\/\/institutions\/{institutionId}\/personal-current-accounts",
             "description": "Retrieves details of personal current accounts for an institution.",
@@ -229,11 +229,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "6ec76dafbaff5652cee4ab53a92470cb",
+            "id": "475df59665f72472d0dbdf3a7b574c56",
             "name": "Returns the details of the application which owns the request credentials",
             "url": "httpsapi.yapily.com:443\/\/me",
             "description": "Returns the details of the application which owns the request credentials.",
@@ -252,11 +252,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "82d4411934b39544ec8ca796a1ac04af",
+            "id": "fec111063a8dc00b200e7bb93c3e0f64",
             "name": "Get application users",
             "url": "httpsapi.yapily.com:443\/\/users",
             "description": "Get application users.",
@@ -275,11 +275,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "bb28a10a87c1da9e884572603f1ba5f3",
+            "id": "0bd508e9656dc0c4020fd0794eb64ecc",
             "name": "Add an application user",
             "url": "httpsapi.yapily.com:443\/\/users",
             "description": "Add an application user.",
@@ -306,11 +306,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "f9571b4cddf03d76797772c50623b0be",
+            "id": "fdf3b1cb7d87bb147ec30a8badb0bc8e",
             "name": "Get consent",
             "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents",
             "description": "Get consent.",
@@ -344,11 +344,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "6efa90a94af619d5f57b9321e4d52c2e",
+            "id": "8d980a1aa5d47568957a9ad21da145b0",
             "name": "Post consent",
             "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents",
             "description": "Post consent.",
@@ -382,11 +382,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "4b667ed45560e1f2ba8461a749c82286",
+            "id": "0861a3bd23de07b6dc32f9f2277ea04a",
             "name": "Delete consent",
             "url": "httpsapi.yapily.com:443\/\/users\/{userUuid}\/consents\/{consentToken}",
             "description": "Delete consent.",
@@ -420,11 +420,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "ba02c577905ef85d17b16ee9d3649ec2",
+            "id": "f6e3a7feb5aa0b82891ea3b5dc29531e",
             "name": "Get an application user",
             "url": "httpsapi.yapily.com:443\/\/users\/{uuid}",
             "description": "Get an application user.",
@@ -451,11 +451,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         },
         {
-            "id": "835f8047e50c0d7e875db14fd8f798b7",
+            "id": "6bf70c9b0376d735b0ee92e27056d4ee",
             "name": "Update an application user",
             "url": "httpsapi.yapily.com:443\/\/users\/{uuid}",
             "description": "Update an application user.",
@@ -489,7 +489,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1be384affeac7530e4209135598edc02",
+            "collectionId": "fb1eb32515a2069c4c21f3f6d24a2189",
             "rawModeData": ""
         }
     ]
