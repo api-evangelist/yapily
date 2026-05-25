@@ -1,0 +1,363 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yapily/main/json-schema/yapily-account-schema.json",
+  "title": "Yapily Account",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier of the account.",
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of account e.g. (BUSINESS_CURRENT)."
+    },
+    "description": {
+      "description": "Product name as defined by the financial institution for this account",
+      "type": "string"
+    },
+    "balance": {
+      "type": "number",
+      "description": "Main / headline balance for the account. \n\n Use of this field is recommended as fallback only. Instead, use of the typed balances (accountBalances) is recommended."
+    },
+    "currency": {
+      "description": "Currency the bank account balance is denoted in. \n\n Specified as a 3-letter ISO 4217 currency code",
+      "type": "string"
+    },
+    "usageType": {
+      "type": "string",
+      "description": "The customer segment of the account.",
+      "enum": [
+        "PERSONAL",
+        "BUSINESS",
+        "OTHER",
+        "UNKNOWN"
+      ]
+    },
+    "accountType": {
+      "type": "string",
+      "description": "The type of account e.g. (Credit Card, Savings).",
+      "enum": [
+        "CASH_TRADING",
+        "CASH_INCOME",
+        "CASH_PAYMENT",
+        "CHARGE_CARD",
+        "CHARGES",
+        "COMMISSION",
+        "CREDIT_CARD",
+        "CURRENT",
+        "E_MONEY",
+        "LIMITED_LIQUIDITY_SAVINGS_ACCOUNT",
+        "LOAN",
+        "MARGINAL_LENDING",
+        "MONEY_MARKET",
+        "MORTGAGE",
+        "NON_RESIDENT_EXTERNAL",
+        "OTHER",
+        "OVERDRAFT",
+        "OVERNIGHT_DEPOSIT",
+        "PREPAID_CARD",
+        "SALARY",
+        "SAVINGS",
+        "SETTLEMENT",
+        "TAX",
+        "UNKNOWN"
+      ]
+    },
+    "nickname": {
+      "description": "Nickname of the account that was provided by the account owner. \n\n May be used to aid identification of the account.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Supplementary specifications that might be provided by the Bank. These provide further characteristics about the account.",
+      "type": "string"
+    },
+    "accountNames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The bank account holder's name given by the account owner.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "accountIdentifications": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "title": "Account Identifications",
+        "required": [
+          "type",
+          "identification"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Account Identification Type",
+            "type": "string",
+            "description": "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type.",
+            "example": "SORT_CODE",
+            "enum": [
+              "SORT_CODE",
+              "ACCOUNT_NUMBER",
+              "IBAN",
+              "BBAN",
+              "BIC",
+              "PAN",
+              "MASKED_PAN",
+              "MSISDN",
+              "BSB",
+              "NCC",
+              "ABA",
+              "ABA_WIRE",
+              "ABA_ACH",
+              "EMAIL",
+              "ROLL_NUMBER",
+              "BLZ",
+              "IFS",
+              "CLABE",
+              "CTN",
+              "BRANCH_CODE",
+              "VIRTUAL_ACCOUNT_ID"
+            ]
+          },
+          "identification": {
+            "title": "Account Identification",
+            "type": "string",
+            "description": "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values.",
+            "example": "401016"
+          }
+        }
+      }
+    },
+    "accountBalances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Specifies the type of the stated account balance.",
+            "enum": [
+              "CLOSING_AVAILABLE",
+              "CLOSING_BOOKED",
+              "CLOSING_CLEARED",
+              "EXPECTED",
+              "FORWARD_AVAILABLE",
+              "INFORMATION",
+              "INTERIM_AVAILABLE",
+              "INTERIM_BOOKED",
+              "INTERIM_CLEARED",
+              "OPENING_AVAILABLE",
+              "OPENING_BOOKED",
+              "OPENING_CLEARED",
+              "PREVIOUSLY_CLOSED_BOOKED",
+              "AUTHORISED",
+              "OTHER",
+              "UNKNOWN"
+            ]
+          },
+          "dateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time of the reported balance."
+          },
+          "balanceAmount": {
+            "title": "Amount Details",
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "type": "object",
+            "properties": {
+              "amount": {
+                "title": "Amount",
+                "type": "number",
+                "description": "__Mandatory__. The monetary value",
+                "example": 10
+              },
+              "currency": {
+                "title": "Currency",
+                "type": "string",
+                "description": "__Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code",
+                "example": "GBP"
+              }
+            },
+            "description": "__Mandatory__. Monetary Amount."
+          },
+          "creditLineIncluded": {
+            "type": "boolean",
+            "description": "__Optional__. Indicates whether any credit lines are included in the balance."
+          },
+          "creditLines": {
+            "type": "array",
+            "description": "__Optional__. Specifies the type of balance.",
+            "items": {
+              "type": "object",
+              "description": "__Mandatory__. Details whether the account has access to a credit line from an `Institution`.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "__Mandatory__. The type of credit that has been provided.",
+                  "enum": [
+                    "AVAILABLE",
+                    "CREDIT",
+                    "EMERGENCY",
+                    "PRE_AGREED",
+                    "TEMPORARY",
+                    "OTHER",
+                    "UNKNOWN"
+                  ]
+                },
+                "creditLineAmount": {
+                  "title": "Amount Details",
+                  "required": [
+                    "amount",
+                    "currency"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "title": "Amount",
+                      "type": "number",
+                      "description": "__Mandatory__. The monetary value",
+                      "example": 10
+                    },
+                    "currency": {
+                      "title": "Currency",
+                      "type": "string",
+                      "description": "__Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code",
+                      "example": "GBP"
+                    }
+                  },
+                  "description": "__Mandatory__. Monetary Amount."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "consolidatedAccountInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the consolidated account. When used in Get Account Transactions calls, the transactions between the sub-accounts will not be reported"
+        },
+        "accountBalances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Specifies the type of the stated account balance.",
+                "enum": [
+                  "CLOSING_AVAILABLE",
+                  "CLOSING_BOOKED",
+                  "CLOSING_CLEARED",
+                  "EXPECTED",
+                  "FORWARD_AVAILABLE",
+                  "INFORMATION",
+                  "INTERIM_AVAILABLE",
+                  "INTERIM_BOOKED",
+                  "INTERIM_CLEARED",
+                  "OPENING_AVAILABLE",
+                  "OPENING_BOOKED",
+                  "OPENING_CLEARED",
+                  "PREVIOUSLY_CLOSED_BOOKED",
+                  "AUTHORISED",
+                  "OTHER",
+                  "UNKNOWN"
+                ]
+              },
+              "dateTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time of the reported balance."
+              },
+              "balanceAmount": {
+                "title": "Amount Details",
+                "required": [
+                  "amount",
+                  "currency"
+                ],
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "title": "Amount",
+                    "type": "number",
+                    "description": "__Mandatory__. The monetary value",
+                    "example": 10
+                  },
+                  "currency": {
+                    "title": "Currency",
+                    "type": "string",
+                    "description": "__Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code",
+                    "example": "GBP"
+                  }
+                },
+                "description": "__Mandatory__. Monetary Amount."
+              },
+              "creditLineIncluded": {
+                "type": "boolean",
+                "description": "__Optional__. Indicates whether any credit lines are included in the balance."
+              },
+              "creditLines": {
+                "type": "array",
+                "description": "__Optional__. Specifies the type of balance.",
+                "items": {
+                  "type": "object",
+                  "description": "__Mandatory__. Details whether the account has access to a credit line from an `Institution`.",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "__Mandatory__. The type of credit that has been provided.",
+                      "enum": [
+                        "AVAILABLE",
+                        "CREDIT",
+                        "EMERGENCY",
+                        "PRE_AGREED",
+                        "TEMPORARY",
+                        "OTHER",
+                        "UNKNOWN"
+                      ]
+                    },
+                    "creditLineAmount": {
+                      "title": "Amount Details",
+                      "required": [
+                        "amount",
+                        "currency"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "title": "Amount",
+                          "type": "number",
+                          "description": "__Mandatory__. The monetary value",
+                          "example": 10
+                        },
+                        "currency": {
+                          "title": "Currency",
+                          "type": "string",
+                          "description": "__Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code",
+                          "example": "GBP"
+                        }
+                      },
+                      "description": "__Mandatory__. Monetary Amount."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Summary information regarding account balances of the overall account provided by the bank"
+    }
+  }
+}

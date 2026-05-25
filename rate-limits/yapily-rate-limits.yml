@@ -1,0 +1,54 @@
+apiCommonsRateLimits: "0.1"
+provider:
+  id: yapily
+  name: Yapily
+  url: https://docs.yapily.com/api/error-handling/rate-limits
+  modifiedAt: 2026-05-25
+notes: |
+  Effective rate limits on the Yapily API are governed by two layers:
+  (1) Yapily's platform-side throttling per application and per institution,
+  and (2) the downstream ASPSP's own Open Banking rate limits (e.g. UK Open
+  Banking RTS limits four non-functional calls per account per day without
+  SCA, with per-bank variations across Berlin Group ASPSPs). The figures
+  below capture Yapily's documented response codes and the published
+  PSD2/Open Banking guard rails that apply via the platform.
+
+limits:
+  - id: platform-throttle-429
+    scope: per-application
+    response:
+      status: 429
+      header: Retry-After
+    description: |
+      Yapily returns HTTP 429 when an application exceeds its allocated
+      requests-per-second budget. Customers should honour Retry-After and
+      back off with jitter.
+
+  - id: aspsp-passthrough
+    scope: per-institution
+    description: |
+      Downstream ASPSPs enforce their own limits; Yapily surfaces these as
+      institution-specific errors (e.g. 429, 503) including for UK Open
+      Banking accounts (4 non-functional requests / account / day without SCA)
+      and Berlin Group ASPSPs (commonly 4 transaction list requests / day).
+    enforcement: downstream
+
+  - id: hosted-page-creation
+    scope: per-application
+    description: Hosted Payment Page and Hosted Consent Page link generation is rate limited per application; high-volume use cases require commercial uplift.
+
+  - id: vrp-consent-execution
+    scope: per-vrp-consent
+    description: |
+      VRP payment executions are bounded by the active VRP consent's per-payment,
+      per-period (e.g. daily/weekly/monthly), and per-cycle caps. Yapily enforces
+      that requests outside the consent boundaries are rejected with 4xx.
+
+  - id: notification-event-fanout
+    scope: per-application
+    description: Webhook deliveries follow Yapily's webhook retry policy with exponential backoff on non-2xx receivers.
+
+advisories:
+  - "Cache Institutions list (/institutions) — it changes infrequently and reads against this resource should not consume per-account budgets."
+  - "Subscribe to webhooks where available instead of polling consent or payment status."
+  - "Where an ASPSP supports it, prefer cursor-based pagination on /transactions to avoid retrying full pages."

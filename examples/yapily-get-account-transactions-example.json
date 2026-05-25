@@ -1,0 +1,41 @@
+{
+  "operation": "getAccountTransactions",
+  "request": {
+    "method": "GET",
+    "url": "https://api.yapily.com/accounts/{accountId}/transactions?from=2026-04-01&before=2026-05-01&limit=50",
+    "headers": {
+      "Authorization": "Basic {base64(applicationId:applicationSecret)}",
+      "consent": "{consent-token}",
+      "psu-id": "psu-1234"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "meta": {"count": 2, "pagination": {"self": "...", "next": "...", "totalCount": 327}},
+      "data": [
+        {
+          "id": "txn-001",
+          "date": "2026-04-28T13:22:00Z",
+          "bookingDateTime": "2026-04-28T13:22:00Z",
+          "valueDateTime": "2026-04-28T13:22:00Z",
+          "status": "BOOKED",
+          "amount": -12.40,
+          "currency": "GBP",
+          "transactionInformation": "PRET A MANGER LONDON",
+          "merchantName": "Pret A Manger",
+          "enrichment": {"categorisation": {"category": "Food and Drink"}}
+        },
+        {
+          "id": "txn-002",
+          "date": "2026-04-25T09:00:00Z",
+          "status": "BOOKED",
+          "amount": 2500.00,
+          "currency": "GBP",
+          "transactionInformation": "SALARY ACME LTD",
+          "enrichment": {"categorisation": {"category": "Income"}}
+        }
+      ]
+    }
+  }
+}

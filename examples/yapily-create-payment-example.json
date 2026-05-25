@@ -1,0 +1,42 @@
+{
+  "operation": "createPayment",
+  "request": {
+    "method": "POST",
+    "url": "https://api.yapily.com/payments",
+    "headers": {
+      "Authorization": "Basic {base64(applicationId:applicationSecret)}",
+      "consent": "{consent-token}",
+      "psu-id": "psu-1234",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paymentIdempotencyId": "f8e7d6c5-b4a3-4f2e-9d8c-7a6b5c4d3e2f",
+      "payment": {
+        "amount": {"amount": 25.50, "currency": "GBP"},
+        "type": "DOMESTIC_PAYMENT",
+        "reference": "INV-2026-0042",
+        "payee": {
+          "name": "Acme Ltd",
+          "accountIdentifications": [
+            {"type": "SORT_CODE", "identification": "040004"},
+            {"type": "ACCOUNT_NUMBER", "identification": "12345678"}
+          ]
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "meta": {"tracingId": "trace-abc-123"},
+      "data": {
+        "id": "pay-9f8e7d6c-b4a3-4f2e-9d8c-7a6b5c4d3e2f",
+        "status": "PENDING",
+        "createdAt": "2026-05-25T10:14:32.117Z",
+        "amount": {"amount": 25.50, "currency": "GBP"},
+        "reference": "INV-2026-0042",
+        "institutionConsentId": "consent-modelo-001"
+      }
+    }
+  }
+}

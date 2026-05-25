@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yapily/main/json-schema/yapily-consent-schema.json",
+  "title": "Yapily Consent",
+  "type": "object",
+  "description": "Consent detailing the requested authorisation from a user to a specific `Institution`.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the consent.",
+      "format": "uuid"
+    },
+    "userUuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "applicationUserId": {
+      "type": "string",
+      "description": "__Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided."
+    },
+    "referenceId": {
+      "type": "string"
+    },
+    "institutionId": {
+      "type": "string",
+      "description": "__Mandatory__. The `Institution` the authorisation request is sent to."
+    },
+    "status": {
+      "description": "Current status of the embedded authorisation request in code form.",
+      "type": "string",
+      "enum": [
+        "AWAITING_AUTHORIZATION",
+        "AWAITING_FURTHER_AUTHORIZATION",
+        "AWAITING_RE_AUTHORIZATION",
+        "AUTHORIZED",
+        "CONSUMED",
+        "REJECTED",
+        "REVOKED",
+        "FAILED",
+        "EXPIRED",
+        "UNKNOWN",
+        "INVALID",
+        "AWAITING_DECOUPLED_PRE_AUTHORIZATION",
+        "AWAITING_PRE_AUTHORIZATION",
+        "PRE_AUTHORIZED",
+        "AWAITING_DECOUPLED_AUTHORIZATION",
+        "AWAITING_SCA_METHOD",
+        "AWAITING_SCA_CODE"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Date and time of when the consent was created.",
+      "format": "date-time"
+    },
+    "transactionFrom": {
+      "type": "string",
+      "description": "When performing a transaction query using the consent, this is the earliest date of transaction records that can be retrieved.",
+      "format": "date-time"
+    },
+    "transactionTo": {
+      "type": "string",
+      "description": "When performing a transaction query using the consent, this is the latest date of transaction records that can be retrieved.",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "description": "Date and time of when the authorisation will expire by. Reauthorisation will be needed to retain access.",
+      "format": "date-time"
+    },
+    "timeToExpireInMillis": {
+      "type": "integer",
+      "format": "int64",
+      "deprecated": true
+    },
+    "timeToExpire": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "featureScope": {
+      "uniqueItems": true,
+      "description": "The set of features that the consent will provide access to.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)",
+        "enum": [
+          "INITIATE_PRE_AUTHORISATION",
+          "INITIATE_PRE_AUTHORISATION_ACCOUNTS",
+          "INITIATE_PRE_AUTHORISATION_PAYMENTS",
+          "INITIATE_ACCOUNT_REQUEST",
+          "INITIATE_EMBEDDED_ACCOUNT_REQUEST",
+          "ACCOUNT_REQUEST_DETAILS",
+          "ACCOUNTS",
+          "ACCOUNT",
+          "ACCOUNT_TRANSACTIONS",
+          "ACCOUNT_STATEMENTS",
+          "ACCOUNT_STATEMENT",
+          "ACCOUNT_STATEMENT_FILE",
+          "ACCOUNT_SCHEDULED_PAYMENTS",
+          "ACCOUNT_DIRECT_DEBITS",
+          "ACCOUNT_PERIODIC_PAYMENTS",
+          "ACCOUNT_TRANSACTIONS_WITH_MERCHANT",
+          "IDENTITY",
+          "ACCOUNTS_WITHOUT_BALANCE",
+          "ACCOUNT_WITHOUT_BALANCE",
+          "ACCOUNT_BALANCES",
+          "INITIATE_SINGLE_PAYMENT_SORTCODE",
+          "EXISTING_PAYMENT_INITIATION_DETAILS",
+          "CREATE_SINGLE_PAYMENT_SORTCODE",
+          "EXISTING_PAYMENTS_DETAILS",
+          "INITIATE_DOMESTIC_SINGLE_PAYMENT",
+          "INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT",
+          "CREATE_DOMESTIC_SINGLE_PAYMENT",
+          "INITIATE_EMBEDDED_BULK_PAYMENT",
+          "INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT",
+          "CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL",
+          "INITIATE_DOMESTIC_SCHEDULED_PAYMENT",
+          "CREATE_DOMESTIC_SCHEDULED_PAYMENT",
+          "INITIATE_DOMESTIC_PERIODIC_PAYMENT",
+          "CREATE_DOMESTIC_PERIODIC_PAYMENT",
+          "PERIODIC_PAYMENT_FREQUENCY_EXTENDED",
+          "INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT",
+          "CREATE_INTERNATIONAL_SCHEDULED_PAYMENT",
+          "INITIATE_INTERNATIONAL_PERIODIC_PAYMENT",
+          "CREATE_INTERNATIONAL_PERIODIC_PAYMENT",
+          "INITIATE_INTERNATIONAL_SINGLE_PAYMENT",
+          "CREATE_INTERNATIONAL_SINGLE_PAYMENT",
+          "INITIATE_BULK_PAYMENT",
+          "CREATE_BULK_PAYMENT",
+          "EXISTING_BULK_PAYMENT_DETAILS",
+          "TRANSFER",
+          "OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS",
+          "OPEN_DATA_ATMS",
+          "READ_DOMESTIC_SINGLE_REFUND",
+          "READ_DOMESTIC_SCHEDULED_REFUND",
+          "READ_DOMESTIC_PERIODIC_PAYMENT_REFUND",
+          "READ_INTERNATIONAL_SINGLE_REFUND",
+          "READ_INTERNATIONAL_SCHEDULED_REFUND",
+          "ACCOUNT_BENEFICIARIES",
+          "INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS",
+          "INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS",
+          "INITIATE_ONETIME_PRE_AUTHORISATION",
+          "VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION"
+        ]
+      }
+    },
+    "consentToken": {
+      "type": "string",
+      "description": "Represents the authorisation to gain access to the requested features. Required to access account information or make a payment request."
+    },
+    "state": {
+      "type": "string",
+      "description": "Correlation ID used with the `Institution` during the authorisation process."
+    },
+    "authorizedAt": {
+      "type": "string",
+      "description": "Date and time of when the request was authorised by the Institution.",
+      "format": "date-time"
+    },
+    "lastConfirmedAt": {
+      "type": "string",
+      "description": "The time that the PSU last confirmed access to their account information, either through full authentication with the institution, or through reconfirmation with the TPP.",
+      "format": "date-time"
+    },
+    "reconfirmBy": {
+      "type": "string",
+      "description": "The time by which the consent should be reconfirmed to ensure continued access to the account information.",
+      "format": "date-time"
+    },
+    "institutionConsentId": {
+      "type": "string",
+      "description": "Identification of the consent at the Institution."
+    },
+    "isDeletedByInstitution": {
+      "type": "boolean",
+      "description": "Denotes whether the consent has been deleted on the institution side or not when a DELETE method is executed on a Yapily consent if that functionality is provided by the institution",
+      "example": false
+    }
+  }
+}

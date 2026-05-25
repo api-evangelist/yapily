@@ -1,0 +1,16 @@
+apiVersion: naftiko.dev/v1
+kind: Capability
+metadata:
+  name: yapily-data-plus
+  labels:
+    provider: yapily
+    domain: enrichment
+spec:
+  title: Yapily Data Plus Transaction Enrichment
+  description: |
+    Enrich raw bank transactions with merchant detection, MCC categorisation,
+    spending insights, and labels for consumer and business accounts.
+  api: yapily:yapily-data-plus-api
+  operations:
+    - categoriseTransactions
+    - getTransactionInsights

@@ -1,0 +1,116 @@
+apiCommonsPlans: "0.1"
+provider:
+  id: yapily
+  name: Yapily
+  url: https://www.yapily.com/pricing
+  modifiedAt: 2026-05-25
+notes: |
+  Yapily publishes usage-based commercial pricing on consultation. The tiers
+  below reflect Yapily's public product packaging across Data Access (AIS),
+  Payments (PIS), Variable Recurring Payments (VRP), Data Plus enrichment,
+  Account Validation, and Yapily Connect (regulated coverage). Exact unit
+  prices are negotiated; volumes and SLA terms are commercial.
+
+plans:
+  - id: data-access
+    name: Data Access
+    description: |
+      AIS connectivity across UK Open Banking and Berlin Group ASPSPs.
+      Pay per active end-user (PSU) or per successful data call depending
+      on commercial arrangement.
+    surface:
+      apis:
+        - yapily:yapily-data-api
+        - yapily:yapily-consents-api
+        - yapily:yapily-institutions-api
+      capabilities:
+        - capabilities/data-access.yaml
+    metering:
+      - dimension: active_psu
+        unit: user_per_month
+      - dimension: successful_account_request
+        unit: request
+    commercial: consult_sales
+
+  - id: payments
+    name: Payments
+    description: |
+      PIS for single, scheduled, periodic, bulk, and international payments
+      across UK and EU ASPSPs.
+    surface:
+      apis:
+        - yapily:yapily-payments-api
+        - yapily:yapily-consents-api
+      capabilities:
+        - capabilities/payment-initiation.yaml
+    metering:
+      - dimension: successful_payment
+        unit: payment
+      - dimension: bulk_payment_line
+        unit: payment_line
+    commercial: consult_sales
+
+  - id: variable-recurring-payments
+    name: Variable Recurring Payments
+    description: |
+      Sweeping and commercial VRP including consent setup, funds confirmation,
+      and execution under an active VRP consent.
+    surface:
+      apis:
+        - yapily:yapily-vrp-api
+      capabilities:
+        - capabilities/variable-recurring-payments.yaml
+    metering:
+      - dimension: active_vrp_consent
+        unit: consent_per_month
+      - dimension: vrp_payment_execution
+        unit: payment
+    commercial: consult_sales
+
+  - id: data-plus
+    name: Data Plus
+    description: |
+      Transaction enrichment, merchant detection, and categorisation on top of
+      AIS-fetched transaction data.
+    surface:
+      apis:
+        - yapily:yapily-data-plus-api
+      capabilities:
+        - capabilities/data-plus.yaml
+    metering:
+      - dimension: enriched_transaction
+        unit: transaction
+    commercial: consult_sales
+
+  - id: account-validation
+    name: Account Validation
+    description: |
+      Confirmation of account ownership and customer details (Validate)
+      surfaced via the platform and hosted pages.
+    surface:
+      apis:
+        - yapily:yapily-hosted-pages-api
+        - yapily:yapily-platform-api
+    metering:
+      - dimension: validation_check
+        unit: check
+    commercial: consult_sales
+
+  - id: yapily-connect
+    name: Yapily Connect (Regulated Cover)
+    description: |
+      Use Yapily Connect Ltd (FCA-authorised) and Yapily Connect UAB
+      (Bank of Lithuania-authorised) as the AISP/PISP of record so customers
+      can launch without holding their own permissions.
+    surface:
+      coverage:
+        - regulator: FCA
+          entity: Yapily Connect Ltd
+          region: UK
+        - regulator: Bank of Lithuania
+          entity: Yapily Connect UAB
+          region: EU
+    metering:
+      - dimension: regulated_coverage
+        unit: license_per_month
+    commercial: consult_sales

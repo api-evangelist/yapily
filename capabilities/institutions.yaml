@@ -1,0 +1,17 @@
+apiVersion: naftiko.dev/v1
+kind: Capability
+metadata:
+  name: yapily-institutions
+  labels:
+    provider: yapily
+    domain: open-banking
+spec:
+  title: Yapily Institutions Directory
+  description: |
+    Look up the 2,000+ supported UK and European banks (ASPSPs) including features
+    supported (AIS, PIS, VRP, payment methods), country, BIC/BBAN, media assets,
+    and authentication mechanisms.
+  api: yapily:yapily-institutions-api
+  operations:
+    - getInstitutions
+    - getInstitution

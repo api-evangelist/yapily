@@ -1,0 +1,20 @@
+apiVersion: naftiko.dev/v1
+kind: Capability
+metadata:
+  name: yapily-hosted-pages
+  labels:
+    provider: yapily
+    domain: open-banking
+spec:
+  title: Yapily Hosted Payment and Consent Pages
+  description: |
+    Use Yapily-managed UI flows for payment initiation and consent capture, including
+    Pay By Link, single payments, bulk payments, VRP consent, and AIS consent flows
+    via Hosted Payment Pages and Hosted Consent Pages.
+  api: yapily:yapily-hosted-pages-api
+  operations:
+    - createHostedPaymentPage
+    - createHostedConsentPage
+    - createPayByLink
+    - createBulkPaymentLink
+    - createVrpConsentLink

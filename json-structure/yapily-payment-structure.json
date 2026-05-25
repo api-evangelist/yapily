@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "title": "Yapily Payment Structure",
+  "description": "Operational structure of a Yapily Payment request/response as used across PIS endpoints.",
+  "fields": [
+    {"name": "paymentIdempotencyId", "type": "uuid", "required": true},
+    {"name": "type", "type": "enum", "values": ["DOMESTIC_PAYMENT", "DOMESTIC_SCHEDULED_PAYMENT", "DOMESTIC_PERIODIC_PAYMENT", "INTERNATIONAL_PAYMENT", "BULK_PAYMENT", "SWEEPING_VRP"]},
+    {"name": "amount", "type": "Amount", "required": true},
+    {"name": "reference", "type": "string"},
+    {"name": "payee", "type": "Payee", "required": true},
+    {"name": "payer", "type": "Payer"},
+    {"name": "contextType", "type": "enum", "values": ["BILL", "ECOMMERCE_GOODS", "ECOMMERCE_SERVICES", "OTHER", "PARTY_TO_PARTY"]}
+  ],
+  "lifecycle": ["INITIATED", "AWAITING_AUTHORIZATION", "PENDING", "COMPLETED", "FAILED", "REJECTED", "REVOKED"],
+  "relationships": {
+    "requires": "Consent (single-use for payments)",
+    "executedAgainst": "Institution",
+    "settles": "Account"
+  }
+}

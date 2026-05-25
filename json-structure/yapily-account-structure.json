@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "title": "Yapily Account Structure",
+  "description": "Operational structure of a Yapily Account resource as returned by the Data Access (AIS) API.",
+  "fields": [
+    {"name": "id", "type": "string", "description": "Yapily account id."},
+    {"name": "type", "type": "enum", "values": ["CASH_TRADING", "CHARGES", "CHARGE_CARD", "COMMISSION", "CREDIT_CARD", "CURRENT", "DEPOSIT", "EMONEY", "EPM", "LIMITED_LIQUIDITY_SAVINGS_ACCOUNT", "LOAN", "MARGINAL_LENDING", "MONEY_MARKET", "MORTGAGE", "NON_RESIDENT_EXTERNAL", "OTHER", "OVERDRAFT", "OVERNIGHT_DEPOSIT", "PREPAID_CARD", "PUBLIC_LIMITED_AVAILABILITY", "SALARY", "SAVINGS", "SETTLEMENT", "SHARE_TRADING"]},
+    {"name": "usageType", "type": "enum", "values": ["PERSONAL", "BUSINESS"]},
+    {"name": "balance", "type": "decimal"},
+    {"name": "currency", "type": "iso4217"},
+    {"name": "accountIdentifications", "type": "array", "items": "AccountIdentifier"},
+    {"name": "accountNames", "type": "array", "items": "string"}
+  ],
+  "identifiers": ["IBAN", "SORT_CODE+ACCOUNT_NUMBER", "BBAN", "BIC"],
+  "relationships": {
+    "belongsTo": "User via Consent",
+    "issuedBy": "Institution",
+    "produces": ["Transaction", "Balance", "StandingOrder", "DirectDebit", "ScheduledPayment", "Statement"]
+  }
+}

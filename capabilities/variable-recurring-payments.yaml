@@ -1,0 +1,20 @@
+apiVersion: naftiko.dev/v1
+kind: Capability
+metadata:
+  name: yapily-variable-recurring-payments
+  labels:
+    provider: yapily
+    domain: open-banking
+spec:
+  title: Yapily Variable Recurring Payments
+  description: |
+    Set up and execute Variable Recurring Payments (VRP) for sweeping (own-account)
+    and commercial use cases. Includes VRP consent creation, funds confirmation,
+    and payment execution under an active sweeping consent.
+  api: yapily:yapily-vrp-api
+  operations:
+    - createVrpSweepingConsent
+    - createVrpPayment
+    - getVrpPaymentDetails
+    - getVrpFundsConfirmation
+    - getVrpConsent

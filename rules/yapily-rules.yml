@@ -1,0 +1,59 @@
+extends:
+  - spectral:oas
+rules:
+  yapily-info-contact:
+    description: Yapily OpenAPI specs must declare a contact section.
+    given: $.info
+    severity: error
+    then:
+      field: contact
+      function: truthy
+  yapily-server-https:
+    description: Yapily servers must use https://api.yapily.com.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://api\.yapily\.com'
+  yapily-basic-auth-required:
+    description: Yapily endpoints require basicAuth security.
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      field: basicAuth
+      function: truthy
+  yapily-summary-title-case:
+    description: Operation summaries should be title cased.
+    given: $.paths.*[get,post,put,delete,patch].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z]'
+  yapily-tag-defined:
+    description: Every operation must be tagged.
+    given: $.paths.*[get,post,put,delete,patch]
+    severity: error
+    then:
+      field: tags
+      function: length
+      functionOptions:
+        min: 1
+  yapily-operation-id-camel:
+    description: operationId must be camelCase.
+    given: $.paths.*[get,post,put,delete,patch].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+  yapily-consent-header-on-data:
+    description: Endpoints under /accounts and /payments should document the consent header parameter.
+    given: $.paths[?(@property.match(/^\/(accounts|payments|account-requests|payment-auth-requests|vrp)/))].*.parameters
+    severity: warn
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array

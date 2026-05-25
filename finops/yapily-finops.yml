@@ -1,0 +1,67 @@
+finops:
+  framework: "FinOps Framework 2026 / FOCUS 1.1"
+  provider:
+    id: yapily
+    name: Yapily
+    modifiedAt: 2026-05-25
+  notes: |
+    Yapily's billing surface is commercial and negotiated; the entries below
+    map Yapily's product surface to FOCUS billing dimensions so customers can
+    model unit economics against their own Open Banking volume.
+
+billingDimensions:
+  - serviceCategory: OpenBankingAIS
+    serviceName: Yapily Data Access
+    chargeCategory: Usage
+    pricingUnit: active_psu / successful_request
+    productId: yapily-data-access
+    apis:
+      - yapily:yapily-data-api
+      - yapily:yapily-consents-api
+
+  - serviceCategory: OpenBankingPIS
+    serviceName: Yapily Payments
+    chargeCategory: Usage
+    pricingUnit: successful_payment
+    productId: yapily-payments
+    apis:
+      - yapily:yapily-payments-api
+
+  - serviceCategory: OpenBankingVRP
+    serviceName: Yapily Variable Recurring Payments
+    chargeCategory: Usage
+    pricingUnit: active_consent / payment_execution
+    productId: yapily-vrp
+    apis:
+      - yapily:yapily-vrp-api
+
+  - serviceCategory: DataEnrichment
+    serviceName: Yapily Data Plus
+    chargeCategory: Usage
+    pricingUnit: enriched_transaction
+    productId: yapily-data-plus
+    apis:
+      - yapily:yapily-data-plus-api
+
+  - serviceCategory: AccountValidation
+    serviceName: Yapily Validate
+    chargeCategory: Usage
+    pricingUnit: validation_check
+    productId: yapily-validate
+
+  - serviceCategory: RegulatedCoverage
+    serviceName: Yapily Connect
+    chargeCategory: Subscription
+    pricingUnit: license_per_month
+    productId: yapily-connect
+
+allocationTags:
+  - psu_id            # for chargeback to end user
+  - institution_id    # cost by bank
+  - application_id    # cost by tenant/application
+  - product_id        # AIS, PIS, VRP, DataPlus, Validate, Connect
+
+practices:
+  - "Tag every Yapily API request with a customer/tenant identifier and surface that via psu-id and webhook callbacks so cost attribution stays clean."
+  - "Reconcile monthly invoices to webhook-confirmed payments and successful AIS calls; failed downstream calls should not be billed."
+  - "Forecast VRP unit economics from active consents x expected cycles, not from raw API calls."

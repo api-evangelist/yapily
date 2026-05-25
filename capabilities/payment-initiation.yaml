@@ -1,0 +1,32 @@
+apiVersion: naftiko.dev/v1
+kind: Capability
+metadata:
+  name: yapily-payment-initiation
+  labels:
+    provider: yapily
+    domain: open-banking
+    regulation: psd2
+spec:
+  title: Yapily Payment Initiation
+  description: |
+    Initiate single, scheduled, periodic, bulk, and international payments directly
+    from a consenting customer's bank account via Yapily's PIS endpoints. Consents
+    are single-use for payments. Uses redirect or embedded authorisation flows.
+  api: yapily:yapily-payments-api
+  inputs:
+    - name: consent_token
+      type: string
+      required: true
+    - name: payment_request
+      type: object
+      required: true
+  operations:
+    - createPayment
+    - createBulkPayment
+    - getPaymentDetails
+    - getPaymentStatus
+    - getPaymentDetailsByMerchant
+  governance:
+    - PSD2 strong customer authentication required
+    - Single-use consent per payment
+    - Confirmation of funds where supported by institution

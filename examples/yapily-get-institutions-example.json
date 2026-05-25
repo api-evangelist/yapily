@@ -1,0 +1,38 @@
+{
+  "operation": "getInstitutions",
+  "request": {
+    "method": "GET",
+    "url": "https://api.yapily.com/institutions",
+    "headers": {
+      "Authorization": "Basic {base64(applicationId:applicationSecret)}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "meta": {"count": 2},
+      "data": [
+        {
+          "id": "modelo-sandbox",
+          "name": "Modelo Sandbox",
+          "fullName": "Modelo Sandbox",
+          "countries": [{"displayName": "United Kingdom", "countryCode2": "GB"}],
+          "environmentType": "SANDBOX",
+          "credentialsType": "OPEN_BANKING_UK_AUTO",
+          "features": ["INITIATE_SINGLE_PAYMENT", "ACCOUNT_REQUEST_DETAILS", "ACCOUNT_TRANSACTIONS"],
+          "media": [{"source": "https://images.yapily.com/image/modelo-sandbox/source", "type": "icon"}]
+        },
+        {
+          "id": "monzo",
+          "name": "Monzo",
+          "fullName": "Monzo Bank Ltd",
+          "countries": [{"displayName": "United Kingdom", "countryCode2": "GB"}],
+          "environmentType": "LIVE",
+          "credentialsType": "OPEN_BANKING_UK_AUTO",
+          "features": ["ACCOUNT_REQUEST_DETAILS", "ACCOUNT_TRANSACTIONS", "ACCOUNT_BALANCES"]
+        }
+      ]
+    }
+  }
+}

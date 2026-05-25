@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yapily/main/json-schema/yapily-institution-schema.json",
+  "title": "Yapily Institution",
+  "type": "object",
+  "description": "Typically, a bank or business unit within a bank e.g. (AIB Business, AIB Ireland, AIB UK).",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the `Institution`."
+    },
+    "name": {
+      "type": "string",
+      "description": "The friendly name of the `Institution`."
+    },
+    "fullName": {
+      "type": "string",
+      "description": "The full name of the `Institution`."
+    },
+    "countries": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "An array of `Country` denoting which regions the `Institution` provides coverage for",
+      "items": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Country name."
+          },
+          "countryCode2": {
+            "type": "string",
+            "description": "Two character ISO 3166 country code."
+          },
+          "bic": {
+            "type": "string",
+            "description": "Bank Identifier Code."
+          }
+        },
+        "description": "An array of `Country` denoting which regions the `Institution` provides coverage for"
+      }
+    },
+    "environmentType": {
+      "type": "string",
+      "description": "The environment type. \n\nSee [Institution Configuration](/introductionpages/key-concepts/institutions/#configuration) for more information",
+      "enum": [
+        "SANDBOX",
+        "MOCK",
+        "LIVE"
+      ]
+    },
+    "credentialsType": {
+      "type": "string",
+      "description": "The type of credentials required to register the `Institution`",
+      "enum": [
+        "OAUTH1",
+        "OAUTH2",
+        "OAUTH2_NOSECRET",
+        "OAUTH2_SIGNATURE",
+        "OPEN_BANKING_UK_MANUAL",
+        "OPEN_BANKING_UK_AUTO",
+        "OPEN_BANKING_IBM",
+        "OPEN_BANKING_AUTO",
+        "OPEN_BANKING_AUTO_EMAIL",
+        "OPEN_BANKING_MANUAL",
+        "OPEN_BANKING_WITH_TPP_ID_AND_SECRET",
+        "API_KEY",
+        "OPEN_BANKING_NO_KEY",
+        "OPEN_BANKING_NO_TRANSPORT",
+        "TOKEN_IO"
+      ]
+    },
+    "media": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Contains links to the logo and the icons for the `Institution`",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "__Mandatory__. URL from where the media can be retrieved."
+          },
+          "type": {
+            "type": "string",
+            "description": "__Mandatory__. The type of media e.g. (logo, icon)."
+          }
+        },
+        "description": "Details of the media held for the `Institution`"
+      }
+    },
+    "features": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)",
+        "enum": [
+          "INITIATE_PRE_AUTHORISATION",
+          "INITIATE_PRE_AUTHORISATION_ACCOUNTS",
+          "INITIATE_PRE_AUTHORISATION_PAYMENTS",
+          "INITIATE_ACCOUNT_REQUEST",
+          "INITIATE_EMBEDDED_ACCOUNT_REQUEST",
+          "ACCOUNT_REQUEST_DETAILS",
+          "ACCOUNTS",
+          "ACCOUNT",
+          "ACCOUNT_TRANSACTIONS",
+          "ACCOUNT_STATEMENTS",
+          "ACCOUNT_STATEMENT",
+          "ACCOUNT_STATEMENT_FILE",
+          "ACCOUNT_SCHEDULED_PAYMENTS",
+          "ACCOUNT_DIRECT_DEBITS",
+          "ACCOUNT_PERIODIC_PAYMENTS",
+          "ACCOUNT_TRANSACTIONS_WITH_MERCHANT",
+          "IDENTITY",
+          "ACCOUNTS_WITHOUT_BALANCE",
+          "ACCOUNT_WITHOUT_BALANCE",
+          "ACCOUNT_BALANCES",
+          "INITIATE_SINGLE_PAYMENT_SORTCODE",
+          "EXISTING_PAYMENT_INITIATION_DETAILS",
+          "CREATE_SINGLE_PAYMENT_SORTCODE",
+          "EXISTING_PAYMENTS_DETAILS",
+          "INITIATE_DOMESTIC_SINGLE_PAYMENT",
+          "INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT",
+          "CREATE_DOMESTIC_SINGLE_PAYMENT",
+          "INITIATE_EMBEDDED_BULK_PAYMENT",
+          "INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT",
+          "CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING",
+          "INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL",
+          "CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL",
+          "INITIATE_DOMESTIC_SCHEDULED_PAYMENT",
+          "CREATE_DOMESTIC_SCHEDULED_PAYMENT",
+          "INITIATE_DOMESTIC_PERIODIC_PAYMENT",
+          "CREATE_DOMESTIC_PERIODIC_PAYMENT",
+          "PERIODIC_PAYMENT_FREQUENCY_EXTENDED",
+          "INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT",
+          "CREATE_INTERNATIONAL_SCHEDULED_PAYMENT",
+          "INITIATE_INTERNATIONAL_PERIODIC_PAYMENT",
+          "CREATE_INTERNATIONAL_PERIODIC_PAYMENT",
+          "INITIATE_INTERNATIONAL_SINGLE_PAYMENT",
+          "CREATE_INTERNATIONAL_SINGLE_PAYMENT",
+          "INITIATE_BULK_PAYMENT",
+          "CREATE_BULK_PAYMENT",
+          "EXISTING_BULK_PAYMENT_DETAILS",
+          "TRANSFER",
+          "OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS",
+          "OPEN_DATA_ATMS",
+          "READ_DOMESTIC_SINGLE_REFUND",
+          "READ_DOMESTIC_SCHEDULED_REFUND",
+          "READ_DOMESTIC_PERIODIC_PAYMENT_REFUND",
+          "READ_INTERNATIONAL_SINGLE_REFUND",
+          "READ_INTERNATIONAL_SCHEDULED_REFUND",
+          "ACCOUNT_BENEFICIARIES",
+          "INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS",
+          "INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS",
+          "INITIATE_ONETIME_PRE_AUTHORISATION",
+          "VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,493 @@
+openapi: 3.0.1
+info:
+  title: Yapily Institutions API
+  description: Retrieve metadata for the 2,000+ supported UK and EU banks (ASPSPs) including features, payment methods, country,
+    and authentication mechanisms.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: 'An `Institution` object represents any Account Serving Payment Servicing Provider (ASPSP) that has been integrated
+    and is accessible through the Yapily APIs (ASPSPs are entities that publish Read/Write APIs to permit, with customer consent,
+    payments initiated by third party providers and/or make their customers financial data available to third party providers
+    via their API endpoints).
+
+
+    Any one of the following would be represented as Institution:
+
+
+    - Traditional banks e.g. Santander
+
+    - Neo-banks e.g. Monzo
+
+    - Building societies e.g. Cumberland Building Society'
+  name: Institutions
+paths:
+  /institutions:
+    get:
+      description: Used to retrieve all `Institutions` within an application
+      operationId: getInstitutions
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/institutions-example-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfInstitution'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Institutions
+      tags:
+      - Institutions
+  /institutions/{institutionId}:
+    get:
+      description: Used to retrieves details of a specific `Institution` within an application
+      operationId: getInstitution
+      parameters:
+      - description: __Mandatory__. The Yapily institution Id for the `Institution`.
+        in: path
+        name: institutionId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/institution-example-response'
+              schema:
+                $ref: '#/components/schemas/Institution'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Institution
+      tags:
+      - Institutions
+components:
+  schemas:
+    ApiCall:
+      type: object
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support
+            purposes.
+    ApiListResponseOfInstitution:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Institution'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListInstitution'
+        tracingId:
+          type: string
+          writeOnly: true
+    ApiResponseError:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments)
+        endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to
+        find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource
+        e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments)
+        endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical
+              Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem
+              processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    Country:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Country name.
+        countryCode2:
+          type: string
+          description: Two character ISO 3166 country code.
+        bic:
+          type: string
+          description: Bank Identifier Code.
+      description: An array of `Country` denoting which regions the `Institution` provides coverage for
+    CredentialsType:
+      type: string
+      description: The type of credentials required to register the `Institution`
+      enum:
+      - OAUTH1
+      - OAUTH2
+      - OAUTH2_NOSECRET
+      - OAUTH2_SIGNATURE
+      - OPEN_BANKING_UK_MANUAL
+      - OPEN_BANKING_UK_AUTO
+      - OPEN_BANKING_IBM
+      - OPEN_BANKING_AUTO
+      - OPEN_BANKING_AUTO_EMAIL
+      - OPEN_BANKING_MANUAL
+      - OPEN_BANKING_WITH_TPP_ID_AND_SECRET
+      - API_KEY
+      - OPEN_BANKING_NO_KEY
+      - OPEN_BANKING_NO_TRANSPORT
+      - TOKEN_IO
+    EnvironmentType:
+      type: string
+      description: "The environment type. \n\nSee [Institution Configuration](/introductionpages/key-concepts/institutions/#configuration)\
+        \ for more information"
+      enum:
+      - SANDBOX
+      - MOCK
+      - LIVE
+    FeatureEnum:
+      type: string
+      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information\
+        \ on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n\
+        - [Payments Features](/payments/payment-resources/payment-features)"
+      enum:
+      - INITIATE_PRE_AUTHORISATION
+      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ACCOUNT_REQUEST
+      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
+      - ACCOUNT_REQUEST_DETAILS
+      - ACCOUNTS
+      - ACCOUNT
+      - ACCOUNT_TRANSACTIONS
+      - ACCOUNT_STATEMENTS
+      - ACCOUNT_STATEMENT
+      - ACCOUNT_STATEMENT_FILE
+      - ACCOUNT_SCHEDULED_PAYMENTS
+      - ACCOUNT_DIRECT_DEBITS
+      - ACCOUNT_PERIODIC_PAYMENTS
+      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
+      - IDENTITY
+      - ACCOUNTS_WITHOUT_BALANCE
+      - ACCOUNT_WITHOUT_BALANCE
+      - ACCOUNT_BALANCES
+      - INITIATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENT_INITIATION_DETAILS
+      - CREATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENTS_DETAILS
+      - INITIATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_BULK_PAYMENT
+      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
+      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
+      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
+      - CREATE_DOMESTIC_PERIODIC_PAYMENT
+      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
+      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
+      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
+      - INITIATE_BULK_PAYMENT
+      - CREATE_BULK_PAYMENT
+      - EXISTING_BULK_PAYMENT_DETAILS
+      - TRANSFER
+      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
+      - OPEN_DATA_ATMS
+      - READ_DOMESTIC_SINGLE_REFUND
+      - READ_DOMESTIC_SCHEDULED_REFUND
+      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
+      - READ_INTERNATIONAL_SINGLE_REFUND
+      - READ_INTERNATIONAL_SCHEDULED_REFUND
+      - ACCOUNT_BENEFICIARIES
+      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION
+      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    FilteredClientPayloadListInstitution:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Institution'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    Institution:
+      type: object
+      description: Typically, a bank or business unit within a bank e.g. (AIB Business, AIB Ireland, AIB UK).
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the `Institution`.
+        name:
+          type: string
+          description: The friendly name of the `Institution`.
+        fullName:
+          type: string
+          description: The full name of the `Institution`.
+        countries:
+          uniqueItems: true
+          type: array
+          description: An array of `Country` denoting which regions the `Institution` provides coverage for
+          items:
+            $ref: '#/components/schemas/Country'
+        environmentType:
+          $ref: '#/components/schemas/EnvironmentType'
+        credentialsType:
+          $ref: '#/components/schemas/CredentialsType'
+        media:
+          uniqueItems: true
+          type: array
+          description: Contains links to the logo and the icons for the `Institution`
+          items:
+            $ref: '#/components/schemas/Media'
+        features:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureEnum'
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    Media:
+      type: object
+      properties:
+        source:
+          type: string
+          description: __Mandatory__. URL from where the media can be retrieved.
+        type:
+          type: string
+          description: __Mandatory__. The type of media e.g. (logo, icon).
+      description: Details of the media held for the `Institution`
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil
+        a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    ResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password.
+        Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication)
+        for details.
+      scheme: basic
+      type: http

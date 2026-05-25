@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "yapily": "https://api-evangelist.github.io/yapily/vocab#",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+    "openbanking": "https://openbanking.org.uk/terms#",
+    "berlingroup": "https://www.berlin-group.org/nextgenpsd2#",
+
+    "Account": "fibo:FBC/FunctionalEntities/FinancialServicesEntities/Account",
+    "Institution": {
+      "@id": "schema:BankOrCreditUnion",
+      "@type": "@id"
+    },
+    "Transaction": "fibo:FBC/ProductsAndServices/PaymentsAndPaymentServices/PaymentTransaction",
+    "Balance": "fibo:FND/Accounting/CurrencyAmount/MonetaryAmount",
+    "Payment": "schema:PayAction",
+    "Consent": "openbanking:Consent",
+    "Authorisation": "openbanking:Authorisation",
+    "Beneficiary": "schema:Person",
+
+    "accountId": "yapily:accountId",
+    "accountIdentifications": "yapily:accountIdentifications",
+    "accountNames": "schema:name",
+    "accountType": "yapily:accountType",
+    "accountSubType": "yapily:accountSubType",
+    "currency": "schema:currency",
+    "iban": "fibo:FBC/FunctionalEntities/FinancialServicesEntities/InternationalBankAccountNumber",
+    "bic": "fibo:FBC/FunctionalEntities/FinancialServicesEntities/BankIdentifierCode",
+    "sortCode": "openbanking:sortCode",
+    "accountNumber": "openbanking:accountNumber",
+
+    "amount": "schema:price",
+    "transactionStatus": "yapily:transactionStatus",
+    "bookingDateTime": "schema:dateCreated",
+    "valueDateTime": "yapily:valueDateTime",
+    "transactionInformation": "schema:description",
+    "merchantName": "schema:Organization/name",
+    "creditDebitIndicator": "yapily:creditDebitIndicator",
+
+    "paymentIdempotencyId": "yapily:paymentIdempotencyId",
+    "paymentRequest": "yapily:paymentRequest",
+    "paymentType": "yapily:paymentType",
+    "payee": "schema:recipient",
+    "payer": "schema:agent",
+
+    "consentId": "openbanking:consentId",
+    "consentToken": "openbanking:consentToken",
+    "consentStatus": "openbanking:consentStatus",
+    "expiresAt": "schema:expires",
+
+    "institutionId": "yapily:institutionId",
+    "institutionName": "schema:name",
+    "country": "schema:addressCountry",
+    "features": "yapily:features",
+    "paymentMethods": "yapily:paymentMethods",
+
+    "createdAt": "schema:dateCreated",
+    "updatedAt": "schema:dateModified"
+  }
+}

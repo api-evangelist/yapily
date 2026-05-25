@@ -1,0 +1,87 @@
+vocabulary:
+  name: Yapily Open Banking Vocabulary
+  description: Operational and capability vocabulary for the Yapily UK/EU Open Banking platform.
+  version: "0.1"
+
+dimensions:
+  domain:
+    - OpenBanking
+    - Payments
+    - AccountInformation
+    - FinancialServices
+    - Compliance
+  regulation:
+    - PSD2
+    - FCA
+    - BerlinGroupNextGenPSD2
+    - UKOpenBankingStandard
+    - SCA
+    - BankOfLithuania
+  capability:
+    - AISP
+    - PISP
+    - CBPII
+    - VRP
+    - SweepingVRP
+    - CommercialVRP
+  flow:
+    - Redirect
+    - Embedded
+    - Decoupled
+    - HostedPaymentPages
+    - HostedConsentPages
+    - PayByLink
+  paymentType:
+    - DOMESTIC_PAYMENT
+    - DOMESTIC_SCHEDULED_PAYMENT
+    - DOMESTIC_PERIODIC_PAYMENT
+    - INTERNATIONAL_PAYMENT
+    - BULK_PAYMENT
+    - SWEEPING_VRP
+  resource:
+    - Application
+    - User
+    - Institution
+    - Consent
+    - Authorisation
+    - Account
+    - Balance
+    - Transaction
+    - Beneficiary
+    - Payment
+    - StandingOrder
+    - DirectDebit
+    - Statement
+    - Webhook
+  geography:
+    - UnitedKingdom
+    - Germany
+    - France
+    - Spain
+    - Italy
+    - Netherlands
+    - Ireland
+    - Belgium
+    - Denmark
+    - Sweden
+    - Norway
+    - Finland
+    - Poland
+    - Portugal
+    - Lithuania
+    - Latvia
+    - Estonia
+    - Iceland
+    - Austria
+  riskAndCompliance:
+    - StrongCustomerAuthentication
+    - ConsentLifecycle
+    - PSD2RTS
+    - AMLKYC
+    - TransactionRiskAnalysis
+
+tagging:
+  titleCase: true
+  required:
+    - domain
+    - capability
