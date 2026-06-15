@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Data Plus API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Plus",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transactions and Enrichment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/accounts/:accountId/transactions/categorisation",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger categorisation for transactions from [AIS (see Get Transactions endpoint)](/api-reference/getTransactions) in the specified time range."
+        },
+        {
+          "info": {
+            "name": "Get Categorised Transactions (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/transactions/categorisation/:categorisationId",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for account"
+              },
+              {
+                "name": "categorisationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for transaction categorisation request"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The page number to be returned. If not specified will default to 1."
+              }
+            ]
+          },
+          "docs": "__Deprecated__. Retrieve categorised transactions by Categorisation ID.\n\nUse the [other endpoint (`/transactions/categorisation/{categorisationId}`)](#operation/get-transactions-categorised) instead."
+        },
+        {
+          "info": {
+            "name": "Enrichment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/transactions/categorisation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger categorisation for transactions provided in the request."
+        },
+        {
+          "info": {
+            "name": "Get Enrichment Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/transactions/categorisation/:categorisationId",
+            "params": [
+              {
+                "name": "categorisationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for transaction categorisation request"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The page number to be returned. If not specified will default to 1."
+              }
+            ]
+          },
+          "docs": "Retrieve categorised transactions by Categorisation ID.\n\nPlease [use webhooks](/introductionpages/data/data-plus/tutorial-categorisation/) to be notified when your transactions have been categorised and are ready for retrieval.\n\nNote that when using the [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation) this endpoint may also return any data specified by the [Get Account Transactions endpoint](/api-reference/getTransactions); this endpo"
+        },
+        {
+          "info": {
+            "name": "Get Enrichment Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/transactions/categorisation/categories/:accountType",
+            "params": [
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "path",
+                "description": "type of bank account (consumer or business)"
+              }
+            ]
+          },
+          "docs": "Returns the list of categories that can be returned for a specific account type (consumer or business)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2850 @@
+{
+  "item": [
+    {
+      "id": "73852cc7-19aa-4809-aa40-21a1dc2e7dce",
+      "name": "Financial Data",
+      "description": {
+        "content": "In order to access a user's Financial Data, you are required to request an [Authorisation](#tag/Authorisations) from the user to share the account information the bank has. Once a `consent-token` is obtained, you can call the necessary Financial Data endpoint(s) to retrieve the user's data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32a101ce-c5c9-4c9e-8bce-c589d6e85771",
+          "name": "Get Accounts",
+          "request": {
+            "name": "Get Accounts",
+            "description": {
+              "content": "Returns all accounts and balances for the end user associated with the presented consent token.\n\nFeature: `ACCOUNTS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6ff6741-44c1-4bf4-95ed-a731e05ca334",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-accounts-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcb3c3e8-5ccf-46fe-aa86-daa56c6cd539",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92e4477d-3161-4b22-98c3-760ae6d4c49c",
+          "name": "Get Account",
+          "request": {
+            "name": "Get Account",
+            "description": {
+              "content": "Returns the account and balance information for a user's specified account.\n\nFeature: `ACCOUNT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69be0991-bcbd-4cbb-9947-41c56ea0279f",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-account-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ea28c55-1ad6-4031-9fc5-9cec7e6fa28f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c5199d1-2b68-48af-8e02-68d1415aec6f",
+          "name": "Get Account Balances",
+          "request": {
+            "name": "Get Account Balances",
+            "description": {
+              "content": "Returns the balance for the end user associated with the presented consent token.\n\nFeature: `ACCOUNT_BALANCES`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e803b219-32cf-4db6-8822-ba7edea8f557",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/example-acc-balance-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f02fea6-4ea7-4910-9108-16116711e270",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c80ab576-bc67-4d15-bcc5-d60b5cb8612b",
+          "name": "Get Account Beneficiaries",
+          "request": {
+            "name": "Get Account Beneficiaries",
+            "description": {
+              "content": "Returns all the beneficiaries of a user's account.\n\nFeature: `ACCOUNT_BENEFICIARIES`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d46fd33-f228-466f-9a75-3348c3a20fa6",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-beneficiaries-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59fd6c20-8ad3-4430-a5f0-694e4571f12f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cc34a2f-3fd7-434f-9d10-e46f8e8d111f",
+          "name": "Get Account Direct Debits",
+          "request": {
+            "name": "Get Account Direct Debits",
+            "description": {
+              "content": "Returns the list of direct debits for an account.\n\nFeature: `ACCOUNT_DIRECT_DEBITS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "direct-debits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33f05ede-8f05-48ce-bcb7-c639e7d1d940",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "direct-debits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-direct-debits-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "809fd185-b81c-40bb-99ad-76afd4d308f8",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "direct-debits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d8b0b1c-f7dd-494e-99c6-4c2f19005cdb",
+          "name": "Get Account Periodic Payments",
+          "request": {
+            "name": "Get Account Periodic Payments",
+            "description": {
+              "content": "Returns the list of periodic payments (standing orders in the UK) for an account.\n\nFeature: `ACCOUNT_PERIODIC_PAYMENTS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "periodic-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29aa4047-fa41-450e-83da-099b42d1e75d",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "periodic-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-periodic-payments-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68a986da-303d-47e9-9abc-e6fa7d9bc68a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "periodic-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2f6d1d0-35a1-4fd8-b3a1-c7e39864408e",
+          "name": "Get Account Scheduled Payments",
+          "request": {
+            "name": "Get Account Scheduled Payments",
+            "description": {
+              "content": "Returns the list of scheduled payments for an account.\n\nFeature: `ACCOUNT_SCHEDULED_PAYMENTS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "scheduled-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0099ff2d-31a7-41c0-aac3-362cc845eeac",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "scheduled-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-scheduled-payments-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2637e5cf-0f37-4e24-bb43-2373f90dc133",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "scheduled-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3703bd3-c0c1-493f-b94b-68c167ee1b0b",
+          "name": "Get Account Statements",
+          "request": {
+            "name": "Get Account Statements",
+            "description": {
+              "content": "Returns the list of statements for an account.\n\nFeature: `ACCOUNT_STATEMENTS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "statements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). "
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "__Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e85e086-fbe0-49f5-83f7-1039c7975410",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/account-statements-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec329413-56e4-4fce-a54e-1327f04ff259",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4051c3a-1616-4a40-b64d-4dceb2c5ee9b",
+          "name": "Get Account Statement",
+          "request": {
+            "name": "Get Account Statement",
+            "description": {
+              "content": "Returns a statement for an account.\n\nFeature: `ACCOUNT_STATEMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "statements",
+                ":statementId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "statementId",
+                  "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1641e784-b552-40bb-922d-57a8e526d37a",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements",
+                    ":statementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "statementId",
+                      "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"8bacaae3025647efa1891157993e32fb\"\n  },\n  \"data\": {\n    \"id\": \"700014000000000000000002\",\n    \"startDateTime\": \"2017-08-01T00:00:00Z\",\n    \"endDateTime\": \"2017-08-31T23:59:59Z\",\n    \"creationDateTime\": \"2017-09-01T00:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbb42d50-a99a-4c96-b3ea-3ef4e39fc67e",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements",
+                    ":statementId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "statementId",
+                      "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e6ecacb-adcd-4495-9e27-495c29fabcc4",
+          "name": "Get Account Statement File",
+          "request": {
+            "name": "Get Account Statement File",
+            "description": {
+              "content": "Returns a PDF file of a statement for an account.\n\nFeature: `ACCOUNT_STATEMENT_FILE`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "statements",
+                ":statementId",
+                "file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "statementId",
+                  "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f95f1276-d4f7-4fb5-a4f6-487a160e48ea",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements",
+                    ":statementId",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "statementId",
+                      "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "57d4b143-988b-4fc1-9772-ff6f65308e71",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "statements",
+                    ":statementId",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "statementId",
+                      "description": "(Required) __Mandatory__. The statement Id of the statement file."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ed116c6-d629-47ce-bc52-aa048edd50f9",
+          "name": "Get Account Transactions",
+          "request": {
+            "name": "Get Account Transactions",
+            "description": {
+              "content": "Returns the account transactions for an account.\n\nFeature: `ACCOUNT_TRANSACTIONS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). "
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "__Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "__Optional__. This property is not currently in use."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "217d8f1d-e958-4008-88cf-b4a84572c2eb",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/account-transactions-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3186b0c8-19f0-4c49-87a7-db5ec29abb73",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b1f1d1b-a0fd-48ac-aea6-cb52ede4fb2a",
+          "name": "Get Identity",
+          "request": {
+            "name": "Get Identity",
+            "description": {
+              "content": "Returns the identity information for an account.\n\nFeature: `IDENTITY`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "identity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "397fa2d3-4c55-4d1f-9a11-e6a17d286206",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/identity-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37586549-2db8-4e3e-96eb-a1a341669c46",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1605acd-eafa-4898-a395-c6fd1cced043",
+          "name": "Get Real Time Account Transactions",
+          "request": {
+            "name": "Get Real Time Account Transactions",
+            "description": {
+              "content": "Used to get the account transactions for an account in real time with cursor pagination\n\nFeature: `ACCOUNT_TRANSACTIONS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "real-time",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "__Optional__. The cursor token supplied by a previous call. The cursor represents a location in the data set."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9299f3ec-1c00-4f45-bcaf-941a7d901401",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "real-time",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"488ce8243ee74a378be722ffffec8f7f\",\n    \"count\": 1\n  },\n  \"data\": [\n    {\n      \"id\": \"49d6e5c6-0130-46e3-884b-1b185432d9e0\",\n      \"date\": \"2021-05-06T17:44:34.589Z\",\n      \"bookingDateTime\": \"2021-05-06T17:44:34.589Z\",\n      \"valueDateTime\": \"2021-05-06T17:44:34.589Z\",\n      \"status\": \"BOOKED\",\n      \"transactionAmount\": {\n        \"amount\": -100.23,\n        \"currency\": \"GBP\"\n      },\n      \"reference\": \"0\",\n      \"description\": \"Debit for Payment Id: sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60\",\n      \"transactionInformation\": [\n        \"Debit for Payment Id: sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60\"\n      ],\n      \"isoBankTransactionCode\": {\n        \"domainCode\": {\n          \"code\": \"PMNT\",\n          \"name\": \"Payments\"\n        },\n        \"familyCode\": {\n          \"code\": \"ICDT\",\n          \"name\": \"Issued Credit Transfers\"\n        },\n        \"subFamilyCode\": {\n          \"code\": \"DMCT\",\n          \"name\": \"Domestic Credit Transfer\"\n        }\n      },\n      \"proprietaryBankTransactionCode\": {\n        \"code\": \"PMT\",\n        \"issuer\": \"modelo-sandbox\"\n      },\n      \"balance\": {\n        \"type\": \"CLOSING_AVAILABLE\",\n        \"balanceAmount\": {\n          \"amount\": 426.53,\n          \"currency\": \"GBP\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=aaa\",\n    \"prev\": \"https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=bbb\",\n    \"self\": \"https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=ccc\",\n    \"next\": \"https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=ddd\",\n    \"last\": \"https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=zzz\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "131123c5-fa9b-4da6-acbd-b1e73535c799",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "real-time",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bff2204-b41e-4c9e-a313-9c43627f1ffb",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "real-time",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) __Mandatory__. The account Id of the user's bank account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa8e862c-9459-4b2e-85f6-3ee0db2f1df8",
+    "name": "Yapily Data Access API (AIS)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Account Information Service Provider (AISP) endpoints for retrieving accounts, balances, transactions, identity, beneficiaries, scheduled payments, standing orders, direct debits, and statements with user consent.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Variable Recurring Payments API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Variable Recurring Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Sweeping Vrp Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/variable-recurring-payments/sweeping/consents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate authorisation for a Sweeping [VRP](/payments/vrps/introduction) consent.\n\nThe response will contain an Authorisation URL and the associated Consent ID. The user will have to complete authorisation of the consent at their institution via [Redirect Flows](/getting-started/glossary#redirect-flow), after which you will be able to use the authorised consent to create payments.\n\nFeature:\n\n- `INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING`"
+        },
+        {
+          "info": {
+            "name": "Get Sweeping Vrp Consent Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/variable-recurring-payments/sweeping/consents/:consentId",
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "The Consent ID to retrieve."
+              }
+            ]
+          },
+          "docs": "Get Sweeping [VRP](/payments/vrps/introduction) consent details from the Consent ID.\n\nFeature: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING`"
+        },
+        {
+          "info": {
+            "name": "Confirm Funds for Vrp Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/variable-recurring-payments/funds-confirmation",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Check whether the requested funds amount is available on the [VRP](/payments/vrps/introduction) consent.\n\nNote that you should not call this before each VRP payment submission because we do it for you.\n\nRequired feature: `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`"
+        },
+        {
+          "info": {
+            "name": "Create Vrp Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/variable-recurring-payments/payments",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit payment on the [VRP](/payments/vrps/introduction) consent.\n\nRequired feature: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING` or `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL`"
+        },
+        {
+          "info": {
+            "name": "Get Vrp Payment Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/variable-recurring-payments/payments/:paymentId/details",
+            "headers": [
+              {
+                "name": "consent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Payment Id of the `Variable Recurring Payments` to retrieve."
+              }
+            ]
+          },
+          "docs": "Get [VRP](/payments/vrps/introduction) payment details from the Payment ID.\n\nFeatures: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING` or `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

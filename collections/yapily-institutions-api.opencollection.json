@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Institutions API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Institutions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/institutions"
+          },
+          "docs": "Used to retrieve all `Institutions` within an application"
+        },
+        {
+          "info": {
+            "name": "Get Institution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/institutions/:institutionId",
+            "params": [
+              {
+                "name": "institutionId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily institution Id for the `Institution`."
+              }
+            ]
+          },
+          "docs": "Used to retrieves details of a specific `Institution` within an application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

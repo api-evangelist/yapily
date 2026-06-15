@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Hosted Pages API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hosted Consent Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Hosted Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/consent-requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate a consent request using Yapily Hosted Pages."
+        },
+        {
+          "info": {
+            "name": "Get Hosted Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/consent-requests/:consentRequestId",
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the consent request"
+              }
+            ]
+          },
+          "docs": "Used to get details of a hosted consent request"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Hosted Payment Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Hosted Payment Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/payment-requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate a payment request using Yapily Hosted Pages."
+        },
+        {
+          "info": {
+            "name": "Create Pay by Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/payment-requests/links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to created a long lived payment request for Pay By Link"
+        },
+        {
+          "info": {
+            "name": "Get Hosted Payment Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/payment-requests/:paymentRequestId",
+            "params": [
+              {
+                "name": "paymentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the payment request"
+              }
+            ]
+          },
+          "docs": "Used to get details of a payment request"
+        },
+        {
+          "info": {
+            "name": "Get Hosted Vrp Consent Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Used to get all VRP consent requests initiated through Yapily Hosted Pages"
+        },
+        {
+          "info": {
+            "name": "Create Vrp Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate a VRP consent / mandate request through Yapily Hosted Pages"
+        },
+        {
+          "info": {
+            "name": "Get Hosted Vrp Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests/:consentRequestId",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              }
+            ]
+          },
+          "docs": "Used to get details of a VRP Consent Request"
+        },
+        {
+          "info": {
+            "name": "Revoke Hosted Vrp Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests/:consentRequestId/revoke",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              }
+            ]
+          },
+          "docs": "Revoke Hosted VRP Consent Request"
+        },
+        {
+          "info": {
+            "name": "Create Vrp Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests/:consentRequestId/payments",
+            "headers": [
+              {
+                "name": "consent-token",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Variable Recurring Payment"
+        },
+        {
+          "info": {
+            "name": "Get Vrp Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests/:consentRequestId/payments/:paymentId",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              },
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              }
+            ]
+          },
+          "docs": "Used to get details of a VRP Payment"
+        },
+        {
+          "info": {
+            "name": "Check Funds Availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/vrp/consent-requests/:consentRequestId/funds-confirmation",
+            "headers": [
+              {
+                "name": "consent-token",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the Consent Request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Confirms whether there are available funds on the Payer account to execute a Variable Recurring Payment after obtaining the user's authorisation. \n\nFeatures:\n\n- `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

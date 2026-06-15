@@ -1,309 +1,289 @@
 aid: yapily
 url: https://raw.githubusercontent.com/api-evangelist/yapily/refs/heads/main/apis.yml
 name: Yapily
-description: Yapily is a UK-headquartered Open Banking platform that exposes a single REST API across 2,000+ banks in the UK and 18+ European countries. The platform provides AISP (Account Information) and PISP (Payment Initiation) capabilities, Variable Recurring Payments (VRP), transaction enrichment (Data Plus), Account Validation, and Hosted Payment/Consent Pages. Yapily Connect Ltd is FCA-authorised in the UK and Yapily Connect UAB is authorised by the Bank of Lithuania for EU coverage, allowing customers to launch without holding their own PSD2 permissions.
+description: >-
+  Yapily is a UK-headquartered Open Banking platform that exposes a single REST API across 2,000+ banks in the UK and
+  18+ European countries. The platform provides AISP (Account Information) and PISP (Payment Initiation) capabilities,
+  Variable Recurring Payments (VRP), transaction enrichment (Data Plus), Account Validation, and Hosted Payment/Consent
+  Pages. Yapily Connect Ltd is FCA-authorised in the UK and Yapily Connect UAB is authorised by the Bank of Lithuania
+  for EU coverage, allowing customers to launch without holding their own PSD2 permissions.
 image: https://www.yapily.com/favicon.ico
-created: 2026-05-25
-modified: 2026-05-25
+created: 2026-05-25T00:00:00.000Z
+modified: 2026-05-25T00:00:00.000Z
 tags:
-- Open Banking
-- AISP
-- PISP
-- Payments
-- Account Information
-- Variable Recurring Payments
-- Financial Services
-- PSD2
-- FCA
-- Berlin Group
-- UK
-- Europe
-- FinTech
-
-specificationVersion: "0.16"
-
-apis:
-- aid: yapily:yapily-platform-api
-  name: Yapily Platform API
-  tags:
-  - Applications
-  - Users
-  - Webhooks
-  - Notifications
-  - Constraints
-  - Platform
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-platform-api-openapi.yml
-    type: OpenAPI
-  - url: capabilities/platform.yaml
-    type: NaftikoCapability
-  description: Manage Applications, Users, Webhooks, Notifications, and Constraints that govern how downstream
-    AIS/PIS interactions operate on the Yapily Open Banking platform.
-
-- aid: yapily:yapily-institutions-api
-  name: Yapily Institutions API
-  tags:
-  - Institutions
-  - ASPSP
   - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-institutions-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/yapily-institution-schema.json
-    type: JSONSchema
-  - url: capabilities/institutions.yaml
-    type: NaftikoCapability
-  - url: examples/yapily-get-institutions-example.json
-    type: Example
-  description: Discover and inspect the 2,000+ supported UK and European banks (ASPSPs), including supported
-    features, payment methods, countries, BIC/BBAN identifiers, media assets, and authentication mechanisms.
-
-- aid: yapily:yapily-consents-api
-  name: Yapily Consents and Authorisations API
-  tags:
-  - Consents
-  - Authorisations
-  - PSD2
-  - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-consents-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/yapily-consent-schema.json
-    type: JSONSchema
-  - url: capabilities/consents.yaml
-    type: NaftikoCapability
-  description: Create, retrieve, revoke, and re-authorise PSD2 consents for AIS and PIS interactions across
-    UK Open Banking and Berlin Group ASPSPs. Supports redirect, embedded, and decoupled flows.
-
-- aid: yapily:yapily-data-api
-  name: Yapily Data Access API (AIS)
-  tags:
-  - Account Information
   - AISP
-  - Accounts
-  - Balances
-  - Transactions
-  - Identity
-  - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-data-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/yapily-account-schema.json
-    type: JSONSchema
-  - url: json-schema/yapily-transaction-schema.json
-    type: JSONSchema
-  - url: json-schema/yapily-account-balance-schema.json
-    type: JSONSchema
-  - url: json-structure/yapily-account-structure.json
-    type: JSONStructure
-  - url: json-ld/yapily-context.jsonld
-    type: JSONLD
-  - url: capabilities/data-access.yaml
-    type: NaftikoCapability
-  - url: examples/yapily-get-account-transactions-example.json
-    type: Example
-  description: Account Information Service Provider (AISP) endpoints for retrieving accounts, balances,
-    transactions, identity, beneficiaries, scheduled payments, standing orders, direct debits, and statements
-    with active end-user consent. Supports cursor pagination on transactions.
-
-- aid: yapily:yapily-payments-api
-  name: Yapily Payments API (PIS)
-  tags:
-  - Payments
   - PISP
-  - Payment Initiation
-  - Open Banking
-  - PSD2
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-payments-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/yapily-payment-response-schema.json
-    type: JSONSchema
-  - url: json-structure/yapily-payment-structure.json
-    type: JSONStructure
-  - url: capabilities/payment-initiation.yaml
-    type: NaftikoCapability
-  - url: examples/yapily-create-payment-example.json
-    type: Example
-  description: Payment Initiation Service Provider (PISP) endpoints for initiating single, scheduled, periodic,
-    bulk, and international payments directly from a customer's bank account. Single-use consent per payment.
-
-- aid: yapily:yapily-vrp-api
-  name: Yapily Variable Recurring Payments API
-  tags:
+  - Payments
+  - Account Information
   - Variable Recurring Payments
-  - VRP
-  - Sweeping
-  - Open Banking
-  - Payments
-  humanURL: https://docs.yapily.com/payments/vrps/additional-information
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/payments/vrps/additional-information
-    type: Documentation
-  - url: openapi/yapily-vrp-api-openapi.yml
-    type: OpenAPI
-  - url: capabilities/variable-recurring-payments.yaml
-    type: NaftikoCapability
-  description: Variable Recurring Payments (VRP) endpoints for sweeping and commercial VRP including consent
-    creation, funds confirmation, and payment execution under an active VRP consent.
-
-- aid: yapily:yapily-hosted-pages-api
-  name: Yapily Hosted Pages API
-  tags:
-  - Hosted Pages
-  - Pay By Link
-  - Consent UI
-  - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-hosted-pages-api-openapi.yml
-    type: OpenAPI
-  - url: capabilities/hosted-pages.yaml
-    type: NaftikoCapability
-  description: Yapily-hosted UI flows for payment initiation and consent capture, including Pay By Link,
-    single and bulk payments, VRP consent, and AIS consent capture — so customers don't have to build their
-    own consent UI.
-
-- aid: yapily:yapily-data-plus-api
-  name: Yapily Data Plus API
-  tags:
-  - Enrichment
-  - Categorisation
-  - Merchant Detection
-  - Insights
-  - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-data-plus-api-openapi.yml
-    type: OpenAPI
-  - url: capabilities/data-plus.yaml
-    type: NaftikoCapability
-  description: Transaction enrichment endpoints providing merchant detection, MCC categorisation, and
-    spending insights across consumer and business accounts.
-
-- aid: yapily:yapily-beneficiaries-api
-  name: Yapily Beneficiaries API
-  tags:
-  - Beneficiaries
-  - Payments
-  - Open Banking
-  humanURL: https://docs.yapily.com/api/reference/
-  baseURL: https://api.yapily.com
-  properties:
-  - url: https://docs.yapily.com/
-    type: Documentation
-  - url: openapi/yapily-beneficiaries-api-openapi.yml
-    type: OpenAPI
-  - url: capabilities/beneficiaries.yaml
-    type: NaftikoCapability
-  description: Application-level and user-level beneficiary management endpoints to speed up repeat
-    payment flows with reusable counterparties.
-
+  - Financial Services
+  - PSD2
+  - FCA
+  - Berlin Group
+  - UK
+  - Europe
+  - FinTech
+specificationVersion: '0.16'
+apis:
+  - aid: yapily:yapily-platform-api
+    name: Yapily Platform API
+    tags:
+      - Applications
+      - Users
+      - Webhooks
+      - Notifications
+      - Constraints
+      - Platform
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-platform-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Manage Applications, Users, Webhooks, Notifications, and Constraints that govern how downstream AIS/PIS
+      interactions operate on the Yapily Open Banking platform.
+  - aid: yapily:yapily-institutions-api
+    name: Yapily Institutions API
+    tags:
+      - Institutions
+      - ASPSP
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-institutions-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/yapily-institution-schema.json
+        type: JSONSchema
+      - url: examples/yapily-get-institutions-example.json
+        type: Example
+    description: >-
+      Discover and inspect the 2,000+ supported UK and European banks (ASPSPs), including supported features, payment
+      methods, countries, BIC/BBAN identifiers, media assets, and authentication mechanisms.
+  - aid: yapily:yapily-consents-api
+    name: Yapily Consents and Authorisations API
+    tags:
+      - Consents
+      - Authorisations
+      - PSD2
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-consents-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/yapily-consent-schema.json
+        type: JSONSchema
+    description: >-
+      Create, retrieve, revoke, and re-authorise PSD2 consents for AIS and PIS interactions across UK Open Banking and
+      Berlin Group ASPSPs. Supports redirect, embedded, and decoupled flows.
+  - aid: yapily:yapily-data-api
+    name: Yapily Data Access API (AIS)
+    tags:
+      - Account Information
+      - AISP
+      - Accounts
+      - Balances
+      - Transactions
+      - Identity
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-data-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/yapily-account-schema.json
+        type: JSONSchema
+      - url: json-schema/yapily-transaction-schema.json
+        type: JSONSchema
+      - url: json-schema/yapily-account-balance-schema.json
+        type: JSONSchema
+      - url: json-structure/yapily-account-structure.json
+        type: JSONStructure
+      - url: json-ld/yapily-context.jsonld
+        type: JSONLD
+      - url: examples/yapily-get-account-transactions-example.json
+        type: Example
+    description: >-
+      Account Information Service Provider (AISP) endpoints for retrieving accounts, balances, transactions, identity,
+      beneficiaries, scheduled payments, standing orders, direct debits, and statements with active end-user consent.
+      Supports cursor pagination on transactions.
+  - aid: yapily:yapily-payments-api
+    name: Yapily Payments API (PIS)
+    tags:
+      - Payments
+      - PISP
+      - Payment Initiation
+      - Open Banking
+      - PSD2
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-payments-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/yapily-payment-response-schema.json
+        type: JSONSchema
+      - url: json-structure/yapily-payment-structure.json
+        type: JSONStructure
+      - url: examples/yapily-create-payment-example.json
+        type: Example
+    description: >-
+      Payment Initiation Service Provider (PISP) endpoints for initiating single, scheduled, periodic, bulk, and
+      international payments directly from a customer's bank account. Single-use consent per payment.
+  - aid: yapily:yapily-vrp-api
+    name: Yapily Variable Recurring Payments API
+    tags:
+      - Variable Recurring Payments
+      - VRP
+      - Sweeping
+      - Open Banking
+      - Payments
+    humanURL: https://docs.yapily.com/payments/vrps/additional-information
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/payments/vrps/additional-information
+        type: Documentation
+      - url: openapi/yapily-vrp-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Variable Recurring Payments (VRP) endpoints for sweeping and commercial VRP including consent creation, funds
+      confirmation, and payment execution under an active VRP consent.
+  - aid: yapily:yapily-hosted-pages-api
+    name: Yapily Hosted Pages API
+    tags:
+      - Hosted Pages
+      - Pay By Link
+      - Consent UI
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-hosted-pages-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Yapily-hosted UI flows for payment initiation and consent capture, including Pay By Link, single and bulk
+      payments, VRP consent, and AIS consent capture — so customers don't have to build their own consent UI.
+  - aid: yapily:yapily-data-plus-api
+    name: Yapily Data Plus API
+    tags:
+      - Enrichment
+      - Categorisation
+      - Merchant Detection
+      - Insights
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-data-plus-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Transaction enrichment endpoints providing merchant detection, MCC categorisation, and spending insights across
+      consumer and business accounts.
+  - aid: yapily:yapily-beneficiaries-api
+    name: Yapily Beneficiaries API
+    tags:
+      - Beneficiaries
+      - Payments
+      - Open Banking
+    humanURL: https://docs.yapily.com/api/reference/
+    baseURL: https://api.yapily.com
+    properties:
+      - url: https://docs.yapily.com/
+        type: Documentation
+      - url: openapi/yapily-beneficiaries-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Application-level and user-level beneficiary management endpoints to speed up repeat payment flows with reusable
+      counterparties.
 common:
-- url: https://www.yapily.com/
-  type: Website
-- url: https://docs.yapily.com/
-  type: Documentation
-- url: https://docs.yapily.com/getting-started/overview
-  type: GettingStarted
-- url: https://github.com/yapily
-  type: GitHubOrganization
-- url: https://github.com/yapily/yapily-openapi
-  type: SourceCode
-- url: https://github.com/yapily/yapily-sdk-java
-  type: SDK
-- url: https://github.com/yapily/yapily-sdk-python
-  type: SDK
-- url: https://github.com/yapily/yapily-sdk-nodejs
-  type: SDK
-- url: https://github.com/yapily/helm-charts
-  type: Tools
-- url: https://github.com/yapily/yapily-mulesoft-connector
-  type: Tools
-- url: https://github.com/yapily/registration-scripts
-  type: Tools
-- url: https://github.com/yapily/yapily-demo-pisp-flutter
-  type: Samples
-- url: https://www.yapily.com/pricing
-  type: Pricing
-- url: plans/yapily-plans-pricing.yml
-  type: Plans
-- url: rate-limits/yapily-rate-limits.yml
-  type: RateLimits
-- url: finops/yapily-finops.yml
-  type: FinOps
-- url: rules/yapily-rules.yml
-  type: SpectralRules
-- url: vocabulary/yapily-vocabulary.yml
-  type: Vocabulary
-
+  - url: https://www.yapily.com/
+    type: Website
+  - url: https://docs.yapily.com/
+    type: Documentation
+  - url: https://docs.yapily.com/getting-started/overview
+    type: GettingStarted
+  - url: https://github.com/yapily
+    type: GitHubOrganization
+  - url: https://github.com/yapily/yapily-openapi
+    type: SourceCode
+  - url: https://github.com/yapily/yapily-sdk-java
+    type: SDK
+  - url: https://github.com/yapily/yapily-sdk-python
+    type: SDK
+  - url: https://github.com/yapily/yapily-sdk-nodejs
+    type: SDK
+  - url: https://github.com/yapily/helm-charts
+    type: Tools
+  - url: https://github.com/yapily/yapily-mulesoft-connector
+    type: Tools
+  - url: https://github.com/yapily/registration-scripts
+    type: Tools
+  - url: https://github.com/yapily/yapily-demo-pisp-flutter
+    type: Samples
+  - url: https://www.yapily.com/pricing
+    type: Pricing
+  - url: plans/yapily-plans-pricing.yml
+    type: Plans
+  - url: rate-limits/yapily-rate-limits.yml
+    type: RateLimits
+  - url: finops/yapily-finops.yml
+    type: FinOps
+  - url: rules/yapily-rules.yml
+    type: SpectralRules
+  - url: vocabulary/yapily-vocabulary.yml
+    type: Vocabulary
 solutions:
-- name: Account-to-Account Checkout
-  description: Replace card rails with PISP-initiated A2A payments at checkout using single payments or Pay By Link.
-- name: Subscription Billing via VRP
-  description: Replace card-on-file with Variable Recurring Payments for commercial subscriptions, with consent-bound caps.
-- name: Affordability and Underwriting
-  description: Use AIS plus Data Plus enrichment to score affordability for lending, BNPL, and rentals.
-- name: Personal Finance Management
-  description: Power PFM apps with consented bank data across 19 European markets through a single API.
-- name: Treasury and Reconciliation
-  description: Pull balances and transactions across multiple business accounts for cash management and reconciliation.
-- name: Account Ownership Validation
-  description: Verify customer-provided bank details at onboarding using Yapily Validate.
-
+  - name: Account-to-Account Checkout
+    description: Replace card rails with PISP-initiated A2A payments at checkout using single payments or Pay By Link.
+  - name: Subscription Billing via VRP
+    description: Replace card-on-file with Variable Recurring Payments for commercial subscriptions, with consent-bound caps.
+  - name: Affordability and Underwriting
+    description: Use AIS plus Data Plus enrichment to score affordability for lending, BNPL, and rentals.
+  - name: Personal Finance Management
+    description: Power PFM apps with consented bank data across 19 European markets through a single API.
+  - name: Treasury and Reconciliation
+    description: Pull balances and transactions across multiple business accounts for cash management and reconciliation.
+  - name: Account Ownership Validation
+    description: Verify customer-provided bank details at onboarding using Yapily Validate.
 integrations:
-- name: UK Open Banking
-  description: Connects to UK Open Banking Standard ASPSPs (CMA9 plus long tail) under FCA regulation.
-- name: Berlin Group NextGenPSD2
-  description: Connects to EU ASPSPs implementing the Berlin Group NextGenPSD2 spec.
-- name: Yapily Connect (FCA)
-  description: Yapily Connect Ltd acts as the regulated AISP/PISP of record in the UK.
-- name: Yapily Connect (Bank of Lithuania)
-  description: Yapily Connect UAB acts as the regulated AISP/PISP of record across the EU.
-- name: MuleSoft
-  description: yapily-mulesoft-connector enables drag-and-drop integration in MuleSoft.
-- name: Java / Python / Node.js SDKs
-  description: Official SDKs published from the canonical OpenAPI spec.
-- name: Kubernetes (Helm)
-  description: helm-charts repo for deploying Yapily-adjacent workloads.
-
+  - name: UK Open Banking
+    description: Connects to UK Open Banking Standard ASPSPs (CMA9 plus long tail) under FCA regulation.
+  - name: Berlin Group NextGenPSD2
+    description: Connects to EU ASPSPs implementing the Berlin Group NextGenPSD2 spec.
+  - name: Yapily Connect (FCA)
+    description: Yapily Connect Ltd acts as the regulated AISP/PISP of record in the UK.
+  - name: Yapily Connect (Bank of Lithuania)
+    description: Yapily Connect UAB acts as the regulated AISP/PISP of record across the EU.
+  - name: MuleSoft
+    description: yapily-mulesoft-connector enables drag-and-drop integration in MuleSoft.
+  - name: Java / Python / Node.js SDKs
+    description: Official SDKs published from the canonical OpenAPI spec.
+  - name: Kubernetes (Helm)
+    description: helm-charts repo for deploying Yapily-adjacent workloads.
 useCases:
-- name: Pay-ins for Marketplaces
-- name: Bill Payments and Direct-to-Account Refunds
-- name: Salary Advance and Income Verification
-- name: Wealth and Investment Funding
-- name: Charity Donations
-- name: Bureaux de Change and FX Onboarding
-- name: Bulk Payouts (Payroll, Supplier Payments)
-- name: B2B Sweeping (Cash Concentration)
-
+  - name: Pay-ins for Marketplaces
+  - name: Bill Payments and Direct-to-Account Refunds
+  - name: Salary Advance and Income Verification
+  - name: Wealth and Investment Funding
+  - name: Charity Donations
+  - name: Bureaux de Change and FX Onboarding
+  - name: Bulk Payouts (Payroll, Supplier Payments)
+  - name: B2B Sweeping (Cash Concentration)
 maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
+  - FN: Kin Lane
+    email: info@apievangelist.com

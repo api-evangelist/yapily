@@ -1,0 +1,507 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Platform API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/users",
+            "params": [
+              {
+                "name": "filter[applicationUserId]",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided."
+              }
+            ]
+          },
+          "docs": "Retrieves all users created in your application for a specified applicationUserId using the filter[applicationUserId] query parameter. If filter[applicationUserId] is not provided, the response will include up to 50,000 users."
+        },
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new user in your application"
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ]
+          },
+          "docs": "Get a specific user using the user UUID"
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the users information"
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ]
+          },
+          "docs": "Delete a user from your application along with any sub-resources (including consent resources on institution APIs if they exist)"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Event Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/notifications/event-subscriptions",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get all event subscriptions that your application is subscribed to"
+        },
+        {
+          "info": {
+            "name": "Create Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/notifications/event-subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to subscribe to notifications relating to a specified event type."
+        },
+        {
+          "info": {
+            "name": "Get Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/notifications/event-subscriptions/:eventTypeId"
+          },
+          "docs": "Used to get details of your subscription to a specified event type."
+        },
+        {
+          "info": {
+            "name": "Delete Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/notifications/event-subscriptions/:eventTypeId",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Used to unsubscribe to notifications relating to a specified event type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Constraints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Payment Constraints Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/institutions/constraints/payments",
+            "params": [
+              {
+                "name": "institutionIds",
+                "value": "",
+                "type": "query",
+                "description": "Unique Id(s) of the `Institution`(s) to retrieve the Payment Constraints for. Multiple institutionIds need to be separated by `,`"
+              },
+              {
+                "name": "institutionCountryCode",
+                "value": "",
+                "type": "query",
+                "description": "Country code of the `Institution`(s). Ensure that the country code matches the respective institutionIds; any mismatch will result in an HTTP 404 error response."
+              },
+              {
+                "name": "paymentType",
+                "value": "",
+                "type": "query",
+                "description": "Type of payment to retrieve payment constraints for"
+              },
+              {
+                "name": "endpointPath",
+                "value": "",
+                "type": "query",
+                "description": "The path on the API that is associated with the operation for which constraints are to be retrieved"
+              },
+              {
+                "name": "endpointMethod",
+                "value": "",
+                "type": "query",
+                "description": "The HTTP method that is associated with the operation for which constraints are to be retrieved"
+              }
+            ]
+          },
+          "docs": "Retrieve institution specific constraints for payment authorisation and submission requests"
+        },
+        {
+          "info": {
+            "name": "Get Data Constraints Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/institutions/constraints/data",
+            "params": [
+              {
+                "name": "institutionIds",
+                "value": "",
+                "type": "query",
+                "description": "Unique Id(s) of the `Institution`(s) to retrieve the Data Constraints for. Multiple institutionIds need to be separated by `,`"
+              },
+              {
+                "name": "institutionCountryCode",
+                "value": "",
+                "type": "query",
+                "description": "Country code of the `Institution`(s). Ensure that the country code matches the respective institutionIds; any mismatch will result in an HTTP 404 error response."
+              },
+              {
+                "name": "endpointPath",
+                "value": "",
+                "type": "query",
+                "description": "The path on the API that is associated with the operation for which constraints are to be retrieved"
+              },
+              {
+                "name": "endpointMethod",
+                "value": "",
+                "type": "query",
+                "description": "The HTTP method that is associated with the operation for which constraints are to be retrieved"
+              }
+            ]
+          },
+          "docs": "Get Data Constraints Rules against an Institution for Account Authorisation requests"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Application Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Sub-applications for the Root Application Provided in the Authentication Token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications"
+          },
+          "docs": "Retrieves sub-applications for the root application provided in the authentication token. If a sub-application is provided in the authentication token, it will return an empty list."
+        },
+        {
+          "info": {
+            "name": "Creates a Sub-application for the Root Application Id Provided in the Authentication Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/applications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a sub-application under the given root application id provided in the authentication token. The sub-application can use the root's credentials to call the API"
+        },
+        {
+          "info": {
+            "name": "Get Application Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being fetched"
+              }
+            ]
+          },
+          "docs": "Retrieves an application by the id provided in the path"
+        },
+        {
+          "info": {
+            "name": "Update an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the application properties for the application with the given ID in the path"
+        },
+        {
+          "info": {
+            "name": "Delete an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being deleted"
+              }
+            ]
+          },
+          "docs": "Deletes the application with the given ID in the path"
+        },
+        {
+          "info": {
+            "name": "Get Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ]
+          },
+          "docs": "Get application vrp configuration"
+        },
+        {
+          "info": {
+            "name": "Create Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create application vrp configuration"
+        },
+        {
+          "info": {
+            "name": "Update Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update application vrp configuration"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Webhook Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/webhook/events/categories"
+          },
+          "docs": "Retrieve a comprehensive list of event categories that can be registered for webhook notifications in your application. These event categories can be used to subscribe a webhook to specific events, enabling your application to receive real-time notifications when these events occur."
+        },
+        {
+          "info": {
+            "name": "Retrieve All Webhook Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/webhook/events"
+          },
+          "docs": "Retrieve the list of registered webhooks for your application"
+        },
+        {
+          "info": {
+            "name": "Register Webhook Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/webhook/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a webhook to one or multiple event categories to receive real-time notifications when specific events occur in your application."
+        },
+        {
+          "info": {
+            "name": "Delete Webhook Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/webhook/events/:webhook_id"
+          },
+          "docs": "Delete a webhook event for a specified webhook ID, unregistering it from receiving any further notifications for the subscribed event categories in your application."
+        },
+        {
+          "info": {
+            "name": "Reset Webhook Secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/webhook/secrets/:webhook_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reset webhook secret for a webhook that is already registered to your application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

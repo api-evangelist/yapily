@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Payments API (PIS)",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Bulk Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/bulk-payments",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a bulk payment after obtaining the user's authorisation. \n\nFeature: `CREATE_BULK_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Payment File Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/bulk-payments/:bulkPaymentId",
+            "headers": [
+              {
+                "name": "consent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bulkPaymentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. Bulk payment id returned when bulk payment request was submitted."
+              }
+            ]
+          },
+          "docs": "Returns the bulk file status of the bulk payment for given bulkPaymentId"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Payment Status Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/bulk-payments/:bulkPaymentId/details",
+            "headers": [
+              {
+                "name": "consent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bulkPaymentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. Bulk payment id returned when bulk payment request was submitted"
+              }
+            ]
+          },
+          "docs": "Retrieve details of each payment submitted for a given bulkPaymentId. \n\nFeature: `EXISTING_BULK_PAYMENT_DETAILS`"
+        },
+        {
+          "info": {
+            "name": "Create Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/payments",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a payment after obtaining the user's authorisation. \n\nFeatures:\n\n- `CREATE_DOMESTIC_PERIODIC_PAYMENT`\n- `CREATE_DOMESTIC_SCHEDULED_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_PAYMENT`\n- `CREATE_INTERNATIONAL_PERIODIC_PAYMENT`\n- `CREATE_INTERNATIONAL_SCHEDULED_PAYMENT`\n- `CREATE_INTERNATIONAL_SINGLE_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Get Payment Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/payments/:paymentId/details",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The payment Id of the payment."
+              }
+            ]
+          },
+          "docs": "Returns the details of a payment. \n\nMost commonly used to check for payment status updates. \n\nFeature: `EXISTING_PAYMENTS_DETAILS`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

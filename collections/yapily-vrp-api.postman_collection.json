@@ -1,0 +1,1152 @@
+{
+  "item": [
+    {
+      "id": "f757bac0-c0a4-41b8-9dc9-28c5021b2789",
+      "name": "Variable Recurring Payments",
+      "description": {
+        "content": "Variable Recurring Payments enables transfer of money between accounts held by the same person or transfer of money for business payments. \n\nIn order to make Sweeping Variable Recurring Payments on behalf of a user, you are required to request an [Consent](#tag/Authorisations) from the user by calling the Sweeping Consent endpoint to authorise the user's account to make the payment. Once a `consent-token` is obtained, you can call the Payments endpoint to execute the Sweeping Variable Recurring Payments transaction. Before executing the payment, you have the option to confirm availability of funds in the user's account by calling the Funds Confirmation endpoint. \n\nSee [VRP Payments](/payments/vrps/additional-information) for more information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e853cd7-b059-46bf-860c-4a78470ad5e6",
+          "name": "Create Sweeping Vrp Authorisation",
+          "request": {
+            "name": "Create Sweeping Vrp Authorisation",
+            "description": {
+              "content": "Initiate authorisation for a Sweeping [VRP](/payments/vrps/introduction) consent.\n\nThe response will contain an Authorisation URL and the associated Consent ID. The user will have to complete authorisation of the consent at their institution via [Redirect Flows](/getting-started/glossary#redirect-flow), after which you will be able to use the authorised consent to create payments.\n\nFeature:\n\n- `INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variable-recurring-payments",
+                "sweeping",
+                "consents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"controlParameters\": {\n    \"psuAuthenticationMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxAmountPerPayment\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"periodicLimits\": [\n      {\n        \"frequency\": \"<string>\",\n        \"totalMaxAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"alignment\": \"<string>\"\n      },\n      {\n        \"frequency\": \"<string>\",\n        \"totalMaxAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"alignment\": \"<string>\"\n      }\n    ],\n    \"validFrom\": \"<dateTime>\",\n    \"validTo\": \"<dateTime>\"\n  },\n  \"initiationDetails\": {\n    \"reference\": \"<string>\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"ultimatePayer\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"legalEntityIdentification\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"ultimatePayee\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"legalEntityIdentification\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<string>\"\n    }\n  },\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"oneTimeToken\": \"<boolean>\",\n  \"complianceData\": {\n    \"payer\": {\n      \"type\": \"<string>\",\n      \"individual\": {\n        \"name\": \"<string>\",\n        \"birthDate\": \"<date>\"\n      },\n      \"business\": {\n        \"name\": \"<string>\",\n        \"registrationNumber\": \"<string>\",\n        \"registeredAddress\": {\n          \"addressLine1\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"addressLine2\": \"<string>\"\n        },\n        \"tradingAddress\": {\n          \"addressLine1\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"addressLine2\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f0716b7-0bf6-4c57-8e7a-8025b935e3ad",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUuid\": \"5350782b-60f3-489e-aae5-a24d8d679a07\",\n  \"institutionId\": \"modelo-sandbox\",\n  \"callback\": \"https://display-parameters.com/\",\n  \"controlParameters\": {\n    \"psuAuthenticationMethods\": [\n      \"SCA_NOT_REQUIRED\"\n    ],\n    \"maxAmountPerPayment\": {\n      \"amount\": 10,\n      \"currency\": \"GBP\"\n    },\n    \"periodicLimits\": [\n      {\n        \"totalMaxAmount\": {\n          \"amount\": 50,\n          \"currency\": \"GBP\"\n        },\n        \"frequency\": \"MONTHLY\",\n        \"alignment\": \"CONSENT\"\n      }\n    ]\n  },\n  \"initiationDetails\": {\n    \"reference\": \"My Sweeping VRP\",\n    \"payer\": {\n      \"name\": \"Jane Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"332211\"\n        }\n      ]\n    },\n    \"payee\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"12345678\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"112233\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"96169af01d394ad39658f17d53b49a5d\"\n  },\n  \"data\": {\n    \"id\": \"a2a9ec77-a479-4996-9896-4568e1968e7a\",\n    \"userUuid\": \"5350782b-60f3-489e-aae5-a24d8d679a07\",\n    \"applicationUserId\": \"user000\",\n    \"institutionId\": \"modelo-sandbox\",\n    \"status\": \"AWAITING_AUTHORIZATION\",\n    \"createdAt\": \"2026-01-01T10:25:13Z\",\n    \"featureScope\": [\n      \"EXISTING_PAYMENTS_DETAILS\",\n      \"EXISTING_PAYMENT_INITIATION_DETAILS\",\n      \"CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\",\n      \"VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION\",\n      \"INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\"\n    ],\n    \"state\": \"80052c03007f41d589f64377eef4d620\",\n    \"institutionConsentId\": \"sdp-6-25ff5bd8-d01c-422d-aa9e-8e68808bc899\",\n    \"authorisationUrl\": \"https://ob19-auth1-ui.o3bank.co.uk/auth?client_id=e7f6b95b-5f35-419b-b301-8b08bcd946de&response_type=code+id_token&state=80052c03007f41d589f64377eef4d620&nonce=80052c03007f41d589f64377eef4d620&scope=openid+payments&redirect_uri=https%3A%2F%2Fauth.yapily.com%2F&request=eyJraWQiOiJnRTRvU3VaZDl4TVpUNXZDdTNWYy1mdktNak0iLCJhbGciOiJQUzI1NiJ9.eyJhdWQiOiJodHRwczovL29iMTktYXV0aDEtdWkubzNiYW5rLmNvLnVrIiwic2NvcGUiOiJvcGVuaWQgcGF5bWVudHMiLCJpc3MiOiJlN2Y2Yjk1Yi01ZjM1LTQxOWItYjMwMS04YjA4YmNkOTQ2ZGUiLCJjbGllbnRfaWQiOiJlN2Y2Yjk1Yi01ZjM1LTQxOWItYjMwMS04YjA4YmNkOTQ2ZGUiLCJyZXNwb25zZV90eXBlIjoiY29kZSBpZF90b2tlbiIsInJlZGlyZWN0X3VyaSI6Imh0dHBzOi8vYXV0aC55YXBpbHkuY29tLyIsInN0YXRlIjoiODAwNTJjMDMwMDdmNDFkNTg5ZjY0Mzc3ZWVmNGQ2MjAiLCJjbGFpbXMiOnsiaWRfdG9rZW4iOnsiYWNyIjp7InZhbHVlIjoidXJuOm9wZW5iYW5raW5nOnBzZDI6c2NhIiwiZXNzZW50aWFsIjp0cnVlfSwib3BlbmJhbmtpbmdfaW50ZW50X2lkIjp7InZhbHVlIjoic2RwLTYtMjVmZjViZDgtZDAxYy00MjJkLWFhOWUtOGU2ODgwOGJjODk5IiwiZXNzZW50aWFsIjp0cnVlfX0sInVzZXJpbmZvIjp7Im9wZW5iYW5raW5nX2ludGVudF9pZCI6eyJ2YWx1ZSI6InNkcC02LTI1ZmY1YmQ4LWQwMWMtNDIyZC1hYTllLThlNjg4MDhiYzg5OSIsImVzc2VudGlhbCI6dHJ1ZX19fSwibm9uY2UiOiI4MDA1MmMwMzAwN2Y0MWQ1ODlmNjQzNzdlZWY0ZDYyMCIsImp0aSI6ImUxYjZmMWM4LTQ1ZTktNGM0NS05NGE0LWExMTY1Nzk2NjZiNiIsImlhdCI6MTYyMzI0NjUwNSwiZXhwIjoxNjIzMjQ4MzA1fQ.C5YkClHiDOWl1CKnmEY0gM_JizUuELp2-k7sDjsWV5T-mgTWviO-jM7iVfCf4MsU6batLSBmeUFLco1b3S8PTQkAzwM3laHIgbfDAb_6bYkSBTbPriyzKcC8xAwhX3VdvWtb9qqdrn9zXSmIIITBhJdMzk1cgIjyETD7WNPln839eGP1-w8iB8yDOJOkYGRHJ850mQY-lk61GegmKs5kaxtYPIhrG2gygIi3JsN-uQJ6YOl2-5pylTEcJbuwhFiyeePdqHZdabqW2BSA6lDKQbMV_Zow_zhSWoFFv6RZdXCQpt4TBRj1W7tzZQKin-MC-TpzaF1q07RpSy0NtlN85w\",\n    \"qrCodeUrl\": \"https://images.yapily.com/image/2bbb79b8-2c4a-4c8e-9132-0636879437da/1623246505?size=0\",\n    \"controlParameters\": {\n      \"psuAuthenticationMethods\": [\n        \"SCA_NOT_REQUIRED\"\n      ],\n      \"maxAmountPerPayment\": {\n        \"amount\": 10,\n        \"currency\": \"GBP\"\n      },\n      \"periodicLimits\": [\n        {\n          \"totalMaxAmount\": {\n            \"amount\": 50,\n            \"currency\": \"GBP\"\n          },\n          \"frequency\": \"MONTHLY\",\n          \"alignment\": \"CONSENT\"\n        }\n      ]\n    },\n    \"initiationDetails\": {\n      \"reference\": \"My Sweeping VRP\",\n      \"payer\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"87654321\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"332211\"\n          }\n        ]\n      },\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"112233\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e8953cc-14f8-4296-b778-7b311d1933ca",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUuid\": \"5350782b-60f3-489e-aae5-a24d8d679a07\",\n  \"institutionId\": \"modelo-sandbox\",\n  \"callback\": \"https://display-parameters.com/\",\n  \"controlParameters\": {\n    \"psuAuthenticationMethods\": [\n      \"SCA_NOT_REQUIRED\"\n    ],\n    \"maxAmountPerPayment\": {\n      \"amount\": 10,\n      \"currency\": \"GBP\"\n    },\n    \"periodicLimits\": [\n      {\n        \"totalMaxAmount\": {\n          \"amount\": 50,\n          \"currency\": \"GBP\"\n        },\n        \"frequency\": \"MONTHLY\",\n        \"alignment\": \"CONSENT\"\n      }\n    ]\n  },\n  \"initiationDetails\": {\n    \"reference\": \"My Sweeping VRP\",\n    \"payer\": {\n      \"name\": \"Jane Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"332211\"\n        }\n      ]\n    },\n    \"payee\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"12345678\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"112233\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b992c97-6be2-43c9-8d46-92514dd7556a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUuid\": \"5350782b-60f3-489e-aae5-a24d8d679a07\",\n  \"institutionId\": \"modelo-sandbox\",\n  \"callback\": \"https://display-parameters.com/\",\n  \"controlParameters\": {\n    \"psuAuthenticationMethods\": [\n      \"SCA_NOT_REQUIRED\"\n    ],\n    \"maxAmountPerPayment\": {\n      \"amount\": 10,\n      \"currency\": \"GBP\"\n    },\n    \"periodicLimits\": [\n      {\n        \"totalMaxAmount\": {\n          \"amount\": 50,\n          \"currency\": \"GBP\"\n        },\n        \"frequency\": \"MONTHLY\",\n        \"alignment\": \"CONSENT\"\n      }\n    ]\n  },\n  \"initiationDetails\": {\n    \"reference\": \"My Sweeping VRP\",\n    \"payer\": {\n      \"name\": \"Jane Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"332211\"\n        }\n      ]\n    },\n    \"payee\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"12345678\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"112233\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cac23fb-05a7-4a3c-aff7-90a75a029ec6",
+          "name": "Get Sweeping Vrp Consent Details",
+          "request": {
+            "name": "Get Sweeping Vrp Consent Details",
+            "description": {
+              "content": "Get Sweeping [VRP](/payments/vrps/introduction) consent details from the Consent ID.\n\nFeature: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variable-recurring-payments",
+                "sweeping",
+                "consents",
+                ":consentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentId",
+                  "description": "(Required) The Consent ID to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "001adae7-afd1-47c0-88cc-33aa2303397a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentId",
+                      "description": "(Required) The Consent ID to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"679e7bb6cd45416a9a9a8d004c5315da\"\n  },\n  \"data\": {\n    \"id\": \"56a42244-414a-4b52-8c4f-4ad2a50e82fe\",\n    \"userUuid\": \"ca412fdf-5a30-43a2-88b7-5964a24a8e55\",\n    \"applicationUserId\": \"string\",\n    \"institutionId\": \"modelo-sandbox\",\n    \"status\": \"AUTHORIZED\",\n    \"createdAt\": \"2021-06-08T10:59:35.138Z\",\n    \"featureScope\": [\n      \"EXISTING_PAYMENTS_DETAILS\",\n      \"EXISTING_PAYMENT_INITIATION_DETAILS\",\n      \"CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\",\n      \"VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION\",\n      \"INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\"\n    ],\n    \"consentToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJJTlNUSVRVVElPTiI6Im1vZGVsby1zYW5kYm94IiwiQ09OU0VOVCI6IjU2YTQyMjQ0LTQxNGEtNGI1Mi04YzRmLTRhZDJhNTBlODJmZSIsIkFQUExJQ0FUSU9OX1VTRVJfSUQiOiJtb2ZlLTIiLCJVU0VSIjoiY2E0MTJmZGYtNWEzMC00M2EyLTg4YjctNTk2NGEyNGE4ZTU1In0.gorwpnUjSr5dzQJLR32M2geWOj7yK9xMsZmq27ssY9xP_xGmWfUL_aqVHYyQ4r5KWw6Xb6RjvO839st8chJLtg\",\n    \"state\": \"a09f8ff9c1284444aa635267e05f76e1\",\n    \"authorizedAt\": \"2021-06-08T10:59:53.288Z\",\n    \"institutionConsentId\": \"aac-605d48f2-2a0e-4594-81a9-996524fa3b2a\",\n    \"controlParameters\": {\n      \"psuAuthenticationMethods\": [\n        \"SCA_NOT_REQUIRED\"\n      ],\n      \"periodicLimits\": [\n        {\n          \"totalMaxAmount\": {\n            \"amount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"frequency\": \"DAILY\",\n          \"alignment\": \"CONSENT\"\n        }\n      ],\n      \"maxAmountPerPayment\": {\n        \"amount\": 10,\n        \"currency\": \"GBP\"\n      }\n    },\n    \"payer\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"654321\"\n        }\n      ]\n    },\n    \"initiationDetails\": {\n      \"reference\": \"Own Account Sweeping\",\n      \"payer\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"87654321\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"654321\"\n          }\n        ]\n      },\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"123456\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "534641ce-1717-4e27-92b9-0ea9dc8796c5",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentId",
+                      "description": "(Required) The Consent ID to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdb0454b-5250-4af9-bbbb-9d175d321119",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "sweeping",
+                    "consents",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentId",
+                      "description": "(Required) The Consent ID to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f00ce78e-f28f-458a-876f-545b3fd904a1",
+          "name": "Confirm Funds for Vrp Payment",
+          "request": {
+            "name": "Confirm Funds for Vrp Payment",
+            "description": {
+              "content": "Check whether the requested funds amount is available on the [VRP](/payments/vrps/introduction) consent.\n\nNote that you should not call this before each VRP payment submission because we do it for you.\n\nRequired feature: `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variable-recurring-payments",
+                "funds-confirmation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentAmount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68e26468-1859-48da-a00c-9e8984e4b613",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"Own Account Sweeping\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"0f14e900011b445fa6b6c2c4272d7321\"\n  },\n  \"data\": {\n    \"id\": \"a9582f8e-08be-4cca-9f01-1ad3be96532d\",\n    \"fundsAvailable\": {\n      \"fundsAvailable\": true,\n      \"fundsAvailableAt\": \"2021-06-08T10:59:35.138Z\"\n    },\n    \"reference\": \"Own Account Sweeping\",\n    \"paymentAmount\": {\n      \"amount\": 10,\n      \"currency\": \"GBP\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85de3f45-7153-4b4a-9e0c-84fde1afb4f4",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"Own Account Sweeping\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c0a14fe-b4e0-46e6-a3b6-5aba2fc37f83",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"Own Account Sweeping\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02463f2d-9786-443a-85da-6ea0882bbfbb",
+          "name": "Create Vrp Payment",
+          "request": {
+            "name": "Create Vrp Payment",
+            "description": {
+              "content": "Submit payment on the [VRP](/payments/vrps/introduction) consent.\n\nRequired feature: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING` or `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variable-recurring-payments",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentIdempotencyId\": \"<string>\",\n  \"psuAuthenticationMethod\": \"<string>\",\n  \"paymentAmount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9116e5d-ad8f-4408-9688-464af04d8c9b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentIdempotencyId\": \"234g87t58tgeuo848wudjew489\",\n  \"psuAuthenticationMethod\": \"SCA_NOT_REQUIRED\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"0f14e900011b445fa6b6c2c4272d7321\"\n  },\n  \"data\": {\n    \"id\": \"a9582f8e-08be-4cca-9f01-1ad3be96532d\",\n    \"paymentIdempotencyId\": \"234g87t58tgeuo848wudjew489\",\n    \"institutionConsentId\": \"PF23232222DD\",\n    \"status\": \"COMPLETED\",\n    \"statusDetails\": {\n      \"status\": \"COMPLETED\",\n      \"isoStatus\": {\n        \"code\": \"ACCP\",\n        \"name\": \"AcceptedCustomerProfile\"\n      }\n    },\n    \"initiationDetails\": {\n      \"reference\": \"Own Account Sweeping\",\n      \"payer\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"87654321\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"654321\"\n          }\n        ]\n      },\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"123456\"\n          }\n        ]\n      }\n    },\n    \"submissionDetails\": {\n      \"reference\": \"Own Account Sweeping\",\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"123456\"\n          }\n        ]\n      },\n      \"paymentAmount\": {\n        \"amount\": 10,\n        \"currency\": \"GBP\"\n      }\n    },\n    \"payer\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"654321\"\n        }\n      ]\n    },\n    \"refundAccount\": {\n      \"accountIdentifications\": [\n        {\n          \"identification\": \"400400\",\n          \"type\": \"SORT_CODE\"\n        },\n        {\n          \"identification\": \"99999999\",\n          \"type\": \"ACCOUNT_NUMBER\"\n        }\n      ],\n      \"name\": \"Refund Account\"\n    },\n    \"expectedSettlementTime\": \"2022-03-02T12:00:00.000Z\",\n    \"expectedExecutionTime\": \"2022-03-02T12:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b85ff16-6d3e-4dab-b754-d4dd574bf733",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentIdempotencyId\": \"234g87t58tgeuo848wudjew489\",\n  \"psuAuthenticationMethod\": \"SCA_NOT_REQUIRED\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a131b961-753b-47cb-b870-8bd8959dce66",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The user's VRP [Consent Token](/getting-started/glossary#consent-token)",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentIdempotencyId\": \"234g87t58tgeuo848wudjew489\",\n  \"psuAuthenticationMethod\": \"SCA_NOT_REQUIRED\",\n  \"paymentAmount\": {\n    \"amount\": 10,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a2f77d3-8dde-4d48-a1c7-98dab5328189",
+          "name": "Get Vrp Payment Details",
+          "request": {
+            "name": "Get Vrp Payment Details",
+            "description": {
+              "content": "Get [VRP](/payments/vrps/introduction) payment details from the Payment ID.\n\nFeatures: `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING` or `CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "variable-recurring-payments",
+                "payments",
+                ":paymentId",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentId",
+                  "description": "(Required) __Mandatory__. The Payment Id of the `Variable Recurring Payments` to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The [Consent Token](/getting-started/glossary#consent-token) containing the user's authorisation to make the `Variable Recurring Payments` request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66804963-b44f-40fd-b16b-bdb8f970b85a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments",
+                    ":paymentId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) __Mandatory__. The Payment Id of the `Variable Recurring Payments` to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The [Consent Token](/getting-started/glossary#consent-token) containing the user's authorisation to make the `Variable Recurring Payments` request.",
+                    "key": "consent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"679e7bb6cd45416a9a9a8d004c5315da\"\n  },\n  \"data\": {\n    \"id\": \"a9582f8e-08be-4cca-9f01-1ad3be96532d\",\n    \"paymentIdempotencyId\": \"234g87t58tgeuo848wudjew489\",\n    \"institutionConsentId\": \"PF23232222DD\",\n    \"status\": \"COMPLETED\",\n    \"statusDetails\": {\n      \"status\": \"COMPLETED\",\n      \"isoStatus\": {\n        \"code\": \"ACCP\",\n        \"name\": \"AcceptedCustomerProfile\"\n      }\n    },\n    \"initiationDetails\": {\n      \"reference\": \"Own Account Sweeping\",\n      \"payer\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"87654321\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"654321\"\n          }\n        ]\n      },\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"123456\"\n          }\n        ]\n      }\n    },\n    \"submissionDetails\": {\n      \"reference\": \"Own Account Sweeping\",\n      \"payee\": {\n        \"name\": \"John Doe\",\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ACCOUNT_NUMBER\",\n            \"identification\": \"12345678\"\n          },\n          {\n            \"type\": \"SORT_CODE\",\n            \"identification\": \"123456\"\n          }\n        ]\n      },\n      \"paymentAmount\": {\n        \"amount\": 10,\n        \"currency\": \"GBP\"\n      }\n    },\n    \"payer\": {\n      \"name\": \"John Doe\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"87654321\"\n        },\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"654321\"\n        }\n      ]\n    },\n    \"refundAccount\": {\n      \"accountIdentifications\": [\n        {\n          \"identification\": \"400400\",\n          \"type\": \"SORT_CODE\"\n        },\n        {\n          \"identification\": \"99999999\",\n          \"type\": \"ACCOUNT_NUMBER\"\n        }\n      ],\n      \"name\": \"Refund Account\"\n    },\n    \"expectedSettlementTime\": \"2022-03-02T12:00:00.000Z\",\n    \"expectedExecutionTime\": \"2022-03-02T12:00:00.000Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31400d89-1402-43a3-a644-af7a329cda9f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments",
+                    ":paymentId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) __Mandatory__. The Payment Id of the `Variable Recurring Payments` to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The [Consent Token](/getting-started/glossary#consent-token) containing the user's authorisation to make the `Variable Recurring Payments` request.",
+                    "key": "consent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 401,\n    \"status\": \"UNAUTHORIZED\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"CREDENTIALS\",\n        \"code\": \"CREDENTIALS_MISSING\",\n        \"message\": \"Authentication header not present\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cf7b2cb-43c4-4e48-9b1b-2042dd7b4cab",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "variable-recurring-payments",
+                    "payments",
+                    ":paymentId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) __Mandatory__. The Payment Id of the `Variable Recurring Payments` to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The [Consent Token](/getting-started/glossary#consent-token) containing the user's authorisation to make the `Variable Recurring Payments` request.",
+                    "key": "consent",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"tracingId\": \"0c2d0973bdd24224a65e5d0f7d1b6154\",\n    \"code\": 400,\n    \"status\": \"BAD_REQUEST\",\n    \"supportUrl\": \"https://support.yapily.com/\",\n    \"source\": \"YAPILY\",\n    \"issues\": [\n      {\n        \"type\": \"BAD_REQUEST\",\n        \"code\": \"BAD_REQUEST\",\n        \"message\": \"The server could not understand the request due to invalid syntax\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "81ab3606-23a8-4747-b60c-77a7cdc0aebf",
+    "name": "Yapily Variable Recurring Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Variable Recurring Payments (VRP) endpoints for sweeping and commercial VRP flows including consent, funds confirmation, and execution.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

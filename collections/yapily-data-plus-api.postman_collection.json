@@ -1,0 +1,1871 @@
+{
+  "item": [
+    {
+      "id": "8cef0d17-a6d3-488c-91dc-db8c02f6f77d",
+      "name": "Data Plus",
+      "description": {
+        "content": "Data Plus endpoints enable our customers to enrich transaction data. ",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e06b37c-57da-4350-b8d1-7c598ae2873c",
+          "name": "Transactions and Enrichment",
+          "request": {
+            "name": "Transactions and Enrichment",
+            "description": {
+              "content": "Trigger categorisation for transactions from [AIS (see Get Transactions endpoint)](/api-reference/getTransactions) in the specified time range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "transactions",
+                "categorisation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique identifier for account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categorisationType\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"from\": \"<dateTime>\",\n  \"before\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee8ba94b-5508-4c2a-bd97-6bc310b2ca3a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"from\": \"2019-08-24T14:15:22Z\",\n  \"before\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-transactions-categorisation-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55eb27e4-5323-4c41-8870-8faba64b7546",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"from\": \"2019-08-24T14:15:22Z\",\n  \"before\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69f48c74-dd6d-4878-b895-95011f2a1a8f",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"from\": \"2019-08-24T14:15:22Z\",\n  \"before\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b997e39-c978-4398-911f-ea0802a8c8c2",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"from\": \"2019-08-24T14:15:22Z\",\n  \"before\": \"2019-08-24T14:15:22Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95b50924-b5ef-47d8-aadb-7cd9472a90ff",
+          "name": "Get Categorised Transactions (deprecated)",
+          "request": {
+            "name": "Get Categorised Transactions (deprecated)",
+            "description": {
+              "content": "__Deprecated__. Retrieve categorised transactions by Categorisation ID.\n\nUse the [other endpoint (`/transactions/categorisation/{categorisationId}`)](#operation/get-transactions-categorised) instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "transactions",
+                "categorisation",
+                ":categorisationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "__Optional__. The page number to be returned. If not specified will default to 1."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique identifier for account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "categorisationId",
+                  "description": "(Required) Unique identifier for transaction categorisation request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d7a43d1-e710-4e81-aa78-2ad5ebee01a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-categorised-transactions-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "caec68d7-9e7a-42cd-8707-d57afcabf6a5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ce1bb60-329c-48cc-b8f4-b12962279050",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "801d2908-90c8-4ff0-bdd3-ea3ce4b2c82a",
+              "name": "Categorisation ID not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30573020-2e41-42c6-8719-8b4d34046ac6",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique identifier for account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be4245b2-6c44-415b-83f0-93c33802bf63",
+          "name": "Enrichment",
+          "request": {
+            "name": "Enrichment",
+            "description": {
+              "content": "Trigger categorisation for transactions provided in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                "categorisation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categorisationType\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"transactions\": [\n    {\n      \"id\": \"<string>\",\n      \"date\": \"<string>\",\n      \"amount\": {\n        \"value\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"merchant\": {\n        \"mcc\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"date\": \"<string>\",\n      \"amount\": {\n        \"value\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"description\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"merchant\": {\n        \"mcc\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9be02fb2-7f39-4f1e-bc22-bbb5d36c4c7c",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"transactions\": [\n    {\n      \"id\": \"06edf952-8d94-44ae-8d4e-a065b7e47300\",\n      \"date\": \"2025-03-01T14:15:16Z\",\n      \"amount\": {\n        \"value\": -9900,\n        \"currency\": \"GBP\"\n      },\n      \"description\": \"Shopping\",\n      \"countryCode\": \"GB\"\n    },\n    {\n      \"id\": \"6a241cae-7c43-4058-bdbd-ff9d64e6c9df\",\n      \"date\": \"2025-04-02T07:59:59Z\",\n      \"amount\": {\n        \"value\": 1000,\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Refund\",\n      \"countryCode\": \"GB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-transactions-categorisation-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0610162d-a7c8-4956-bbb6-e98e23ac2793",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"transactions\": [\n    {\n      \"id\": \"06edf952-8d94-44ae-8d4e-a065b7e47300\",\n      \"date\": \"2025-03-01T14:15:16Z\",\n      \"amount\": {\n        \"value\": -9900,\n        \"currency\": \"GBP\"\n      },\n      \"description\": \"Shopping\",\n      \"countryCode\": \"GB\"\n    },\n    {\n      \"id\": \"6a241cae-7c43-4058-bdbd-ff9d64e6c9df\",\n      \"date\": \"2025-04-02T07:59:59Z\",\n      \"amount\": {\n        \"value\": 1000,\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Refund\",\n      \"countryCode\": \"GB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28df5efc-2856-4783-aec4-d575e1974e43",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"transactions\": [\n    {\n      \"id\": \"06edf952-8d94-44ae-8d4e-a065b7e47300\",\n      \"date\": \"2025-03-01T14:15:16Z\",\n      \"amount\": {\n        \"value\": -9900,\n        \"currency\": \"GBP\"\n      },\n      \"description\": \"Shopping\",\n      \"countryCode\": \"GB\"\n    },\n    {\n      \"id\": \"6a241cae-7c43-4058-bdbd-ff9d64e6c9df\",\n      \"date\": \"2025-04-02T07:59:59Z\",\n      \"amount\": {\n        \"value\": 1000,\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Refund\",\n      \"countryCode\": \"GB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4eab363-bbbd-4e83-819d-361e59753fac",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"countryCode\": \"GB\",\n  \"categorisationType\": \"consumer\",\n  \"transactions\": [\n    {\n      \"id\": \"06edf952-8d94-44ae-8d4e-a065b7e47300\",\n      \"date\": \"2025-03-01T14:15:16Z\",\n      \"amount\": {\n        \"value\": -9900,\n        \"currency\": \"GBP\"\n      },\n      \"description\": \"Shopping\",\n      \"countryCode\": \"GB\"\n    },\n    {\n      \"id\": \"6a241cae-7c43-4058-bdbd-ff9d64e6c9df\",\n      \"date\": \"2025-04-02T07:59:59Z\",\n      \"amount\": {\n        \"value\": 1000,\n        \"currency\": \"USD\"\n      },\n      \"description\": \"Refund\",\n      \"countryCode\": \"GB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae5cadf5-d98f-40e7-8838-5e892d93abeb",
+          "name": "Get Enrichment Results",
+          "request": {
+            "name": "Get Enrichment Results",
+            "description": {
+              "content": "Retrieve categorised transactions by Categorisation ID.\n\nPlease [use webhooks](/introductionpages/data/data-plus/tutorial-categorisation/) to be notified when your transactions have been categorised and are ready for retrieval.\n\nNote that when using the [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation) this endpoint may also return any data specified by the [Get Account Transactions endpoint](/api-reference/getTransactions); this endpoint's docs mentions a non-exhaustive subset of such data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                "categorisation",
+                ":categorisationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "__Optional__. The page number to be returned. If not specified will default to 1."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "categorisationId",
+                  "description": "(Required) Unique identifier for transaction categorisation request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cb4aeb0-1be4-4977-a1ef-1ced718e8b70",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-categorised-transactions-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "821b7448-2a0c-4891-a375-eac5795bbe5d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98a899e2-851b-476a-9108-c48fcc457341",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4c163a2-64a1-4521-acbd-c07dbfe2fd37",
+              "name": "Categorisation ID not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0767af59-a7fb-44a3-8f7d-ff2a2bdd1ebc",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    ":categorisationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categorisationId",
+                      "description": "(Required) Unique identifier for transaction categorisation request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3f3105e-efed-422a-a593-09f6779fff52",
+          "name": "Get Enrichment Labels",
+          "request": {
+            "name": "Get Enrichment Labels",
+            "description": {
+              "content": "Returns the list of categories that can be returned for a specific account type (consumer or business).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                "categorisation",
+                "categories",
+                ":accountType"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountType",
+                  "description": "(Required) type of bank account (consumer or business)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f64f88e2-2271-4f69-8611-24e5ab2babe4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    "categories",
+                    ":accountType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountType",
+                      "description": "(Required) type of bank account (consumer or business)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\"\n  },\n  \"data\": {\n    \"labels\": [\n      \"ATM/bank deposit\",\n      \"Benefits\",\n      \"ATM/bank withdrawal\",\n      \"App stores\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47c5e9d3-5d25-4e63-82cd-def76b9a78f9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    "categories",
+                    ":accountType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountType",
+                      "description": "(Required) type of bank account (consumer or business)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8e13757-47a3-48f5-b06e-9f3c48eecc54",
+              "name": "Authentication Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    "categories",
+                    ":accountType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountType",
+                      "description": "(Required) type of bank account (consumer or business)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f810bbc1-8c87-4f75-9547-2e5cf364bdbd",
+              "name": "Account type not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    "categories",
+                    ":accountType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountType",
+                      "description": "(Required) type of bank account (consumer or business)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fe5c209-b61b-4c48-a335-23031501af20",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "categorisation",
+                    "categories",
+                    ":accountType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountType",
+                      "description": "(Required) type of bank account (consumer or business)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "01047171-933a-4453-82a8-8f715770df21",
+    "name": "Yapily Data Plus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Transaction enrichment endpoints for categorisation, merchant detection, and spending insights across consumer and business accounts.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}
