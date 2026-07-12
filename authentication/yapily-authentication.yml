@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/yapily-beneficiaries-api-openapi.yml, openapi/yapily-consents-api-openapi.yml,
+  openapi/yapily-data-api-openapi.yml, openapi/yapily-data-plus-api-openapi.yml, openapi/yapily-hosted-pages-api-openapi.yml,
+  openapi/yapily-institutions-api-openapi.yml, openapi/yapily-payments-api-openapi.yml, openapi/yapily-platform-api-openapi.yml,
+  openapi/yapily-vrp-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: Use HTTP Basic Authentication with your Application ID as username and Application
+    Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/).
+    See [Authentication](/api-reference/authentication) for details.
+  sources:
+  - openapi/yapily-beneficiaries-api-openapi.yml
+  - openapi/yapily-consents-api-openapi.yml
+  - openapi/yapily-data-api-openapi.yml
+  - openapi/yapily-data-plus-api-openapi.yml
+  - openapi/yapily-hosted-pages-api-openapi.yml
+  - openapi/yapily-institutions-api-openapi.yml
+  - openapi/yapily-payments-api-openapi.yml
+  - openapi/yapily-platform-api-openapi.yml
+  - openapi/yapily-vrp-api-openapi.yml

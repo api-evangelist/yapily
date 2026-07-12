@@ -211,6 +211,10 @@ apis:
       Application-level and user-level beneficiary management endpoints to speed up repeat payment flows with reusable
       counterparties.
 common:
+  - type: DomainSecurity
+    url: security/yapily-domain-security.yml
+  - type: Authentication
+    url: authentication/yapily-authentication.yml
   - url: https://www.yapily.com/
     type: Website
   - url: https://docs.yapily.com/
@@ -247,6 +251,8 @@ common:
     type: SpectralRules
   - url: vocabulary/yapily-vocabulary.yml
     type: Vocabulary
+  - url: https://www.yapily.com/blog
+    type: Blog
 solutions:
   - name: Account-to-Account Checkout
     description: Replace card rails with PISP-initiated A2A payments at checkout using single payments or Pay By Link.
