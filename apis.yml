@@ -211,6 +211,8 @@ apis:
       Application-level and user-level beneficiary management endpoints to speed up repeat payment flows with reusable
       counterparties.
 common:
+  - type: AgenticAccess
+    url: agentic-access/yapily-agentic-access.yml
   - type: DomainSecurity
     url: security/yapily-domain-security.yml
   - type: Authentication
