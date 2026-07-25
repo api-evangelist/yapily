@@ -1,0 +1,582 @@
+openapi: 3.0.1
+info:
+  title: Yapily Beneficiaries Application Beneficiaries Hosted Consent Pages API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: Hosted Consent Pages endpoints for data products
+  name: Hosted Consent Pages
+paths:
+  /hosted/consent-requests:
+    post:
+      description: Used to initiate a consent request using Yapily Hosted Pages.
+      x-beta: true
+      operationId: createHostedConsentRequest
+      parameters:
+      - $ref: '#/components/parameters/SubAppHeader'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            examples:
+              Create Hosted Consent Request:
+                $ref: '#/components/examples/create-hosted-consent-request'
+            schema:
+              $ref: '#/components/schemas/CreateHostedConsentRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Create Hosted Consent Request Response:
+                  $ref: '#/components/examples/create-hosted-consent-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfCreateHostedConsentRequest'
+          description: Created
+        '400':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                400 Error Response:
+                  $ref: '#/components/examples/400-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Bad Request
+        '401':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                401 Error Response:
+                  $ref: '#/components/examples/401-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Unauthorized. Credentials are missing or invalid
+        '500':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                500 Error Response:
+                  $ref: '#/components/examples/500-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Unexpected Error
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Create Hosted Consent Request
+      tags:
+      - Hosted Consent Pages
+      x-mint:
+        content: '<Info>Learn more: [Hosted Consent Pages](/tools-and-services/hosted-pages/overview)</Info>'
+  /hosted/consent-requests/{consentRequestId}:
+    get:
+      description: Used to get details of a hosted consent request
+      x-beta: true
+      operationId: getHostedConsentRequest
+      parameters:
+      - description: Unique Identifier of the consent request
+        in: path
+        name: consentRequestId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Get Hosted Consent Request Response:
+                  $ref: '#/components/examples/get-hosted-consent-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfGetHostedConsentRequest'
+          description: Ok
+        '401':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                401 Error Response:
+                  $ref: '#/components/examples/401-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Unauthorized
+        '404':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                404 Error Response:
+                  $ref: '#/components/examples/404-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Not Found
+        '500':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                500 Error Response:
+                  $ref: '#/components/examples/500-error-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Unexpected Error
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Hosted Consent Request
+      tags:
+      - Hosted Consent Pages
+components:
+  schemas:
+    HostedAccountRequestDetailsResponse:
+      description: Details of the Account Request.
+      type: object
+      properties:
+        transactionFrom:
+          type: string
+          description: "Specifies the earliest date of the transaction records to be returned.\n\n You must supply this field to retrieve transactions older than 90 days for banks accessed via the the [CBI Globe Gateway](/data/financial-data-resources/data-restrictions#cbi-globe-gateway)."
+          format: date-time
+          example: '2020-01-01T00:00:00Z'
+        transactionTo:
+          type: string
+          description: Specifies the latest date of the transaction records to be returned.
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        expiresAt:
+          type: string
+          description: 'Specify the set a hard date for when the user''s associated `Consent` will expire.
+
+
+            **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
+
+
+            **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
+          format: date-time
+          example: '2025-01-01T00:00:00Z'
+        featureScope:
+          uniqueItems: true
+          type: array
+          description: 'Specify the set of features that the user will give their consent for when requesting access to their account information. Depending on the `Institution`, this may also populate a consent screen which list these scopes before the user authorises.
+
+
+            This endpoint accepts allow all [Financial Data Features](/guides/financial-data/features/#feature-list) that the `Institution` supports.To find out which scopes an `Institution` supports, check [GET Institution](./#get-institution).'
+          items:
+            $ref: '#/components/schemas/FeatureEnum'
+    FeatureEnum:
+      type: string
+      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)"
+      enum:
+      - INITIATE_PRE_AUTHORISATION
+      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ACCOUNT_REQUEST
+      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
+      - ACCOUNT_REQUEST_DETAILS
+      - ACCOUNTS
+      - ACCOUNT
+      - ACCOUNT_TRANSACTIONS
+      - ACCOUNT_STATEMENTS
+      - ACCOUNT_STATEMENT
+      - ACCOUNT_STATEMENT_FILE
+      - ACCOUNT_SCHEDULED_PAYMENTS
+      - ACCOUNT_DIRECT_DEBITS
+      - ACCOUNT_PERIODIC_PAYMENTS
+      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
+      - IDENTITY
+      - ACCOUNTS_WITHOUT_BALANCE
+      - ACCOUNT_WITHOUT_BALANCE
+      - ACCOUNT_BALANCES
+      - INITIATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENT_INITIATION_DETAILS
+      - CREATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENTS_DETAILS
+      - INITIATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_BULK_PAYMENT
+      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
+      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
+      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
+      - CREATE_DOMESTIC_PERIODIC_PAYMENT
+      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
+      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
+      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
+      - INITIATE_BULK_PAYMENT
+      - CREATE_BULK_PAYMENT
+      - EXISTING_BULK_PAYMENT_DETAILS
+      - TRANSFER
+      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
+      - OPEN_DATA_ATMS
+      - READ_DOMESTIC_SINGLE_REFUND
+      - READ_DOMESTIC_SCHEDULED_REFUND
+      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
+      - READ_INTERNATIONAL_SINGLE_REFUND
+      - READ_INTERNATIONAL_SCHEDULED_REFUND
+      - ACCOUNT_BENEFICIARIES
+      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION
+      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
+    UserSettings:
+      description: Specifies the language and location preferences of the user.
+      type: object
+      properties:
+        language:
+          type: string
+          description: 2 letter ISO Language code which denotes the language preference for the `User`.
+          example: en
+        location:
+          type: string
+          description: 2 letter ISO Country code which denotes the location preference for the `User`.
+          example: GB
+    HostedConsentRequestResponse:
+      type: object
+      properties:
+        consentRequestId:
+          type: string
+          format: uuid
+          description: Unique Id of the consent request.
+        userId:
+          type: string
+          format: uuid
+          description: Unique Id for the `User` assigned by Yapily.
+        applicationUserId:
+          type: string
+          description: Your reference to the `User`.
+        applicationId:
+          type: string
+          format: uuid
+          description: Unique Id of the `Application` the user is associated with.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of consent server to redirect the user after completion of the consent flow.
+          example: https://tpp-application.com
+        accountRequestDetails:
+          $ref: '#/components/schemas/HostedAccountRequestDetailsResponse'
+        hostedUrl:
+          type: string
+          description: "The URL of Hosted UI page for the applicationId which initiates the user journey for the consent. \n\n URL would be appended with authToken, applicationId and userSettings."
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time at which the consent was created.
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: The date and time at which the auth Token will expire.
+    HostedAccountRequest:
+      type: object
+      description: "__Conditional__. Used to further specify details of the `Consent` to request \n\nConditions:\n\n1. Mandatory to specify the individual scopes to request from the user at the `Institution` for an account authorisation\n2. Mandatory to specify an expiry time on the created `Consent` at which time will render it unusable\n3. Mandatory to specify the date range that the created `Consent` will be able to access transactions for (given the range is support for the `Institution`)"
+      properties:
+        transactionFrom:
+          type: string
+          description: "__Optional__. Specifies the earliest date of the transaction records to be returned.\n\n You must supply this field to retrieve transactions older than 90 days for banks accessed via the the [CBI Globe Gateway](/data/financial-data-resources/data-restrictions#cbi-globe-gateway)."
+          format: date-time
+          example: '2020-01-01T00:00:00Z'
+        transactionTo:
+          type: string
+          description: __Optional__. Specifies the latest date of the transaction records to be returned.
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        expiresAt:
+          type: string
+          description: '__Optional__. Used to set a hard date for when the user''s associated `Consent` will expire.
+
+
+            **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
+
+
+            **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
+          format: date-time
+          example: '2025-01-01T00:00:00Z'
+        featureScope:
+          uniqueItems: true
+          type: array
+          description: '__Optional__. Used to granularly specify the set of features that the user will give their consent for when requesting access to their account information. Depending on the `Institution`, this may also populate a consent screen which list these scopes before the user authorises.
+
+
+            This endpoint accepts allow all [Financial Data Features](/guides/financial-data/features/#feature-list) that the `Institution` supports.To find out which scopes an `Institution` supports, check [GET Institution](./#get-institution).'
+          items:
+            $ref: '#/components/schemas/FeatureEnum'
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    ApiResponseOfGetHostedConsentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedGetConsentRequestResponse'
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    InstitutionIdentifiersResponse:
+      description: Specifies the institution selected for making the payment.
+      type: object
+      properties:
+        institutionId:
+          type: string
+          description: Yapily identifier which identifies the `Institution` the payment request is sent to.
+        institutionCountryCode:
+          type: string
+          description: 2 letter ISO Country code of the `Institution` the payment request is sent to.
+          example: GB
+    HostedGetConsentRequestResponse:
+      type: object
+      properties:
+        consentRequestId:
+          type: string
+          format: uuid
+          description: Unique Id of the consent request.
+        consentId:
+          type: string
+          format: uuid
+          description: Identification of the consent.
+        userId:
+          type: string
+          format: uuid
+          description: Unique Id for the `User` assigned by Yapily.
+        applicationUserId:
+          type: string
+          description: Your reference to the `User`.
+        applicationId:
+          type: string
+          format: uuid
+          description: Unique Id of the `Application` the user is associated with.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of consent server to redirect the user after completion of the consent flow.
+          example: https://tpp-application.com
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time at which the payment was created.
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: The date and time at which the auth Token will expire.
+        status:
+          type: string
+          description: Current status of the consent request. Allowed values are [AWAITING_AUTHORIZATION, AUTHORIZED, REJECTED, REVOKED, FAILED, EXPIRED, AWAITING_DECOUPLED_AUTHORIZATION]
+        phases:
+          description: The phase reached by the consent and its timestamp.
+          type: array
+          items:
+            $ref: '#/components/schemas/HostedConsentPhase'
+        consentToken:
+          type: string
+          description: Represents the authorisation to gain access to the requested features. Required to access account information.
+    ApiResponseError:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    InstitutionIdentifiers:
+      description: Specifies the institution requirements for making the payment. Skips the bank selection screen in payment flow if the `institutionId` and `institutionCountryCode` are provided.
+      type: object
+      required:
+      - institutionCountryCode
+      properties:
+        institutionId:
+          type: string
+          description: Yapily identifier which identifies the `Institution` the payment request is sent to.
+        institutionCountryCode:
+          type: string
+          description: 2 letter ISO Country code of the `Institution` the payment request is sent to.
+          example: GB
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    ApiResponseOfCreateHostedConsentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedConsentRequestResponse'
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    HostedConsentPhase:
+      type: object
+      properties:
+        phaseName:
+          type: string
+          description: "The name of the hosted consent process phase. Allowed values are : \n\n- INITIATED - Process initiated\n- INSTITUTION_SUBMITTED - Consent institution submitted\n- AUTHORISATION_INITIATED - All details required for consent initiation have been collected\n- AUTHORISATION_CREATED - Consent authorisation request created with Institution, awaiting authorisation completion\n- AUTHORISATION_FAILED - Consent authorisation failed and will not proceed further\n- AUTHORISATION_REJECTED - Consent Authorisation request rejected by Institution and will not proceed further\n- DECOUPLED_AUTHORISATION - For embedded banks, decoupled authorisation was initiated by the bank\n- EMBEDDED_CREDENTIAL_REQUESTED - For embedded banks, a UI element to collect user credentials was displayed\n- EMBEDDED_CODE_REQUESTED - For embedded banks, a UI element to collect SCA for initiated consent was displayed\n- EMBEDDED_TYPE_REQUESTED - For embedded banks, a UI element to allow the user to select their preferred SCA method for this consent authorisation was displayed\n- EMBEDDED_CODE_COLLECTED - For embedded banks, SCA code was collected for consent authorisation\n- EMBEDDED_TYPE_SELECTED - For embedded banks, preferred SCA method was selected for consent authorisation\n- CONSENT_POLLING_STARTED - We start polling the bank for consent authorisation status\n- CONSENT_POLLING_ENDED - We finish polling the bank for consent authorisation status\n- AUTHORISED - Consent authorisation completed\n- FINISHED - Process finished"
+        phaseCreatedAt:
+          type: string
+          format: date-time
+          description: The date and time at which the phase of the hosted Consent was created.
+      description: The phase of the Consent Request.
+    CreateHostedConsentRequest:
+      required:
+      - redirectUrl
+      - institutionIdentifiers
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: __Conditional__. Yapily Identifier for the `User` returned by the create user step POST /users. You must provide either a `userId` or `applicationUserId`.
+        applicationUserId:
+          type: string
+          description: __Conditional__. Your own `User` reference. This field allows you to use your own unique references for individual users. Where the `User` reference doesn't have an associated Yapily `userId`, a new `userId` is created and linked to it. You must provide either a `userId` or `applicationUserId`.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiers'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of your server to redirect the user after completion of the consent flow.
+          example: https://tpp-application.com
+        oneTimeToken:
+          type: boolean
+          description: Used to receive a oneTimeToken rather than a consentToken at the redirectUrl for additional security.
+          example: 'false'
+        accountRequest:
+          $ref: '#/components/schemas/HostedAccountRequest'
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
+      scheme: basic
+      type: http

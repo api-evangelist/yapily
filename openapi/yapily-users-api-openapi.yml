@@ -1,0 +1,463 @@
+openapi: 3.0.1
+info:
+  title: Yapily Beneficiaries Application Beneficiaries Users API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: The Users endpoints are used to manage each user (otherwise known as the PSU) in Yapily. Each user belongs to an Application and as a consequence, so do each `Consent` created for a particular `User`.
+  name: Users
+paths:
+  /users:
+    get:
+      description: Retrieves all users created in your application for a specified applicationUserId using the filter[applicationUserId] query parameter. If filter[applicationUserId] is not provided, the response will include up to 50,000 users.
+      operationId: getUsers
+      parameters:
+      - description: __Optional__. Filter records based on the list of `applicationUserId` users provided.
+        in: query
+        name: filter[applicationUserId]
+        required: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/users_example-response'
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationUser'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Users
+      tags:
+      - Users
+    post:
+      description: Create a new user in your application
+      operationId: addUser
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            examples:
+              Create User Example Request:
+                $ref: '#/components/examples/create-user-example-request'
+            schema:
+              $ref: '#/components/schemas/NewApplicationUser'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/create-user_example-response'
+              schema:
+                $ref: '#/components/schemas/ApplicationUser'
+          description: Created
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Create User
+      tags:
+      - Users
+  /users/{userUuid}:
+    patch:
+      description: Update the users information
+      operationId: patchUser
+      parameters:
+      - description: __Mandatory__. The Yapily generated UUID for the user.
+        in: path
+        name: userUuid
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ApplicationUserPatchRequest'
+      responses:
+        '201':
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApplicationUser'
+          description: Created
+        default:
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Update User
+      tags:
+      - Users
+    delete:
+      description: Delete a user from your application along with any sub-resources (including consent resources on institution APIs if they exist)
+      operationId: deleteUser
+      parameters:
+      - description: __Mandatory__. The Yapily generated UUID for the user.
+        in: path
+        name: userUuid
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/delete-user_example-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfUserDeleteResponse'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      description: Get a specific user using the user UUID
+      operationId: getUser
+      parameters:
+      - description: __Mandatory__. The Yapily generated UUID for the user.
+        in: path
+        name: userUuid
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/user_example-response'
+              schema:
+                $ref: '#/components/schemas/ApplicationUser'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get User
+      tags:
+      - Users
+components:
+  schemas:
+    ApiResponseOfUserDeleteResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/UserDeleteResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ConsentDeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: __Conditional__. User-friendly identifier of the `User` that provides authorisation. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          format: uuid
+        deleteStatus:
+          $ref: '#/components/schemas/DeleteStatusEnum'
+        institutionId:
+          type: string
+          description: __Mandatory__. The `Institution` the authorisation request is sent to.
+        institutionConsentId:
+          type: string
+          description: Identification of the consent at the Institution.
+        creationDate:
+          type: string
+          description: Date and time of when the consent was authorised.
+          format: date-time
+    DeleteStatusEnum:
+      type: string
+      description: Indicates the outcome of the delete request.
+      enum:
+      - SUCCESS
+      - FAILED
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    UserDeleteResponse:
+      type: object
+      description: Deletion of the user. Includes the user profile and all associate consents.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user.
+        deleteStatus:
+          $ref: '#/components/schemas/DeleteStatusEnum'
+        creationDate:
+          type: string
+          format: date-time
+          description: Date and time that the user was created.
+        userConsents:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentDeleteResponse'
+    NewApplicationUser:
+      type: object
+      description: Details of a new user to be created for the application.
+      properties:
+        applicationUserId:
+          type: string
+          description: __Optional__. The unique identifier of the `Application User` assigned by the Application Owner.
+          example: user-234562290
+        referenceId:
+          type: string
+          description: __Deprecated__. A non-unique reference Id for the `Application User`.
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
+    PatchOperation:
+      type: string
+      description: The operation to be performed
+      enum:
+      - add
+      - replace
+    ApiResponseError:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    ApplicationUserPatchRequest:
+      type: object
+      required:
+      - op
+      - path
+      - value
+      properties:
+        op:
+          $ref: '#/components/schemas/PatchOperation'
+        path:
+          description: The path to the target location.
+          type: string
+        value:
+          description: The value to be replaced or tested.
+          type: string
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    InstitutionConsent:
+      type: object
+      description: '`Institution` authorised consents which are currently in place for the `Application User`.'
+      properties:
+        institutionId:
+          type: string
+          description: __Mandatory__. The `Institution` the authorisation request is sent to.
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    ApplicationUser:
+      type: object
+      description: Information about a user of an application.
+      properties:
+        uuid:
+          type: string
+          description: A unique identifier for the 'User' assigned by Yapily.
+          format: uuid
+        applicationUuid:
+          type: string
+          description: Unique identifier of the application the user is associated with.
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User`.
+        referenceId:
+          type: string
+        createdAt:
+          type: string
+          description: Date and time of when the user was created.
+          format: date-time
+        institutionConsents:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstitutionConsent'
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
+      scheme: basic
+      type: http

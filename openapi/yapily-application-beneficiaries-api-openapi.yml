@@ -1,0 +1,418 @@
+openapi: 3.0.1
+info:
+  title: Yapily Beneficiaries Application Beneficiaries API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: Application Beneficiaries Endpoints
+  name: Application Beneficiaries
+paths:
+  /applications/{applicationId}/beneficiaries:
+    post:
+      tags:
+      - Application Beneficiaries
+      operationId: createApplicationBeneficiary
+      summary: Create Application Beneficiary
+      description: Creation of beneficiaries for a given application.
+      parameters:
+      - $ref: '#/components/parameters/ApplicationIdPath'
+      requestBody:
+        required: true
+        description: The beneficiary to be created.
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Application beneficiary details.
+              required:
+              - name
+              - accountIdentifier
+              properties:
+                name:
+                  type: string
+                  description: beneficiary name
+                  example: John Doe
+                accountIdentifier:
+                  $ref: '#/components/schemas/AccountIdentifier'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationBeneficiaryResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '409':
+          description: Conflict
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '429':
+          description: Too many requests
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Internal error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+      x-mint:
+        content: '<Info>Learn more: [Verification of Payee](/payments/payment-resources/verification-of-payee)</Info>'
+    get:
+      tags:
+      - Application Beneficiaries
+      operationId: getApplicationBeneficiaries
+      summary: Get All Application Beneficiaries
+      description: Get all application beneficiaries from an application.
+      parameters:
+      - $ref: '#/components/parameters/ApplicationIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Application beneficiary paginated response.
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseListMeta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApplicationBeneficiaryData'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Internal error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+  /applications/{applicationId}/beneficiaries/{beneficiaryId}:
+    get:
+      tags:
+      - Application Beneficiaries
+      operationId: getApplicationBeneficiaryById
+      summary: Get Application Beneficiary by Id
+      description: Get user beneficiary by id.
+      parameters:
+      - $ref: '#/components/parameters/ApplicationIdPath'
+      - $ref: '#/components/parameters/BeneficiaryIdPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationBeneficiaryResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Internal error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+    delete:
+      tags:
+      - Application Beneficiaries
+      operationId: deleteApplicationBeneficiaryById
+      summary: Delete Application Beneficiary by Id
+      description: Delete application beneficiary.
+      parameters:
+      - $ref: '#/components/parameters/ApplicationIdPath'
+      - $ref: '#/components/parameters/BeneficiaryIdPath'
+      responses:
+        '204':
+          description: No Content.
+        '400':
+          description: Invalid request
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '404':
+          description: Not Found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Internal error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+components:
+  schemas:
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    BeneficiaryId:
+      type: string
+      format: uuid
+      example: e7b7636d-a041-4013-8a1b-34dc85b7d341
+      description: Beneficiary Id
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    ResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    ApplicationBeneficiaryData:
+      type: object
+      description: Application beneficiary data response.
+      properties:
+        beneficiaryId:
+          $ref: '#/components/schemas/BeneficiaryId'
+        details:
+          type: object
+          required:
+          - name
+          - accountIdentifier
+          properties:
+            name:
+              type: string
+              description: name of the beneficiary
+              example: John Doe
+            accountIdentifier:
+              $ref: '#/components/schemas/AccountIdentifier'
+    ApiErrorResponseV2:
+      type: object
+      description: API Error Response
+      properties:
+        error:
+          required:
+          - tracingId
+          - code
+          - status
+          - issues
+          type: object
+          properties:
+            tracingId:
+              type: string
+              description: Unique identifier of the request, used by Yapily for support purposes
+            code:
+              type: integer
+              format: int32
+              description: Numeric HTTP status code associated with the error
+            status:
+              type: string
+              description: Textual description of the HTTP status
+            supportUrl:
+              type: string
+              description: Link to where further information regarding the error can be found
+            source:
+              type: string
+              description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
+            issues:
+              type: array
+              description: List of issues relating to the error
+              items:
+                required:
+                - message
+                - code
+                type: object
+                description: Detailed information regarding the issue that was experienced during processing of the request
+                properties:
+                  type:
+                    type: string
+                    description: Category of the issue
+                  code:
+                    type: string
+                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes pelase check our documentation
+                  message:
+                    type: string
+                    description: Human readable description of the issue that was experienced
+    AccountIdentifier:
+      type: object
+      description: Account's details.
+      required:
+      - identification
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentifierType'
+        identification:
+          type: string
+          description: Account's IBAN
+          example: DE12345123451234512345123
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    ApplicationBeneficiaryResponse:
+      type: object
+      description: Application beneficiary response.
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/ApplicationBeneficiaryData'
+    AccountIdentifierType:
+      type: string
+      enum:
+      - IBAN
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
+      scheme: basic
+      type: http

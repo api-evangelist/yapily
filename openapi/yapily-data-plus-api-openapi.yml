@@ -1,8 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Yapily Data Plus API
-  description: Transaction enrichment endpoints for categorisation, merchant detection, and spending insights across consumer
-    and business accounts.
+  title: Yapily Beneficiaries Application Beneficiaries Data Plus API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -17,11 +16,43 @@ tags:
   name: Data Plus
 paths:
   /accounts/{accountId}/transactions/categorisation:
+    parameters:
+    - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+      example: '{consentToken}'
+      in: header
+      name: consent
+      required: true
+      schema:
+        type: string
+    - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+      in: header
+      name: psu-id
+      required: false
+      schema:
+        type: string
+    - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+      in: header
+      name: psu-corporate-id
+      required: false
+      schema:
+        type: string
+    - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+      in: header
+      name: psu-ip-address
+      required: false
+      schema:
+        type: string
+    - $ref: '#/components/parameters/SubAppHeader'
+    - schema:
+        type: string
+      name: accountId
+      in: path
+      required: true
+      description: Unique identifier for account
     post:
       operationId: post-accounts-accountId-transactions-categorisation
       summary: Transactions and Enrichment
-      description: Trigger categorisation for transactions from [AIS (see Get Transactions endpoint)](/api-reference/getTransactions)
-        in the specified time range.
+      description: Trigger categorisation for transactions from [AIS (see Get Transactions endpoint)](/api-reference/getTransactions) in the specified time range.
       tags:
       - Data Plus
       requestBody:
@@ -93,6 +124,7 @@ paths:
                   $ref: '#/components/examples/500-error-response'
       x-mint:
         content: '<Info>Learn more: [Transaction Categorisation](/data/data-plus/categorisation)</Info>'
+  /accounts/{accountId}/transactions/categorisation/{categorisationId}:
     parameters:
     - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
       example: '{consentToken}'
@@ -101,35 +133,36 @@ paths:
       required: true
       schema:
         type: string
-    - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU\
-        \ identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
-      in: header
-      name: psu-id
-      required: false
-      schema:
-        type: string
-    - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU\
-        \ identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
-      in: header
-      name: psu-corporate-id
-      required: false
-      schema:
-        type: string
-    - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers)\
-        \ to see if this header is required."
-      in: header
-      name: psu-ip-address
-      required: false
-      schema:
-        type: string
-    - $ref: '#/components/parameters/SubAppHeader'
     - schema:
         type: string
       name: accountId
       in: path
       required: true
       description: Unique identifier for account
-  /accounts/{accountId}/transactions/categorisation/{categorisationId}:
+    - schema:
+        type: string
+      name: categorisationId
+      in: path
+      required: true
+      description: Unique identifier for transaction categorisation request
+    - $ref: '#/components/parameters/SubAppHeader'
+    - description: __Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100.
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 100
+        maximum: 1000
+    - description: __Optional__. The page number to be returned. If not specified will default to 1.
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
     get:
       deprecated: true
       operationId: get-accounts-transactions-categorised
@@ -137,8 +170,7 @@ paths:
       description: '__Deprecated__. Retrieve categorised transactions by Categorisation ID.
 
 
-        Use the [other endpoint (`/transactions/categorisation/{categorisationId}`)](#operation/get-transactions-categorised)
-        instead.'
+        Use the [other endpoint (`/transactions/categorisation/{categorisationId}`)](#operation/get-transactions-categorised) instead.'
       tags:
       - Data Plus
       responses:
@@ -187,46 +219,9 @@ paths:
               examples:
                 Example-1:
                   $ref: '#/components/examples/500-error-response'
-    parameters:
-    - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
-      example: '{consentToken}'
-      in: header
-      name: consent
-      required: true
-      schema:
-        type: string
-    - schema:
-        type: string
-      name: accountId
-      in: path
-      required: true
-      description: Unique identifier for account
-    - schema:
-        type: string
-      name: categorisationId
-      in: path
-      required: true
-      description: Unique identifier for transaction categorisation request
-    - $ref: '#/components/parameters/SubAppHeader'
-    - description: __Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If
-        not specified will default to 100.
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 100
-        maximum: 1000
-    - description: __Optional__. The page number to be returned. If not specified will default to 1.
-      in: query
-      name: page
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
   /transactions/categorisation:
+    parameters:
+    - $ref: '#/components/parameters/SubAppHeader'
     post:
       operationId: post-transactions-categorisation
       summary: Enrichment
@@ -274,8 +269,7 @@ paths:
                         properties:
                           value:
                             type: integer
-                            description: __Mandatory__. Transaction money amount in cents (or equivalent). Positive amount
-                              implies money in, negative amount implies money out.
+                            description: __Mandatory__. Transaction money amount in cents (or equivalent). Positive amount implies money in, negative amount implies money out.
                           currency:
                             type: string
                             description: __Mandatory__. Transaction currency.
@@ -290,8 +284,7 @@ paths:
                         description: __Mandatory__. Transaction-specific description.
                       countryCode:
                         type: string
-                        description: __Mandatory__. Transaction-specific two-letter country code in ISO 3166-1 alpha-2 format
-                          (e.g. GB)
+                        description: __Mandatory__. Transaction-specific two-letter country code in ISO 3166-1 alpha-2 format (e.g. GB)
             examples:
               Example 1:
                 value:
@@ -351,22 +344,42 @@ paths:
                   $ref: '#/components/examples/500-error-response'
       x-mint:
         content: '<Info>Learn more: [Transaction Categorisation](/data/data-plus/categorisation)</Info>'
-    parameters:
-    - $ref: '#/components/parameters/SubAppHeader'
   /transactions/categorisation/{categorisationId}:
+    parameters:
+    - schema:
+        type: string
+      name: categorisationId
+      in: path
+      required: true
+      description: Unique identifier for transaction categorisation request
+    - $ref: '#/components/parameters/SubAppHeader'
+    - description: __Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If not specified will default to 100.
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 100
+        maximum: 1000
+    - description: __Optional__. The page number to be returned. If not specified will default to 1.
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
     get:
       operationId: get-transactions-categorised
       summary: Get Enrichment Results
       description: 'Retrieve categorised transactions by Categorisation ID.
 
 
-        Please [use webhooks](/introductionpages/data/data-plus/tutorial-categorisation/) to be notified when your transactions
-        have been categorised and are ready for retrieval.
+        Please [use webhooks](/introductionpages/data/data-plus/tutorial-categorisation/) to be notified when your transactions have been categorised and are ready for retrieval.
 
 
-        Note that when using the [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)
-        this endpoint may also return any data specified by the [Get Account Transactions endpoint](/api-reference/getTransactions);
-        this endpoint''s docs mentions a non-exhaustive subset of such data.'
+        Note that when using the [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation) this endpoint may also return any data specified by the [Get Account Transactions endpoint](/api-reference/getTransactions); this endpoint''s docs mentions a non-exhaustive subset of such data.'
       tags:
       - Data Plus
       responses:
@@ -415,33 +428,15 @@ paths:
               examples:
                 Example-1:
                   $ref: '#/components/examples/500-error-response'
+  /transactions/categorisation/categories/{accountType}:
     parameters:
     - schema:
         type: string
-      name: categorisationId
+      name: accountType
       in: path
       required: true
-      description: Unique identifier for transaction categorisation request
+      description: type of bank account (consumer or business)
     - $ref: '#/components/parameters/SubAppHeader'
-    - description: __Optional__. The maximum number of transaction records to be returned. Must be between 100 and 1000. If
-        not specified will default to 100.
-      in: query
-      name: limit
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 100
-        maximum: 1000
-    - description: __Optional__. The page number to be returned. If not specified will default to 1.
-      in: query
-      name: page
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-  /transactions/categorisation/categories/{accountType}:
     get:
       operationId: get-categorisation-accountType
       summary: Get Enrichment Labels
@@ -518,16 +513,238 @@ paths:
               examples:
                 Example-1:
                   $ref: '#/components/examples/500-error-response'
-    parameters:
-    - schema:
-        type: string
-      name: accountType
-      in: path
-      required: true
-      description: type of bank account (consumer or business)
-    - $ref: '#/components/parameters/SubAppHeader'
 components:
   schemas:
+    ApiResponseOfGetCategorisedTransactionsRequest:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            tracingId:
+              type: string
+            count:
+              type: integer
+              description: Total number of categorised transactions available
+            pageCount:
+              type: integer
+              description: Total number of pages available, calculated based on the limit per page sent in the request.
+        data:
+          type: object
+          required:
+          - transactions
+          properties:
+            transactions:
+              type: array
+              items:
+                type: object
+                required:
+                - enrichment
+                - date
+                - description
+                - transactionAmount
+                properties:
+                  enrichment:
+                    type: object
+                    description: Enrichment/Categorisation data
+                    required:
+                    - transactionHash
+                    - categorisation
+                    properties:
+                      transactionHash:
+                        type: object
+                        description: A unique identifier for the transaction that was generated by Yapily. It is a hash of some transaction attributes that is useful when no other identifier is present for instance.
+                        required:
+                        - hash
+                        properties:
+                          hash:
+                            type: string
+                      categorisation:
+                        type: object
+                        description: Categories associated with the transaction (see [categories list](/data/data-plus/categorisation-list))
+                        required:
+                        - categories
+                        properties:
+                          categories:
+                            type: array
+                            items:
+                              type: string
+                      merchant:
+                        type: object
+                        description: Processed merchant information
+                        properties:
+                          id:
+                            type: string
+                            description: The unique identifier for the merchant
+                          name:
+                            type: string
+                            description: The familiar name of the merchant (eg. 'Waitrose', 'Uber')
+                          logo:
+                            type: string
+                            description: The logo of the merchant, formatted as a URL
+                  recurrence:
+                    type: string
+                    description: Processed type of recurrence for the transaction (eg. 'one off', 'subscription')
+                  paymentProcessor:
+                    type: string
+                    description: Processed payment provider for the transaction (eg. 'PayPal')
+                  location:
+                    type: string
+                    description: Processed location of the transaction/merchant derived from the transaction's description, formatted as an address
+                  merchant:
+                    type: object
+                    description: Generic merchant information
+                    properties:
+                      merchantCategoryCode:
+                        type: string
+                        description: An ISO 18245 code specifying the goods and services that the merchant provides (eg. `5411` for Grocery Stores and Supermarkets)
+                  id:
+                    type: string
+                    description: __Conditional.__ An identifier for the transaction retrieved from Yapily AIS (ie. present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation))
+                  date:
+                    type: string
+                    format: date-time
+                    description: The date and time when the transaction happened
+                  description:
+                    type: string
+                    description: The description associated with the transaction
+                  transactionAmount:
+                    type: object
+                    description: The amount associated with the transaction
+                    required:
+                    - amount
+                    - currency
+                    properties:
+                      amount:
+                        type: number
+                        description: The monetary amount (a positive value implies _incoming_ transaction and a negative value implies _outgoing_ transaction)
+                      currency:
+                        type: string
+                        description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+                  bookingDateTime:
+                    type: string
+                    format: date-time
+                    description: '__Conditional.__ The date and time when the transaction was booked
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  valueDateTime:
+                    type: string
+                    format: date-time
+                    description: '__Conditional.__ The date and time when the funds either cease to be available (for _outgoing_ transactions) or become available to the account owner (for _incoming_ transactions)
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  status:
+                    type: string
+                    description: '__Conditional.__ The status of the transaction. Enum: `BOOKED`, `PENDING`
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  amount:
+                    type: number
+                    description: '__Conditional.__ The monetary amount (a positive value implies _incoming_ transaction and a negative value implies _outgoing_ transaction)
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  currency:
+                    type: string
+                    description: '__Conditional.__ The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  reference:
+                    type: string
+                    description: '__Conditional.__ The reference associated with the transaction
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                  transactionInformation:
+                    type: array
+                    description: '__Conditional.__ Other details associated with the transaction. This is narrative data, caught as unstructured text.
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                    items:
+                      type: string
+                  proprietaryBankTransactionCode:
+                    type: object
+                    description: '__Conditional.__ A transaction code that is proprietary to the issuer institution
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                    properties:
+                      code:
+                        type: string
+                      issuer:
+                        type: string
+                  isoBankTransactionCode:
+                    type: object
+                    description: '__Conditional.__ The ISO 20022 codes specifying the type of the transaction (eg. domain of ''Payments'', family of ''Issued Credit Transfers'', and sub-family of ''Domestic Credit Transfer'')
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                    properties:
+                      domainCode:
+                        type: object
+                        description: The domain of the transaction
+                        properties:
+                          code:
+                            type: string
+                            description: Unique identifier of the ISO code
+                          name:
+                            type: string
+                            description: Name of the ISO code
+                      familyCode:
+                        type: object
+                        description: The family of the transaction
+                        properties:
+                          code:
+                            type: string
+                            description: Unique identifier of the ISO code
+                          name:
+                            type: string
+                            description: Name of the ISO code
+                      subFamilyCode:
+                        type: object
+                        description: The sub-family of the transaction
+                        properties:
+                          code:
+                            type: string
+                            description: Unique identifier of the ISO code
+                          name:
+                            type: string
+                            description: Name of the ISO code
+                  balance:
+                    type: object
+                    description: '__Conditional.__ The account balance around the time of the transaction (the exact timing is dictated by the balance type)
+
+
+                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
+                    properties:
+                      type:
+                        type: string
+                        description: 'Enum: `CLOSING_AVAILABLE`, `CLOSING_BOOKED`, `CLOSING_CLEARED`, `EXPECTED`, `FORWARD_AVAILABLE`, `INFORMATION`, `INTERIM_AVAILABLE`, `INTERIM_BOOKED`, `INTERIM_CLEARED`, `OPENING_AVAILABLE`, `OPENING_BOOKED`, `OPENING_CLEARED`, `PREVIOUSLY_CLOSED_BOOKED`, `AUTHORISED`, `OTHER`, `UNKNOWN`'
+                      balanceAmount:
+                        type: object
+                        properties:
+                          amount:
+                            type: integer
+                          currency:
+                            type: string
+        links:
+          type: object
+          properties:
+            first:
+              type: string
+            prev:
+              type: string
+            self:
+              type: string
+            next:
+              type: string
+            last:
+              type: string
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -571,8 +788,7 @@ components:
                     description: Category of the issue
                   code:
                     type: string
-                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes
-                      pelase check our documentation
+                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes pelase check our documentation
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
@@ -590,248 +806,6 @@ components:
             categorisationId:
               type: string
               format: uuid
-    ApiResponseOfGetCategorisedTransactionsRequest:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            tracingId:
-              type: string
-            count:
-              type: integer
-              description: Total number of categorised transactions available
-            pageCount:
-              type: integer
-              description: Total number of pages available, calculated based on the limit per page sent in the request.
-        data:
-          type: object
-          required:
-          - transactions
-          properties:
-            transactions:
-              type: array
-              items:
-                type: object
-                required:
-                - enrichment
-                - date
-                - description
-                - transactionAmount
-                properties:
-                  enrichment:
-                    type: object
-                    description: Enrichment/Categorisation data
-                    required:
-                    - transactionHash
-                    - categorisation
-                    properties:
-                      transactionHash:
-                        type: object
-                        description: A unique identifier for the transaction that was generated by Yapily. It is a hash of
-                          some transaction attributes that is useful when no other identifier is present for instance.
-                        required:
-                        - hash
-                        properties:
-                          hash:
-                            type: string
-                      categorisation:
-                        type: object
-                        description: Categories associated with the transaction (see [categories list](/data/data-plus/categorisation-list))
-                        required:
-                        - categories
-                        properties:
-                          categories:
-                            type: array
-                            items:
-                              type: string
-                      merchant:
-                        type: object
-                        description: Processed merchant information
-                        properties:
-                          id:
-                            type: string
-                            description: The unique identifier for the merchant
-                          name:
-                            type: string
-                            description: The familiar name of the merchant (eg. 'Waitrose', 'Uber')
-                          logo:
-                            type: string
-                            description: The logo of the merchant, formatted as a URL
-                  recurrence:
-                    type: string
-                    description: Processed type of recurrence for the transaction (eg. 'one off', 'subscription')
-                  paymentProcessor:
-                    type: string
-                    description: Processed payment provider for the transaction (eg. 'PayPal')
-                  location:
-                    type: string
-                    description: Processed location of the transaction/merchant derived from the transaction's description,
-                      formatted as an address
-                  merchant:
-                    type: object
-                    description: Generic merchant information
-                    properties:
-                      merchantCategoryCode:
-                        type: string
-                        description: An ISO 18245 code specifying the goods and services that the merchant provides (eg. `5411`
-                          for Grocery Stores and Supermarkets)
-                  id:
-                    type: string
-                    description: __Conditional.__ An identifier for the transaction retrieved from Yapily AIS (ie. present
-                      when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation))
-                  date:
-                    type: string
-                    format: date-time
-                    description: The date and time when the transaction happened
-                  description:
-                    type: string
-                    description: The description associated with the transaction
-                  transactionAmount:
-                    type: object
-                    description: The amount associated with the transaction
-                    required:
-                    - amount
-                    - currency
-                    properties:
-                      amount:
-                        type: number
-                        description: The monetary amount (a positive value implies _incoming_ transaction and a negative value
-                          implies _outgoing_ transaction)
-                      currency:
-                        type: string
-                        description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-                  bookingDateTime:
-                    type: string
-                    format: date-time
-                    description: '__Conditional.__ The date and time when the transaction was booked
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  valueDateTime:
-                    type: string
-                    format: date-time
-                    description: '__Conditional.__ The date and time when the funds either cease to be available (for _outgoing_
-                      transactions) or become available to the account owner (for _incoming_ transactions)
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  status:
-                    type: string
-                    description: '__Conditional.__ The status of the transaction. Enum: `BOOKED`, `PENDING`
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  amount:
-                    type: number
-                    description: '__Conditional.__ The monetary amount (a positive value implies _incoming_ transaction and
-                      a negative value implies _outgoing_ transaction)
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  currency:
-                    type: string
-                    description: '__Conditional.__ The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  reference:
-                    type: string
-                    description: '__Conditional.__ The reference associated with the transaction
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                  transactionInformation:
-                    type: array
-                    description: '__Conditional.__ Other details associated with the transaction. This is narrative data,
-                      caught as unstructured text.
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                    items:
-                      type: string
-                  proprietaryBankTransactionCode:
-                    type: object
-                    description: '__Conditional.__ A transaction code that is proprietary to the issuer institution
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                    properties:
-                      code:
-                        type: string
-                      issuer:
-                        type: string
-                  isoBankTransactionCode:
-                    type: object
-                    description: '__Conditional.__ The ISO 20022 codes specifying the type of the transaction (eg. domain
-                      of ''Payments'', family of ''Issued Credit Transfers'', and sub-family of ''Domestic Credit Transfer'')
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                    properties:
-                      domainCode:
-                        type: object
-                        description: The domain of the transaction
-                        properties:
-                          code:
-                            type: string
-                            description: Unique identifier of the ISO code
-                          name:
-                            type: string
-                            description: Name of the ISO code
-                      familyCode:
-                        type: object
-                        description: The family of the transaction
-                        properties:
-                          code:
-                            type: string
-                            description: Unique identifier of the ISO code
-                          name:
-                            type: string
-                            description: Name of the ISO code
-                      subFamilyCode:
-                        type: object
-                        description: The sub-family of the transaction
-                        properties:
-                          code:
-                            type: string
-                            description: Unique identifier of the ISO code
-                          name:
-                            type: string
-                            description: Name of the ISO code
-                  balance:
-                    type: object
-                    description: '__Conditional.__ The account balance around the time of the transaction (the exact timing
-                      is dictated by the balance type)
-
-
-                      This may be present when using [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation)'
-                    properties:
-                      type:
-                        type: string
-                        description: 'Enum: `CLOSING_AVAILABLE`, `CLOSING_BOOKED`, `CLOSING_CLEARED`, `EXPECTED`, `FORWARD_AVAILABLE`,
-                          `INFORMATION`, `INTERIM_AVAILABLE`, `INTERIM_BOOKED`, `INTERIM_CLEARED`, `OPENING_AVAILABLE`, `OPENING_BOOKED`,
-                          `OPENING_CLEARED`, `PREVIOUSLY_CLOSED_BOOKED`, `AUTHORISED`, `OTHER`, `UNKNOWN`'
-                      balanceAmount:
-                        type: object
-                        properties:
-                          amount:
-                            type: integer
-                          currency:
-                            type: string
-        links:
-          type: object
-          properties:
-            first:
-              type: string
-            prev:
-              type: string
-            self:
-              type: string
-            next:
-              type: string
-            last:
-              type: string
     GetCategoriesResponse:
       type: object
       properties:
@@ -841,8 +815,6 @@ components:
             type: string
   securitySchemes:
     basicAuth:
-      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password.
-        Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication)
-        for details.
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
       scheme: basic
       type: http

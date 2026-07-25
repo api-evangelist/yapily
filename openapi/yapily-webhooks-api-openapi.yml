@@ -1,0 +1,463 @@
+openapi: 3.0.1
+info:
+  title: Yapily Beneficiaries Application Beneficiaries Webhooks API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: Webhook endpoints
+  name: Webhooks
+paths:
+  /webhook/events/categories:
+    get:
+      tags:
+      - Webhooks
+      description: Retrieve a comprehensive list of event categories that can be registered for webhook notifications in your application. These event categories can be used to subscribe a webhook to specific events, enabling your application to receive real-time notifications when these events occur.
+      summary: Get Webhook Categories
+      operationId: getWebhookEventsCategories
+      responses:
+        '200':
+          description: Event Categories
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                SuccessfulResponse:
+                  value:
+                    metadata:
+                      tracingId: f2425b79-974d-43f8-a5a2-ec771b2d9297
+                    data:
+                      categories:
+                      - name: payment.state.success
+                        description: An event sent when payment reaches a terminal successful status
+                      - name: payment.state.failed
+                        description: An event sent when payment reaches a terminal failed status
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+                  data:
+                    type: object
+                    properties:
+                      categories:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CategoryStructure'
+        '401':
+          description: Authentication Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/401-error-response'
+        '400':
+          description: Validation Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/500-error-response'
+  /webhook/events:
+    post:
+      tags:
+      - Webhooks
+      description: Register a webhook to one or multiple event categories to receive real-time notifications when specific events occur in your application.
+      summary: Register Webhook Event
+      operationId: registerWebhook
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              type: object
+              required:
+              - applicationId
+              - categories
+              - callbackUrl
+              properties:
+                applicationId:
+                  type: string
+                  format: uuid
+                categories:
+                  type: array
+                  description: One or more event categories for which the webhook will be triggered
+                  items:
+                    type: string
+                callbackUrl:
+                  type: object
+                  description: Callback URLs where events will be sent. These must not contain any query parameters.
+                  required:
+                  - main
+                  properties:
+                    main:
+                      type: object
+                      description: Primary URL where events will be sent. It must not contain any query parameters.
+                      required:
+                      - url
+                      properties:
+                        url:
+                          type: string
+                          description: A valid URL without query parameters.
+                    backup:
+                      type: object
+                      description: Secondary URL where events will be sent whenever the primary URL is not responding. It must not contain any query parameters.
+                      properties:
+                        url:
+                          type: string
+                          description: A valid URL without query parameters.
+                metadata:
+                  $ref: '#/components/schemas/WebhookMetadata'
+      responses:
+        '201':
+          $ref: '#/components/responses/WebhookDetailsWithSecret'
+        '401':
+          description: Authentication Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/401-error-response'
+        '400':
+          description: Validation Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '406':
+          description: Maximum number of registered webhooks has been reached
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/406-error-response'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/500-error-response'
+      parameters:
+      - $ref: '#/components/parameters/SubAppHeader'
+      x-mint:
+        content: '<Info>Learn more: [Webhook Setup](/tools-and-services/webhooks/get-started)</Info>'
+    get:
+      tags:
+      - Webhooks
+      description: Retrieve the list of registered webhooks for your application
+      summary: Retrieve All Webhook Events
+      operationId: getRegisteredWebhooks
+      responses:
+        '200':
+          description: Registered Webhooks
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+                  data:
+                    type: object
+                    properties:
+                      active:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/RegisteredWebhookWithStatus'
+        '401':
+          description: Authentication Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/401-error-response'
+        '400':
+          description: Validation Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/500-error-response'
+      parameters:
+      - $ref: '#/components/parameters/SubAppHeader'
+  /webhook/events/{webhook_id}:
+    delete:
+      tags:
+      - Webhooks
+      description: Delete a webhook event for a specified webhook ID, unregistering it from receiving any further notifications for the subscribed event categories in your application.
+      summary: Delete Webhook Event
+      operationId: deleteWebhook
+      parameters:
+      - $ref: '#/components/parameters/SubAppHeader'
+      - $ref: '#/components/parameters/WebhookIdParameter'
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+                  data:
+                    $ref: '#/components/schemas/RegisteredWebhook'
+        '401':
+          description: Authentication Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/401-error-response'
+        '400':
+          description: Validation Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '404':
+          description: Webhook ID not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/404-error-response'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/500-error-response'
+  /webhook/secrets/{webhook_id}:
+    post:
+      tags:
+      - Webhooks
+      description: Reset webhook secret for a webhook that is already registered to your application
+      summary: Reset Webhook Secret
+      operationId: webhookSecretReset
+      parameters:
+      - $ref: '#/components/parameters/SubAppHeader'
+      - $ref: '#/components/parameters/WebhookIdParameter'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              type: object
+              required:
+              - delay
+              properties:
+                delay:
+                  type: number
+                  description: delay in seconds
+                  minimum: 0
+                  maximum: 86400
+      responses:
+        '201':
+          $ref: '#/components/responses/WebhookDetailsWithSecret'
+        '401':
+          description: Authentication Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/401-error-response'
+        '400':
+          description: Validation Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/400-error-response'
+        '404':
+          description: Webhook ID not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/404-error-response'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponseV2'
+              examples:
+                Example-1:
+                  $ref: '#/components/examples/500-error-response'
+      x-mint:
+        content: '<Info>Learn more: [Webhook Setup](/tools-and-services/webhooks/get-started)</Info>'
+components:
+  schemas:
+    RegisteredWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This webhook's ID, used to update or remove the webhook
+          format: uuid
+        applicationId:
+          type: string
+          format: uuid
+        categories:
+          type: array
+          items:
+            type: string
+            description: One or more event categories for which the webhook will be triggered
+        callbackUrl:
+          type: object
+          description: Callback URLs where events will be sent
+          properties:
+            main:
+              type: object
+              description: Primary URL where events will be sent
+              properties:
+                url:
+                  type: string
+            backup:
+              type: object
+              description: Secondary URL where events will be sent whenever the primary URL is not responding
+              properties:
+                url:
+                  type: string
+        metadata:
+          $ref: '#/components/schemas/WebhookMetadata'
+    RegisteredWebhookWithStatus:
+      allOf:
+      - $ref: '#/components/schemas/RegisteredWebhook'
+      - type: object
+        properties:
+          status:
+            $ref: '#/components/schemas/WebhookStatusType'
+    WebhookStatusType:
+      type: string
+      enum:
+      - active
+      - paused
+    WebhookMetadata:
+      type: object
+      description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
+      additionalProperties:
+        type: string
+    CategoryStructure:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    ApiErrorResponseV2:
+      type: object
+      description: API Error Response
+      properties:
+        error:
+          required:
+          - tracingId
+          - code
+          - status
+          - issues
+          type: object
+          properties:
+            tracingId:
+              type: string
+              description: Unique identifier of the request, used by Yapily for support purposes
+            code:
+              type: integer
+              format: int32
+              description: Numeric HTTP status code associated with the error
+            status:
+              type: string
+              description: Textual description of the HTTP status
+            supportUrl:
+              type: string
+              description: Link to where further information regarding the error can be found
+            source:
+              type: string
+              description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
+            issues:
+              type: array
+              description: List of issues relating to the error
+              items:
+                required:
+                - message
+                - code
+                type: object
+                description: Detailed information regarding the issue that was experienced during processing of the request
+                properties:
+                  type:
+                    type: string
+                    description: Category of the issue
+                  code:
+                    type: string
+                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes pelase check our documentation
+                  message:
+                    type: string
+                    description: Human readable description of the issue that was experienced
+    Metadata:
+      type: object
+      properties:
+        tracingId:
+          type: string
+          format: uuid
+          description: yapily tracing id
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
+      scheme: basic
+      type: http

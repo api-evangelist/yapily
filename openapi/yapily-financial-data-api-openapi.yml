@@ -1,0 +1,6204 @@
+openapi: 3.0.1
+info:
+  title: Yapily Beneficiaries Application Beneficiaries Financial Data API
+  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  version: 12.4.0
+  contact:
+    name: Yapily Support
+    url: https://docs.yapily.com/resources/support
+    email: support@yapily.com
+servers:
+- url: https://api.yapily.com
+security:
+- basicAuth: []
+tags:
+- description: In order to access a user's Financial Data, you are required to request an [Authorisation](#tag/Authorisations) from the user to share the account information the bank has. Once a `consent-token` is obtained, you can call the necessary Financial Data endpoint(s) to retrieve the user's data.
+  name: Financial Data
+paths:
+  /accounts:
+    get:
+      description: 'Returns all accounts and balances for the end user associated with the presented consent token.
+
+
+        Feature: `ACCOUNTS`'
+      operationId: getAccounts
+      x-mint:
+        content: '<Info>Learn more: [Balance Types](/data/financial-data-resources/accounts-and-balances#balance-types)</Info>'
+      parameters:
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-corporate-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-ip-address
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-accounts-response'
+              schema:
+                $ref: '#/components/schemas/AccountApiListResponse'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Accounts
+      tags:
+      - Financial Data
+  /accounts/{accountId}:
+    get:
+      description: 'Returns the account and balance information for a user''s specified account.
+
+
+        Feature: `ACCOUNT`'
+      operationId: getAccount
+      x-mint:
+        content: '<Info>Learn more: [Main Balance Selection](/data/financial-data-resources/accounts-and-balances#main-balance)</Info>'
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-corporate-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-ip-address
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-account-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfAccount'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account
+      tags:
+      - Financial Data
+  /accounts/{accountId}/balances:
+    get:
+      description: 'Returns the balance for the end user associated with the presented consent token.
+
+
+        Feature: `ACCOUNT_BALANCES`'
+      operationId: getAccountBalances
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-corporate-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-ip-address
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example response:
+                  $ref: '#/components/examples/example-acc-balance-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfBalances'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Balances
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Balance Types](/data/financial-data-resources/accounts-and-balances#balance-types) explained</Info>'
+  /accounts/{accountId}/beneficiaries:
+    get:
+      description: 'Returns all the beneficiaries of a user''s account.
+
+
+        Feature: `ACCOUNT_BENEFICIARIES`'
+      operationId: getBeneficiaries
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-acc-beneficiaries-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfBeneficiary'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Beneficiaries
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Data Access Restrictions](/data/financial-data-resources/data-restrictions#uk-banks)</Info>'
+  /accounts/{accountId}/direct-debits:
+    get:
+      description: 'Returns the list of direct debits for an account.
+
+
+        Feature: `ACCOUNT_DIRECT_DEBITS`'
+      operationId: getAccountDirectDebits
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: __Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-acc-direct-debits-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfDirectDebitResponse'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Direct Debits
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Data Access Restrictions](/data/financial-data-resources/data-restrictions#uk-banks)</Info>'
+  /accounts/{accountId}/periodic-payments:
+    get:
+      description: 'Returns the list of periodic payments (standing orders in the UK) for an account.
+
+
+        Feature: `ACCOUNT_PERIODIC_PAYMENTS`'
+      operationId: getAccountPeriodicPayments
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: __Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-acc-periodic-payments-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfPaymentResponse'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Periodic Payments
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Data Access Restrictions](/data/financial-data-resources/data-restrictions#uk-banks)</Info>'
+  /accounts/{accountId}/scheduled-payments:
+    get:
+      description: 'Returns the list of scheduled payments for an account.
+
+
+        Feature: `ACCOUNT_SCHEDULED_PAYMENTS`'
+      operationId: getAccountScheduledPayments
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: __Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                OBIE Example Response:
+                  $ref: '#/components/examples/obie-example-acc-scheduled-payments-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfPaymentResponse'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Scheduled Payments
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Data Access Restrictions](/data/financial-data-resources/data-restrictions#uk-banks)</Info>'
+  /accounts/{accountId}/statements:
+    get:
+      description: 'Returns the list of statements for an account.
+
+
+        Feature: `ACCOUNT_STATEMENTS`'
+      operationId: getStatements
+      parameters:
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: '__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd''T''HH:mm:ss.SSSZ). '
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).
+        in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - description: __Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending
+        in: query
+        name: sort
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortEnum'
+      - description: __Optional__. The number of transaction records to be skipped. Used primarily with paginated results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/account-statements-example-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfAccountStatement'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Statements
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Financial Data Features](/data/financial-data-resources/financial-data-features) for statement availability</Info>'
+  /accounts/{accountId}/statements/{statementId}:
+    get:
+      description: 'Returns a statement for an account.
+
+
+        Feature: `ACCOUNT_STATEMENT`'
+      operationId: getStatement
+      parameters:
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The statement Id of the statement file.
+        in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  description: Example Response
+                  value:
+                    meta:
+                      tracingId: 8bacaae3025647efa1891157993e32fb
+                    data:
+                      id: '700014000000000000000002'
+                      startDateTime: '2017-08-01T00:00:00Z'
+                      endDateTime: '2017-08-31T23:59:59Z'
+                      creationDateTime: '2017-09-01T00:00:00Z'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfAccountStatement'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Statement
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Financial Data Features](/data/financial-data-resources/financial-data-features)</Info>'
+  /accounts/{accountId}/statements/{statementId}/file:
+    get:
+      description: 'Returns a PDF file of a statement for an account.
+
+
+        Feature: `ACCOUNT_STATEMENT_FILE`'
+      operationId: getStatementFile
+      parameters:
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The statement Id of the statement file.
+        in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Statement File
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Financial Data Features](/data/financial-data-resources/financial-data-features)</Info>'
+  /accounts/{accountId}/transactions:
+    get:
+      description: 'Returns the account transactions for an account.
+
+
+        Feature: `ACCOUNT_TRANSACTIONS`'
+      operationId: getTransactions
+      x-mint:
+        content: '<Info>Learn more: [Pagination](/data/financial-data-resources/pagination) for handling large transaction sets (1000 limit default)</Info>'
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-corporate-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-ip-address
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: '__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd''T''HH:mm:ss.SSSZ). '
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).
+        in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - description: __Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending
+        in: query
+        name: sort
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortEnum'
+      - description: __Optional__. The number of transaction records to be skipped. Used primarily with paginated results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - description: __Optional__. This property is not currently in use.
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/account-transactions-example-response'
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfTransaction'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Account Transactions
+      tags:
+      - Financial Data
+  /identity:
+    get:
+      description: 'Returns the identity information for an account.
+
+
+        Feature: `IDENTITY`'
+      operationId: getIdentity
+      parameters:
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/identity-example-response'
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfIdentity'
+          description: Ok
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  $ref: '#/components/examples/error-response-code-401'
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Identity
+      tags:
+      - Financial Data
+      x-mint:
+        content: '<Info>Learn more: [Data Access Restrictions](/data/financial-data-resources/data-restrictions#uk-banks)</Info>'
+  /accounts/{accountId}/real-time/transactions:
+    get:
+      description: 'Used to get the account transactions for an account in real time with cursor pagination
+
+
+        Feature: `ACCOUNT_TRANSACTIONS`'
+      operationId: getRealTimeTransactions
+      x-mint:
+        content: '<Info>Learn more: [Cursor-based Pagination](/data/financial-data-resources/pagination#cursor-based-pagination) - This endpoint uses cursor pagination (beta)</Info>'
+      x-beta: true
+      parameters:
+      - description: __Mandatory__. The account Id of the user's bank account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: __Mandatory__. The `consent-token` containing the user's authorisation to make the request.
+        example: '{consentToken}'
+        in: header
+        name: consent
+        required: true
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-corporate-id
+        required: false
+        schema:
+          type: string
+      - description: "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
+        in: header
+        name: psu-ip-address
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SubAppHeader'
+      - description: __Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).
+        in: query
+        name: from
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).
+        in: query
+        name: before
+        required: false
+        schema:
+          type: string
+      - description: __Optional__. The cursor token supplied by a previous call. The cursor represents a location in the data set.
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Example Response:
+                  description: Example Response
+                  value:
+                    meta:
+                      tracingId: 488ce8243ee74a378be722ffffec8f7f
+                      count: 1
+                    data:
+                    - id: 49d6e5c6-0130-46e3-884b-1b185432d9e0
+                      date: '2021-05-06T17:44:34.589Z'
+                      bookingDateTime: '2021-05-06T17:44:34.589Z'
+                      valueDateTime: '2021-05-06T17:44:34.589Z'
+                      status: BOOKED
+                      transactionAmount:
+                        amount: -100.23
+                        currency: GBP
+                      reference: '0'
+                      description: 'Debit for Payment Id: sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60'
+                      transactionInformation:
+                      - 'Debit for Payment Id: sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60'
+                      isoBankTransactionCode:
+                        domainCode:
+                          code: PMNT
+                          name: Payments
+                        familyCode:
+                          code: ICDT
+                          name: Issued Credit Transfers
+                        subFamilyCode:
+                          code: DMCT
+                          name: Domestic Credit Transfer
+                      proprietaryBankTransactionCode:
+                        code: PMT
+                        issuer: modelo-sandbox
+                      balance:
+                        type: CLOSING_AVAILABLE
+                        balanceAmount:
+                          amount: 426.53
+                          currency: GBP
+                    links:
+                      first: https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=aaa
+                      prev: https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=bbb
+                      self: https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=ccc
+                      next: https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=ddd
+                      last: https://api.yapily.com/accounts/700004000000000000000002/transactions?cursor=zzz
+              schema:
+                $ref: '#/components/schemas/ApiListResponseOfRealTimeTransaction'
+          description: Ok
+        '401':
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  description: Error Response
+                  value:
+                    error:
+                      tracingId: 0c2d0973bdd24224a65e5d0f7d1b6154
+                      code: 401
+                      status: UNAUTHORIZED
+                      supportUrl: https://support.yapily.com/
+                      source: YAPILY
+                      issues:
+                      - type: CREDENTIALS
+                        code: CREDENTIALS_MISSING
+                        message: Authentication header not present
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+        default:
+          content:
+            application/json;charset=UTF-8:
+              examples:
+                Error Response:
+                  description: Error Response
+                  value:
+                    error:
+                      tracingId: 0c2d0973bdd24224a65e5d0f7d1b6154
+                      code: 400
+                      status: BAD_REQUEST
+                      supportUrl: https://support.yapily.com/
+                      source: YAPILY
+                      issues:
+                      - type: BAD_REQUEST
+                        code: BAD_REQUEST
+                        message: The server could not understand the request due to invalid syntax
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+          description: Error Response
+      summary: Get Real Time Account Transactions
+      tags:
+      - Financial Data
+components:
+  schemas:
+    ApiListResponseOfTransaction:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListTransaction'
+        tracingId:
+          type: string
+          writeOnly: true
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the payment.
+        institutionConsentId:
+          type: string
+          description: Identification of the consent at the Institution.
+        paymentIdempotencyId:
+          type: string
+          description: __Mandatory__. A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+        paymentLifecycleId:
+          type: string
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        statusDetails:
+          $ref: '#/components/schemas/PaymentStatusDetails'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        payeeDetails:
+          $ref: '#/components/schemas/Payee'
+        reference:
+          type: string
+          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+        amount:
+          type: number
+          description: Monetary amount.
+        currency:
+          type: string
+          description: Currency the payment amount is denoted in. Specified as a 3-letter ISO 4217 code.
+        amountDetails:
+          $ref: '#/components/schemas/Amount'
+        createdAt:
+          type: string
+          description: Date and time of when the payment request was created.
+          format: date-time
+        firstPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        firstPaymentDateTime:
+          type: string
+          description: Date and time of when the first payment request is to be made.
+          format: date-time
+        nextPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        nextPaymentDateTime:
+          type: string
+          description: __Conditional__. Defines when the recurring payment is to be made.
+          format: date-time
+        finalPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        finalPaymentDateTime:
+          type: string
+          description: Date and time of when the final payment is to be made.
+          format: date-time
+        numberOfPayments:
+          type: integer
+          description: Number of recurring payment requests to be made as part of the instructed payment schedule.
+          format: int32
+        previousPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        previousPaymentDateTime:
+          type: string
+          description: Date and time of when the previous payment request was posted.
+          format: date-time
+        chargeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentChargeDetails'
+        scheduledPaymentType:
+          type: string
+          description: Details the execution type and the payment date between the payer and the payee.
+        scheduledPaymentDateTime:
+          type: string
+          description: Date and time of when the scheduled payment request will be made.
+          format: date-time
+        frequency:
+          $ref: '#/components/schemas/FrequencyResponse'
+        currencyOfTransfer:
+          type: string
+          description: __Mandatory__. The currency to be transferred to the payee. This may differ from the currency the payment is denoted in and the currency of the payer's account. Specified as a 3-letter code (ISO 4217).
+        purpose:
+          type: string
+          description: Specifies the external purpose code for the `Institution` - IS0 20022.
+        priority:
+          $ref: '#/components/schemas/PriorityCodeEnum'
+        exchangeRate:
+          $ref: '#/components/schemas/ExchangeRateInformationResponse'
+        refundAccount:
+          $ref: '#/components/schemas/RefundAccount'
+        bulkAmountSum:
+          type: number
+    ApiListResponseOfRealTimeTransaction:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMetaWithCount'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealTimeTransaction'
+        links:
+          type: object
+          properties:
+            first:
+              type: string
+              description: A cursor or link to the first page in the data set.
+            prev:
+              type: string
+              description: A cursor or link to the previous page in the data set.
+            self:
+              type: string
+              description: A cursor or link to the current page in the data set.
+            next:
+              type: string
+              description: A cursor or link to the next page in the data set.
+            last:
+              type: string
+              description: A cursor or link to the last page in the data set.
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ExchangeRateInformationResponse:
+      required:
+      - rateType
+      - unitCurrency
+      type: object
+      properties:
+        unitCurrency:
+          type: string
+          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
+        rate:
+          type: number
+          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+        rateType:
+          $ref: '#/components/schemas/RateTypeEnum'
+        foreignExchangeContractReference:
+          type: string
+          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
+        exchangeRateExpiryDate:
+          type: string
+          format: date-time
+    IsoBankTransactionCode:
+      type: object
+      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
+      properties:
+        domainCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        familyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        subFamilyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+    PaymentIsoStatusCodeEnum:
+      type: string
+      description: The ISO 20022 `PaymentStatusCode`.
+      example: ACCC
+      enum:
+      - ACCC
+      - ACCP
+      - ACSC
+      - ACSP
+      - ACTC
+      - ACWC
+      - ACWP
+      - RCVD
+      - PDNG
+      - RJCT
+      - CANC
+      - ACFC
+      - PATC
+      - PART
+      - ACCO
+    IdentityAddress:
+      type: object
+      properties:
+        addressLines:
+          type: array
+          items:
+            type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        streetName:
+          type: string
+        buildingNumber:
+          type: string
+        type:
+          $ref: '#/components/schemas/AddressTypeEnum'
+        county:
+          type: string
+    FilteredClientPayloadListTransaction:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    FrequencyResponse:
+      type: object
+      description: __Mandatory__. Defines the intervals at which payment should be made.
+      properties:
+        frequencyType:
+          $ref: '#/components/schemas/FrequencyEnumExtended'
+        intervalWeek:
+          type: integer
+          description: The weekly intervals at which a payment will be made. e.g. 1 = Every months, 2 = Every 2 months.
+          format: int32
+        intervalMonth:
+          type: integer
+          description: The monthly intervals at which a payment will be made. e.g. 1 = Every month, 2 = Every 2 months
+          format: int32
+        executionDay:
+          type: integer
+          description: The day on which a payment will be made, according to the weekly or monthly interval.
+          format: int32
+    AddressTypeEnum:
+      title: Address Type
+      type: string
+      description: __Optional__. The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
+    RateTypeEnum:
+      type: string
+      description: __Mandatory__. The type used to complete the currency exchange.
+      enum:
+      - ACTUAL
+      - AGREED
+      - INDICATIVE
+    IsoCodeDetails:
+      type: object
+      description: __Mandatory__. Details the identification of the ISO code.
+      properties:
+        code:
+          default: UNKNOWN
+          description: __Mandatory__. Unique identifier of the ISO code.
+          type: string
+        name:
+          default: UNKNOWN
+          description: __Mandatory__. Name of the ISO Code.
+          type: string
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    ApiListResponseOfBeneficiary:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    AccountBalance:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountBalanceType'
+        dateTime:
+          type: string
+          format: date-time
+          description: Date and time of the reported balance.
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+        creditLineIncluded:
+          type: boolean
+          description: __Optional__. Indicates whether any credit lines are included in the balance.
+        creditLines:
+          type: array
+          description: __Optional__. Specifies the type of balance.
+          items:
+            $ref: '#/components/schemas/CreditLine'
+    Account:
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the account.
+          type: string
+        type:
+          type: string
+          description: Specifies the type of account e.g. (BUSINESS_CURRENT).
+        description:
+          description: Product name as defined by the financial institution for this account
+          type: string
+        balance:
+          type: number
+          description: "Main / headline balance for the account. \n\n Use of this field is recommended as fallback only. Instead, use of the typed balances (accountBalances) is recommended."
+        currency:
+          description: "Currency the bank account balance is denoted in. \n\n Specified as a 3-letter ISO 4217 currency code"
+          type: string
+        usageType:
+          $ref: '#/components/schemas/UsageType'
+        accountType:
+          $ref: '#/components/schemas/AccountType'
+        nickname:
+          description: "Nickname of the account that was provided by the account owner. \n\n May be used to aid identification of the account."
+          type: string
+        details:
+          description: Supplementary specifications that might be provided by the Bank. These provide further characteristics about the account.
+          type: string
+        accountNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountName'
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        accountBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+        consolidatedAccountInformation:
+          $ref: '#/components/schemas/ConsolidatedAccountInformation'
+    PaymentChargeDetails:
+      type: object
+      description: Details the charges that will apply to the payment.
+      properties:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
+        chargeType:
+          description: __Mandatory__. Specifies the nature of the transaction charge e.g. (Bank transfer fees).
+          type: string
+        chargeTo:
+          description: __Mandatory__. States which party of the payment bears the charges.
+          type: string
+    Categorisation:
+      type: object
+      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+    RefundAccount:
+      type: object
+      description: The account to which funds should be returned if the payment is to be later refunded.
+      properties:
+        name:
+          type: string
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+    RealTimeTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date-time
+        bookingDateTime:
+          type: string
+          format: date-time
+        valueDateTime:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        transactionAmount:
+          $ref: '#/components/schemas/Amount'
+        grossAmount:
+          $ref: '#/components/schemas/Amount'
+        currencyExchange:
+          $ref: '#/components/schemas/CurrencyExchange'
+        chargeDetails:
+          $ref: '#/components/schemas/TransactionChargeDetails'
+        reference:
+          type: string
+        statementReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatementReference'
+        description:
+          type: string
+        transactionInformation:
+          type: array
+          items:
+            type: string
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+        isoBankTransactionCode:
+          $ref: '#/components/schemas/IsoBankTransactionCode'
+        proprietaryBankTransactionCode:
+          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
+        balance:
+          $ref: '#/components/schemas/TransactionBalance'
+        payeeDetails:
+          $ref: '#/components/schemas/Payee'
+        payerDetails:
+          $ref: '#/components/schemas/Payer'
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        supplementaryData:
+          type: object
+    FilteredClientPayloadListAccountStatement:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountStatement'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    ApiListResponseOfAccountStatement:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountStatement'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListAccountStatement'
+        tracingId:
+          type: string
+          writeOnly: true
+    FilteredClientPayloadListAccount:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    MultiAuthorisation:
+      type: object
+      description: Details the additional levels of authorisation which are required from, and being managed by, the `Institution`.
+      properties:
+        status:
+          type: string
+          description: __Mandatory__. Specifies the current status of the multi-authorisation flow.
+        numberOfAuthorisationRequired:
+          type: integer
+          description: __Mandatory__. Total number of authorisations required.
+          format: int32
+        numberOfAuthorisationReceived:
+          type: integer
+          description: __Mandatory__. The total number of authorisations that have been received.
+          format: int32
+        lastUpdatedDateTime:
+          type: string
+          description: __Mandatory__. Date and time of when the authorisation was last updated.
+          format: date-time
+        expirationDateTime:
+          type: string
+          description: __Mandatory__. Date and time by when the authorisation flow must be completed before it expires and the authorisation request is terminated.
+          format: date-time
+    AccountIdentificationType:
+      title: Account Identification Type
+      type: string
+      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+      example: SORT_CODE
+      enum:
+      - SORT_CODE
+      - ACCOUNT_NUMBER
+      - IBAN
+      - BBAN
+      - BIC
+      - PAN
+      - MASKED_PAN
+      - MSISDN
+      - BSB
+      - NCC
+      - ABA
+      - ABA_WIRE
+      - ABA_ACH
+      - EMAIL
+      - ROLL_NUMBER
+      - BLZ
+      - IFS
+      - CLABE
+      - CTN
+      - BRANCH_CODE
+      - VIRTUAL_ACCOUNT_ID
+    Merchant:
+      type: object
+      description: Details of the merchant involved in the transaction.
+      properties:
+        merchantName:
+          type: string
+          description: The name of the merchant involved in the transaction.
+        merchantCategoryCode:
+          type: string
+          format: ^\d{4}$
+          description: 'Defines the underlying services and goods that the merchant provides. Specified as a 4-letter ISO 18245 code.
+
+
+            Allowed values:
+
+
+            - `0742` (Veterinary Services)
+
+            - `0763` (Agricultural Cooperatives)
+
+            - `0780` (Landscaping and Horticultural Services)
+
+            - `1520` (General Contractor/Residential Building)
+
+            - `1711` (Heating, Plumbing, Air Conditioning Contractors)
+
+            - `1731` (Electrical Contractors)
+
+            - `1740` (Masonry, Stonework, Tile Setting, Plastering, Insulation Contractors)
+
+            - `1750` (Carpentry)
+
+            - `1761` (Roof, Siding, and Sheet Metal Work Contractors)
+
+            - `1771` (Contractors, Concrete)
+
+            - `1799` (Special Trade Contractor - Not Elsewhere Classified)
+
+            - `2741` (Miscellaneous Publishing and Printing Services)
+
+            - `2791` (Typesetting, Plate Making and Related Services (Business to Business MCC))
+
+            - `2842` (Specialty Cleaning, Polishing and Sanitation Preparations (Business to Business MCC))
+
+            - `3000` (United Airlines)
+
+            - `3001` (American Airlines)
+
+            - `3002` (Pan American)
+
+            - `3003` (Eurofly Airlines)
+
+            - `3004` (Dragon Airlines)
+
+            - `3005` (British Airways)
+
+            - `3006` (Japan Air Lines)
+
+            - `3007` (Air France)
+
+            - `3008` (Lufthansa)
+
+            - `3009` (Air Canada)
+
+            - `3010` (KLM)
+
+            - `3011` (AeroFlot)
+
+            - `3012` (Qantas)
+
+            - `3013` (Alitalia)
+
+            - `3014` (Saudi Arabian Airlines)
+
+            - `3015` (SWISS)
+
+            - `3016` (SAS)
+
+            - `3017` (South African Airway)
+
+            - `3018` (Varig (Brazil))
+
+            - `3020` (Air India)
+
+            - `3021` (Air Algerie)
+
+            - `3022` (PAL AIR)
+
+            - `3023` (Mexicana)
+
+            - `3024` (Pakistan International)
+
+            - `3025` (Air New Zealand Ltd.)
+
+            - `3026` (Emirates Airlines)
+
+            - `3027` (UTA/InterAir)
+
+            - `3028` (Air Malta)
+
+            - `3029` (SN Brussels Airlines - SN BRUSSELS)
+
+            - `3030` (Aerolineas Argentinas)
+
+            - `3031` (Olympic Airways)
+
+            - `3032` (El Al)
+
+            - `3033` (Ansett Airlines)
+
+            - `3034` (ETIHADAIR)
+
+            - `3035` (TAP (Portugal))
+
+            - `3036` (VASP (Brazil))
+
+            - `3037` (EgyptAir)
+
+            - `3038` (Kuwait Airways)
+
+            - `3039` (Avianca)
+
+            - `3040` (GulfAir (Bahrain))
+
+            - `3041` (Balkan-Bulgarian)
+
+            - `3042` (FinnAir)
+
+            - `3043` (Aer Lingus)
+
+            - `3044` (Air Lanka)
+
+            - `3045` (Nigeria Airways)
+
+            - `3046` (Cruzeiro do Sul (Bra))
+
+            - `3047` (THY (Turkey))
+
+            - `3048` (Royal Air Maroc)
+
+            - `3049` (Tunis Air)
+
+            - `3050` (Icelandair)
+
+            - `3051` (Austrian Airlines)
+
+            - `3052` (LANAIR)
+
+            - `3053` (AVIACO (Spain))
+
+            - `3054` (Ladeco (Chile))
+
+            - `3055` (LAB (Bolivia))
+
+            - `3056` (JetAir)
+
+            - `3057` (Virgin America – VIR AMER)
+
+            - `3058` (Delta)
+
+            - `3059` (DBA Airlines-DBA AIR)
+
+            - `3060` (NWA Air)
+
+            - `3061` (Continental)
+
+            - `3062` (Hapag-Lloyd Express - HLX)
+
+            - `3063` (US Airways)
+
+            - `3064` (Adria Airways)
+
+            - `3065` (Airinter (AirInternational))
+
+            - `3066` (Southwest)
+
+            - `3068` (AIR STANA)
+
+            - `3069` (Sun Country Air)
+
+            - `3070` (Pacific Southwest Airlines (PSA))
+
+            - `3071` (Air British Columbia)
+
+            - `3072` (CEBU PAC)
+
+            - `3073` (Air Cal)
+
+            - `3075` (Singapore Airlines)
+
+            - `3076` (Aeromexico)
+
+            - `3077` (Thai Airways)
+
+            - `3078` (China Airlines)
+
+            - `3079` (Jetstar Airways - Jetstar)
+
+            - `3081` (NordAir)
+
+            - `3082` (Korean Airlines)
+
+            - `3083` (Air Afrique)
+
+            - `3084` (Eva Airlines)
+
+            - `3085` (Midwest Express Airlines, Inc)
+
+            - `3087` (Metro Airlines)
+
+            - `3088` (Croatia Airlines)
+
+            - `3089` (Tans Saero)
+
+            - `3090` (Uni Airways)
+
+            - `3094` (Zambia Airways)
+
+            - `3096` (Air Zimbabwe)
+
+            - `3097` (Spanair (abbreviation: SPANAIR))
+
+            - `3098` (Asiana Airlines)
+
+            - `3099` (Cathay Pacific)
+
+            - `3100` (Malaysian Airline Sys)
+
+            - `3102` (Iberia)
+
+            - `3103` (Garuda (Indonesia))
+
+            - `3105` (Piedmont)
+
+            - `3106` (Braathens S.A.F.E. (Norway))
+
+            - `3110` (Wings Airways)
+
+            - `3111` (British Midland)
+
+            - `3112` (Windward Island)
+
+            - `3117` (Venezolana Int de Aviacion)
+
+            - `3118` (Valley Airlines)
+
+            - `3125` (Tan Airlines)
+
+            - `3126` (Talair PTY Ltd.)
+
+            - `3127` (Taca International)
+
+            - `3129` (Surinam Airways)
+
+            - `3130` (Sunworld International Airways)
+
+            - `3131` (VLM Air)
+
+            - `3132` (Frontier Airlines)
+
+            - `3133` (Sunbelt Airlines)
+
+            - `3135` (Sudan Airlines)
+
+            - `3136` (Qatar Air)
+
+            - `3137` (Singleton)
+
+            - `3138` (Simmons Airlines)
+
+            - `3141` (Seair Alaska)
+
+            - `3143` (Scenic Airlines)
+
+            - `3144` (Virgin Atlantic)
+
+            - `3145` (San Juan)
+
+            - `3146` (Luxair)
+
+            - `3148` (Air Littoral SA)
+
+            - `3151` (Air Laire)
+
+            - `3154` (Princeville)
+
+            - `3156` (Go Fly)
+
+            - `3159` (PBA-Provincetwn-Bstn Air)
+
+            - `3161` (All Nippon Airways)
+
+            - `3164` (Norontair)
+
+            - `3165` (New York Helicopter)
+
+            - `3167` (Aero Continente - AEROCONTINENTE)
+
+            - `3170` (Mount Cook)
+
+            - `3171` (Canadian Airlines)
+
+            - `3172` (Nation Air)
+
+            - `3174` (JetBlue Airways)
+
+            - `3175` (Middle East Air)
+
+            - `3176` (Metroflight Airlines)
+
+            - `3177` (AirTran Airways)
+
+            - `3178` (Mesa Air)
+
+            - `3180` (Westjet Airlines-WESTJET)
+
+            - `3181` (Malev Hungarian Airlines)
+
+            - `3182` (LOT (Poland))
+
+            - `3183` (Oman Aviation - OMAN AIR)
+
+            - `3184` (LIAT)
+
+            - `3185` (LAV (Venezuela))
+
+            - `3186` (LAP (Paraguay))
+
+            - `3187` (LACSA (Costa Rica))
+
+            - `3188` (Virgin Express - VIR EXP)
+
+            - `3190` (Jugoslav Air)
+
+            - `3191` (Island Airlines)
+
+            - `3192` (Iran Air)
+
+            - `3193` (Indian Airlines)
+
+            - `3195` (Holiday Airlines)
+
+            - `3196` (Hawaiian Air)
+
+            - `3197` (Havasu Airlines)
+
+            - `3198` (Harbor Airlines)
+
+            - `3199` (Servicios Aereos Militares)
+
+            - `3200` (Guyana Airways)
+
+            - `3203` (Golden Pacific Air)
+
+            - `3204` (Freedom Airlines)
+
+            - `3206` (China Eastern Airlines (Abbr: China East Air))
+
+            - `3207` (Empresa Ecuatoriana)
+
+            - `3211` (Norwegian Air Shuttle - NORWEGIANAIR)
+
+            - `3212` (Dominicana de Aviacion)
+
+            - `3213` (Malmo Aviation - MALMO AV)
+
+            - `3215` (Dan Air Services)
+
+            - `3216` (Cumberland Airlines)
+
+            - `3217` (CSA-Ceskoslovenske Aeroln)
+
+            - `3218` (Crown Air)
+
+            - `3219` (Copa)
+
+            - `3220` (Compania Faucett)
+
+            - `3221` (Transportes Aeros Mil)
+
+            - `3222` (Command Airways)
+
+            - `3223` (Comair)
+
+            - `3226` (Skyways Air- SKYWAYS)
+
+            - `3228` (Cayman Airways)
+
+            - `3229` (SAETA)
+
+            - `3231` (SAHSA)
+
+            - `3233` (Capitol Air)
+
+            - `3234` (CARIBAIR)
+
+            - `3235` (Brockway Air)
+
+            - `3236` (Air Arabia Airlines - Air Arab)
+
+            - `3238` (Bemidji Aviation)
+
+            - `3239` (Bar Harbor Airlines)
+
+            - `3240` (Bahamasair)
+
+            - `3241` (Aviateca (Guatemala))
+
+            - `3242` (Avensa)
+
+            - `3243` (Austrian Air Service)
+
+            - `3245` (Easy Jet - EASYJET)
+
+            - `3246` (Ryan Air - RYANAIR)
+
+            - `3247` (Gol Airlines - GOL)
+
+            - `3248` (Tam Airlines - TAM)
+
+            - `3251` (Aloha Airlines)
+
+            - `3252` (ALM-Antilean Airlines)
+
+            - `3253` (America West)
+
+            - `3254` (U.S. Air Shuttle)
+
+            - `3256` (Alaska Airlines Inc.)
+
+            - `3259` (American Trans Air)
+
+            - `3260` (Spirit Airlines - SPIRIT)
+
+            - `3261` (Air China)
+
+            - `3262` (Reno Air)
+
+            - `3263` (Aero Servicio Carabobo)
+
+            - `3266` (Air Seychelles)
+
+            - `3267` (Air Panama International)
+
+            - `3268` (Air Pacific)
+
+            - `3275` (Air Nevada)
+
+            - `3276` (Air Midwest)
+
+            - `3277` (Air Madagascar)
+
+            - `3279` (Air LA)
+
+            - `3280` (Air Jamaica)
+
+            - `3282` (Air Djibouti)
+
+            - `3284` (Aero Virgin Islands)
+
+            - `3285` (AeroPeru)
+
+            - `3286` (Aero Nicaraguensis)
+
+            - `3287` (Aero Coach Aviation)
+
+            - `3291` (Ariana Afghan)
+
+            - `3292` (Cyprus Airways)
+
+            - `3293` (Ecuatoriana)
+
+            - `3294` (Ethiopian Airlines)
+
+            - `3295` (Kenya Airways)
+
+            - `3296` (Air Berlin-AIRBERLIN)
+
+            - `3297` (Tarom Romanian Air Transport)
+
+            - `3298` (Air Mauritius)
+
+            - `3299` (Wideroe''s Flyveselskap)
+
+            - `3351` (Affiliated Auto Rental)
+
+            - `3352` (American International)
+
+            - `3353` (Brooks Rent a Car)
+
+            - `3354` (Action Auto Rental)
+
+            - `3355` (SIXT Car Rental)
+
+            - `3357` (Hertz)
+
+            - `3359` (Payless Car Rental)
+
+            - `3360` (Snappy Car Rental)
+
+            - `3361` (Airways Rent a Car)
+
+            - `3362` (Altra Auto Rental)
+
+            - `3364` (Agency Rent a Car)
+
+            - `3366` (Budget Rent a Car)
+
+            - `3368` (Holiday R-A-C)
+
+            - `3370` (Rent-a-Wreck)
+
+            - `3374` (Accent Rent-A-Car)
+
+            - `3376` (Ajax R-A-C)
+
+            - `3380` (Triangle Rent a Car)
+
+            - `3381` (Europ Car)
+
+            - `3385` (Tropical R-A-C)
+
+            - `3386` (Showcase Rental Cars)
+
+            - `3387` (Alamo Rent a Car)
+
+            - `3388` (Merchants Rent-A-Car, Inc)
+
+            - `3389` (Avis R-A-C)
+
+            - `3390` (Dollar R-A-C)
+
+            - `3391` (Europe by Car)
+
+            - `3393` (National Car Rental)
+
+            - `3394` (Kemwell Group R-A-C)
+
+            - `3395` (Thrify Car Rental)
+
+            - `3396` (Tilden R-A-C)
+
+            - `3398` (Econo Car R-A-C)
+
+            - `3400` (Auto Host Car Rentals)
+
+            - `3405` (Enterprise R-A-C)
+
+            - `3409` (General Rent-a-Car)
+
+            - `3412` (A-1 R-A-C)
+
+            - `3414` (Godfrey National)
+
+            - `3420` (ANSA International)
+
+            - `3421` (Allstate Rent-a-Car)
+
+            - `3423` (Avcar Rent-a-Car)
+
+            - `3425` (Automate Rent-a-Car)
+
+            - `3427` (Avon Rent-a-Car)
+
+            - `3428` (Carey Rent-a-Car)
+
+            - `3429` (Insurance Rent-a-Car)
+
+            - `3430` (Major Rent-a-Car)
+
+            - `3431` (Replacement Rent-a-Car)
+
+            - `3432` (Reserve Rent-a-Car)
+
+            - `3433` (Ugly Duckling R-A-C)
+
+            - `3434` (USA Rent-a-Car)
+
+            - `3435` (Value Rent-a-Car)
+
+            - `3436` (Autohansa Rent-a-Car)
+
+            - `3437` (Cite)
+
+            - `3438` (Interenet Rent-a-Car)
+
+            - `3439` (Millville Rent-a-Car)
+
+            - `3441` (Advantage Rent A Car)
+
+            - `3501` (Holiday Inns)
+
+            - `3502` (Best Western Hotels)
+
+            - `3503` (Sheraton)
+
+            - `3504` (Hilton)
+
+            - `3505` (Forte Hotels)
+
+            - `3506` (Golden Tulip Hotels)
+
+            - `3507` (Friendship Inns)
+
+            - `3508` (Quality Inns)
+
+            - `3509` (Marriott)
+
+            - `3510` (Days Inn Colonial Resort)
+
+            - `3511` (Arabella Hotels)
+
+            - `3512` (Intercontinental Hotels)
+
+            - `3513` (Westin)
+
+            - `3514` (Amerisuites)
+
+            - `3515` (Rodeway Inn)
+
+            - `3516` (LaQuinta Motor Inns)
+
+            - `3517` (Americana Hotels)
+
+            - `3518` (Sol Hotels)
+
+            - `3519` (Pullman International Hotels)
+
+            - `3520` (Meridien Hotels)
+
+            - `3521` (Royal Lahaina Resort)
+
+            - `3522` (Tokyo Group)
+
+            - `3523` (Peninsula Hotels)
+
+            - `3524` (WelcomGroup Hotels)
+
+            - `3525` (Dunfey Hotels)
+
+            - `3526` (Prince Hotels)
+
+            - `3527` (Downtowner Passport)
+
+            - `3528` (Red Lion Inns)
+
+            - `3529` (CP (Canadian Pacific))
+
+            - `3530` (Renaissance Hotels)
+
+            - `3531` (Kauai Coconut Beach Resort)
+
+            - `3532` (Royal Kona Resort)
+
+            - `3533` (Hotel Ibis)
+
+            - `3534` (Southern Pacific)
+
+            - `3535` (Hilton International)
+
+            - `3536` (AMFAC Hotels)
+
+            - `3537` (ANA Hotels)
+
+            - `3538` (Concorde Hotels)
+
+            - `3539` (Summerfield Suites Hotel)
+
+            - `3540` (Iberotel Hotels)
+
+            - `3541` (Hotel Okura)
+
+            - `3542` (Royal Hotels)
+
+            - `3543` (Four Seasons)
+
+            - `3544` (Cigna Hotels)
+
+            - `3545` (Shangri-La International)
+
+            - `3546` (Hotel Sierra)
+
+            - `3548` (Hotels Melia)
+
+            - `3549` (Auberge des Governeurs)
+
+            - `3550` (Regal 8 Inns)
+
+            - `3551` (Mirage Hotel and Casino)
+
+            - `3552` (Coast Hotel)
+
+            - `3553` (Park Inn by Radisson)
+
+            - `3554` (Pinehurst Resort)
+
+            - `3555` (Treasure Island Hotel and Casino)
+
+            - `3556` (Barton Creek Resort)
+
+            - `3557` (Manhattan East Suite Hotels)
+
+            - `3558` (Jolly Hotels)
+
+            - `3559` (Candlewood Suites)
+
+            - `3560` (Aladdin Resort and Casino)
+
+            - `3561` (Golden Nugget)
+
+            - `3562` (Comfort Inns)
+
+            - `3563` (Journey''s End Motels)
+
+            - `3564` (Sam''s Town Hotel and Casino)
+
+            - `3565` (Relax Inns)
+
+            - `3566` (Garden Place Hotel)
+
+            - `3567` (Soho Grand Hotel)
+
+            - `3568` (Ladbroke Hotels)
+
+            - `3569` (Tribeca Grand Hotel)
+
+            - `3570` (Forum Hotels)
+
+            - `3571` (Grand Wailea Resort)
+
+            - `3572` (Miyako Hotel)
+
+            - `3573` (Sandman Hotels)
+
+            - `3574` (Venture Inn)
+
+            - `3575` (Vagabond Hotels)
+
+            - `3576` (La Quinta Resort)
+
+            - `3577` (Mandarin Oriental Hotel)
+
+            - `3578` (Frankenmuth Bavarian)
+
+            - `3579` (Hotel Mercure)
+
+            - `3580` (Hotel Del Coronado)
+
+            - `3581` (Delta Hotels)
+
+            - `3582` (California Hotel and Casino)
+
+            - `3583` (Radisson BLU)
+
+            - `3584` (Princess Hotels International)
+
+            - `3585` (Hungar Hotels)
+
+            - `3586` (Sokos Hotels)
+
+            - `3587` (Doral Hotels)
+
+            - `3588` (Helmsley Hotels)
+
+            - `3589` (Doral Golf Resort)
+
+            - `3590` (Fairmont Hotel)
+
+            - `3591` (Sonesta Hotels)
+
+            - `3592` (Omni Hotels)
+
+            - `3593` (Cunard Hotels)
+
+            - `3594` (Arizona Biltmore)
+
+            - `3595` (Hospitality Inns)
+
+            - `3596` (Wynn Las Vegas)
+
+            - `3597` (Riverside Resort and Casino)
+
+            - `3598` (Regent International Hotels)
+
+            - `3599` (Pannonia Hotels)
+
+            - `3600` (Saddlebrook Resort - Tampa)
+
+            - `3601` (Trade Winds Resorts)
+
+            - `3602` (Hudson Hotel)
+
+            - `3603` (Noah''s Hotel)
+
+            - `3604` (Hilton Garden Inn)
+
+            - `3605` (Jurys Doyle Hotel Group)
+
+            - `3606` (Jefferson Hotel)
+
+            - `3607` (Fountainebleau Resort)
+
+            - `3608` (Gaylord Opryland)
+
+            - `3609` (Gaylord Palms)
+
+            - `3610` (Gaylord Texan)
+
+            - `3611` (C MON INN)
+
+            - `3612` (Movenpick Hotels)
+
+            - `3613` (Microtel Inns & Suites)
+
+            - `3614` (Americinn)
+
+            - `3615` (Travelodge Motels)
+
+            - `3617` (America''s Best Value Inn)
+
+            - `3618` (Great Wolf)
+
+            - `3619` (Aloft)
+
+            - `3620` (Binion''s Horseshoe Club)
+
+            - `3621` (Extended Stay)
+
+            - `3622` (Merlin Hotel)
+
+            - `3623` (Dorint Hotels)
+
+            - `3624` (Lady Luck Hotel and Casino)
+
+            - `3625` (Hotel Universale)
+
+            - `3626` (Studio Plus)
+
+            - `3627` (Extended Stay America)
+
+            - `3628` (Excalibur Hotel and Casino)
+
+            - `3629` (Dan Hotels)
+
+            - `3630` (Extended Stay Deluxe)
+
+            - `3631` (Sleep Inn)
+
+            - `3632` (The Phoenician)
+
+            - `3633` (Rank Hotels)
+
+            - `3634` (Swissotel)
+
+            - `3635` (Reso Hotel)
+
+            - `3636` (Sarova Hotels)
+
+            - `3637` (Ramada Inns)
+
+            - `3638` (Howard Johnson)
+
+            - `3639` (Mount Charlotte Thistle)
+
+            - `3640` (Hyatt Motels)
+
+            - `3641` (Sofitel Hotels)
+
+            - `3642` (Novotel)
+
+            - `3643` (Steigenberger Hotels)
+
+            - `3644` (EconoLodges)
+
+            - `3645` (Queens Moat Houses)
+
+            - `3646` (Swallow Hotels)
+
+            - `3647` (Husa Hotels)
+
+            - `3648` (De Vere Hotels)
+
+            - `3649` (Radisson)
+
+            - `3650` (Red Roof Inns)
+
+            - `3651` (Imperial London Hotel)
+
+            - `3652` (Embassy Hotels)
+
+            - `3653` (Penta Hotels)
+
+            - `3654` (Loews Hotels)
+
+            - `3655` (Scandic Hotels)
+
+            - `3656` (Sara Hotels)
+
+            - `3657` (Oberoi Hotels)
+
+            - `3658` (New Otani Hotels)
+
+            - `3659` (Taj Hotels International)
+
+            - `3660` (Knights Inn)
+
+            - `3661` (Metropole Hotels)
+
+            - `3662` (Circus Circus Hotel and Casino)
+
+            - `3663` (Hoteles El Presidente)
+
+            - `3664` (Flag Inns)
+
+            - `3665` (Hampton Inn Hotels)
+
+            - `3666` (Stakis Hotels)
+
+            - `3667` (Luxor Hotel and Casino)
+
+            - `3668` (Maritim Hotels)
+
+            - `3669` (Eldorado Hotel and Casino)
+
+            - `3670` (Arcade Hotels)
+
+            - `3671` (Arctia Hotels)
+
+            - `3672` (Campanile Hotels)
+
+            - `3673` (IBUSZ Hotels)
+
+            - `3674` (Rantasipi Hotels)
+
+            - `3675` (Interhotel CEDOK)
+
+            - `3676` (Monte Carlo Hotel and Casino)
+
+            - `3677` (Climat de France Hotels)
+
+            - `3678` (Cumulus Hotels)
+
+            - `3679` (Silver Legacy Hotel and Casino)
+
+            - `3680` (Hoteis Othan)
+
+            - `3681` (Adams Mark Hotels)
+
+            - `3682` (Sahara Hotel and Casino)
+
+            - `3683` (Bradbury Suites)
+
+            - `3684` (Budget Hosts Inns)
+
+            - `3685` (Budgetel Hotels)
+
+            - `3686` (Suisse Chalet)
+
+            - `3687` (Clarion Hotels)
+
+            - `3688` (Compri Hotels)
+
+            - `3689` (Consort Hotels)
+
+            - `3690` (Courtyard Inns)
+
+            - `3691` (Dillon Inn)
+
+            - `3692` (Doubletree)
+
+            - `3693` (Drury Inn)
+
+            - `3694` (Economy Inns of America)
+
+            - `3695` (Embassy Suites)
+
+            - `3696` (Excel Inn)
+
+            - `3697` (Fairfield Hotels)
+
+            - `3698` (Harley Hotels)
+
+            - `3699` (Midway Motor Lodge)
+
+            - `3700` (Motel 6)
+
+            - `3701` (La Mansion Del Rio)
+
+            - `3702` (The Registry Hotels)
+
+            - `3703` (Residence Inn)
+
+            - `3704` (Royce Hotels)
+
+            - `3705` (Sandman Inn)
+
+            - `3706` (Shilo Inn)
+
+            - `3707` (Shoney''s Inn)
+
+            - `3708` (Virgin River Hotel and Casino)
+
+            - `3709` (Super 8 Motels)
+
+            - `3710` (The Ritz Carlton Hotels)
+
+            - `3711` (Flag Inns (Australia))
+
+            - `3712` (Buffalo Bill''s Hotel and Casino)
+
+            - `3713` (Quality Pacific Hotel)
+
+            - `3714` (Four Seasons Hotels-Austr)
+
+            - `3715` (Fairfield Inn)
+
+            - `3716` (Carlton Hotels)
+
+            - `3717` (City Lodge Hotels)
+
+            - `3718` (Karos Hotels)
+
+            - `3719` (Protea Hotels)
+
+            - `3720` (Southern Sun Hotels)
+
+            - `3721` (Hilton Conrad Hotels)
+
+            - `3722` (Wyndham Hotels)
+
+            - `3723` (Rica Hotels)
+
+            - `3724` (Inter Nor Hotels)
+
+            - `3725` (SeaPines Plantation)
+
+            - `3726` (Rio Suites)
+
+            - `3727` (Broadmoor Hotel)
+
+            - `3728` (Bally''s Hotel and Casino)
+
+            - `3729` (John Ascuaga''s Nugget)
+
+            - `3730` (MGM Grand Hotel)
+
+            - `3731` (Harrah''s Hotels and Casinos)
+
+            - `3732` (Opryland Hotel)
+
+            - `3733` (Boca Raton Resort)
+
+            - `3734` (Harvey/Bristol Hotels)
+
+            - `3735` (Master Economy Inns)
+
+            - `3736` (Colorado Belle/Edgewater Resort)
+
+            - `3737` (Riviera Hotel and Casino)
+
+            - `3738` (Tropicana Resort & Casino)
+
+            - `3739` (Woodside Hotels & Resorts)
+
+            - `3740` (Towneplace Suites)
+
+            - `3741` (Millennium Hotel)
+
+            - `3742` (Club Med)
+
+            - `3743` (Biltmore Hotel and Suites)
+
+            - `3744` (Carefree Resorts)
+
+            - `3745` (St. Regis Hotel)
+
+            - `3746` (The Eliot Hotel)
+
+            - `3747` (ClubCorp/ClubResorts)
+
+            - `3748` (Wellesley Inns)
+
+            - `3749` (The Beverly Hills Hotel)
+
+            - `3750` (Crown Plaza Hotels)
+
+            - `3751` (Homewood Suites)
+
+            - `3752` (Peabody Hotels)
+
+            - `3753` (Greenbriar Resorts)
+
+            - `3754` (Amelia Island Plantation)
+
+            - `3755` (The Homestead)
+
+            - `3757` (Canyon Ranch)
+
+            - `3758` (Kahala Mandarion Oriental Hotel)
+
+            - `3759` (The Orchid at Mauna Lani)
+
+            - `3760` (Halekulani Hotel/Waikiki Parc)
+
+            - `3761` (Primadonna Hotel and Casino)
+
+            - `3762` (Whisky Pete''s Hotel and Casino)
+
+            - `3763` (Chateau Elan Winery and Resort)
+
+            - `3764` (Beau Rivage Hotel and Casino)
+
+            - `3765` (Bellagio)
+
+            - `3766` (Fremont Hotel and Casino)
+
+            - `3767` (Main Street Hotel and Casino)
+
+            - `3768` (Silver Star Hotel and Casino)
+
+            - `3769` (Stratosphere Hotel and Casino)
+
+            - `3770` (SpringHill Suites)
+
+            - `3771` (Caesar''s Resort)
+
+            - `3772` (Nemacolin Woodlands)
+
+            - `3773` (The Venetian Resort Hotel and Casino)
+
+            - `3774` (New York-New York Hotel and Casino)
+
+            - `3775` (Sands Resort)
+
+            - `3776` (Nevele Grande Resort and Country Club)
+
+            - `3777` (Mandalay Bay Resort)
+
+            - `3778` (Four Points Hotels)
+
+            - `3779` (W Hotels)
+
+            - `3780` (Disney Resorts)
+
+            - `3781` (Patricia Grand Resort Hotels)
+
+            - `3782` (Rosen Hotels & Resort)
+
+            - `3783` (Town and Country Resort and Convention Center)
+
+            - `3784` (First Hospitality Hotel)
+
+            - `3785` (Outrigger Hotels and Resorts)
+
+            - `3786` (Ohana Hotel of Hawaii)
+
+            - `3787` (Caribe Royale Resort Suites & Villas)
+
+            - `3788` (Ala Moana Hotel / Ala Moana Hotels)
+
+            - `3789` (Smugglers'' Notch Resort)
+
+            - `3790` (Raffles Hotels)
+
+            - `3791` (Staybridge Suites)
+
+            - `3792` (Claridge Casino Hotel)
+
+            - `3793` (The Flamingo Hotels)
+
+            - `3794` (Grand Casino Hotels)
+
+            - `3795` (Paris Las Vegas Hotel)
+
+            - `3796` (Peppermill Hotel Casino)
+
+            - `3797` (Atlantic City Hilton)
+
+            - `3798` (Embassy Vacation Resort)
+
+            - `3799` (Hale Koa Hotel)
+
+            - `3800` (Homestead)
+
+            - `3801` (Wilderness Hotel and Golf Resort)
+
+            - `3802` (The Palace Hotel)
+
+            - `3807` (Element)
+
+            - `3808` (LXR)
+
+            - `3810` (La Costa Resort)
+
+            - `3811` (Premier Travel Inn)
+
+            - `3812` (Hyatt Place)
+
+            - `3813` (Hotel Indigo)
+
+            - `3814` (The Roosevelt Hotel NY)
+
+            - `3815` (Holiday Inn Nickelodeon)
+
+            - `3816` (Home2 Suites)
+
+            - `3817` (Affinia)
+
+            - `3818` (Mainstay Suites)
+
+            - `3819` (Oxford Suites)
+
+            - `3820` (Jumeirah Essex House)
+
+            - `3821` (Caribe Royale)
+
+            - `3822` (Crossland)
+
+            - `3823` (Grand Sierra Resort)
+
+            - `3824` (Aria)
+
+            - `3825` (Vdara)
+
+            - `3826` (Autograph)
+
+            - `3827` (Galt House)
+
+            - `3828` (Cosmopolitan of Las Vegas)
+
+            - `3829` (Country Inn by Carlson)
+
+            - `3830` (Park Plaza Hotel)
+
+            - `3831` (Waldorf)
+
+            - `4011` (Railroads)
+
+            - `4111` (Local and Suburban Commuter Passenger Transportation, including Ferries)
+
+            - `4112` (Passenger Rail (train))
+
+            - `4119` (Ambulance Services)
+
+            - `4121` (Taxicabs and Limousines)
+
+            - `4131` (Bus Lines, includes Charters/Tour Buses)
+
+            - `4214` (Motor Freight Carriers and Trucking-Local and Long Distance, Moving & Storage Companies, and Local Delivery)
+
+            - `4215` (Courier Services-Air and Ground, and Freight Forwarders)
+
+            - `4225` (Public Warehousing-Farm products, Refrigerated Goods, Household Goods, and Storage)
+
+            - `4411` (Steamship and Cruise Lines)
+
+            - `4457` (Boat Rentals and Leasing)
+
+            - `4468` (Marinas, Marine Service, and Supplies)
+
+            - `4511` (Airlines and Air Carriers)
+
+            - `4582` (Airports, Flying Fields, and Airport Terminals)
+
+            - `4722` (Travel Agencies)
+
+            - `4723` (Package Tour Operators (Germany Only))
+
+            - `4761` (Telemarketing of Travel Related Services and Vitamins)
+
+            - `4784` (Bridge and Road Fees, Tolls)
+
+            - `4789` (Transportation Services-not elsewhere classified)
+
+            - `4812` (Telecommunication Equipment and Telephone Sales)
+
+            - `4813` (Special Telecom Merchant)
+
+            - `4814` (Telecommunication Services, Including Local and Long Distance Calls, Credit Card Calls, Call Through Use of Magnetic-Strip-Reading Telephones, and Fax Services)
+
+            - `4815` (Monthly Summary Telephone Charges)
+
+            - `4816` (Computer Network/Information Services and other Online Services such as electronic bulletin board, e-mail, web site hosting services, or Internet access)
+
+            - `4821` (Telegraph Services)
+
+            - `4829` (Quasi Cash - Money Transfer)
+
+            - `4899` (Cable, Satellite, and Other Pay Television and Radio Services)
+
+            - `4900` (Utilities-Electric, Gas, Water, and Sanitary)
+
+            - `5013` (Motor Vehicle Supplies and New Parts (Business to Business MCC))
+
+            - `5021` (Office Furniture (Business to Business MCC))
+
+            - `5039` (Construction Materials Not Elsewhere Classified (Business to Business MCC))
+
+            - `5044` (Photographic, Photocopy, Microfilm Equipment and Supplies (Business to Business MCC))
+
+            - `5045` (Computers, Computer Peripheral Equipment, and Software)
+
+            - `5046` (Commercial Equipment Not Elsewhere Classified (Business to Business MCC))
+
+            - `5047` (Dental/Laboratory/Medical/Ophthalmic Hospital Equipment and Supplies)
+
+            - `5051` (Metal Service Centers and Offices (Business to Business MCC))
+
+            - `5065` (Electrical Parts and Equipment (Business to Business MCC))
+
+            - `5072` (Hardware, Plumbing, Heat Equipment and Supplies (Business to Business MCC))
+
+            - `5074` (Plumbing and Heating Equipment and Supplies (Business to Business MCC))
+
+            - `5085` (Industrial Supplies Not Elsewhere Classified (Business to Business MCC))
+
+            - `5094` (Precious Stones, Metals, Watches and Jewelry (Business to Business MCC))
+
+            - `5099` (Durable Goods Not Elsewhere Classified (Business to Business MCC))
+
+            - `5111` (Stationery, Office Supplies, and Printing and Writing Paper)
+
+            - `5122` (Drugs, Drug Proprietary''s, and Druggists'' Sundries)
+
+            - `5131` (Piece Goods, Notions and Other Dry Goods (Business to Business MCC))
+
+            - `5137` (Men''s, Women''s and Children''s Uniforms (Business to Business MCC))
+
+            - `5139` (Commercial Footwear (Business to Business MCC))
+
+            - `5169` (Chemicals and Allied Products Not Elsewhere Classified (Business to Business MCC))
+
+            - `5172` (Petroleum and Products (Business to Business MCC))
+
+            - `5192` (Books, Periodicals and Newspapers (Business to Business MCC))
+
+            - `5193` (Florist Suppliers, Nursery Stock & Flowers (Business to Business MCC))
+
+            - `5198` (Paints, Varnishes and Supplies (Business to Business MCC))
+
+            - `5199` (Non-durable Goods Not Elsewhere Classified (Business to Business MCC))
+
+            - `5200` (Home Supply Warehouse)
+
+            - `5211` (Lumber & Building Materials Stores)
+
+            - `5231` (Glass, Paint, and Wallpaper Stores)
+
+            - `5251` (Hardware Stores, Equipment Utilities Regulated)
+
+            - `5261` (Nurseries and Lawn and Garden Supply Stores)
+
+            - `5271` (Mobile Home Dealer)
+
+            - `5300` (Wholesale Club with or without membership fee)
+
+            - `5309` (Duty Free Stores)
+
+            - `5310` (Discount Store)
+
+            - `5311` (Department Stores)
+
+            - `5331` (Variety Stores)
+
+            - `5399` (Miscellaneous General Merchandise)
+
+            - `5411` (Grocery Stores and Supermarkets)
+
+            - `5422` (Freezer & Locker Meat Provisions)
+
+            - `5441` (Candy, Nut, and Confectionary Stores)
+
+            - `5451` (Dairy Product Stores)
+
+            - `5462` (Bakeries)
+
+            - `5499` (Miscellaneous Food Stores-Convenience Stores and Specialty Markets)
+
+            - `5511` (Car and Truck Dealers (New and Used)- Sales, Service, Repairs, Parts, and Leasing)
+
+            - `5521` (Car and Truck Dealers (Used)- Sales, Service, Repairs, Parts, and Leasing)
+
+            - `5532` (Automotive Tire Stores)
+
+            - `5531` (Auto and Home Supply Stores)
+
+            - `5533` (Automotive Parts and Accessories Stores)
+
+            - `5541` (Service Stations (with or without Ancillary Services))
+
+            - `5542` (Automated Fuel Dispensers)
+
+            - `5551` (Boat Dealers)
+
+            - `5561` (Camper, Recreational and Utility Trailer Dealers)
+
+            - `5571` (Motorcycle Dealers)
+
+            - `5592` (Motor Home Dealers)
+
+            - `5598` (Snowmobile Dealers)
+
+            - `5599` (Miscellaneous Automotive, Aircraft, and Farm Equipment Dealers --Not Elsewhere Classified)
+
+            - `5611` (Men''s & Boys'' Clothing and Accessory Stores)
+
+            - `5621` (Women''s Ready-to-Wear Stores)
+
+            - `5631` (Women''s Accessory and Specialty Stores)
+
+            - `5641` (Children''s and Infants'' Wear Stores)
+
+            - `5651` (Family Clothing Stores)
+
+            - `5655` (Sports and Riding Apparel Stores)
+
+            - `5661` (Shoe Stores)
+
+            - `5681` (Furriers & Fur Shops)
+
+            - `5691` (Men''s and Women''s Clothing Stores)
+
+            - `5697` (Tailors, Seamstresses, Mending, Alterations)
+
+            - `5698` (Wig & Toupee Shops)
+
+            - `5699` (Miscellaneous Apparel and Accessory Stores)
+
+            - `5712` (Furniture, Home Furnishings, and Equipment Stores, except Appliances)
+
+            - `5713` (Floor coverings, Rugs)
+
+            - `5714` (Drapery, Window Covering, and Upholstery Stores)
+
+            - `5718` (Fireplaces, Fireplace Screens and Accessories Stores)
+
+            - `5719` (Miscellaneous Home Furnishing Specialty Stores)
+
+            - `5722` (Household Appliance Stores)
+
+            - `5732` (Electronics Stores)
+
+            - `5733` (Music Stores-Musical Instruments, Pianos, and Sheet Music)
+
+            - `5734` (Computer Software Stores)
+
+            - `5735` (Record Stores)
+
+            - `5811` (Caterers - Prepare & Delivery)
+
+            - `5812` (Eating Places and Restaurants)
+
+            - `5813` (Drinking Places (Alcoholic Beverages) - Bars, Taverns, Nightclubs, Cocktail Lounges, and Discotheques)
+
+            - `5814` (Quick Payment Service-Fast Food Restaurants)
+
+            - `5815` (Digital Goods – Media, Books, Movies, Music)
+
+            - `5816` (Digital Goods – Games)
+
+            - `5817` (Digital Goods – Applications (Excludes Games))
+
+            - `5818` (Large Digital Goods Merchant)
+
+            - `5912` (Drug Stores and Pharmacies)
+
+            - `5921` (Package Stores--Beer, Wine, and Liquor)
+
+            - `5931` (Used Merchandise and Secondhand Stores)
+
+            - `5932` (Antique Shop)
+
+            - `5933` (Pawn Shop)
+
+            - `5935` (Wrecking and Salvage Yards)
+
+            - `5937` (Antique Reproduction Stores)
+
+            - `5940` (Bicycle Shop-Sales and Services)
+
+            - `5941` (Sporting Goods Stores)
+
+            - `5942` (Book Stores)
+
+            - `5943` (Stationery, Office and School Supply Stores)
+
+            - `5944` (Jewelry, Watch, Clock, and Silverware Stores)
+
+            - `5945` (Hobby, Toy and Game Stores)
+
+            - `5946` (Camera and Photographic Supply Stores)
+
+            - `5947` (Gift, Card, Novelty, and Souvenir Stores)
+
+            - `5948` (Luggage and Leather Goods Stores)
+
+            - `5949` (Sewing, Needlework, Fabric, and Piece Good Stores)
+
+            - `5950` (Glassware and Crystal Stores)
+
+            - `5960` (Direct Marketing Insurance Services)
+
+            - `5961` (Mail Order)
+
+            - `5962` (Direct Marketing -- Travel Related Arrangement Services)
+
+            - `5963` (Direct Selling Establishments/Door to Door Sales)
+
+            - `5964` (Catalog Merchant)
+
+            - `5965` (Combined Catalog and Retail Merchant)
+
+            - `5966` (Outbound Telemarketing Merchant)
+
+            - `5967` (Direct Marketing -- Inbound Telemarketing Merchants)
+
+            - `5968` (Continuity/Subscription Merchants)
+
+            - `5969` (Direct Marketing/Direct Marketers--Not Elsewhere Classified)
+
+            - `5970` (Artist Supply and Craft Stores)
+
+            - `5971` (Art Dealers and Galleries)
+
+            - `5972` (Stamp and Coin Stores)
+
+            - `5973` (Religious Goods Stores)
+
+            - `5975` (Hearing Aids--Sales, Service, and Supplies)
+
+            - `5976` (Orthopedic Goods and Prosthetic Devices)
+
+            - `5977` (Cosmetic Stores)
+
+            - `5978` (Typewriter Stores--Sales, Service, and Rentals)
+
+            - `5983` (Fuel Dealers--Fuel Oil, Wood, Coal, and Liquefied Petroleum)
+
+            - `5992` (Florists)
+
+            - `5993` (Cigar Stores & Stands)
+
+            - `5994` (News Dealers & Newsstands)
+
+            - `5995` (Pet Shops, Pet Food, and Supplies)
+
+            - `5996` (Swimming Pools--Sales, Supplies, and Services)
+
+            - `5997` (Electric Razor Stores Sales & Services)
+
+            - `5998` (Tent and Awning Stores)
+
+            - `5999` (Miscellaneous & Specialty Retail Stores)
+
+            - `6010` (Financial Institutions--Manual Cash Disbursements)
+
+            - `6011` (Financial Institutions--Automated Cash Disbursements)
+
+            - `6012` (Quasi Cash - Financial Institution - Merchandise and Services)
+
+            - `6050` (Quasi Cash - Member Financial Institution)
+
+            - `6051` (MasterCard - Quasi Cash-Merchant)
+
+            - `6211` (Securities - Brokers and Dealers)
+
+            - `6300` (Insurance Sales and Underwriting)
+
+            - `6381` (Insurance - Premiums)
+
+            - `6399` (Insurance - Not Elsewhere Classified)
+
+            - `6513` (Real Estate Agents and Managers - Rentals; Property Management)
+
+            - `6529` (Remote Stored Value Load - Member Financial Institution)
+
+            - `6530` (Remote Stored Value Load - Merchant)
+
+            - `6531` (Payment Service Provider)
+
+            - `6532` (Payment Transaction - Member)
+
+            - `6533` (Payment Transaction - Merchant)
+
+            - `6534` (Money Transfer - Member Financial Institution)
+
+            - `6535` (Value Purchase - Member Financial Institution)
+
+            - `6536` (MoneySend Intracountry)
+
+            - `6537` (MoneySend Intercountry)
+
+            - `6538` (MoneySend Funding)
+
+            - `6540` (POI Funding Transactions (Excluding MoneySend))
+
+            - `7011` (Lodging - Hotels, Motels, and Resorts)
+
+            - `7012` (Timeshares)
+
+            - `7032` (Sporting and Recreational Camps)
+
+            - `7033` (Trailer Parks and Campgrounds)
+
+            - `7210` (Laundry, Cleaning, and Garment Services)
+
+            - `7211` (Laundry Services - Family and Commercial)
+
+            - `7216` (Dry Cleaners)
+
+            - `7217` (Carpet and Upholstery Cleaning)
+
+            - `7221` (Photographic Studios)
+
+            - `7230` (Beauty and Barber Shops)
+
+            - `7251` (Shoe Repair Shops, Shoe Shine Parlors, and Hat Cleaning Shops)
+
+            - `7261` (Funeral Services and Crematories)
+
+            - `7273` (Dating Services)
+
+            - `7276` (Tax Preparation Services)
+
+            - `7277` (Counseling Services - Debt, Marriage, and Personal)
+
+            - `7278` (Buying and Shopping Services and Clubs)
+
+            - `7296` (Clothing Rental - Costumes, Uniforms and Formal Wear)
+
+            - `7297` (Massage Parlors)
+
+            - `7298` (Health and Beauty Spas)
+
+            - `7299` (Miscellaneous Personal Services - Not Elsewhere Classified)
+
+            - `7311` (Advertising Services)
+
+            - `7321` (Consumer Credit Reporting Agencies)
+
+            - `7332` (Blueprinting and Photocopying Services)
+
+            - `7333` (Commercial Photography, Art, and Graphics)
+
+            - `7338` (Quick Copy, Reproduction Service)
+
+            - `7339` (Stenographic Service)
+
+            - `7342` (Exterminating and Disinfecting Services)
+
+            - `7349` (Cleaning, Maintenance & Janitorial Services)
+
+            - `7361` (Employment Agencies and Temporary Help Services)
+
+            - `7372` (Computer Programming, Data Processing, and Integrated Systems Design Services)
+
+            - `7375` (Information Retrieval Services (Business to Business MCC))
+
+            - `7379` (Computer Maintenance, Repair and Services (Business to Business MCC))
+
+            - `7392` (Management, Consulting, and Public Relations Services)
+
+            - `7393` (Detective Agencies, Protective Agencies, and Security Services, including Armored Cars and Guard Dogs)
+
+            - `7394` (Equipment, Tool, Furniture, and Appliance Rental and Leasing)
+
+            - `7395` (Photofinishing Laboratories and Photo Developing)
+
+            - `7399` (Business Services)
+
+            - `7511` (Truck Stops)
+
+            - `7512` (Automobile Rental Agency)
+
+            - `7513` (Truck and Utility Trailer Rentals)
+
+            - `7519` (Motor Home and Recreational Vehicle Rentals)
+
+            - `7523` (Parking Lots and Garages)
+
+            - `7524` (Express Payment Service Mechants - Parking Lots and Garages)
+
+            - `7531` (Automotive Top & Body Shops)
+
+            - `7534` (Tire Retreading & Repair)
+
+            - `7535` (Automotive Paint Shops)
+
+            - `7538` (Automotive Service Shops (Non-Dealer))
+
+            - `7542` (Car Washes)
+
+            - `7549` (Towing Services)
+
+            - `7622` (Electronic Repair Shops)
+
+            - `7623` (Air Conditioning and Refrigeration Repair Shops)
+
+            - `7629` (Electrical and Small Appliance Repair Shops)
+
+            - `7631` (Watch, Clock, and Jewelry Repair Shops)
+
+            - `7641` (Furniture - Reupholster, Repair, and Refinishing)
+
+            - `7692` (Welding Services)
+
+            - `7699` (Miscellaneous Repair Shops and Related Services)
+
+            - `7778` (Citishare Cash Advance)
+
+            - `7800` (Government-Owned Lotteries)
+
+            - `7801` (Government-Licensed Casinos (Online Gambling))
+
+            - `7802` (Government-Licensed Horse/Dog Racing)
+
+            - `7829` (Motion Picture & Video Tape Production and Distribution (Business to Business MCC))
+
+            - `7832` (Motion Picture Theater)
+
+            - `7841` (DVD/Video Tape Rental Stores)
+
+            - `7911` (Dance Halls, Studios & Schools)
+
+            - `7922` (Theatrical Producers (except Motion Pictures) and Ticket Agencies)
+
+            - `7929` (Bands, Orchestras & Misc Entertainment)
+
+            - `7932` (Billiards & Pool Establishments)
+
+            - `7933` (Bowling Alleys)
+
+            - `7941` (Commercial Sports, Professional Sports Clubs, Athletic Fields, and Sports Promoters)
+
+            - `7991` (Tourist Attractions and Exhibits)
+
+            - `7992` (Public Golf Courses)
+
+            - `7993` (Video Amusement Game Supply)
+
+            - `7994` (Video Game Arcades and Establishments)
+
+            - `7995` (Betting, including Lottery Tickets, Casino Gaming Chips, Off- Track Betting, and Wagers at Race Track)
+
+            - `7996` (Amusement Parks, Circuses, Carnivals, and Fortune Tellers)
+
+            - `7997` (Membership Clubs (Sports, Recreation, Athletic), Country Clubs, and Private Golf Courses)
+
+            - `7998` (Aquarium, Seaquarium, Dolphinariums)
+
+            - `7999` (Recreation Services - Not Elsewhere Classified)
+
+            - `8011` (Doctors and Physicians - Not Elsewhere Classified)
+
+            - `8021` (Dentists and Orthodontists)
+
+            - `8031` (Osteopathic Physicians)
+
+            - `8041` (Chiropractors)
+
+            - `8042` (Optometrists and Ophthalmologists)
+
+            - `8043` (Opticians, Optical Goods and Eyeglasses)
+
+            - `8049` (Podiatrists and Chiropodists)
+
+            - `8050` (Nursing and Personal Care Facilities)
+
+            - `8062` (Hospitals)
+
+            - `8071` (Medical and Dental Laboratories)
+
+            - `8099` (Medical Services Health Practitioners - No Elsewhere Classified)
+
+            - `8111` (Legal Services and Attorneys)
+
+            - `8211` (Elementary and Secondary Schools)
+
+            - `8220` (Colleges, Universities, Professional Schools, and Junior Colleges)
+
+            - `8241` (Correspondence Schools)
+
+            - `8244` (Business and Secretarial Schools)
+
+            - `8249` (Trade and Vocational Schools)
+
+            - `8299` (Schools and Educational Services - Not Elsewhere Classified)
+
+            - `8351` (Child Care Services)
+
+            - `8398` (Charitable and Social Service Organizations)
+
+            - `8641` (Civic, Social, and Fraternal Associations)
+
+            - `8651` (Political Organizations)
+
+            - `8661` (Religious Organizations)
+
+            - `8675` (Automobile Associations)
+
+            - `8699` (Membership Organizations - Not Elsewhere Classified)
+
+            - `8734` (Testing Laboratories (Not Medical) - (Business to Business MCC))
+
+            - `8911` (Architectural, Engineering, and Surveying Services)
+
+            - `8931` (Accounting, Auditing, and Bookkeeping Services)
+
+            - `8999` (Professional Services - Not Elsewhere Classified)
+
+            - `9211` (Court Costs, including Alimony and Child Support)
+
+            - `9222` (Fines)
+
+            - `9223` (Bail & Bond Payments)
+
+            - `9311` (Tax Payments)
+
+            - `9399` (Government Services - Not Elsewhere Classified)
+
+            - `9401` (i-Purchasing)
+
+            - `9402` (Postal Services)
+
+            - `9405` (U.S. Fed Government Agencies)
+
+            - `9700` (Automated Referral Service)
+
+            - `9701` (Visa Credential Server)
+
+            - `9702` (GCAS Emergency Services)
+
+            - `9751` (U.K. Supermarkets, Electronic Hot File)
+
+            - `9752` (U.K. Petrol Stations, Electronic Hot File)
+
+            - `9753` (Consumer Electronics/Furniture Store)
+
+            - `9754` (Quasi Cash - Gambling-Horse Racing, Dog Racing, State Lotteries)
+
+            - `9950` (Intra-Company Purchases)'
+    CurrencyExchange:
+      type: object
+      description: Provides details on the currrency exchange.
+      properties:
+        sourceCurrency:
+          type: string
+          description: Currency from which an amount is to be converted.
+        targetCurrency:
+          type: string
+          description: Currency to which an amount is to be converted.
+        unitCurrency:
+          type: string
+          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
+        exchangeRate:
+          type: number
+          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    StatementReference:
+      type: object
+      description: Unique reference for a statement period. This may be optionally populated if available.
+      properties:
+        value:
+          type: string
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    AccountName:
+      type: object
+      properties:
+        name:
+          description: The bank account holder's name given by the account owner.
+          type: string
+    Address:
+      title: Address Details
+      type: object
+      properties:
+        addressLines:
+          title: Address Lines
+          type: array
+          description: __Optional__. The address line of the address
+          example:
+          - Ardenham Court
+          items:
+            type: string
+        streetName:
+          title: Street
+          type: string
+          description: __Optional__. The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: __Optional__. The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: __Optional__. The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: __Optional__. The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: __Optional__. The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: __Optional__. The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: __Optional__. The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnum'
+      description: '__Conditional__. The address of the `Payee` or `Payer`.
+
+
+        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
+
+        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
+      example:
+        country: GB
+    AccountApiListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListAccount'
+        tracingId:
+          type: string
+          writeOnly: true
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    FilteredClientPayloadListPaymentResponse:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    TransactionChargeDetails:
+      type: object
+      description: Details the charges that will apply to the transaction.
+      properties:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
+    ProprietaryBankTransactionCode:
+      type: object
+      description: Transaction code that is proprietary to the `Institution`.
+      properties:
+        code:
+          type: string
+          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
+        issuer:
+          type: string
+          description: __Mandatory__. Issuer of the proprietary code.
+    EnrichmentMerchant:
+      type: object
+      description: Details of the merchant, identified by Yapily data services.
+      properties:
+        merchantName:
+          type: string
+          description: The name of the indivdual merchant involved in the transaction e.g. (TESCO Petrol).
+        parentGroup:
+          type: string
+          description: The parent organisation that the merchant belongs to e.g. (TESCO).
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    Payee:
+      title: Payee Details
+      type: object
+      description: __Mandatory__. Details of the beneficiary [person or business].
+      required:
+      - accountIdentifications
+      - name
+      properties:
+        name:
+          title: Payee Name
+          type: string
+          description: __Mandatory__. The account holder name of the beneficiary.
+          example: Jane Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payee` bank account.
+          example:
+          - identification: '401016'
+            type: SORT_CODE
+          - identification: '71518920'
+            type: ACCOUNT_NUMBER
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        accountType:
+          $ref: '#/components/schemas/PayeeAccountType'
+        address:
+          $ref: '#/components/schemas/Address'
+        merchantId:
+          title: Merchant Id
+          type: string
+          description: __Optional__. The merchant ID is a unique code provided by the payment processor to the merchant.
+          example: '24589303'
+        merchantCategoryCode:
+          title: Merchant Category
+          type: string
+          format: ^\d{4}$
+          description: '__Optional__. The category code of the merchant in case the `Payee` is a business. Specified as a 4-letter ISO 18245 code.
+
+
+            Allowed values:
+
+
+            - `0742` (Veterinary Services)
+
+            - `0763` (Agricultural Cooperatives)
+
+            - `0780` (Landscaping and Horticultural Services)
+
+            - `1520` (General Contractor/Residential Building)
+
+            - `1711` (Heating, Plumbing, Air Conditioning Contractors)
+
+            - `1731` (Electrical Contractors)
+
+            - `1740` (Masonry, Stonework, Tile Setting, Plastering, Insulation Contractors)
+
+            - `1750` (Carpentry)
+
+            - `1761` (Roof, Siding, and Sheet Metal Work Contractors)
+
+            - `1771` (Contractors, Concrete)
+
+            - `1799` (Special Trade Contractor - Not Elsewhere Classified)
+
+            - `2741` (Miscellaneous Publishing and Printing Services)
+
+            - `2791` (Typesetting, Plate Making and Related Services (Business to Business MCC))
+
+            - `2842` (Specialty Cleaning, Polishing and Sanitation Preparations (Business to Business MCC))
+
+            - `3000` (United Airlines)
+
+            - `3001` (American Airlines)
+
+            - `3002` (Pan American)
+
+            - `3003` (Eurofly Airlines)
+
+            - `3004` (Dragon Airlines)
+
+            - `3005` (British Airways)
+
+            - `3006` (Japan Air Lines)
+
+            - `3007` (Air France)
+
+            - `3008` (Lufthansa)
+
+            - `3009` (Air Canada)
+
+            - `3010` (KLM)
+
+            - `3011` (AeroFlot)
+
+            - `3012` (Qantas)
+
+            - `3013` (Alitalia)
+
+            - `3014` (Saudi Arabian Airlines)
+
+            - `3015` (SWISS)
+
+            - `3016` (SAS)
+
+            - `3017` (South African Airway)
+
+            - `3018` (Varig (Brazil))
+
+            - `3020` (Air India)
+
+            - `3021` (Air Algerie)
+
+            - `3022` (PAL AIR)
+
+            - `3023` (Mexicana)
+
+            - `3024` (Pakistan International)
+
+            - `3025` (Air New Zealand Ltd.)
+
+            - `3026` (Emirates Airlines)
+
+            - `3027` (UTA/InterAir)
+
+            - `3028` (Air Malta)
+
+            - `3029` (SN Brussels Airlines - SN BRUSSELS)
+
+            - `3030` (Aerolineas Argentinas)
+
+            - `3031` (Olympic Airways)
+
+            - `3032` (El Al)
+
+            - `3033` (Ansett Airlines)
+
+            - `3034` (ETIHADAIR)
+
+            - `3035` (TAP (Portugal))
+
+            - `3036` (VASP (Brazil))
+
+            - `3037` (EgyptAir)
+
+            - `3038` (Kuwait Airways)
+
+            - `3039` (Avianca)
+
+            - `3040` (GulfAir (Bahrain))
+
+            - `3041` (Balkan-Bulgarian)
+
+            - `3042` (FinnAir)
+
+            - `3043` (Aer Lingus)
+
+            - `3044` (Air Lanka)
+
+            - `3045` (Nigeria Airways)
+
+            - `3046` (Cruzeiro do Sul (Bra))
+
+            - `3047` (THY (Turkey))
+
+            - `3048` (Royal Air Maroc)
+
+            - `3049` (Tunis Air)
+
+            - `3050` (Icelandair)
+
+            - `3051` (Austrian Airlines)
+
+            - `3052` (LANAIR)
+
+            - `3053` (AVIACO (Spain))
+
+            - `3054` (Ladeco (Chile))
+
+            - `3055` (LAB (Bolivia))
+
+            - `3056` (JetAir)
+
+            - `3057` (Virgin America – VIR AMER)
+
+            - `3058` (Delta)
+
+            - `3059` (DBA Airlines-DBA AIR)
+
+            - `3060` (NWA Air)
+
+            - `3061` (Continental)
+
+            - `3062` (Hapag-Lloyd Express - HLX)
+
+            - `3063` (US Airways)
+
+            - `3064` (Adria Airways)
+
+            - `3065` (Airinter (AirInternational))
+
+            - `3066` (Southwest)
+
+            - `3068` (AIR STANA)
+
+            - `3069` (Sun Country Air)
+
+            - `3070` (Pacific Southwest Airlines (PSA))
+
+            - `3071` (Air British Columbia)
+
+            - `3072` (CEBU PAC)
+
+            - `3073` (Air Cal)
+
+            - `3075` (Singapore Airlines)
+
+            - `3076` (Aeromexico)
+
+            - `3077` (Thai Airways)
+
+            - `3078` (China Airlines)
+
+            - `3079` (Jetstar Airways - Jetstar)
+
+            - `3081` (NordAir)
+
+            - `3082` (Korean Airlines)
+
+            - `3083` (Air Afrique)
+
+            - `3084` (Eva Airlines)
+
+            - `3085` (Midwest Express Airlines, Inc)
+
+            - `3087` (Metro Airlines)
+
+            - `3088` (Croatia Airlines)
+
+            - `3089` (Tans Saero)
+
+            - `3090` (Uni Airways)
+
+            - `3094` (Zambia Airways)
+
+            - `3096` (Air Zimbabwe)
+
+            - `3097` (Spanair (abbreviation: SPANAIR))
+
+            - `3098` (Asiana Airlines)
+
+            - `3099` (Cathay Pacific)
+
+            - `3100` (Malaysian Airline Sys)
+
+            - `3102` (Iberia)
+
+            - `3103` (Garuda (Indonesia))
+
+            - `3105` (Piedmont)
+
+            - `3106` (Braathens S.A.F.E. (Norway))
+
+            - `3110` (Wings Airways)
+
+            - `3111` (British Midland)
+
+            - `3112` (Windward Island)
+
+            - `3117` (Venezolana Int de Aviacion)
+
+            - `3118` (Valley Airlines)
+
+            - `3125` (Tan Airlines)
+
+            - `3126` (Talair PTY Ltd.)
+
+            - `3127` (Taca International)
+
+            - `3129` (Surinam Airways)
+
+            - `3130` (Sunworld International Airways)
+
+            - `3131` (VLM Air)
+
+            - `3132` (Frontier Airlines)
+
+            - `3133` (Sunbelt Airlines)
+
+            - `3135` (Sudan Airlines)
+
+            - `3136` (Qatar Air)
+
+            - `3137` (Singleton)
+
+            - `3138` (Simmons Airlines)
+
+            - `3141` (Seair Alaska)
+
+            - `3143` (Scenic Airlines)
+
+            - `3144` (Virgin Atlantic)
+
+            - `3145` (San Juan)
+
+            - `3146` (Luxair)
+
+            - `3148` (Air Littoral SA)
+
+            - `3151` (Air Laire)
+
+            - `3154` (Princeville)
+
+            - `3156` (Go Fly)
+
+            - `3159` (PBA-Provincetwn-Bstn Air)
+
+            - `3161` (All Nippon Airways)
+
+            - `3164` (Norontair)
+
+            - `3165` (New York Helicopter)
+
+            - `3167` (Aero Continente - AEROCONTINENTE)
+
+            - `3170` (Mount Cook)
+
+            - `3171` (Canadian Airlines)
+
+            - `3172` (Nation Air)
+
+            - `3174` (JetBlue Airways)
+
+            - `3175` (Middle East Air)
+
+            - `3176` (Metroflight Airlines)
+
+            - `3177` (AirTran Airways)
+
+            - `3178` (Mesa Air)
+
+            - `3180` (Westjet Airlines-WESTJET)
+
+            - `3181` (Malev Hungarian Airlines)
+
+            - `3182` (LOT (Poland))
+
+            - `3183` (Oman Aviation - OMAN AIR)
+
+            - `3184` (LIAT)
+
+            - `3185` (LAV (Venezuela))
+
+            - `3186` (LAP (Paraguay))
+
+            - `3187` (LACSA (Costa Rica))
+
+            - `3188` (Virgin Express - VIR EXP)
+
+            - `3190` (Jugoslav Air)
+
+            - `3191` (Island Airlines)
+
+            - `3192` (Iran Air)
+
+            - `3193` (Indian Airlines)
+
+            - `3195` (Holiday Airlines)
+
+            - `3196` (Hawaiian Air)
+
+            - `3197` (Havasu Airlines)
+
+            - `3198` (Harbor Airlines)
+
+            - `3199` (Servicios Aereos Militares)
+
+            - `3200` (Guyana Airways)
+
+            - `3203` (Golden Pacific Air)
+
+            - `3204` (Freedom Airlines)
+
+            - `3206` (China Eastern Airlines (Abbr: China East Air))
+
+            - `3207` (Empresa Ecuatoriana)
+
+            - `3211` (Norwegian Air Shuttle - NORWEGIANAIR)
+
+            - `3212` (Dominicana de Aviacion)
+
+            - `3213` (Malmo Aviation - MALMO AV)
+
+            - `3215` (Dan Air Services)
+
+            - `3216` (Cumberland Airlines)
+
+            - `3217` (CSA-Ceskoslovenske Aeroln)
+
+            - `3218` (Crown Air)
+
+            - `3219` (Copa)
+
+            - `3220` (Compania Faucett)
+
+            - `3221` (Transportes Aeros Mil)
+
+            - `3222` (Command Airways)
+
+            - `3223` (Comair)
+
+            - `3226` (Skyways Air- SKYWAYS)
+
+            - `3228` (Cayman Airways)
+
+            - `3229` (SAETA)
+
+            - `3231` (SAHSA)
+
+            - `3233` (Capitol Air)
+
+            - `3234` (CARIBAIR)
+
+            - `3235` (Brockway Air)
+
+            - `3236` (Air Arabia Airlines - Air Arab)
+
+            - `3238` (Bemidji Aviation)
+
+            - `3239` (Bar Harbor Airlines)
+
+            - `3240` (Bahamasair)
+
+            - `3241` (Aviateca (Guatemala))
+
+            - `3242` (Avensa)
+
+            - `3243` (Austrian Air Service)
+
+            - `3245` (Easy Jet - EASYJET)
+
+            - `3246` (Ryan Air - RYANAIR)
+
+            - `3247` (Gol Airlines - GOL)
+
+            - `3248` (Tam Airlines - TAM)
+
+            - `3251` (Aloha Airlines)
+
+            - `3252` (ALM-Antilean Airlines)
+
+            - `3253` (America West)
+
+            - `3254` (U.S. Air Shuttle)
+
+            - `3256` (Alaska Airlines Inc.)
+
+            - `3259` (American Trans Air)
+
+            - `3260` (Spirit Airlines - SPIRIT)
+
+            - `3261` (Air China)
+
+            - `3262` (Reno Air)
+
+            - `3263` (Aero Servicio Carabobo)
+
+            - `3266` (Air Seychelles)
+
+            - `3267` (Air Panama International)
+
+            - `3268` (Air Pacific)
+
+            - `3275` (Air Nevada)
+
+            - `3276` (Air Midwest)
+
+            - `3277` (Air Madagascar)
+
+            - `3279` (Air LA)
+
+            - `3280` (Air Jamaica)
+
+            - `3282` (Air Djibouti)
+
+            - `3284` (Aero Virgin Islands)
+
+            - `3285` (AeroPeru)
+
+            - `3286` (Aero Nicaraguensis)
+
+            - `3287` (Aero Coach Aviation)
+
+            - `3291` (Ariana Afghan)
+
+            - `3292` (Cyprus Airways)
+
+            - `3293` (Ecuatoriana)
+
+            - `3294` (Ethiopian Airlines)
+
+            - `3295` (Kenya Airways)
+
+            - `3296` (Air Berlin-AIRBERLIN)
+
+            - `3297` (Tarom Romanian Air Transport)
+
+            - `3298` (Air Mauritius)
+
+            - `3299` (Wideroe''s Flyveselskap)
+
+            - `3351` (Affiliated Auto Rental)
+
+            - `3352` (American International)
+
+            - `3353` (Brooks Rent a Car)
+
+            - `3354` (Action Auto Rental)
+
+            - `3355` (SIXT Car Rental)
+
+            - `3357` (Hertz)
+
+            - `3359` (Payless Car Rental)
+
+            - `3360` (Snappy Car Rental)
+
+            - `3361` (Airways Rent a Car)
+
+            - `3362` (Altra Auto Rental)
+
+            - `3364` (Agency Rent a Car)
+
+            - `3366` (Budget Rent a Car)
+
+            - `3368` (Holiday R-A-C)
+
+            - `3370` (Rent-a-Wreck)
+
+            - `3374` (Accent Rent-A-Car)
+
+            - `3376` (Ajax R-A-C)
+
+            - `3380` (Triangle Rent a Car)
+
+            - `3381` (Europ Car)
+
+            - `3385` (Tropical R-A-C)
+
+            - `3386` (Showcase Rental Cars)
+
+            - `3387` (Alamo Rent a Car)
+
+            - `3388` (Merchants Rent-A-Car, Inc)
+
+            - `3389` (Avis R-A-C)
+
+            - `3390` (Dollar R-A-C)
+
+            - `3391` (Europe by Car)
+
+            - `3393` (National Car Rental)
+
+            - `3394` (Kemwell Group R-A-C)
+
+            - `3395` (Thrify Car Rental)
+
+            - `3396` (Tilden R-A-C)
+
+            - `3398` (Econo Car R-A-C)
+
+            - `3400` (Auto Host Car Rentals)
+
+            - `3405` (Enterprise R-A-C)
+
+            - `3409` (General Rent-a-Car)
+
+            - `3412` (A-1 R-A-C)
+
+            - `3414` (Godfrey National)
+
+            - `3420` (ANSA International)
+
+            - `3421` (Allstate Rent-a-Car)
+
+            - `3423` (Avcar Rent-a-Car)
+
+            - `3425` (Automate Rent-a-Car)
+
+            - `3427` (Avon Rent-a-Car)
+
+            - `3428` (Carey Rent-a-Car)
+
+            - `3429` (Insurance Rent-a-Car)
+
+            - `3430` (Major Rent-a-Car)
+
+            - `3431` (Replacement Rent-a-Car)
+
+            - `3432` (Reserve Rent-a-Car)
+
+            - `3433` (Ugly Duckling R-A-C)
+
+            - `3434` (USA Rent-a-Car)
+
+            - `3435` (Value Rent-a-Car)
+
+            - `3436` (Autohansa Rent-a-Car)
+
+            - `3437` (Cite)
+
+            - `3438` (Interenet Rent-a-Car)
+
+            - `3439` (Millville Rent-a-Car)
+
+            - `3441` (Advantage Rent A Car)
+
+            - `3501` (Holiday Inns)
+
+            - `3502` (Best Western Hotels)
+
+            - `3503` (Sheraton)
+
+            - `3504` (Hilton)
+
+            - `3505` (Forte Hotels)
+
+            - `3506` (Golden Tulip Hotels)
+
+            - `3507` (Friendship Inns)
+
+            - `3508` (Quality Inns)
+
+            - `3509` (Marriott)
+
+            - `3510` (Days Inn Colonial Resort)
+
+            - `3511` (Arabella Hotels)
+
+            - `3512` (Intercontinental Hotels)
+
+            - `3513` (Westin)
+
+            - `3514` (Amerisuites)
+
+            - `3515` (Rodeway Inn)
+
+            - `3516` (LaQuinta Motor Inns)
+
+            - `3517` (Americana Hotels)
+
+            - `3518` (Sol Hotels)
+
+            - `3519` (Pullman International Hotels)
+
+            - `3520` (Meridien Hotels)
+
+            - `3521` (Royal Lahaina Resort)
+
+            - `3522` (Tokyo Group)
+
+            - `3523` (Peninsula Hotels)
+
+            - `3524` (WelcomGroup Hotels)
+
+            - `3525` (Dunfey Hotels)
+
+            - `3526` (Prince Hotels)
+
+            - `3527` (Downtowner Passport)
+
+            - `3528` (Red Lion Inns)
+
+            - `3529` (CP (Canadian Pacific))
+
+            - `3530` (Renaissance Hotels)
+
+            - `3531` (Kauai Coconut Beach Resort)
+
+            - `3532` (Royal Kona Resort)
+
+            - `3533` (Hotel Ibis)
+
+            - `3534` (Southern Pacific)
+
+            - `3535` (Hilton International)
+
+            - `3536` (AMFAC Hotels)
+
+            - `3537` (ANA Hotels)
+
+            - `3538` (Concorde Hotels)
+
+            - `3539` (Summerfield Suites Hotel)
+
+            - `3540` (Iberotel Hotels)
+
+            - `3541` (Hotel Okura)
+
+            - `3542` (Royal Hotels)
+
+            - `3543` (Four Seasons)
+
+            - `3544` (Cigna Hotels)
+
+            - `3545` (Shangri-La International)
+
+            - `3546` (Hotel Sierra)
+
+            - `3548` (Hotels Melia)
+
+            - `3549` (Auberge des Governeurs)
+
+            - `3550` (Regal 8 Inns)
+
+            - `3551` (Mirage Hotel and Casino)
+
+            - `3552` (Coast Hotel)
+
+            - `3553` (Park Inn by Radisson)
+
+            - `3554` (Pinehurst Resort)
+
+            - `3555` (Treasure Island Hotel and Casino)
+
+            - `3556` (Barton Creek Resort)
+
+            - `3557` (Manhattan East Suite Hotels)
+
+            - `3558` (Jolly Hotels)
+
+            - `3559` (Candlewood Suites)
+
+            - `3560` (Aladdin Resort and Casino)
+
+            - `3561` (Golden Nugget)
+
+            - `3562` (Comfort Inns)
+
+            - `3563` (Journey''s End Motels)
+
+            - `3564` (Sam''s Town Hotel and Casino)
+
+            - `3565` (Relax Inns)
+
+            - `3566` (Garden Place Hotel)
+
+            - `3567` (Soho Grand Hotel)
+
+            - `3568` (Ladbroke Hotels)
+
+            - `3569` (Tribeca Grand Hotel)
+
+            - `3570` (Forum Hotels)
+
+            - `3571` (Grand Wailea Resort)
+
+            - `3572` (Miyako Hotel)
+
+            - `3573` (Sandman Hotels)
+
+            - `3574` (Venture Inn)
+
+            - `3575` (Vagabond Hotels)
+
+            - `3576` (La Quinta Resort)
+
+            - `3577` (Mandarin Oriental Hotel)
+
+            - `3578` (Frankenmuth Bavarian)
+
+            - `3579` (Hotel Mercure)
+
+            - `3580` (Hotel Del Coronado)
+
+            - `3581` (Delta Hotels)
+
+            - `3582` (California Hotel and Casino)
+
+            - `3583` (Radisson BLU)
+
+            - `3584` (Princess Hotels International)
+
+            - `3585` (Hungar Hotels)
+
+            - `3586` (Sokos Hotels)
+
+            - `3587` (Doral Hotels)
+
+            - `3588` (Helmsley Hotels)
+
+            - `3589` (Doral Golf Resort)
+
+            - `3590` (Fairmont Hotel)
+
+            - `3591` (Sonesta Hotels)
+
+            - `3592` (Omni Hotels)
+
+            - `3593` (Cunard Hotels)
+
+            - `3594` (Arizona Biltmore)
+
+            - `3595` (Hospitality Inns)
+
+            - `3596` (Wynn Las Vegas)
+
+            - `3597` (Riverside Resort and Casino)
+
+            - `3598` (Regent International Hotels)
+
+            - `3599` (Pannonia Hotels)
+
+            - `3600` (Saddlebrook Resort - Tampa)
+
+            - `3601` (Trade Winds Resorts)
+
+            - `3602` (Hudson Hotel)
+
+            - `3603` (Noah''s Hotel)
+
+            - `3604` (Hilton Garden Inn)
+
+            - `3605` (Jurys Doyle Hotel Group)
+
+            - `3606` (Jefferson Hotel)
+
+            - `3607` (Fountainebleau Resort)
+
+            - `3608` (Gaylord Opryland)
+
+            - `3609` (Gaylord Palms)
+
+            - `3610` (Gaylord Texan)
+
+            - `3611` (C MON INN)
+
+            - `3612` (Movenpick Hotels)
+
+            - `3613` (Microtel Inns & Suites)
+
+            - `3614` (Americinn)
+
+            - `3615` (Travelodge Motels)
+
+            - `3617` (America''s Best Value Inn)
+
+            - `3618` (Great Wolf)
+
+            - `3619` (Aloft)
+
+            - `3620` (Binion''s Horseshoe Club)
+
+            - `3621` (Extended Stay)
+
+            - `3622` (Merlin Hotel)
+
+            - `3623` (Dorint Hotels)
+
+            - `3624` (Lady Luck Hotel and Casino)
+
+            - `3625` (Hotel Universale)
+
+            - `3626` (Studio Plus)
+
+            - `3627` (Extended Stay America)
+
+            - `3628` (Excalibur Hotel and Casino)
+
+            - `3629` (Dan Hotels)
+
+            - `3630` (Extended Stay Deluxe)
+
+            - `3631` (Sleep Inn)
+
+            - `3632` (The Phoenician)
+
+            - `3633` (Rank Hotels)
+
+            - `3634` (Swissotel)
+
+            - `3635` (Reso Hotel)
+
+            - `3636` (Sarova Hotels)
+
+            - `3637` (Ramada Inns)
+
+            - `3638` (Howard Johnson)
+
+            - `3639` (Mount Charlotte Thistle)
+
+            - `3640` (Hyatt Motels)
+
+            - `3641` (Sofitel Hotels)
+
+            - `3642` (Novotel)
+
+            - `3643` (Steigenberger Hotels)
+
+            - `3644` (EconoLodges)
+
+            - `3645` (Queens Moat Houses)
+
+            - `3646` (Swallow Hotels)
+
+            - `3647` (Husa Hotels)
+
+            - `3648` (De Vere Hotels)
+
+            - `3649` (Radisson)
+
+            - `3650` (Red Roof Inns)
+
+            - `3651` (Imperial London Hotel)
+
+            - `3652` (Embassy Hotels)
+
+            - `3653` (Penta Hotels)
+
+            - `3654` (Loews Hotels)
+
+            - `3655` (Scandic Hotels)
+
+            - `3656` (Sara Hotels)
+
+            - `3657` (Oberoi Hotels)
+
+            - `3658` (New Otani Hotels)
+
+            - `3659` (Taj Hotels International)
+
+            - `3660` (Knights Inn)
+
+            - `3661` (Metropole Hotels)
+
+            - `3662` (Circus Circus Hotel and Casino)
+
+            - `3663` (Hoteles El Presidente)
+
+            - `3664` (Flag Inns)
+
+            - `3665` (Hampton Inn Hotels)
+
+            - `3666` (Stakis Hotels)
+
+            - `3667` (Luxor Hotel and Casino)
+
+            - `3668` (Maritim Hotels)
+
+            - `3669` (Eldorado Hotel and Casino)
+
+            - `3670` (Arcade Hotels)
+
+            - `3671` (Arctia Hotels)
+
+            - `3672` (Campanile Hotels)
+
+            - `3673` (IBUSZ Hotels)
+
+            - `3674` (Rantasipi Hotels)
+
+            - `3675` (Interhotel CEDOK)
+
+            - `3676` (Monte Carlo Hotel and Casino)
+
+            - `3677` (Climat de France Hotels)
+
+            - `3678` (Cumulus Hotels)
+
+            - `3679` (Silver Legacy Hotel and Casino)
+
+            - `3680` (Hoteis Othan)
+
+            - `3681` (Adams Mark Hotels)
+
+            - `3682` (Sahara Hotel and Casino)
+
+            - `3683` (Bradbury Suites)
+
+            - `3684` (Budget Hosts Inns)
+
+            - `3685` (Budgetel Hotels)
+
+            - `3686` (Suisse Chalet)
+
+            - `3687` (Clarion Hotels)
+
+            - `3688` (Compri Hotels)
+
+            - `3689` (Consort Hotels)
+
+            - `3690` (Courtyard Inns)
+
+            - `3691` (Dillon Inn)
+
+            - `3692` (Doubletree)
+
+            - `3693` (Drury Inn)
+
+            - `3694` (Economy Inns of America)
+
+            - `3695` (Embassy Suites)
+
+            - `3696` (Excel Inn)
+
+            - `3697` (Fairfield Hotels)
+
+            - `3698` (Harley Hotels)
+
+            - `3699` (Midway Motor Lodge)
+
+            - `3700` (Motel 6)
+
+            - `3701` (La Mansion Del Rio)
+
+            - `3702` (The Registry Hotels)
+
+            - `3703` (Residence Inn)
+
+            - `3704` (Royce Hotels)
+
+            - `3705` (Sandman Inn)
+
+            - `3706` (Shilo Inn)
+
+            - `3707` (Shoney''s Inn)
+
+            - `3708` (Virgin River Hotel and Casino)
+
+            - `3709` (Super 8 Motels)
+
+            - `3710` (The Ritz Carlton Hotels)
+
+            - `3711` (Flag Inns (Australia))
+
+            - `3712` (Buffalo Bill''s Hotel and Casino)
+
+            - `3713` (Quality Pacific Hotel)
+
+            - `3714` (Four Seasons Hotels-Austr)
+
+            - `3715` (Fairfield Inn)
+
+            - `3716` (Carlton Hotels)
+
+            - `3717` (City Lodge Hotels)
+
+            - `3718` (Karos Hotels)
+
+            - `3719` (Protea Hotels)
+
+            - `3720` (Southern Sun Hotels)
+
+            - `3721` (Hilton Conrad Hotels)
+
+            - `3722` (Wyndham Hotels)
+
+            - `3723` (Rica Hotels)
+
+            - `3724` (Inter Nor Hotels)
+
+            - `3725` (SeaPines Plantation)
+
+            - `3726` (Rio Suites)
+
+            - `3727` (Broadmoor Hotel)
+
+            - `3728` (Bally''s Hotel and Casino)
+
+            - `3729` (John Ascuaga''s Nugget)
+
+            - `3730` (MGM Grand Hotel)
+
+            - `3731` (Harrah''s Hotels and Casinos)
+
+            - `3732` (Opryland Hotel)
+
+            - `3733` (Boca Raton Resort)
+
+            - `3734` (Harvey/Bristol Hotels)
+
+            - `3735` (Master Economy Inns)
+
+            - `3736` (Colorado Belle/Edgewater Resort)
+
+            - `3737` (Riviera Hotel and Casino)
+
+            - `3738` (Tropicana Resort & Casino)
+
+            - `3739` (Woodside Hotels & Resorts)
+
+            - `3740` (Towneplace Suites)
+
+            - `3741` (Millennium Hotel)
+
+            - `3742` (Club Med)
+
+            - `3743` (Biltmore Hotel and Suites)
+
+            - `3744` (Carefree Resorts)
+
+            - `3745` (St. Regis Hotel)
+
+            - `3746` (The Eliot Hotel)
+
+            - `3747` (ClubCorp/ClubResorts)
+
+            - `3748` (Wellesley Inns)
+
+            - `3749` (The Beverly Hills Hotel)
+
+            - `3750` (Crown Plaza Hotels)
+
+            - `3751` (Homewood Suites)
+
+            - `3752` (Peabody Hotels)
+
+            - `3753` (Greenbriar Resorts)
+
+            - `3754` (Amelia Island Plantation)
+
+            - `3755` (The Homestead)
+
+            - `3757` (Canyon Ranch)
+
+            - `3758` (Kahala Mandarion Oriental Hotel)
+
+            - `3759` (The Orchid at Mauna Lani)
+
+            - `3760` (Halekulani Hotel/Waikiki Parc)
+
+            - `3761` (Primadonna Hotel and Casino)
+
+            - `3762` (Whisky Pete''s Hotel and Casino)
+
+            - `3763` (Chateau Elan Winery and Resort)
+
+            - `3764` (Beau Rivage Hotel and Casino)
+
+            - `3765` (Bellagio)
+
+            - `3766` (Fremont Hotel and Casino)
+
+            - `3767` (Main Street Hotel and Casino)
+
+            - `3768` (Silver Star Hotel and Casino)
+
+            - `3769` (Stratosphere Hotel and Casino)
+
+            - `3770` (SpringHill Suites)
+
+            - `3771` (Caesar''s Resort)
+
+            - `3772` (Nemacolin Woodlands)
+
+            - `3773` (The Venetian Resort Hotel and Casino)
+
+            - `3774` (New York-New York Hotel and Casino)
+
+            - `3775` (Sands Resort)
+
+            - `3776` (Nevele Grande Resort and Country Club)
+
+            - `3777` (Mandalay Bay Resort)
+
+            - `3778` (Four Points Hotels)
+
+            - `3779` (W Hotels)
+
+            - `3780` (Disney Resorts)
+
+            - `3781` (Patricia Grand Resort Hotels)
+
+            - `3782` (Rosen Hotels & Resort)
+
+            - `3783` (Town and Country Resort and Convention Center)
+
+            - `3784` (First Hospitality Hotel)
+
+            - `3785` (Outrigger Hotels and Resorts)
+
+            - `3786` (Ohana Hotel of Hawaii)
+
+            - `3787` (Caribe Royale Resort Suites & Villas)
+
+            - `3788` (Ala Moana Hotel / Ala Moana Hotels)
+
+            - `3789` (Smugglers'' Notch Resort)
+
+            - `3790` (Raffles Hotels)
+
+            - `3791` (Staybridge Suites)
+
+            - `3792` (Claridge Casino Hotel)
+
+            - `3793` (The Flamingo Hotels)
+
+            - `3794` (Grand Casino Hotels)
+
+            - `3795` (Paris Las Vegas Hotel)
+
+            - `3796` (Peppermill Hotel Casino)
+
+            - `3797` (Atlantic City Hilton)
+
+            - `3798` (Embassy Vacation Resort)
+
+            - `3799` (Hale Koa Hotel)
+
+            - `3800` (Homestead)
+
+            - `3801` (Wilderness Hotel and Golf Resort)
+
+            - `3802` (The Palace Hotel)
+
+            - `3807` (Element)
+
+            - `3808` (LXR)
+
+            - `3810` (La Costa Resort)
+
+            - `3811` (Premier Travel Inn)
+
+            - `3812` (Hyatt Place)
+
+            - `3813` (Hotel Indigo)
+
+            - `3814` (The Roosevelt Hotel NY)
+
+            - `3815` (Holiday Inn Nickelodeon)
+
+            - `3816` (Home2 Suites)
+
+            - `3817` (Affinia)
+
+            - `3818` (Mainstay Suites)
+
+            - `3819` (Oxford Suites)
+
+            - `3820` (Jumeirah Essex House)
+
+            - `3821` (Caribe Royale)
+
+            - `3822` (Crossland)
+
+            - `3823` (Grand Sierra Resort)
+
+            - `3824` (Aria)
+
+            - `3825` (Vdara)
+
+            - `3826` (Autograph)
+
+            - `3827` (Galt House)
+
+            - `3828` (Cosmopolitan of Las Vegas)
+
+            - `3829` (Country Inn by Carlson)
+
+            - `3830` (Park Plaza Hotel)
+
+            - `3831` (Waldorf)
+
+            - `4011` (Railroads)
+
+            - `4111` (Local and Suburban Commuter Passenger Transportation, including Ferries)
+
+            - `4112` (Passenger Rail (train))
+
+            - `4119` (Ambulance Services)
+
+            - `4121` (Taxicabs and Limousines)
+
+            - `4131` (Bus Lines, includes Charters/Tour Buses)
+
+            - `4214` (Motor Freight Carriers and Trucking-Local and Long Distance, Moving & Storage Companies, and Local Delivery)
+
+            - `4215` (Courier Services-Air and Ground, and Freight Forwarders)
+
+            - `4225` (Public Warehousing-Farm products, Refrigerated Goods, Household Goods, and Storage)
+
+            - `4411` (Steamship and Cruise Lines)
+
+            - `4457` (Boat Rentals and Leasing)
+
+            - `4468` (Marinas, Marine Service, and Supplies)
+
+            - `4511` (Airlines and Air Carriers)
+
+            - `4582` (Airports, Flying Fields, and Airport Terminals)
+
+            - `4722` (Travel Agencies)
+
+            - `4723` (Package Tour Operators (Germany Only))
+
+            - `4761` (Telemarketing of Travel Related Services and Vitamins)
+
+            - `4784` (Bridge and Road Fees, Tolls)
+
+            - `4789` (Transportation Services-not elsewhere classified)
+
+            - `4812` (Telecommunication Equipment and Telephone Sales)
+
+            - `4813` (Special Telecom Merchant)
+
+            - `4814` (Telecommunication Services, Including Local and Long Distance Calls, Credit Card Calls, Call Through Use of Magnetic-Strip-Reading Telephones, and Fax Services)
+
+            - `4815` (Monthly Summary Telephone Charges)
+
+            - `4816` (Computer Network/Information Services and other Online Services such as electronic bulletin board, e-mail, web site hosting services, or Internet access)
+
+            - `4821` (Telegraph Services)
+
+            - `4829` (Quasi Cash - Money Transfer)
+
+            - `4899` (Cable, Satellite, and Other Pay Television and Radio Services)
+
+            - `4900` (Utilities-Electric, Gas, Water, and Sanitary)
+
+            - `5013` (Motor Vehicle Supplies and New Parts (Business to Business MCC))
+
+            - `5021` (Office Furniture (Business to Business MCC))
+
+            - `5039` (Construction Materials Not Elsewhere Classified (Business to Business MCC))
+
+            - `5044` (Photographic, Photocopy, Microfilm Equipment and Supplies (Business to Business MCC))
+
+            - `5045` (Computers, Computer Peripheral Equipment, and Software)
+
+            - `5046` (Commercial Equipment Not Elsewhere Classified (Business to Business MCC))
+
+            - `5047` (Dental/Laboratory/Medical/Ophthalmic Hospital Equipment and Supplies)
+
+            - `5051` (Metal Service Centers and Offices (Business to Business MCC))
+
+            - `5065` (Electrical Parts and Equipment (Business to Business MCC))
+
+            - `5072` (Hardware, Plumbing, Heat Equipment and Supplies (Business to Business MCC))
+
+            - `5074` (Plumbing and Heating Equipment and Supplies (Business to Business MCC))
+
+            - `5085` (Industrial Supplies Not Elsewhere Classified (Business to Business MCC))
+
+            - `5094` (Precious Stones, Metals, Watches and Jewelry (Business to Business MCC))
+
+            - `5099` (Durable Goods Not Elsewhere Classified (Business to Business MCC))
+
+            - `5111` (Stationery, Office Supplies, and Printing and Writing Paper)
+
+            - `5122` (Drugs, Drug Proprietary''s, and Druggists'' Sundries)
+
+            - `5131` (Piece Goods, Notions and Other Dry Goods (Business to Business MCC))
+
+            - `5137` (Men''s, Women''s and Children''s Uniforms (Business to Business MCC))
+
+            - `5139` (Commercial Footwear (Business to Business MCC))
+
+            - `5169` (Chemicals and Allied Products Not Elsewhere Classified (Business to Business MCC))
+
+            - `5172` (Petroleum and Products (Business to Business MCC))
+
+            - `5192` (Books, Periodicals and Newspapers (Business to Business MCC))
+
+            - `5193` (Florist Suppliers, Nursery Stock & Flowers (Business to Business MCC))
+
+            - `5198` (Paints, Varnishes and Supplies (Business to Business MCC))
+
+            - `5199` (Non-durable Goods Not Elsewhere Classified (Business to Business MCC))
+
+            - `5200` (Home Supply Warehouse)
+
+            - `5211` (Lumber & Building Materials Stores)
+
+            - `5231` (Glass, Paint, and Wallpaper Stores)
+
+            - `5251` (Hardware Stores, Equipment Utilities Regulated)
+
+            - `5261` (Nurseries and Lawn and Garden Supply Stores)
+
+            - `5271` (Mobile Home Dealer)
+
+            - `5300` (Wholesale Club with or without membership fee)
+
+            - `5309` (Duty Free Stores)
+
+            - `5310` (Discount Store)
+
+            - `5311` (Department Stores)
+
+            - `5331` (Variety Stores)
+
+            - `5399` (Miscellaneous General Merchandise)
+
+            - `5411` (Grocery Stores and Supermarkets)
+
+            - `5422` (Freezer & Locker Meat Provisions)
+
+            - `5441` (Candy, Nut, and Confectionary Stores)
+
+            - `5451` (Dairy Product Stores)
+
+            - `5462` (Bakeries)
+
+            - `5499` (Miscellaneous Food Stores-Convenience Stores and Specialty Markets)
+
+            - `5511` (Car and Truck Dealers (New and Used)- Sales, Service, Repairs, Parts, and Leasing)
+
+            - `5521` (Car and Truck Dealers (Used)- Sales, Service, Repairs, Parts, and Leasing)
+
+            - `5532` (Automotive Tire Stores)
+
+            - `5531` (Auto and Home Supply Stores)
+
+            - `5533` (Automotive Parts and Accessories Stores)
+
+            - `5541` (Service Stations (with or without Ancillary Services))
+
+            - `5542` (Automated Fuel Dispensers)
+
+            - `5551` (Boat Dealers)
+
+            - `5561` (Camper, Recreational and Utility Trailer Dealers)
+
+            - `5571` (Motorcycle Dealers)
+
+            - `5592` (Motor Home Dealers)
+
+            - `5598` (Snowmobile Dealers)
+
+            - `5599` (Miscellaneous Automotive, Aircraft, and Farm Equipment Dealers --Not Elsewhere Classified)
+
+            - `5611` (Men''s & Boys'' Clothing and Accessory Stores)
+
+            - `5621` (Women''s Ready-to-Wear Stores)
+
+            - `5631` (Women''s Accessory and Specialty Stores)
+
+            - `5641` (Children''s and Infants'' Wear Stores)
+
+            - `5651` (Family Clothing Stores)
+
+            - `5655` (Sports and Riding Apparel Stores)
+
+            - `5661` (Shoe Stores)
+
+            - `5681` (Furriers & Fur Shops)
+
+            - `5691` (Men''s and Women''s Clothing Stores)
+
+            - `5697` (Tailors, Seamstresses, Mending, Alterations)
+
+            - `5698` (Wig & Toupee Shops)
+
+            - `5699` (Miscellaneous Apparel and Accessory Stores)
+
+            - `5712` (Furniture, Home Furnishings, and Equipment Stores, except Appliances)
+
+            - `5713` (Floor coverings, Rugs)
+
+            - `5714` (Drapery, Window Covering, and Upholstery Stores)
+
+            - `5718` (Fireplaces, Fireplace Screens and Accessories Stores)
+
+            - `5719` (Miscellaneous Home Furnishing Specialty Stores)
+
+            - `5722` (Household Appliance Stores)
+
+            - `5732` (Electronics Stores)
+
+            - `5733` (Music Stores-Musical Instruments, Pianos, and Sheet Music)
+
+            - `5734` (Computer Software Stores)
+
+            - `5735` (Record Stores)
+
+            - `5811` (Caterers - Prepare & Delivery)
+
+            - `5812` (Eating Places and Restaurants)
+
+            - `5813` (Drinking Places (Alcoholic Beverages) - Bars, Taverns, Nightclubs, Cocktail Lounges, and Discotheques)
+
+            - `5814` (Quick Payment Service-Fast Food Restaurants)
+
+            - `5815` (Digital Goods – Media, Books, Movies, Music)
+
+            - `5816` (Digital Goods – Games)
+
+            - `5817` (Digital Goods – Applications (Excludes Games))
+
+            - `5818` (Large Digital Goods Merchant)
+
+            - `5912` (Drug Stores and Pharmacies)
+
+            - `5921` (Package Stores--Beer, Wine, and Liquor)
+
+            - `5931` (Used Merchandise and Secondhand Stores)
+
+            - `5932` (Antique Shop)
+
+            - `5933` (Pawn Shop)
+
+            - `5935` (Wrecking and Salvage Yards)
+
+            - `5937` (Antique Reproduction Stores)
+
+            - `5940` (Bicycle Shop-Sales and Services)
+
+            - `5941` (Sporting Goods Stores)
+
+            - `5942` (Book Stores)
+
+            - `5943` (Stationery, Office and School Supply Stores)
+
+            - `5944` (Jewelry, Watch, Clock, and Silverware Stores)
+
+            - `5945` (Hobby, Toy and Game Stores)
+
+            - `5946` (Camera and Photographic Supply Stores)
+
+            - `5947` (Gift, Card, Novelty, and Souvenir Stores)
+
+            - `5948` (Luggage and Leather Goods Stores)
+
+            - `5949` (Sewing, Needlework, Fabric, and Piece Good Stores)
+
+            - `5950` (Glassware and Crystal Stores)
+
+            - `5960` (Direct Marketing Insurance Services)
+
+            - `5961` (Mail Order)
+
+            - `5962` (Direct Marketing -- Travel Related Arrangement Services)
+
+            - `5963` (Direct Selling Establishments/Door to Door Sales)
+
+            - `5964` (Catalog Merchant)
+
+            - `5965` (Combined Catalog and Retail Merchant)
+
+            - `5966` (Outbound Telemarketing Merchant)
+
+            - `5967` (Direct Marketing -- Inbound Telemarketing Merchants)
+
+            - `5968` (Continuity/Subscription Merchants)
+
+            - `5969` (Direct Marketing/Direct Marketers--Not Elsewhere Classified)
+
+            - `5970` (Artist Supply and Craft Stores)
+
+            - `5971` (Art Dealers and Galleries)
+
+            - `5972` (Stamp and Coin Stores)
+
+            - `5973` (Religious Goods Stores)
+
+            - `5975` (Hearing Aids--Sales, Service, and Supplies)
+
+            - `5976` (Orthopedic Goods and Prosthetic Devices)
+
+            - `5977` (Cosmetic Stores)
+
+            - `5978` (Typewriter Stores--Sales, Service, and Rentals)
+
+            - `5983` (Fuel Dealers--Fuel Oil, Wood, Coal, and Liquefied Petroleum)
+
+            - `5992` (Florists)
+
+            - `5993` (Cigar Stores & Stands)
+
+            - `5994` (News Dealers & Newsstands)
+
+            - `5995` (Pet Shops, Pet Food, and Supplies)
+
+            - `5996` (Swimming Pools--Sales, Supplies, and Services)
+
+            - `5997` (Electric Razor Stores Sales & Services)
+
+            - `5998` (Tent and Awning Stores)
+
+            - `5999` (Miscellaneous & Specialty Retail Stores)
+
+            - `6010` (Financial Institutions--Manual Cash Disbursements)
+
+            - `6011` (Financial Institutions--Automated Cash Disbursements)
+
+            - `6012` (Quasi Cash - Financial Institution - Merchandise and Services)
+
+            - `6050` (Quasi Cash - Member Financial Institution)
+
+            - `6051` (MasterCard - Quasi Cash-Merchant)
+
+            - `6211` (Securities - Brokers and Dealers)
+
+            - `6300` (Insurance Sales and Underwriting)
+
+            - `6381` (Insurance - Premiums)
+
+            - `6399` (Insurance - Not Elsewhere Classified)
+
+            - `6513` (Real Estate Agents and Managers - Rentals; Property Management)
+
+            - `6529` (Remote Stored Value Load - Member Financial Institution)
+
+            - `6530` (Remote Stored Value Load - Merchant)
+
+            - `6531` (Payment Service Provider)
+
+            - `6532` (Payment Transaction - Member)
+
+            - `6533` (Payment Transaction - Merchant)
+
+            - `6534` (Money Transfer - Member Financial Institution)
+
+            - `6535` (Value Purchase - Member Financial Institution)
+
+            - `6536` (MoneySend Intracountry)
+
+            - `6537` (MoneySend Intercountry)
+
+            - `6538` (MoneySend Funding)
+
+            - `6540` (POI Funding Transactions (Excluding MoneySend))
+
+            - `7011` (Lodging - Hotels, Motels, and Resorts)
+
+            - `7012` (Timeshares)
+
+            - `7032` (Sporting and Recreational Camps)
+
+            - `7033` (Trailer Parks and Campgrounds)
+
+            - `7210` (Laundry, Cleaning, and Garment Services)
+
+            - `7211` (Laundry Services - Family and Commercial)
+
+            - `7216` (Dry Cleaners)
+
+            - `7217` (Carpet and Upholstery Cleaning)
+
+            - `7221` (Photographic Studios)
+
+            - `7230` (Beauty and Barber Shops)
+
+            - `7251` (Shoe Repair Shops, Shoe Shine Parlors, and Hat Cleaning Shops)
+
+            - `7261` (Funeral Services and Crematories)
+
+            - `7273` (Dating Services)
+
+            - `7276` (Tax Preparation Services)
+
+            - `7277` (Counseling Services - Debt, Marriage, and Personal)
+
+            - `7278` (Buying and Shopping Services and Clubs)
+
+            - `7296` (Clothing Rental - Costumes, Uniforms and Formal Wear)
+
+            - `7297` (Massage Parlors)
+
+            - `7298` (Health and Beauty Spas)
+
+            - `7299` (Miscellaneous Personal Services - Not Elsewhere Classified)
+
+            - `7311` (Advertising Services)
+
+            - `7321` (Consumer Credit Reporting Agencies)
+
+            - `7332` (Blueprinting and Photocopying Services)
+
+            - `7333` (Commercial Photography, Art, and Graphics)
+
+            - `7338` (Quick Copy, Reproduction Service)
+
+            - `7339` (Stenographic Service)
+
+            - `7342` (Exterminating and Disinfecting Services)
+
+            - `7349` (Cleaning, Maintenance & Janitorial Services)
+
+            - `7361` (Employment Agencies and Temporary Help Services)
+
+            - `7372` (Computer Programming, Data Processing, and Integrated Systems Design Services)
+
+            - `7375` (Information Retrieval Services (Business to Business MCC))
+
+            - `7379` (Computer Maintenance, Repair and Services (Business to Business MCC))
+
+            - `7392` (Management, Consulting, and Public Relations Services)
+
+            - `7393` (Detective Agencies, Protective Agencies, and Security Services, including Armored Cars and Guard Dogs)
+
+            - `7394` (Equipment, Tool, Furniture, and Appliance Rental and Leasing)
+
+            - `7395` (Photofinishing Laboratories and Photo Developing)
+
+            - `7399` (Business Services)
+
+            - `7511` (Truck Stops)
+
+            - `7512` (Automobile Rental Agency)
+
+            - `7513` (Truck and Utility Trailer Rentals)
+
+            - `7519` (Motor Home and Recreational Vehicle Rentals)
+
+            - `7523` (Parking Lots and Garages)
+
+            - `7524` (Express Payment Service Mechants - Parking Lots and Garages)
+
+            - `7531` (Automotive Top & Body Shops)
+
+            - `7534` (Tire Retreading & Repair)
+
+            - `7535` (Automotive Paint Shops)
+
+            - `7538` (Automotive Service Shops (Non-Dealer))
+
+            - `7542` (Car Washes)
+
+            - `7549` (Towing Services)
+
+            - `7622` (Electronic Repair Shops)
+
+            - `7623` (Air Conditioning and Refrigeration Repair Shops)
+
+            - `7629` (Electrical and Small Appliance Repair Shops)
+
+            - `7631` (Watch, Clock, and Jewelry Repair Shops)
+
+            - `7641` (Furniture - Reupholster, Repair, and Refinishing)
+
+            - `7692` (Welding Services)
+
+            - `7699` (Miscellaneous Repair Shops and Related Services)
+
+            - `7778` (Citishare Cash Advance)
+
+            - `7800` (Government-Owned Lotteries)
+
+            - `7801` (Government-Licensed Casinos (Online Gambling))
+
+            - `7802` (Government-Licensed Horse/Dog Racing)
+
+            - `7829` (Motion Picture & Video Tape Production and Distribution (Business to Business MCC))
+
+            - `7832` (Motion Picture Theater)
+
+            - `7841` (DVD/Video Tape Rental Stores)
+
+            - `7911` (Dance Halls, Studios & Schools)
+
+            - `7922` (Theatrical Producers (except Motion Pictures) and Ticket Agencies)
+
+            - `7929` (Bands, Orchestras & Misc Entertainment)
+
+            - `7932` (Billiards & Pool Establishments)
+
+            - `7933` (Bowling Alleys)
+
+            - `7941` (Commercial Sports, Professional Sports Clubs, Athletic Fields, and Sports Promoters)
+
+            - `7991` (Tourist Attractions and Exhibits)
+
+            - `7992` (Public Golf Courses)
+
+            - `7993` (Video Amusement Game Supply)
+
+            - `7994` (Video Game Arcades and Establishments)
+
+            - `7995` (Betting, including Lottery Tickets, Casino Gaming Chips, Off- Track Betting, and Wagers at Race Track)
+
+            - `7996` (Amusement Parks, Circuses, Carnivals, and Fortune Tellers)
+
+            - `7997` (Membership Clubs (Sports, Recreation, Athletic), Country Clubs, and Private Golf Courses)
+
+            - `7998` (Aquarium, Seaquarium, Dolphinariums)
+
+            - `7999` (Recreation Services - Not Elsewhere Classified)
+
+            - `8011` (Doctors and Physicians - Not Elsewhere Classified)
+
+            - `8021` (Dentists and Orthodontists)
+
+            - `8031` (Osteopathic Physicians)
+
+            - `8041` (Chiropractors)
+
+            - `8042` (Optometrists and Ophthalmologists)
+
+            - `8043` (Opticians, Optical Goods and Eyeglasses)
+
+            - `8049` (Podiatrists and Chiropodists)
+
+            - `8050` (Nursing and Personal Care Facilities)
+
+            - `8062` (Hospitals)
+
+            - `8071` (Medical and Dental Laboratories)
+
+            - `8099` (Medical Services Health Practitioners - No Elsewhere Classified)
+
+            - `8111` (Legal Services and Attorneys)
+
+            - `8211` (Elementary and Secondary Schools)
+
+            - `8220` (Colleges, Universities, Professional Schools, and Junior Colleges)
+
+            - `8241` (Correspondence Schools)
+
+            - `8244` (Business and Secretarial Schools)
+
+            - `8249` (Trade and Vocational Schools)
+
+            - `8299` (Schools and Educational Services - Not Elsewhere Classified)
+
+            - `8351` (Child Care Services)
+
+            - `8398` (Charitable and Social Service Organizations)
+
+            - `8641` (Civic, Social, and Fraternal Associations)
+
+            - `8651` (Political Organizations)
+
+            - `8661` (Religious Organizations)
+
+            - `8675` (Automobile Associations)
+
+            - `8699` (Membership Organizations - Not Elsewhere Classified)
+
+            - `8734` (Testing Laboratories (Not Medical) - (Business to Business MCC))
+
+            - `8911` (Architectural, Engineering, and Surveying Services)
+
+            - `8931` (Accounting, Auditing, and Bookkeeping Services)
+
+            - `8999` (Professional Services - Not Elsewhere Classified)
+
+            - `9211` (Court Costs, including Alimony and Child Support)
+
+            - `9222` (Fines)
+
+            - `9223` (Bail & Bond Payments)
+
+            - `9311` (Tax Payments)
+
+            - `9399` (Government Services - Not Elsewhere Classified)
+
+            - `9401` (i-Purchasing)
+
+            - `9402` (Postal Services)
+
+            - `9405` (U.S. Fed Government Agencies)
+
+            - `9700` (Automated Referral Service)
+
+            - `9701` (Visa Credential Server)
+
+            - `9702` (GCAS Emergency Services)
+
+            - `9751` (U.K. Supermarkets, Electronic Hot File)
+
+            - `9752` (U.K. Petrol Stations, Electronic Hot File)
+
+            - `9753` (Consumer Electronics/Furniture Store)
+
+            - `9754` (Quasi Cash - Gambling-Horse Racing, Dog Racing, State Lotteries)
+
+            - `9950` (Intra-Company Purchases)'
+          example: '0742'
+    ConsolidatedAccountInformation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the consolidated account. When used in Get Account Transactions calls, the transactions between the sub-accounts will not be reported
+        accountBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+      description: Summary information regarding account balances of the overall account provided by the bank
+    Payer:
+      title: Payer Details
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Conditional__. Details of the benefactor [person or business].
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    AccountType:
+      type: string
+      description: The type of account e.g. (Credit Card, Savings).
+      enum:
+      - CASH_TRADING
+      - CASH_INCOME
+      - CASH_PAYMENT
+      - CHARGE_CARD
+      - CHARGES
+      - COMMISSION
+      - CREDIT_CARD
+      - CURRENT
+      - E_MONEY
+      - LIMITED_LIQUIDITY_SAVINGS_ACCOUNT
+      - LOAN
+      - MARGINAL_LENDING
+      - MONEY_MARKET
+      - MORTGAGE
+      - NON_RESIDENT_EXTERNAL
+      - OTHER
+      - OVERDRAFT
+      - OVERNIGHT_DEPOSIT
+      - PREPAID_CARD
+      - SALARY
+      - SAVINGS
+      - SETTLEMENT
+      - TAX
+      - UNKNOWN
+    FrequencyEnumExtended:
+      type: string
+      description: __Mandatory__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
+      enum:
+      - DAILY
+      - EVERY_WORKING_DAY
+      - CALENDAR_DAY
+      - WEEKLY
+      - EVERY_TWO_WEEKS
+      - MONTHLY
+      - EVERY_TWO_MONTHS
+      - QUARTERLY
+      - SEMIANNUAL
+      - ANNUAL
+    DirectDebitResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        statusDetails:
+          $ref: '#/components/schemas/PaymentStatusDetails'
+        payeeDetails:
+          $ref: '#/components/schemas/DirectDebitPayee'
+        reference:
+          type: string
+        previousPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        previousPaymentDateTime:
+          type: string
+          format: date-time
+    Beneficiary:
+      type: object
+      description: Account information belonging to the target beneficiary (person/ business).
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the `beneficiary`.
+        reference:
+          type: string
+          description: A creditor reference that is requested to be used for all payment instructions to this beneficiary.
+        payee:
+          $ref: '#/components/schemas/BeneficiaryPayee'
+        trusted:
+          type: boolean
+          description: Indicates whether the account owner has stated that this beneficiary should be trusted. This often results in reduced authentication and authorisation requirements on payments to the beneficiary.
+    TransactionStatusEnum:
+      type: string
+      enum:
+      - BOOKED
+      - PENDING
+    PaymentIsoStatus:
+      type: object
+      description: The payment status code, as denoted by a 3-letter ISO 20022 code.
+      properties:
+        code:
+          $ref: '#/components/schemas/PaymentIsoStatusCodeEnum'
+        name:
+          type: string
+          description: The full name of the ISO 20022 `PaymentStatusCode`.
+          example: AcceptedCreditSettlementCompleted
+    ApiCall:
+      type: object
+    Transaction:
+      type: object
+      description: Details of a transaction (credit or debit) that has occurred on the account.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the transaction.
+        date:
+          type: string
+          format: date-time
+        bookingDateTime:
+          type: string
+          description: Date and time in UTC format of when a transaction was booked.
+          format: date-time
+        valueDateTime:
+          type: string
+          description: Date and time in UTC format when the funds either cease to be available (for debit transactions) or become available (for credit transactions) to the account owner.
+          format: date-time
+        status:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        amount:
+          type: number
+          description: The transaction amount.
+        currency:
+          type: string
+          description: Currency the transaction amount is denoted in. Specified as a 3-letter ISO 4217 code.
+        transactionAmount:
+          $ref: '#/components/schemas/Amount'
+        grossAmount:
+          $ref: '#/components/schemas/Amount'
+        currencyExchange:
+          $ref: '#/components/schemas/CurrencyExchange'
+        chargeDetails:
+          $ref: '#/components/schemas/TransactionChargeDetails'
+        reference:
+          type: string
+        statementReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatementReference'
+        description:
+          type: string
+        transactionInformation:
+          type: array
+          description: Further details on the transaction. This is narrative data, caught as unstructured text.
+          items:
+            type: string
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+        isoBankTransactionCode:
+          $ref: '#/components/schemas/IsoBankTransactionCode'
+        proprietaryBankTransactionCode:
+          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
+        balance:
+          $ref: '#/components/schemas/TransactionBalance'
+        payeeDetails:
+          type: object
+          description: Details of the beneficiary [person or business].
+          properties:
+            name:
+              type: string
+              description: The account holder name of the Payee.
+            accountIdentifications:
+              type: array
+              description: The account identifications that identify the Payee's bank account.
+              items:
+                type: object
+                properties:
+                  type:
+                    allOf:
+                    - $ref: '#/components/schemas/AccountIdentificationType'
+                    description: Describes the format of the account.
+                  identification:
+                    type: string
+                    description: The value associated with the account identification type.
+        payerDetails:
+          type: object
+          description: Details of the benefactor [person or business].
+          properties:
+            name:
+              type: string
+              description: The account holder name of the Payer.
+            accountIdentifications:
+              type: array
+              description: The account identifications that identify the Payer's bank account.
+              items:
+                type: object
+                properties:
+                  type:
+                    allOf:
+                    - $ref: '#/components/schemas/AccountIdentificationType'
+                    description: Describes the format of the account.
+                  identification:
+                    type: string
+                    description: The value associated with the account identification type.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        enrichment:
+          $ref: '#/components/schemas/Enrichment'
+        supplementaryData:
+          type: object
+          description: Additional information that cannot be captured in a structured field or block.
+        transactionMutability:
+          type: string
+          description: '__Optional__. Specifies the Mutability of the Transaction record.
+
+
+            - A transaction with a `Status` of `Pending` is mutable.
+
+            - A transaction with a `Status` of `Booked` where the `TransactionMutability` flag is not specified is not guaranteed to be immutable (although in most instances it will be).
+
+            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Immutable` is immutable.
+
+            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Mutable` is mutable.'
+          example: Mutable
+    ApiResponseOfIdentity:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Identity'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    AddressDetails:
+      type: object
+      properties:
+        addressLine:
+          type: string
+          description: Information, in free format text, that identifies a specific address.
+    ApiListResponseOfDirectDebitResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectDebitResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListDirectDebitResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    Enrichment:
+      type: object
+      description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
+      properties:
+        categorisation:
+          $ref: '#/components/schemas/Categorisation'
+        transactionHash:
+          $ref: '#/components/schemas/TransactionHash'
+        cleansedDescription:
+          type: string
+          description: Cleaned version of the `Transaction Description` that removes miscellaneous, generic and unhelpful text.
+        merchant:
+          $ref: '#/components/schemas/EnrichmentMerchant'
+        location:
+          type: string
+          description: The location of where the transaction took place.
+        paymentProcessor:
+          type: string
+          description: A payment provider that manages (credit/debit) transactions between the `Institution` and the merchant.
+        correctedDate:
+          type: string
+          description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
+          format: date-time
+    PriorityCodeEnum:
+      type: string
+      enum:
+      - NORMAL
+      - URGENT
+    PaymentStatus:
+      type: string
+      description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
+      enum:
+      - PENDING
+      - FAILED
+      - DECLINED
+      - COMPLETED
+      - COMPLETED_SETTLEMENT_IN_PROCESS
+      - EXPIRED
+      - UNKNOWN
+      - ACTIVE
+      - INACTIVE
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    TransactionBalance:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountBalanceType'
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+    Identity:
+      type: object
+      description: Identification details of a party associated with an account e.g. (account owner or operator).
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+        gender:
+          type: string
+        birthdate:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityAddress'
+    AccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    PayeeAccountType:
+      title: Payee Account Type
+      type: string
+      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
+    ApiResponseOfAccountStatement:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/AccountStatement'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    AccountBalanceType:
+      type: string
+      description: Specifies the type of the stated account balance.
+      enum:
+      - CLOSING_AVAILABLE
+      - CLOSING_BOOKED
+      - CLOSING_CLEARED
+      - EXPECTED
+      - FORWARD_AVAILABLE
+      - INFORMATION
+      - INTERIM_AVAILABLE
+      - INTERIM_BOOKED
+      - INTERIM_CLEARED
+      - OPENING_AVAILABLE
+      - OPENING_BOOKED
+      - OPENING_CLEARED
+      - PREVIOUSLY_CLOSED_BOOKED
+      - AUTHORISED
+      - OTHER
+      - UNKNOWN
+    ApiResponseError:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    AccountStatement:
+      type: object
+      description: Statement information belonging to the account.
+      properties:
+        id:
+          description: Unique identifier for the statement.
+          type: string
+        startDateTime:
+          type: string
+          description: Date and time of when the statement period starts.
+          format: date-time
+        endDateTime:
+          type: string
+          description: Date and time of when the statement period ends.
+          format: date-time
+        creationDateTime:
+          type: string
+          description: Date and time of when the statement was created.
+          format: date-time
+    UsageType:
+      type: string
+      description: The customer segment of the account.
+      enum:
+      - PERSONAL
+      - BUSINESS
+      - OTHER
+      - UNKNOWN
+    DirectDebitPayee:
+      type: object
+      properties:
+        name:
+          type: string
+          description: __Mandatory__. The account holder name.
+          example: Tempus Risus Company
+    ResponseMetaWithCount:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    ApiListResponseOfPaymentResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListPaymentResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    CreditLineType:
+      type: string
+      description: __Mandatory__. The type of credit that has been provided.
+      enum:
+      - AVAILABLE
+      - CREDIT
+      - EMERGENCY
+      - PRE_AGREED
+      - TEMPORARY
+      - OTHER
+      - UNKNOWN
+    TransactionHash:
+      type: object
+      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
+      properties:
+        hash:
+          type: string
+    Balances:
+      type: object
+      properties:
+        mainBalanceAmount:
+          $ref: '#/components/schemas/Amount'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+    BeneficiaryPayee:
+      description: __Mandatory__. Account details belonging to the `Beneficiary Payee` (person/ business). You must define this in your payment request along with all of the nested mandatory properties.
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          type: string
+          description: The account holder name of the beneficiary.
+          example: Jane Doe
+        accountIdentifications:
+          type: array
+          description: __Mandatory__. The account identifications that identify the `BeneficiaryPayee` bank account.
+          example:
+          - identification: '401016'
+            type: SORT_CODE
+          - identification: '71518920'
+            type: ACCOUNT_NUMBER
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+          uniqueItems: true
+        address:
+          $ref: '#/components/schemas/Address'
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    FilteredClientPayloadListDirectDebitResponse:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectDebitResponse'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    PaymentStatusDetails:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        statusReason:
+          type: string
+        statusReasonDescription:
+          type: string
+        statusUpdateDate:
+          type: string
+          format: date-time
+        multiAuthorisationStatus:
+          $ref: '#/components/schemas/MultiAuthorisation'
+        isoStatus:
+          $ref: '#/components/schemas/PaymentIsoStatus'
+    ApiResponseOfBalances:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Balances'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    CreditLine:
+      type: object
+      description: __Mandatory__. Details whether the account has access to a credit line from an `Institution`.
+      properties:
+        type:
+          $ref: '#/components/schemas/CreditLineType'
+        creditLineAmount:
+          $ref: '#/components/schemas/Amount'
+    ApiResponseOfAccount:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Account'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+  securitySchemes:
+    basicAuth:
+      description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
+      scheme: basic
+      type: http
