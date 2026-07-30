@@ -7,6 +7,19 @@ description: >-
   Variable Recurring Payments (VRP), transaction enrichment (Data Plus), Account Validation, and Hosted Payment/Consent
   Pages. Yapily Connect Ltd is FCA-authorised in the UK and Yapily Connect UAB is authorised by the Bank of Lithuania
   for EU coverage, allowing customers to launch without holding their own PSD2 permissions.
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.yapily.com/favicon.ico
 created: 2026-05-25T00:00:00.000Z
 modified: 2026-05-25T00:00:00.000Z
@@ -26,190 +39,426 @@ tags:
   - FinTech
 specificationVersion: '0.16'
 apis:
-  - aid: yapily:yapily-platform-api
-    name: Yapily Platform API
-    tags:
-      - Applications
-      - Users
-      - Webhooks
-      - Notifications
-      - Constraints
-      - Platform
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-platform-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage Applications, Users, Webhooks, Notifications, and Constraints that govern how downstream AIS/PIS
-      interactions operate on the Yapily Open Banking platform.
-  - aid: yapily:yapily-institutions-api
-    name: Yapily Institutions API
-    tags:
-      - Institutions
-      - ASPSP
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-institutions-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/yapily-institution-schema.json
-        type: JSONSchema
-      - url: examples/yapily-get-institutions-example.json
-        type: Examples
-    description: >-
-      Discover and inspect the 2,000+ supported UK and European banks (ASPSPs), including supported features, payment
-      methods, countries, BIC/BBAN identifiers, media assets, and authentication mechanisms.
-  - aid: yapily:yapily-consents-api
-    name: Yapily Consents and Authorisations API
-    tags:
-      - Consents
-      - Authorisations
-      - PSD2
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-consents-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/yapily-consent-schema.json
-        type: JSONSchema
-    description: >-
-      Create, retrieve, revoke, and re-authorise PSD2 consents for AIS and PIS interactions across UK Open Banking and
-      Berlin Group ASPSPs. Supports redirect, embedded, and decoupled flows.
-  - aid: yapily:yapily-data-api
-    name: Yapily Data Access API (AIS)
-    tags:
-      - Account Information
-      - AISP
-      - Accounts
-      - Balances
-      - Transactions
-      - Identity
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-data-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/yapily-account-schema.json
-        type: JSONSchema
-      - url: json-schema/yapily-transaction-schema.json
-        type: JSONSchema
-      - url: json-schema/yapily-account-balance-schema.json
-        type: JSONSchema
-      - url: json-structure/yapily-account-structure.json
-        type: JSONStructure
-      - url: json-ld/yapily-context.jsonld
-        type: JSONLD
-      - url: examples/yapily-get-account-transactions-example.json
-        type: Examples
-    description: >-
-      Account Information Service Provider (AISP) endpoints for retrieving accounts, balances, transactions, identity,
-      beneficiaries, scheduled payments, standing orders, direct debits, and statements with active end-user consent.
-      Supports cursor pagination on transactions.
-  - aid: yapily:yapily-payments-api
-    name: Yapily Payments API (PIS)
-    tags:
-      - Payments
-      - PISP
-      - Payment Initiation
-      - Open Banking
-      - PSD2
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-payments-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/yapily-payment-response-schema.json
-        type: JSONSchema
-      - url: json-structure/yapily-payment-structure.json
-        type: JSONStructure
-      - url: examples/yapily-create-payment-example.json
-        type: Examples
-    description: >-
-      Payment Initiation Service Provider (PISP) endpoints for initiating single, scheduled, periodic, bulk, and
-      international payments directly from a customer's bank account. Single-use consent per payment.
-  - aid: yapily:yapily-vrp-api
-    name: Yapily Variable Recurring Payments API
-    tags:
-      - Variable Recurring Payments
-      - VRP
-      - Sweeping
-      - Open Banking
-      - Payments
-    humanURL: https://docs.yapily.com/payments/vrps/additional-information
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/payments/vrps/additional-information
-        type: Documentation
-      - url: openapi/yapily-vrp-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Variable Recurring Payments (VRP) endpoints for sweeping and commercial VRP including consent creation, funds
-      confirmation, and payment execution under an active VRP consent.
-  - aid: yapily:yapily-hosted-pages-api
-    name: Yapily Hosted Pages API
-    tags:
-      - Hosted Pages
-      - Pay By Link
-      - Consent UI
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-hosted-pages-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Yapily-hosted UI flows for payment initiation and consent capture, including Pay By Link, single and bulk
-      payments, VRP consent, and AIS consent capture — so customers don't have to build their own consent UI.
-  - aid: yapily:yapily-data-plus-api
-    name: Yapily Data Plus API
-    tags:
-      - Enrichment
-      - Categorisation
-      - Merchant Detection
-      - Insights
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-data-plus-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Transaction enrichment endpoints providing merchant detection, MCC categorisation, and spending insights across
-      consumer and business accounts.
-  - aid: yapily:yapily-beneficiaries-api
-    name: Yapily Beneficiaries API
-    tags:
-      - Beneficiaries
-      - Payments
-      - Open Banking
-    humanURL: https://docs.yapily.com/api/reference/
-    baseURL: https://api.yapily.com
-    properties:
-      - url: https://docs.yapily.com/
-        type: Documentation
-      - url: openapi/yapily-beneficiaries-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Application-level and user-level beneficiary management endpoints to speed up repeat payment flows with reusable
-      counterparties.
+- aid: yapily:yapily-institutions-api
+  name: Yapily Institutions API
+  tags:
+  - Institutions
+  - ASPSP
+  - Open Banking
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  properties:
+  - url: https://docs.yapily.com/
+    type: Documentation
+  - url: openapi/yapily-institutions-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/yapily-institution-schema.json
+    type: JSONSchema
+  - url: examples/yapily-get-institutions-example.json
+    type: Examples
+  description: >-
+    Discover and inspect the 2,000+ supported UK and European banks (ASPSPs), including supported features,
+    payment methods, countries, BIC/BBAN identifiers, media assets, and authentication mechanisms.
+- aid: yapily:yapily-consents-api
+  name: Yapily Consents and Authorisations API
+  tags:
+  - Consents
+  - Authorisations
+  - PSD2
+  - Open Banking
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  properties:
+  - url: https://docs.yapily.com/
+    type: Documentation
+  - url: openapi/yapily-consents-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/yapily-consent-schema.json
+    type: JSONSchema
+  description: >-
+    Create, retrieve, revoke, and re-authorise PSD2 consents for AIS and PIS interactions across UK Open
+    Banking and Berlin Group ASPSPs. Supports redirect, embedded, and decoupled flows.
+- aid: yapily:yapily-payments-api
+  name: Yapily Payments API (PIS)
+  tags:
+  - Payments
+  - PISP
+  - Payment Initiation
+  - Open Banking
+  - PSD2
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  properties:
+  - url: https://docs.yapily.com/
+    type: Documentation
+  - url: openapi/yapily-payments-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/yapily-payment-response-schema.json
+    type: JSONSchema
+  - url: json-structure/yapily-payment-structure.json
+    type: JSONStructure
+  - url: examples/yapily-create-payment-example.json
+    type: Examples
+  description: >-
+    Payment Initiation Service Provider (PISP) endpoints for initiating single, scheduled, periodic, bulk,
+    and international payments directly from a customer's bank account. Single-use consent per payment.
+- aid: yapily:yapily-data-plus-api
+  name: Yapily Data Plus API
+  tags:
+  - Enrichment
+  - Categorisation
+  - Merchant Detection
+  - Insights
+  - Open Banking
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  properties:
+  - url: https://docs.yapily.com/
+    type: Documentation
+  - url: openapi/yapily-data-plus-api-openapi.yml
+    type: OpenAPI
+  description: >-
+    Transaction enrichment endpoints providing merchant detection, MCC categorisation, and spending insights
+    across consumer and business accounts.
+- aid: yapily:yapily-application-beneficiaries-api
+  name: Yapily Application Beneficiaries API
+  description: Application Beneficiaries Endpoints
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Application Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-application-beneficiaries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-application-management-api
+  name: Yapily Application Management API
+  description: >-
+    Application Management endpoints help with creating and managing client sub-applications.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Application Management
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-application-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-authorisations-api
+  name: Yapily Authorisations API
+  description: >-
+    Before calling [Financial Data](#yapily-api-financial-data) or [Payments](#yapily-api-payments) endpoints,
+    a consent from an end-user must be obtained.
+
+
+    Consents are valid for up to 90 days for Financial Data endpoints and have a single-use for Payment
+    endpoints i.e. a new consent must be obtained for each payment.
+
+
+    NOTE: A user consent is also referred to as an 'Authorisation'.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Authorisations
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-authorisations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-constraints-api
+  name: Yapily Constraints API
+  description: >-
+    The constraints endpoints can be used to retrieve institution specific data requirements and rules
+    that will apply when performing other operations.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Constraints
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-constraints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-financial-data-api
+  name: Yapily Financial Data API
+  description: >-
+    In order to access a user's Financial Data, you are required to request an [Authorisation](#tag/Authorisations)
+    from the user to share the account information the bank has. Once a `consent-token` is obtained, you
+    can call the necessary Financial Data endpoint(s) to retrieve the user's data.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Financial Data
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-financial-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-hosted-consent-pages-api
+  name: Yapily Hosted Consent Pages API
+  description: Hosted Consent Pages endpoints for data products
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Hosted Consent Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-hosted-consent-pages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-hosted-payment-pages-api
+  name: Yapily Hosted Payment Pages API
+  description: Hosted Payment Pages endpoints for payments products
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Hosted Payment Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-hosted-payment-pages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-notifications-api
+  name: Yapily Notifications API
+  description: >-
+    The Notifications endpoints provide an interactive way for user to receive notifications according
+    to different event-types. This feature is currently in private beta. Please reach out if you require
+    access.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-user-beneficiaries-api
+  name: Yapily User Beneficiaries API
+  description: User Beneficiaries Endpoints
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - User Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-user-beneficiaries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-users-api
+  name: Yapily Users API
+  description: >-
+    The Users endpoints are used to manage each user (otherwise known as the PSU) in Yapily. Each user
+    belongs to an Application and as a consequence, so do each `Consent` created for a particular `User`.
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-variable-recurring-payments-api
+  name: Yapily Variable Recurring Payments API
+  description: "Variable Recurring Payments enables transfer of money between accounts held by the same\
+    \ person or transfer of money for business payments. \n\nIn order to make Sweeping Variable Recurring\
+    \ Payments on behalf of a user, you are required to request an [Consent](#tag/Authorisations) from\
+    \ the user by calling the Sweeping Consent endpoint to authorise the user's account to make the payment.\
+    \ Once a `consent-token` is obtained, you can call the Payments endpoint to execute the Sweeping Variable\
+    \ Recurring Payments transaction. Before executing the payment, you have the option to confirm availability\
+    \ of funds in the user's account by calling the Funds Confirmation endpoint. \n\nSee [VRP Payments](/payments/vrps/additional-information)\
+    \ for more information."
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Variable Recurring Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-variable-recurring-payments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
+- aid: yapily:yapily-webhooks-api
+  name: Yapily Webhooks API
+  description: Webhook endpoints
+  humanURL: https://docs.yapily.com/api/reference/
+  baseURL: https://api.yapily.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/yapily-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.yapily.com/
+  - type: JSONSchema
+    url: json-schema/yapily-account-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-transaction-schema.json
+  - type: JSONSchema
+    url: json-schema/yapily-account-balance-schema.json
+  - type: JSONStructure
+    url: json-structure/yapily-account-structure.json
+  - type: JSONLD
+    url: json-ld/yapily-context.jsonld
+  - type: Examples
+    url: examples/yapily-get-account-transactions-example.json
+  - type: Documentation
+    url: https://docs.yapily.com/payments/vrps/additional-information
 common:
   - type: AgenticAccess
     url: agentic-access/yapily-agentic-access.yml
