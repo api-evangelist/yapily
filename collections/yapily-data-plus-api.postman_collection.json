@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "8cef0d17-a6d3-488c-91dc-db8c02f6f77d",
+      "id": "b8a53d56-8a34-4e75-8724-a1d41020c019",
       "name": "Data Plus",
       "description": {
         "content": "Data Plus endpoints enable our customers to enrich transaction data. ",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "6e06b37c-57da-4350-b8d1-7c598ae2873c",
+          "id": "ad2c5349-d4f2-41c1-af68-61ad0bed814a",
           "name": "Transactions and Enrichment",
           "request": {
             "name": "Transactions and Enrichment",
@@ -86,7 +86,7 @@
           },
           "response": [
             {
-              "id": "ee8ba94b-5508-4c2a-bd97-6bc310b2ca3a",
+              "id": "0a0f9888-67cc-4852-9516-16614708c1d8",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -172,7 +172,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "55eb27e4-5323-4c41-8870-8faba64b7546",
+              "id": "dacbb6ee-9a36-4bc9-a9b7-b3cd24f66d8d",
               "name": "Validation Error",
               "originalRequest": {
                 "url": {
@@ -258,7 +258,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "69f48c74-dd6d-4878-b895-95011f2a1a8f",
+              "id": "58f6cc9b-ffa4-49fb-9c82-874697eae268",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -344,7 +344,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7b997e39-c978-4398-911f-ea0802a8c8c2",
+              "id": "f77ee420-2fac-410b-acfe-dea30741b530",
               "name": "Unexpected Error",
               "originalRequest": {
                 "url": {
@@ -436,7 +436,7 @@
           }
         },
         {
-          "id": "95b50924-b5ef-47d8-aadb-7cd9472a90ff",
+          "id": "c62ca04a-c2db-4cf0-af2c-88e3ab3b20a6",
           "name": "Get Categorised Transactions (deprecated)",
           "request": {
             "name": "Get Categorised Transactions (deprecated)",
@@ -503,7 +503,7 @@
           },
           "response": [
             {
-              "id": "1d7a43d1-e710-4e81-aa78-2ad5ebee01a2",
+              "id": "e77e56a2-c0e8-4715-afd2-ba311f284904",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -580,7 +580,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "caec68d7-9e7a-42cd-8707-d57afcabf6a5",
+              "id": "089b17a6-adba-4f71-80f1-16d1f37b78c0",
               "name": "Validation Error",
               "originalRequest": {
                 "url": {
@@ -657,7 +657,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3ce1bb60-329c-48cc-b8f4-b12962279050",
+              "id": "dbdcf79d-5ed9-48f4-b941-74d098961955",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -734,7 +734,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "801d2908-90c8-4ff0-bdd3-ea3ce4b2c82a",
+              "id": "7ae53aca-495c-40e7-9d88-e982984cd271",
               "name": "Categorisation ID not found",
               "originalRequest": {
                 "url": {
@@ -811,7 +811,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "30573020-2e41-42c6-8719-8b4d34046ac6",
+              "id": "f3ef12b9-e3b6-4225-8c8a-0567b46dc387",
               "name": "Unexpected Error",
               "originalRequest": {
                 "url": {
@@ -894,7 +894,7 @@
           }
         },
         {
-          "id": "be4245b2-6c44-415b-83f0-93c33802bf63",
+          "id": "f6a41b48-d337-4746-9b64-750723baa121",
           "name": "Enrichment",
           "request": {
             "name": "Enrichment",
@@ -937,7 +937,7 @@
           },
           "response": [
             {
-              "id": "9be02fb2-7f39-4f1e-bc22-bbb5d36c4c7c",
+              "id": "8b488a3d-fc56-4faf-a718-0c6e31ce8fec",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -989,7 +989,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0610162d-a7c8-4956-bbb6-e98e23ac2793",
+              "id": "1336c9fe-5945-44d6-bf5f-a5bac1e03aaa",
               "name": "Validation Error",
               "originalRequest": {
                 "url": {
@@ -1041,7 +1041,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "28df5efc-2856-4783-aec4-d575e1974e43",
+              "id": "2bd1adde-8dbd-4fd7-a2f5-fb33c8b70f5f",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -1093,7 +1093,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b4eab363-bbbd-4e83-819d-361e59753fac",
+              "id": "485ed5f4-9b0f-4e99-9b34-891849efd88e",
               "name": "Unexpected Error",
               "originalRequest": {
                 "url": {
@@ -1151,7 +1151,7 @@
           }
         },
         {
-          "id": "ae5cadf5-d98f-40e7-8838-5e892d93abeb",
+          "id": "3c1b30b8-3c50-4842-92e6-7ad99b308e2c",
           "name": "Get Enrichment Results",
           "request": {
             "name": "Get Enrichment Results",
@@ -1203,7 +1203,7 @@
           },
           "response": [
             {
-              "id": "6cb4aeb0-1be4-4977-a1ef-1ced718e8b70",
+              "id": "696abf25-2447-402f-ae44-3e4438a301a1",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1265,7 +1265,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "821b7448-2a0c-4891-a375-eac5795bbe5d",
+              "id": "8241e948-c76e-422e-9a1f-de9d8a4291ba",
               "name": "Validation Error",
               "originalRequest": {
                 "url": {
@@ -1327,7 +1327,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "98a899e2-851b-476a-9108-c48fcc457341",
+              "id": "6c089ee8-3229-4990-974d-da395affd881",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -1389,7 +1389,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e4c163a2-64a1-4521-acbd-c07dbfe2fd37",
+              "id": "8465d1ee-4317-4586-b1c7-30998ee60943",
               "name": "Categorisation ID not found",
               "originalRequest": {
                 "url": {
@@ -1451,7 +1451,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0767af59-a7fb-44a3-8f7d-ff2a2bdd1ebc",
+              "id": "5736887d-8f27-4692-854a-1b20fbfbbd67",
               "name": "Unexpected Error",
               "originalRequest": {
                 "url": {
@@ -1519,7 +1519,7 @@
           }
         },
         {
-          "id": "e3f3105e-efed-422a-a593-09f6779fff52",
+          "id": "b2eae224-9c0e-4eb7-b576-82bb0f031cf0",
           "name": "Get Enrichment Labels",
           "request": {
             "name": "Get Enrichment Labels",
@@ -1559,7 +1559,7 @@
           },
           "response": [
             {
-              "id": "f64f88e2-2271-4f69-8611-24e5ab2babe4",
+              "id": "999f1d89-e7a1-4871-b280-2ce09cf80bbc",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -1613,7 +1613,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "47c5e9d3-5d25-4e63-82cd-def76b9a78f9",
+              "id": "ea5accfd-fc94-428b-a43a-2f56f285019a",
               "name": "Validation Error",
               "originalRequest": {
                 "url": {
@@ -1667,7 +1667,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d8e13757-47a3-48f5-b06e-9f3c48eecc54",
+              "id": "5991f3e9-304e-4174-b135-fe9b3bc41f92",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -1721,7 +1721,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f810bbc1-8c87-4f75-9547-2e5cf364bdbd",
+              "id": "55fad5f3-9e37-4566-83f4-e49e24773b99",
               "name": "Account type not found",
               "originalRequest": {
                 "url": {
@@ -1775,7 +1775,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5fe5c209-b61b-4c48-a335-23031501af20",
+              "id": "91e915ef-2e3f-40c4-9a53-5629bf53068f",
               "name": "Unexpected Error",
               "originalRequest": {
                 "url": {
@@ -1860,11 +1860,11 @@
     ]
   },
   "info": {
-    "_postman_id": "01047171-933a-4453-82a8-8f715770df21",
-    "name": "Yapily Data Plus API",
+    "_postman_id": "e5416f4e-a490-4b63-a6b7-6b7269650783",
+    "name": "Yapily Beneficiaries Application Beneficiaries Data Plus API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Transaction enrichment endpoints for categorisation, merchant detection, and spending insights across consumer and business accounts.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
       "type": "text/plain"
     }
   }

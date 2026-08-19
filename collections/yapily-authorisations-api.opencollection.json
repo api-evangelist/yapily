@@ -1,0 +1,471 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Authorisations API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorisations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Account Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/account-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the authorisation process and direct users to the login screen of their financial institution in order to give consent to access account data.\n\nFeature: `INITIATE_ACCOUNT_REQUEST`"
+        },
+        {
+          "info": {
+            "name": "Update Account Pre-authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/account-auth-requests",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to continue the authorisation process and for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature and direct user to the login screen of their financial institution in order to give consent to access account data.\n\nFeatures:\n\n- `INITIATE_ACCOUNT_REQUEST`\n- `INITIATE_PRE_AUTHORISATION`"
+        },
+        {
+          "info": {
+            "name": "Re-authorise Account Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yapily.com/account-auth-requests",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Used to prompt the account holder for continued access to their financial data. This endpoint should be used when a `Consent` that was previously `AUTHORIZED` can no longer be used to retrieve data."
+        },
+        {
+          "info": {
+            "name": "Create Bulk Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/bulk-payment-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a bulk payment.\n\nFeature: `INITIATE_BULK_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Create Embedded Account Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/embedded-account-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_ACCOUNT_REQUEST` feature in order to obtain the the user's authorisation to access their account information.\n\nFeature: `INITIATE_EMBEDDED_ACCOUNT_REQUEST`"
+        },
+        {
+          "info": {
+            "name": "Update Embedded Account Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/embedded-account-auth-requests/:consentId",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The consent Id of the `Consent` to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to access the user's financial data.\n\nFeature: `INITIATE_EMBEDDED_ACCOUNT_REQUEST`"
+        },
+        {
+          "info": {
+            "name": "Create Embedded Bulk Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/embedded-bulk-payment-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_BULK_PAYMENT` feature in order to obtain the the user's authorisation for a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Update Embedded Bulk Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/embedded-bulk-payment-auth-requests/:consentId",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The consent Id of the `Consent` to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Create Embedded Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/embedded-payment-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT` feature in order to obtain the the user's authorisation for a payment. Feature: `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Update Embedded Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/embedded-payment-auth-requests/:consentId",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "consentId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The consent Id of the `Consent` to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a payment. Feature: `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT`"
+        },
+        {
+          "info": {
+            "name": "Create Payment Authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/payment-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a payment. This endpoint is used to initiate all the different payment listed below. Based on the type of payment you wish to make, you may be required to provide specific properties in [PaymentRequest](/api-reference/createPaymentAuthorisation). First make sure that the payment feature you wish to execute is supported by the bank by checking the featu"
+        },
+        {
+          "info": {
+            "name": "Update Payment Pre-authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/payment-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              },
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to continue the authorisation process and for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature and direct user to the login screen of their financial institution in order to give consent to initiate a payment. Feature: `INITIATE_PRE_AUTHORISATION`"
+        },
+        {
+          "info": {
+            "name": "Create Pre-authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/pre-auth-requests",
+            "headers": [
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Used to obtain the raw request and response to and from the `Institution`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the pre-authorisation process for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature to authenticate the user. \n\nFeature: `INITIATE_PRE_AUTHORISATION`"
+        },
+        {
+          "info": {
+            "name": "Create Payment Pre-authorisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/payment-pre-auth-requests",
+            "headers": [
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Used to obtain the raw request and response to and from the `Institution`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate the pre-authorisation process for payments for CBI Globe institutions that contain the `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS` feature to authenticate the user. \n\nFeature: `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

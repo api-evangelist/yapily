@@ -1,0 +1,3038 @@
+{
+  "item": [
+    {
+      "id": "a33183dc-848d-474d-8702-5661d2dee1b7",
+      "name": "Hosted Payment Pages",
+      "description": {
+        "content": "Hosted Payment Pages endpoints for payments products",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8815f5f-2543-425a-b4f1-e653a9226099",
+          "name": "Create Hosted Payment Request",
+          "request": {
+            "name": "Create Hosted Payment Request",
+            "description": {
+              "content": "Used to initiate a payment request using Yapily Hosted Pages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "payment-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redirectUrl\": \"<string>\",\n  \"paymentRequestDetails\": {\n    \"paymentIdempotencyId\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"amountDetails\": {\n      \"amountToPay\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"reference\": \"<string>\",\n    \"contextType\": \"OTHER\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"paymentDueDate\": \"<date>\"\n  },\n  \"institutionIdentifiers\": {\n    \"institutionCountryCode\": \"<string>\",\n    \"institutionId\": \"<string>\"\n  },\n  \"userId\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"userSettings\": {\n    \"language\": \"<string>\",\n    \"location\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68040c34-b519-46cd-b612-93c3ee10314d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-hosted-payment-request-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "724fea78-eb82-4d63-8637-cb07a341a1b7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a61a3de7-c3ea-4a74-8630-6e7e0d692603",
+              "name": "Unauthorized. Credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de6920cd-f7ba-4e17-b95d-b71dee1de2ab",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85a7226d-c07b-4dd4-b1fb-b7df93f3200e",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8f6e704-bff7-4f02-906a-65c1c4aaf7cc",
+          "name": "Create Pay by Link",
+          "request": {
+            "name": "Create Pay by Link",
+            "description": {
+              "content": "Used to created a long lived payment request for Pay By Link",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "payment-requests",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redirectUrl\": \"<string>\",\n  \"paymentRequestDetails\": {\n    \"reference\": \"<string>\",\n    \"contextType\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payee\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<string>\"\n    },\n    \"payer\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"amountDetails\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"paymentDueDate\": \"<date>\"\n  },\n  \"institutionIdentifiers\": {\n    \"institutionCountryCode\": \"<string>\",\n    \"institutionId\": \"<string>\"\n  },\n  \"userId\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"userSettings\": {\n    \"language\": \"<string>\",\n    \"location\": \"<string>\"\n  },\n  \"authorisationExpiresAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a9c54e3-5973-4217-bd08-172306a936a3",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request-link not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-hosted-payment-request-link-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa0aa035-e5bb-4f84-bd4a-ba41960e13fb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request-link not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7363a738-1a72-4830-a3a0-ae818f859cc0",
+              "name": "Unauthorized. Credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request-link not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76719e86-da4d-4370-a271-8f3b794df822",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request-link not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c638db3-645a-41be-bf23-229443f6614b",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-payment-request-link not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2505d34d-f159-4dcb-90a7-11ec9e4943e0",
+          "name": "Get Hosted Payment Request",
+          "request": {
+            "name": "Get Hosted Payment Request",
+            "description": {
+              "content": "Used to get details of a payment request",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "payment-requests",
+                ":paymentRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentRequestId",
+                  "description": "(Required) Unique Identifier of the payment request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1bf20d4-a6e5-45eb-ac71-3a685ddc6b9b",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    ":paymentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentRequestId",
+                      "description": "(Required) Unique Identifier of the payment request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-hosted-payment-request-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2b706a1-47b2-4d3f-a51b-f08c007622bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    ":paymentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentRequestId",
+                      "description": "(Required) Unique Identifier of the payment request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9d2c7e5-7c4b-484d-81e8-6feccddac051",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    ":paymentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentRequestId",
+                      "description": "(Required) Unique Identifier of the payment request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "580aff6c-f35e-4625-a6d0-ba0901497207",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    ":paymentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentRequestId",
+                      "description": "(Required) Unique Identifier of the payment request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "171f9514-0d55-4966-8912-39814de32bc1",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "payment-requests",
+                    ":paymentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentRequestId",
+                      "description": "(Required) Unique Identifier of the payment request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "220d8388-252f-4838-ab09-0a185ca64833",
+          "name": "Create Vrp Consent",
+          "request": {
+            "name": "Create Vrp Consent",
+            "description": {
+              "content": "Used to initiate a VRP consent / mandate request through Yapily Hosted Pages",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redirectUrl\": \"<string>\",\n  \"institutionIdentifiers\": {\n    \"institutionCountryCode\": \"<string>\",\n    \"institutionId\": \"<string>\"\n  },\n  \"vrpSetup\": {\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"reference\": \"<string>\",\n    \"limits\": {\n      \"periodicLimits\": [\n        {\n          \"maxAmount\": {\n            \"description\": \"__Mandatory__. Maximum amount that can be specified in all payment instructions in a given period under this VRP consent. If the Alignment is Calendar, the limit is pro-rated in the first period to the remaining number of days.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frequency\": \"<string>\",\n          \"alignment\": \"<string>\"\n        },\n        {\n          \"maxAmount\": {\n            \"description\": \"__Mandatory__. Maximum amount that can be specified in all payment instructions in a given period under this VRP consent. If the Alignment is Calendar, the limit is pro-rated in the first period to the remaining number of days.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"frequency\": \"<string>\",\n          \"alignment\": \"<string>\"\n        }\n      ],\n      \"maxAmountPerPayment\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"maxCumulativeAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"maxCumulativeNumberOfPayments\": \"<integer>\"\n    },\n    \"validFrom\": \"<dateTime>\",\n    \"validTo\": \"<dateTime>\",\n    \"recurringPaymentCategory\": \"<string>\",\n    \"initialPayment\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"risk\": {\n      \"contextType\": \"<string>\"\n    }\n  },\n  \"userId\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"userSettings\": {\n    \"language\": \"<string>\",\n    \"location\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d502b085-0cdf-4021-9f30-af16a76ad104",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-consent-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-hosted-vrp-consent-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ff9e401-e778-4d86-846f-6a532c9f9f85",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-consent-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb3907d5-8489-4a16-aacd-2214b99f657b",
+              "name": "Unauthorized. Credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-consent-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83f59fc6-b1d5-4c5b-8dd3-5d370e4af4dd",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-consent-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3875407d-b81a-4b00-b459-a283ddb9d61b",
+          "name": "Get Hosted Vrp Consent Requests",
+          "request": {
+            "name": "Get Hosted Vrp Consent Requests",
+            "description": {
+              "content": "Used to get all VRP consent requests initiated through Yapily Hosted Pages",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68a78eb7-54e7-48fb-9dab-0db9dc299d69",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-hosted-vrp-consents-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6256a952-bbfe-40b2-823b-fc0c025106e3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec56cfde-0efd-4bcc-89b7-e25515922e0b",
+              "name": "Unauthorized. Credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6672748c-30aa-4c7d-bd03-f65f68215235",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de99776c-961d-4a89-9e5b-68a97c905fd5",
+          "name": "Get Hosted Vrp Consent Request",
+          "request": {
+            "name": "Get Hosted Vrp Consent Request",
+            "description": {
+              "content": "Used to get details of a VRP Consent Request",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests",
+                ":consentRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentRequestId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1377adb5-f4ac-4818-a256-96f7ca589e0c",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-hosted-vrp-consent-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adc3b266-a07a-40f7-b3ff-79663c34bdef",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fdcb648-82ec-41d8-9758-2d57e1d2cccc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f3cdc61-b322-4a13-aa5e-5f7f45532dbb",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc59531f-769e-47cc-b082-df4793fc7316",
+          "name": "Revoke Hosted Vrp Consent Request",
+          "request": {
+            "name": "Revoke Hosted Vrp Consent Request",
+            "description": {
+              "content": "Revoke Hosted VRP Consent Request",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests",
+                ":consentRequestId",
+                "revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentRequestId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40c13108-d09e-4bef-855f-854087a581c9",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/revoke-hosted-vrp-consent-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "104a43b4-e804-409b-9a66-27d8b197f6ce",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46ef5d1f-0b65-4fd4-948f-15997e7be580",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78432636-93e9-482a-9f14-8dfba9614155",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c9c6dbe-ad54-4adc-b4cb-53f4e4636a6a",
+          "name": "Create Vrp Payment",
+          "request": {
+            "name": "Create Vrp Payment",
+            "description": {
+              "content": "Creates a Variable Recurring Payment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests",
+                ":consentRequestId",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentRequestId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent-token",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentIdempotencyId\": \"<string>\",\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdc23c06-3178-432a-b735-850a3f78b47f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-hosted-vrp-payment-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc805991-7942-44fb-bc53-9e45fd663fd0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4b1aa09-eedd-45b9-b59a-f2dbfca7cde7",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-payment-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cdffdb4-2f85-44c9-b343-a539f370f23a",
+          "name": "Get Vrp Payment",
+          "request": {
+            "name": "Get Vrp Payment",
+            "description": {
+              "content": "Used to get details of a VRP Payment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests",
+                ":consentRequestId",
+                "payments",
+                ":paymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentRequestId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1aab3445-5cdb-4618-b48a-f690cba570fc",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/get-hosted-vrp-payment-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2219b83-fd11-4c40-85f5-45ee7be7a6a6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a59ed94-21dc-4877-ae7c-143782195ca7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "139efc35-4551-430a-b98e-c9f08d427022",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0097588-b5d1-4ffd-9ec5-d4cca32ca5a7",
+          "name": "Check Funds Availability",
+          "request": {
+            "name": "Check Funds Availability",
+            "description": {
+              "content": "Confirms whether there are available funds on the Payer account to execute a Variable Recurring Payment after obtaining the user's authorisation. \n\nFeatures:\n\n- `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosted",
+                "vrp",
+                "consent-requests",
+                ":consentRequestId",
+                "funds-confirmation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "consentRequestId",
+                  "description": "(Required) Unique Identifier of the Consent Request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent-token",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                "key": "sub-application",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentAmount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d13988bd-b775-4c50-bcb9-821376b220bd",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-fund-confirmation not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/create-hosted-vrp-fund-confirmation-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f94bf14b-19f5-4c8d-8229-db27ffd21c09",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-fund-confirmation not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4795cc00-dd65-496d-b5d2-8fda059c6584",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosted",
+                    "vrp",
+                    "consent-requests",
+                    ":consentRequestId",
+                    "funds-confirmation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "consentRequestId",
+                      "description": "(Required) Unique Identifier of the Consent Request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent-token",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier of the sub application the request is being submitted on behalf of (e.g. an underlying merchant)",
+                    "key": "sub-application",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/create-hosted-vrp-fund-confirmation not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d67c0717-4c9d-42af-a8d0-edc745c65bda",
+    "name": "Yapily Beneficiaries Application Beneficiaries Hosted Payment Pages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

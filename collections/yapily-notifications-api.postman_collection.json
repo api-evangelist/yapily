@@ -1,0 +1,780 @@
+{
+  "item": [
+    {
+      "id": "e1e11660-7bca-4b31-b151-0cc1b5553baa",
+      "name": "Notifications",
+      "description": {
+        "content": "The Notifications endpoints provide an interactive way for user to receive notifications according to different event-types. This feature is currently in private beta. Please reach out if you require access. \n\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92c3b408-3ffb-4474-8be1-4015d4505eca",
+          "name": "Create Event Subscription",
+          "request": {
+            "name": "Create Event Subscription",
+            "description": {
+              "content": "Used to subscribe to notifications relating to a specified event type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications",
+                "event-subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventTypeId\": \"<string>\",\n  \"notification\": {\n    \"type\": \"<string>\",\n    \"url\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5045198e-1151-4a1e-9b34-9d237c8d74bf",
+              "name": "Event subscription created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTypeId\": \"payment.status.completed\",\n  \"notification\": {\n    \"type\": \"WEBHOOK\",\n    \"url\": \"https://httpbin.com/new_endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\"\n  },\n  \"data\": {\n    \"eventTypeId\": \"payment.status.completed\",\n    \"applicationId\": \"2698db90-6635-4f76-b673-5ce8e2aeda0e\",\n    \"created\": \"28-07-2021 15:47:03\",\n    \"notification\": {\n      \"type\": \"WEBHOOK\",\n      \"url\": \"https://httpbin.com/new_endpoint\"\n    }\n  },\n  \"links\": {\n    \"key_0\": \"string\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"1997-11-12T20:22:04.231Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"startTime\": \"1966-10-13T11:15:08.787Z\",\n        \"startedAt\": \"1957-06-10T23:21:50.056Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"resultCode\": 1901,\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"2002-06-27T00:40:19.421Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"startTime\": \"1999-09-27T00:50:59.171Z\",\n        \"startedAt\": \"1951-01-25T01:05:51.575Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"resultCode\": 57,\n      \"result\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "235a31b3-a68c-4d7e-86aa-cffeee42465e",
+              "name": "Bad request for missing required properties",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTypeId\": \"payment.status.completed\",\n  \"notification\": {\n    \"type\": \"WEBHOOK\",\n    \"url\": \"https://httpbin.com/new_endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4087217b-8d4b-4d0b-8337-a2733c3f325c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTypeId\": \"payment.status.completed\",\n  \"notification\": {\n    \"type\": \"WEBHOOK\",\n    \"url\": \"https://httpbin.com/new_endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b010a039-88af-449f-b628-54d2ac149bab",
+              "name": "Event subscription already exist for the application",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventTypeId\": \"payment.status.completed\",\n  \"notification\": {\n    \"type\": \"WEBHOOK\",\n    \"url\": \"https://httpbin.com/new_endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92feea38-bf4f-489f-9b4c-1d01f0230750",
+          "name": "Get Event Subscriptions",
+          "request": {
+            "name": "Get Event Subscriptions",
+            "description": {
+              "content": "Get all event subscriptions that your application is subscribed to",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications",
+                "event-subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The sub-application ID for which all event subscriptions will be returned",
+                "key": "sub-application",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3265c959-cd9d-4175-9e05-f37d734eb838",
+              "name": "Event subscriptions for the application",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The sub-application ID for which all event subscriptions will be returned",
+                    "key": "sub-application",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\",\n    \"count\": 5348,\n    \"pagination\": {\n      \"totalCount\": 7974,\n      \"self\": {\n        \"from\": \"2007-07-13T17:01:14.575Z\",\n        \"before\": \"1979-10-25T08:40:16.003Z\",\n        \"limit\": 5530,\n        \"sort\": \"-date\",\n        \"offset\": 7169,\n        \"cursor\": \"string\"\n      },\n      \"next\": {\n        \"from\": \"2025-04-29T23:16:38.665Z\",\n        \"before\": \"1997-09-08T22:37:55.521Z\",\n        \"limit\": 3175,\n        \"cursor\": \"string\"\n      }\n    }\n  },\n  \"data\": [\n    {\n      \"eventTypeId\": \"payment.status.completed\",\n      \"applicationId\": \"2698db90-6635-4f76-b673-5ce8e2aeda0e\",\n      \"created\": \"28-07-2021 15:47:03\",\n      \"notification\": {\n        \"type\": \"WEBHOOK\",\n        \"url\": \"https://httpbin.com/new_endpoint\"\n      }\n    },\n    {\n      \"eventTypeId\": \"payment.status.completed\",\n      \"applicationId\": \"2698db90-6635-4f76-b673-5ce8e2aeda0e\",\n      \"created\": \"28-07-2021 15:47:03\",\n      \"notification\": {\n        \"type\": \"WEBHOOK\",\n        \"url\": \"https://httpbin.com/new_endpoint\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"1984-08-20T09:28:12.104Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"startTime\": \"1989-05-09T01:23:11.478Z\",\n        \"startedAt\": \"1964-09-24T15:51:21.795Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"resultCode\": 2443,\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"2017-12-24T10:23:32.969Z\",\n        \"headers\": {\n          \"key_0\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"startTime\": \"2002-01-27T10:07:07.577Z\",\n        \"startedAt\": \"2010-03-13T17:51:35.032Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"resultCode\": 8127,\n      \"result\": {}\n    }\n  ],\n  \"paging\": {\n    \"apiCall\": {},\n    \"data\": [\n      {\n        \"id\": \"string\",\n        \"date\": \"1995-12-07T19:49:08.023Z\",\n        \"bookingDateTime\": \"1970-12-04T18:38:43.350Z\",\n        \"valueDateTime\": \"1955-06-26T22:15:45.488Z\",\n        \"status\": \"PENDING\",\n        \"amount\": 7245.918572663171,\n        \"currency\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": 10,\n          \"currency\": \"GBP\"\n        },\n        \"grossAmount\": {\n          \"amount\": 10,\n          \"currency\": \"GBP\"\n        },\n        \"currencyExchange\": {\n          \"sourceCurrency\": \"string\",\n          \"targetCurrency\": \"string\",\n          \"unitCurrency\": \"string\",\n          \"exchangeRate\": 9880.305056542862\n        },\n        \"chargeDetails\": {\n          \"chargeAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"string\",\n        \"statementReferences\": [\n          {\n            \"value\": \"string\"\n          },\n          {\n            \"value\": \"string\"\n          }\n        ],\n        \"description\": \"string\",\n        \"transactionInformation\": [\n          \"string\",\n          \"string\"\n        ],\n        \"addressDetails\": {\n          \"addressLine\": \"string\"\n        },\n        \"isoBankTransactionCode\": {\n          \"domainCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"familyCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"subFamilyCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"proprietaryBankTransactionCode\": {\n          \"code\": \"string\",\n          \"issuer\": \"string\"\n        },\n        \"balance\": {\n          \"type\": \"CLOSING_CLEARED\",\n          \"balanceAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"payeeDetails\": {\n          \"name\": \"string\",\n          \"accountIdentifications\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            }\n          ]\n        },\n        \"payerDetails\": {\n          \"name\": \"string\",\n          \"accountIdentifications\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            }\n          ]\n        },\n        \"merchant\": {\n          \"merchantName\": \"string\",\n          \"merchantCategoryCode\": \"string\"\n        },\n        \"enrichment\": {\n          \"categorisation\": {\n            \"categories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"transactionHash\": {\n            \"hash\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"cleansedDescription\": \"string\",\n          \"merchant\": {\n            \"merchantName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parentGroup\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"location\": \"string\",\n          \"paymentProcessor\": \"string\",\n          \"correctedDate\": \"1977-05-31T19:37:58.218Z\"\n        },\n        \"supplementaryData\": {},\n        \"transactionMutability\": \"Mutable\"\n      },\n      {\n        \"id\": \"string\",\n        \"date\": \"1985-07-24T10:01:03.031Z\",\n        \"bookingDateTime\": \"2005-07-12T15:57:53.619Z\",\n        \"valueDateTime\": \"1957-07-05T16:35:22.515Z\",\n        \"status\": \"PENDING\",\n        \"amount\": 2480.176074544951,\n        \"currency\": \"string\",\n        \"transactionAmount\": {\n          \"amount\": 10,\n          \"currency\": \"GBP\"\n        },\n        \"grossAmount\": {\n          \"amount\": 10,\n          \"currency\": \"GBP\"\n        },\n        \"currencyExchange\": {\n          \"sourceCurrency\": \"string\",\n          \"targetCurrency\": \"string\",\n          \"unitCurrency\": \"string\",\n          \"exchangeRate\": 5602.167841614163\n        },\n        \"chargeDetails\": {\n          \"chargeAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"string\",\n        \"statementReferences\": [\n          {\n            \"value\": \"string\"\n          },\n          {\n            \"value\": \"string\"\n          }\n        ],\n        \"description\": \"string\",\n        \"transactionInformation\": [\n          \"string\",\n          \"string\"\n        ],\n        \"addressDetails\": {\n          \"addressLine\": \"string\"\n        },\n        \"isoBankTransactionCode\": {\n          \"domainCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"familyCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"subFamilyCode\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"proprietaryBankTransactionCode\": {\n          \"code\": \"string\",\n          \"issuer\": \"string\"\n        },\n        \"balance\": {\n          \"type\": \"AUTHORISED\",\n          \"balanceAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"payeeDetails\": {\n          \"name\": \"string\",\n          \"accountIdentifications\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            }\n          ]\n        },\n        \"payerDetails\": {\n          \"name\": \"string\",\n          \"accountIdentifications\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"identification\": \"string\"\n            }\n          ]\n        },\n        \"merchant\": {\n          \"merchantName\": \"string\",\n          \"merchantCategoryCode\": \"string\"\n        },\n        \"enrichment\": {\n          \"categorisation\": {\n            \"categories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"transactionHash\": {\n            \"hash\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"cleansedDescription\": \"string\",\n          \"merchant\": {\n            \"merchantName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"parentGroup\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"location\": \"string\",\n          \"paymentProcessor\": \"string\",\n          \"correctedDate\": \"2014-04-19T23:54:47.031Z\"\n        },\n        \"supplementaryData\": {},\n        \"transactionMutability\": \"Mutable\"\n      }\n    ],\n    \"nextCursorHash\": \"string\",\n    \"nextLink\": \"string\",\n    \"pagingMap\": {\n      \"key_0\": {\n        \"from\": \"1951-01-08T16:38:51.284Z\",\n        \"before\": \"1987-07-30T04:09:05.552Z\",\n        \"limit\": 9473,\n        \"sort\": \"-date\",\n        \"offset\": 2819,\n        \"cursor\": \"string\"\n      },\n      \"key_1\": {\n        \"from\": \"1993-04-01T12:12:43.921Z\",\n        \"before\": \"2011-07-16T12:39:33.920Z\",\n        \"limit\": 3109,\n        \"sort\": \"-date\",\n        \"offset\": 575,\n        \"cursor\": \"string\"\n      }\n    },\n    \"totalCount\": 7115\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e3e31f5-6db0-41de-b764-ee719f7ebb14",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The sub-application ID for which all event subscriptions will be returned",
+                    "key": "sub-application",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a65c7b1-15aa-44e5-9c3d-0f9bf2f1d224",
+          "name": "Get Event Subscription",
+          "request": {
+            "name": "Get Event Subscription",
+            "description": {
+              "content": "Used to get details of your subscription to a specified event type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications",
+                "event-subscriptions",
+                ":eventTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66bce520-6a59-4148-bbba-a62c1c108c2c",
+              "name": "Event subscription data found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\"\n  },\n  \"data\": {\n    \"eventTypeId\": \"payment.status.completed\",\n    \"applicationId\": \"2698db90-6635-4f76-b673-5ce8e2aeda0e\",\n    \"created\": \"28-07-2021 15:47:03\",\n    \"notification\": {\n      \"type\": \"WEBHOOK\",\n      \"url\": \"https://httpbin.com/new_endpoint\"\n    }\n  },\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"1979-12-01T08:58:06.545Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\"\n        },\n        \"startTime\": \"1983-05-26T21:51:16.444Z\",\n        \"startedAt\": \"1948-11-22T03:42:42.984Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"resultCode\": 6614,\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"1976-11-05T10:49:13.682Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"startTime\": \"2010-10-14T19:13:56.581Z\",\n        \"startedAt\": \"2005-09-23T18:40:55.656Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      },\n      \"resultCode\": 703,\n      \"result\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "393ddd1f-e9e3-47b1-980a-dea048c9c52a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0964b01e-0385-48cc-a391-a7633d892ba3",
+              "name": "Event subscription not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65aaa449-93c9-4606-b73d-f105a4c77abe",
+          "name": "Delete Event Subscription",
+          "request": {
+            "name": "Delete Event Subscription",
+            "description": {
+              "content": "Used to unsubscribe to notifications relating to a specified event type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications",
+                "event-subscriptions",
+                ":eventTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The sub-application ID for which event type will be deleted",
+                "key": "sub-application",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdf178b3-d177-49ff-bbad-f033e4b0f4aa",
+              "name": "Event subscription deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The sub-application ID for which event type will be deleted",
+                    "key": "sub-application",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\"\n  },\n  \"data\": {\n    \"eventTypeId\": \"payment.status.completed\",\n    \"applicationId\": \"2698db90-6635-4f76-b673-5ce8e2aeda0e\",\n    \"created\": \"1979-07-13T17:21:17.360Z\",\n    \"deleteStatus\": \"FAILED\"\n  },\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"2021-06-01T23:43:03.033Z\",\n        \"headers\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"startTime\": \"1969-05-17T17:55:19.638Z\",\n        \"startedAt\": \"2025-06-07T15:15:09.022Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"resultCode\": 4073,\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"string\",\n        \"url\": \"string\",\n        \"requestInstant\": \"1979-05-19T06:55:58.207Z\",\n        \"headers\": {\n          \"key_0\": \"string\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"startTime\": \"1990-08-01T00:58:02.279Z\",\n        \"startedAt\": \"2002-01-08T18:44:01.166Z\"\n      },\n      \"duration\": \"string\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"resultCode\": 257,\n      \"result\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f64c323-a188-4a26-b38c-774dbcf90ddd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The sub-application ID for which event type will be deleted",
+                    "key": "sub-application",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "390c606b-2759-4f05-a860-49e9914efdb6",
+              "name": "Event subscription not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "event-subscriptions",
+                    ":eventTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The sub-application ID for which event type will be deleted",
+                    "key": "sub-application",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b79553ca-895b-477a-9ef4-91add234db5d",
+    "name": "Yapily Beneficiaries Application Beneficiaries Notifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

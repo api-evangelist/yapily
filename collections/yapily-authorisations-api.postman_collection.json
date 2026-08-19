@@ -1,0 +1,3005 @@
+{
+  "item": [
+    {
+      "id": "11886c04-b130-4e25-922f-d70996db5717",
+      "name": "Authorisations",
+      "description": {
+        "content": "Before calling [Financial Data](#yapily-api-financial-data) or [Payments](#yapily-api-payments) endpoints, a consent from an end-user must be obtained.\n\nConsents are valid for up to 90 days for Financial Data endpoints and have a single-use for Payment endpoints i.e. a new consent must be obtained for each payment.\n\nNOTE: A user consent is also referred to as an 'Authorisation'.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2bc10239-a4f2-49d1-ad3f-2f239fa7dfc8",
+          "name": "Re-authorise Account Consent",
+          "request": {
+            "name": "Re-authorise Account Consent",
+            "description": {
+              "content": "Used to prompt the account holder for continued access to their financial data. This endpoint should be used when a `Consent` that was previously `AUTHORIZED` can no longer be used to retrieve data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da1d63a9-9411-40fb-8225-2b6c4bdb4dde",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-auth-response-patch not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23c5ccf9-4c76-49f5-9575-d18ef928e81c",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98c490da-a773-46c3-af35-22f731e7bcdd",
+          "name": "Create Account Authorisation",
+          "request": {
+            "name": "Create Account Authorisation",
+            "description": {
+              "content": "Used to initiate the authorisation process and direct users to the login screen of their financial institution in order to give consent to access account data.\n\nFeature: `INITIATE_ACCOUNT_REQUEST`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"accountRequest\": {\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"accountIdentifiers\": {\n      \"accountIdentification\": {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      \"accountId\": \"<string>\"\n    },\n    \"accountIdentifiersForTransaction\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"accountIdentifiersForBalance\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"featureScope\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd7fa123-d1c2-44f5-9ca0-8d80117b7d4b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/obie-example-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-auth-response-post not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66a60731-f300-46eb-b09a-90930dc35eb6",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/obie-example-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df29d0f4-2672-47c6-9c67-e123dbb6d621",
+          "name": "Update Account Pre-authorisation",
+          "request": {
+            "name": "Update Account Pre-authorisation",
+            "description": {
+              "content": "Used to continue the authorisation process and for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature and direct user to the login screen of their financial institution in order to give consent to access account data.\n\nFeatures:\n\n- `INITIATE_ACCOUNT_REQUEST`\n- `INITIATE_PRE_AUTHORISATION`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"accountRequest\": {\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"accountIdentifiers\": {\n      \"accountIdentification\": {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      \"accountId\": \"<string>\"\n    },\n    \"accountIdentifiersForTransaction\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"accountIdentifiersForBalance\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"featureScope\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b970a7dc-eb8a-4030-bcf8-7bfe07e20865",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-example-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/obie-example-acc-auth-response-put not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "834d8bef-825f-46b9-9ff4-0c4297b4644a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-example-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "215c829f-5723-46fe-baed-90763b6f31bb",
+          "name": "Create Bulk Payment Authorisation",
+          "request": {
+            "name": "Create Bulk Payment Authorisation",
+            "description": {
+              "content": "Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a bulk payment.\n\nFeature: `INITIATE_BULK_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk-payment-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"paymentRequest\": {\n    \"payments\": [\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      },\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      }\n    ],\n    \"originatorIdentificationNumber\": \"<string>\",\n    \"executionDateTime\": \"<dateTime>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e06b7bb-68eb-43c7-bc21-9e124bb563a1",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/uk-bulk-payment-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/uk-bulk-payment-auth-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50fd59a1-9d91-4ed6-b2bc-0a339925ed43",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/uk-bulk-payment-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be809624-f0b2-46a5-b0bd-affd9085fb3d",
+          "name": "Create Embedded Account Authorisation",
+          "request": {
+            "name": "Create Embedded Account Authorisation",
+            "description": {
+              "content": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_ACCOUNT_REQUEST` feature in order to obtain the the user's authorisation to access their account information.\n\nFeature: `INITIATE_EMBEDDED_ACCOUNT_REQUEST`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-account-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\",\n  \"accountRequest\": {\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"accountIdentifiers\": {\n      \"accountIdentification\": {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      \"accountId\": \"<string>\"\n    },\n    \"accountIdentifiersForTransaction\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"accountIdentifiersForBalance\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"featureScope\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b8c23afd-72fd-4c24-a0c8-192a1f008e54",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-example-embedded-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-multiple-sca-methods-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c8f50a8-ec1c-4f94-9b34-b233d1a763cb",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-account-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-example-embedded-acc-auth-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b3924cf-311c-4c3b-8b9d-516a1e5364fa",
+          "name": "Update Embedded Account Authorisation",
+          "request": {
+            "name": "Update Embedded Account Authorisation",
+            "description": {
+              "content": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to access the user's financial data.\n\nFeature: `INITIATE_EMBEDDED_ACCOUNT_REQUEST`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-account-auth-requests",
+                ":consentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consentId",
+                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\",\n  \"accountRequest\": {\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"accountIdentifiers\": {\n      \"accountIdentification\": {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      \"accountId\": \"<string>\"\n    },\n    \"accountIdentifiersForTransaction\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"accountIdentifiersForBalance\": [\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      },\n      {\n        \"accountIdentification\": {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        \"accountId\": \"<string>\"\n      }\n    ],\n    \"featureScope\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fef21cb3-2f3a-4075-af71-249892d2c699",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-account-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-sca-code-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a7bd43f-1d31-4569-9343-60ea79dba3e0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-account-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e73ff17-3e52-47d3-8414-93a65c0b1006",
+          "name": "Create Embedded Bulk Payment Authorisation",
+          "request": {
+            "name": "Create Embedded Bulk Payment Authorisation",
+            "description": {
+              "content": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_BULK_PAYMENT` feature in order to obtain the the user's authorisation for a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-bulk-payment-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"paymentRequest\": {\n    \"payments\": [\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      },\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      }\n    ],\n    \"originatorIdentificationNumber\": \"<string>\",\n    \"executionDateTime\": \"<dateTime>\"\n  },\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42ae7cf7-f651-48b4-a61c-87d6bb4b1a94",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-bulk-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-embedded-bulk-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-eur-embedded-bulk-payment-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77893507-7165-4b72-9db9-68ef9d21d21b",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-bulk-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-embedded-bulk-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4942df4c-142b-4cec-9ccc-4010a04cb78b",
+          "name": "Update Embedded Bulk Payment Authorisation",
+          "request": {
+            "name": "Update Embedded Bulk Payment Authorisation",
+            "description": {
+              "content": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-bulk-payment-auth-requests",
+                ":consentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consentId",
+                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"paymentRequest\": {\n    \"payments\": [\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      },\n      {\n        \"amount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"payee\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n        },\n        \"paymentIdempotencyId\": \"<string>\",\n        \"type\": \"<string>\",\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"streetName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"buildingNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"townName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"department\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subDepartment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reference\": \"<string>\",\n        \"contextType\": \"OTHER\",\n        \"purposeCode\": \"<string>\",\n        \"periodicPayment\": {\n          \"frequency\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalWeek\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"intervalMonth\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"executionDay\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPayments\": \"<integer>\",\n          \"nextPaymentDateTime\": \"<dateTime>\",\n          \"nextPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"finalPaymentDateTime\": \"<dateTime>\",\n          \"finalPaymentAmount\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"internationalPayment\": {\n          \"currencyOfTransfer\": \"<string>\",\n          \"exchangeRateInformation\": {\n            \"rateType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unitCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"foreignExchangeContractReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"purpose\": \"<string>\",\n          \"priority\": \"<string>\",\n          \"chargeBearer\": \"<string>\"\n        },\n        \"paymentDateTime\": \"<dateTime>\",\n        \"readRefundAccount\": \"<boolean>\"\n      }\n    ],\n    \"originatorIdentificationNumber\": \"<string>\",\n    \"executionDateTime\": \"<dateTime>\"\n  },\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a3c09a2-c12e-47a9-9d81-73387b4b206d",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-bulk-payment-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-embedded-bulk-payment-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-eur-embedded-bulk-payment-sca-code-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93a9d250-289a-40dc-b781-95ebeaad6fbc",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-bulk-payment-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-embedded-bulk-payment-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b226cb5-9d8a-4295-bb93-9705c9a5d966",
+          "name": "Create Embedded Payment Authorisation",
+          "request": {
+            "name": "Create Embedded Payment Authorisation",
+            "description": {
+              "content": "Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT` feature in order to obtain the the user's authorisation for a payment. Feature: `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-payment-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"paymentRequest\": {\n    \"amount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"paymentIdempotencyId\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"reference\": \"<string>\",\n    \"contextType\": \"OTHER\",\n    \"purposeCode\": \"<string>\",\n    \"periodicPayment\": {\n      \"frequency\": {\n        \"type\": \"<string>\",\n        \"intervalWeek\": \"<integer>\",\n        \"intervalMonth\": \"<integer>\",\n        \"executionDay\": \"<integer>\"\n      },\n      \"numberOfPayments\": \"<integer>\",\n      \"nextPaymentDateTime\": \"<dateTime>\",\n      \"nextPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"finalPaymentDateTime\": \"<dateTime>\",\n      \"finalPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    \"internationalPayment\": {\n      \"currencyOfTransfer\": \"<string>\",\n      \"exchangeRateInformation\": {\n        \"rateType\": \"<string>\",\n        \"unitCurrency\": \"<string>\",\n        \"rate\": \"<number>\",\n        \"foreignExchangeContractReference\": \"<string>\"\n      },\n      \"purpose\": \"<string>\",\n      \"priority\": \"<string>\",\n      \"chargeBearer\": \"<string>\"\n    },\n    \"paymentDateTime\": \"<dateTime>\",\n    \"readRefundAccount\": \"<boolean>\"\n  },\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18c54c74-769d-49fa-a378-2941223218fa",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-embedded-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-eur-single-domestic-embedded-payment-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "873765a2-2c9a-431d-be86-6f5ea31ee15a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-embedded-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85ec7bb2-afe1-4be6-a80b-1afd0338858d",
+          "name": "Update Embedded Payment Authorisation",
+          "request": {
+            "name": "Update Embedded Payment Authorisation",
+            "description": {
+              "content": "Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a payment. Feature: `INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "embedded-payment-auth-requests",
+                ":consentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "consentId",
+                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"paymentRequest\": {\n    \"amount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"paymentIdempotencyId\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"reference\": \"<string>\",\n    \"contextType\": \"OTHER\",\n    \"purposeCode\": \"<string>\",\n    \"periodicPayment\": {\n      \"frequency\": {\n        \"type\": \"<string>\",\n        \"intervalWeek\": \"<integer>\",\n        \"intervalMonth\": \"<integer>\",\n        \"executionDay\": \"<integer>\"\n      },\n      \"numberOfPayments\": \"<integer>\",\n      \"nextPaymentDateTime\": \"<dateTime>\",\n      \"nextPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"finalPaymentDateTime\": \"<dateTime>\",\n      \"finalPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    \"internationalPayment\": {\n      \"currencyOfTransfer\": \"<string>\",\n      \"exchangeRateInformation\": {\n        \"rateType\": \"<string>\",\n        \"unitCurrency\": \"<string>\",\n        \"rate\": \"<number>\",\n        \"foreignExchangeContractReference\": \"<string>\"\n      },\n      \"purpose\": \"<string>\",\n      \"priority\": \"<string>\",\n      \"chargeBearer\": \"<string>\"\n    },\n    \"paymentDateTime\": \"<dateTime>\",\n    \"readRefundAccount\": \"<boolean>\"\n  },\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\",\n  \"userCredentials\": {\n    \"id\": \"<string>\",\n    \"password\": \"<string>\",\n    \"corporateId\": \"<string>\"\n  },\n  \"selectedScaMethod\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"description\": \"<string>\",\n    \"information\": \"<string>\",\n    \"data\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"scaCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a7f889e-8f42-42c7-bd98-d0a6c6e12287",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-payment-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-payment-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-eur-single-domestic-payment-sca-code-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea6c8bfa-7cf4-4fe5-8ebe-c715d40eb693",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "embedded-payment-auth-requests",
+                    ":consentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "consentId",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-payment-sca-code-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79078398-ceb4-4087-b87c-1b9b75777385",
+          "name": "Create Payment Authorisation",
+          "request": {
+            "name": "Create Payment Authorisation",
+            "description": {
+              "content": "Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a payment. This endpoint is used to initiate all the different payment listed below. Based on the type of payment you wish to make, you may be required to provide specific properties in [PaymentRequest](/api-reference/createPaymentAuthorisation). First make sure that the payment feature you wish to execute is supported by the bank by checking the features array in [GET Institution](/api-reference/getInstitution).\n\nFeatures:\n\n- `INITIATE_DOMESTIC_PERIODIC_PAYMENT`\n- `INITIATE_DOMESTIC_SCHEDULED_PAYMENT`\n- `INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT`\n- `INITIATE_DOMESTIC_SINGLE_PAYMENT`\n- `INITIATE_INTERNATIONAL_PERIODIC_PAYMENT`\n- `INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT`\n- `INITIATE_INTERNATIONAL_SINGLE_PAYMENT`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"paymentRequest\": {\n    \"amount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"paymentIdempotencyId\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"reference\": \"<string>\",\n    \"contextType\": \"OTHER\",\n    \"purposeCode\": \"<string>\",\n    \"periodicPayment\": {\n      \"frequency\": {\n        \"type\": \"<string>\",\n        \"intervalWeek\": \"<integer>\",\n        \"intervalMonth\": \"<integer>\",\n        \"executionDay\": \"<integer>\"\n      },\n      \"numberOfPayments\": \"<integer>\",\n      \"nextPaymentDateTime\": \"<dateTime>\",\n      \"nextPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"finalPaymentDateTime\": \"<dateTime>\",\n      \"finalPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    \"internationalPayment\": {\n      \"currencyOfTransfer\": \"<string>\",\n      \"exchangeRateInformation\": {\n        \"rateType\": \"<string>\",\n        \"unitCurrency\": \"<string>\",\n        \"rate\": \"<number>\",\n        \"foreignExchangeContractReference\": \"<string>\"\n      },\n      \"purpose\": \"<string>\",\n      \"priority\": \"<string>\",\n      \"chargeBearer\": \"<string>\"\n    },\n    \"paymentDateTime\": \"<dateTime>\",\n    \"readRefundAccount\": \"<boolean>\"\n  },\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88eba024-f4d0-4e54-8cc3-cc35c0b57670",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/eur-single-domestic-payment-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/eur-single-domestic-payment-auth-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "920af29c-d945-467c-931f-924d6edc08aa",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/eur-single-domestic-payment-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "731394a1-d001-4423-8941-74c068c99a6a",
+          "name": "Update Payment Pre-authorisation",
+          "request": {
+            "name": "Update Payment Pre-authorisation",
+            "description": {
+              "content": "Used to continue the authorisation process and for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature and direct user to the login screen of their financial institution in order to give consent to initiate a payment. Feature: `INITIATE_PRE_AUTHORISATION`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                "key": "consent",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"paymentRequest\": {\n    \"amount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"payee\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n    },\n    \"paymentIdempotencyId\": \"<string>\",\n    \"type\": \"<string>\",\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"<string>\"\n      }\n    },\n    \"reference\": \"<string>\",\n    \"contextType\": \"OTHER\",\n    \"purposeCode\": \"<string>\",\n    \"periodicPayment\": {\n      \"frequency\": {\n        \"type\": \"<string>\",\n        \"intervalWeek\": \"<integer>\",\n        \"intervalMonth\": \"<integer>\",\n        \"executionDay\": \"<integer>\"\n      },\n      \"numberOfPayments\": \"<integer>\",\n      \"nextPaymentDateTime\": \"<dateTime>\",\n      \"nextPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"finalPaymentDateTime\": \"<dateTime>\",\n      \"finalPaymentAmount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    \"internationalPayment\": {\n      \"currencyOfTransfer\": \"<string>\",\n      \"exchangeRateInformation\": {\n        \"rateType\": \"<string>\",\n        \"unitCurrency\": \"<string>\",\n        \"rate\": \"<number>\",\n        \"foreignExchangeContractReference\": \"<string>\"\n      },\n      \"purpose\": \"<string>\",\n      \"priority\": \"<string>\",\n      \"chargeBearer\": \"<string>\"\n    },\n    \"paymentDateTime\": \"<dateTime>\",\n    \"readRefundAccount\": \"<boolean>\"\n  },\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f7dfead-954c-4c22-b2ff-b8b98891e451",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-eur-single-domestic-payment-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1f5e18a-19d2-44a5-9cc6-d0fad4cad96a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                    "key": "consent",
+                    "value": "{consentToken}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-eur-single-domestic-payment-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5731f852-7884-4113-9987-0bbf3a6d3b60",
+          "name": "Create Pre-authorisation",
+          "request": {
+            "name": "Create Pre-authorisation",
+            "description": {
+              "content": "Used to initiate the pre-authorisation process for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature to authenticate the user. \n\nFeature: `INITIATE_PRE_AUTHORISATION`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pre-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<boolean>",
+                  "description": "__Optional__. Used to obtain the raw request and response to and from the `Institution`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-corporate-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf369216-ff90-4d1b-bbc4-aee3a0a57358",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-ais-pre-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-example-ais-pre-auth-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65a22c92-df31-4d99-9a71-f346ad57a8d2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-corporate-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/berlin-group-ais-pre-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d4db257-790f-48d8-966b-bc9c4c0dad79",
+          "name": "Create Payment Pre-authorisation",
+          "request": {
+            "name": "Create Payment Pre-authorisation",
+            "description": {
+              "content": "Used to initiate the pre-authorisation process for payments for CBI Globe institutions that contain the `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS` feature to authenticate the user. \n\nFeature: `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment-pre-auth-requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<boolean>",
+                  "description": "__Optional__. Used to obtain the raw request and response to and from the `Institution`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                "key": "psu-ip-address",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"payee\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"<string>\"\n    }\n  },\n  \"payer\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      }\n    ]\n  },\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"reference\": \"<string>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"forwardParameters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callback\": \"<string>\",\n  \"redirect\": {\n    \"url\": \"<string>\"\n  },\n  \"oneTimeToken\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c5710fe-fb7d-4928-828b-4de99abeb8f0",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-pre-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/cbi-globe-pis-pre-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/berlin-group-pis-pre-auth-example-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f457a1c9-4ce9-4084-ac3e-7c2ff63ef5ca",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment-pre-auth-requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                    "key": "psu-ip-address",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "reference #/components/examples/cbi-globe-pis-pre-auth-example-request not found in the given specification",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90be841d-b487-45f4-aa34-47ddae9c18f7",
+    "name": "Yapily Beneficiaries Application Beneficiaries Authorisations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

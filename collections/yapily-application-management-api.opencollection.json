@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Application Management API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Sub-applications for the Root Application Provided in the Authentication Token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications"
+          },
+          "docs": "Retrieves sub-applications for the root application provided in the authentication token. If a sub-application is provided in the authentication token, it will return an empty list."
+        },
+        {
+          "info": {
+            "name": "Creates a Sub-application for the Root Application Id Provided in the Authentication Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/applications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a sub-application under the given root application id provided in the authentication token. The sub-application can use the root's credentials to call the API"
+        },
+        {
+          "info": {
+            "name": "Get Application Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being fetched"
+              }
+            ]
+          },
+          "docs": "Retrieves an application by the id provided in the path"
+        },
+        {
+          "info": {
+            "name": "Update an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the application properties for the application with the given ID in the path"
+        },
+        {
+          "info": {
+            "name": "Delete an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/applications/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application being deleted"
+              }
+            ]
+          },
+          "docs": "Deletes the application with the given ID in the path"
+        },
+        {
+          "info": {
+            "name": "Get Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ]
+          },
+          "docs": "Get application vrp configuration"
+        },
+        {
+          "info": {
+            "name": "Create Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create application vrp configuration"
+        },
+        {
+          "info": {
+            "name": "Update Application Vrp Configuration by Application Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yapily.com/applications/:applicationId/vrp",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the application that vrp configuration being created for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update application vrp configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

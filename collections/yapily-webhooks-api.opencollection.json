@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Webhooks API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Webhook Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/webhook/events/categories"
+          },
+          "docs": "Retrieve a comprehensive list of event categories that can be registered for webhook notifications in your application. These event categories can be used to subscribe a webhook to specific events, enabling your application to receive real-time notifications when these events occur."
+        },
+        {
+          "info": {
+            "name": "Retrieve All Webhook Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/webhook/events"
+          },
+          "docs": "Retrieve the list of registered webhooks for your application"
+        },
+        {
+          "info": {
+            "name": "Register Webhook Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/webhook/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a webhook to one or multiple event categories to receive real-time notifications when specific events occur in your application."
+        },
+        {
+          "info": {
+            "name": "Delete Webhook Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/webhook/events/:webhook_id"
+          },
+          "docs": "Delete a webhook event for a specified webhook ID, unregistering it from receiving any further notifications for the subscribed event categories in your application."
+        },
+        {
+          "info": {
+            "name": "Reset Webhook Secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/webhook/secrets/:webhook_id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reset webhook secret for a webhook that is already registered to your application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

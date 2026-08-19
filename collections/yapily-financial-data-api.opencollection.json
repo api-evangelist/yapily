@@ -1,0 +1,508 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Financial Data API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Financial Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns all accounts and balances for the end user associated with the presented consent token.\n\nFeature: `ACCOUNTS`"
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              }
+            ]
+          },
+          "docs": "Returns the account and balance information for a user's specified account.\n\nFeature: `ACCOUNT`"
+        },
+        {
+          "info": {
+            "name": "Get Account Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/balances",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              }
+            ]
+          },
+          "docs": "Returns the balance for the end user associated with the presented consent token.\n\nFeature: `ACCOUNT_BALANCES`"
+        },
+        {
+          "info": {
+            "name": "Get Account Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/beneficiaries",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              }
+            ]
+          },
+          "docs": "Returns all the beneficiaries of a user's account.\n\nFeature: `ACCOUNT_BENEFICIARIES`"
+        },
+        {
+          "info": {
+            "name": "Get Account Direct Debits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/direct-debits",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+              }
+            ]
+          },
+          "docs": "Returns the list of direct debits for an account.\n\nFeature: `ACCOUNT_DIRECT_DEBITS`"
+        },
+        {
+          "info": {
+            "name": "Get Account Periodic Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/periodic-payments",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+              }
+            ]
+          },
+          "docs": "Returns the list of periodic payments (standing orders in the UK) for an account.\n\nFeature: `ACCOUNT_PERIODIC_PAYMENTS`"
+        },
+        {
+          "info": {
+            "name": "Get Account Scheduled Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/scheduled-payments",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+              }
+            ]
+          },
+          "docs": "Returns the list of scheduled payments for an account.\n\nFeature: `ACCOUNT_SCHEDULED_PAYMENTS`"
+        },
+        {
+          "info": {
+            "name": "Get Account Statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/statements",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). "
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results."
+              }
+            ]
+          },
+          "docs": "Returns the list of statements for an account.\n\nFeature: `ACCOUNT_STATEMENTS`"
+        },
+        {
+          "info": {
+            "name": "Get Account Statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/statements/:statementId",
+            "headers": [
+              {
+                "name": "consent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "statementId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The statement Id of the statement file."
+              }
+            ]
+          },
+          "docs": "Returns a statement for an account.\n\nFeature: `ACCOUNT_STATEMENT`"
+        },
+        {
+          "info": {
+            "name": "Get Account Statement File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/statements/:statementId/file",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "statementId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The statement Id of the statement file."
+              }
+            ]
+          },
+          "docs": "Returns a PDF file of a statement for an account.\n\nFeature: `ACCOUNT_STATEMENT_FILE`"
+        },
+        {
+          "info": {
+            "name": "Get Account Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/transactions",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). "
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Sort transaction records by date ascending with 'date' or descending with '-date'. The default sort order is descending"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. This property is not currently in use."
+              }
+            ]
+          },
+          "docs": "Returns the account transactions for an account.\n\nFeature: `ACCOUNT_TRANSACTIONS`"
+        },
+        {
+          "info": {
+            "name": "Get Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/identity",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              }
+            ]
+          },
+          "docs": "Returns the identity information for an account.\n\nFeature: `IDENTITY`"
+        },
+        {
+          "info": {
+            "name": "Get Real Time Account Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/accounts/:accountId/real-time/transactions",
+            "headers": [
+              {
+                "name": "consent",
+                "value": "{consentToken}"
+              },
+              {
+                "name": "psu-id",
+                "value": ""
+              },
+              {
+                "name": "psu-corporate-id",
+                "value": ""
+              },
+              {
+                "name": "psu-ip-address",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The account Id of the user's bank account."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. The cursor token supplied by a previous call. The cursor represents a location in the data set."
+              }
+            ]
+          },
+          "docs": "Used to get the account transactions for an account in real time with cursor pagination\n\nFeature: `ACCOUNT_TRANSACTIONS`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

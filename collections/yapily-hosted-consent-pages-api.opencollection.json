@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Hosted Consent Pages API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hosted Consent Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Hosted Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/hosted/consent-requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to initiate a consent request using Yapily Hosted Pages."
+        },
+        {
+          "info": {
+            "name": "Get Hosted Consent Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/hosted/consent-requests/:consentRequestId",
+            "params": [
+              {
+                "name": "consentRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Identifier of the consent request"
+              }
+            ]
+          },
+          "docs": "Used to get details of a hosted consent request"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

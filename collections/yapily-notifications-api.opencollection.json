@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Notifications API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Event Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/notifications/event-subscriptions",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get all event subscriptions that your application is subscribed to"
+        },
+        {
+          "info": {
+            "name": "Create Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/notifications/event-subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to subscribe to notifications relating to a specified event type."
+        },
+        {
+          "info": {
+            "name": "Get Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/notifications/event-subscriptions/:eventTypeId"
+          },
+          "docs": "Used to get details of your subscription to a specified event type."
+        },
+        {
+          "info": {
+            "name": "Delete Event Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/notifications/event-subscriptions/:eventTypeId",
+            "headers": [
+              {
+                "name": "sub-application",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Used to unsubscribe to notifications relating to a specified event type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

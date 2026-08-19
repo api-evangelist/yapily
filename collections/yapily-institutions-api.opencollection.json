@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Yapily Institutions API",
+    "name": "Yapily Beneficiaries Application Beneficiaries Institutions API",
     "version": "12.4.0"
   },
   "request": {

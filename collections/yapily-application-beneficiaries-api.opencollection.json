@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Application Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId/beneficiaries"
+          },
+          "docs": "Get all application beneficiaries from an application."
+        },
+        {
+          "info": {
+            "name": "Create Application Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/applications/:applicationId/beneficiaries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creation of beneficiaries for a given application."
+        },
+        {
+          "info": {
+            "name": "Get Application Beneficiary by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/applications/:applicationId/beneficiaries/:beneficiaryId"
+          },
+          "docs": "Get user beneficiary by id."
+        },
+        {
+          "info": {
+            "name": "Delete Application Beneficiary by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/applications/:applicationId/beneficiaries/:beneficiaryId"
+          },
+          "docs": "Delete application beneficiary."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

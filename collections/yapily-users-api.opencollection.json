@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yapily Beneficiaries Application Beneficiaries Users API",
+    "version": "12.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/users",
+            "params": [
+              {
+                "name": "filter[applicationUserId]",
+                "value": "",
+                "type": "query",
+                "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided."
+              }
+            ]
+          },
+          "docs": "Retrieves all users created in your application for a specified applicationUserId using the filter[applicationUserId] query parameter. If filter[applicationUserId] is not provided, the response will include up to 50,000 users."
+        },
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yapily.com/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new user in your application"
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ]
+          },
+          "docs": "Get a specific user using the user UUID"
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the users information"
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yapily.com/users/:userUuid",
+            "params": [
+              {
+                "name": "userUuid",
+                "value": "",
+                "type": "path",
+                "description": "__Mandatory__. The Yapily generated UUID for the user."
+              }
+            ]
+          },
+          "docs": "Delete a user from your application along with any sub-resources (including consent resources on institution APIs if they exist)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

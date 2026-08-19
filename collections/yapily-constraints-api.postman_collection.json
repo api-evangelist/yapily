@@ -1,0 +1,867 @@
+{
+  "item": [
+    {
+      "id": "0ba45405-b598-42ec-884c-ea87cd558232",
+      "name": "Constraints",
+      "description": {
+        "content": "The constraints endpoints can be used to retrieve institution specific data requirements and rules that will apply when performing other operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a697cbb0-2201-49ad-98d3-01256d246f79",
+          "name": "Get Payment Constraints Rules",
+          "request": {
+            "name": "Get Payment Constraints Rules",
+            "description": {
+              "content": "Retrieve institution specific constraints for payment authorisation and submission requests",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "institutions",
+                "constraints",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "institutionIds",
+                  "value": "<string>",
+                  "description": "(Required) Unique Id(s) of the `Institution`(s) to retrieve the Payment Constraints for. Multiple institutionIds need to be separated by `,`"
+                },
+                {
+                  "disabled": false,
+                  "key": "institutionIds",
+                  "value": "<string>",
+                  "description": "(Required) Unique Id(s) of the `Institution`(s) to retrieve the Payment Constraints for. Multiple institutionIds need to be separated by `,`"
+                },
+                {
+                  "disabled": false,
+                  "key": "institutionCountryCode",
+                  "value": "<string>",
+                  "description": "(Required) Country code of the `Institution`(s). Ensure that the country code matches the respective institutionIds; any mismatch will result in an HTTP 404 error response."
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentType",
+                  "value": "<string>",
+                  "description": "(Required) Type of payment to retrieve payment constraints for"
+                },
+                {
+                  "disabled": false,
+                  "key": "endpointPath",
+                  "value": "<string>",
+                  "description": "The path on the API that is associated with the operation for which constraints are to be retrieved"
+                },
+                {
+                  "disabled": false,
+                  "key": "endpointMethod",
+                  "value": "<string>",
+                  "description": "The HTTP method that is associated with the operation for which constraints are to be retrieved"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12ac1bd0-40ad-440d-ad38-ea0521908170",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\",\n    \"count\": 7895,\n    \"pagination\": {\n      \"totalCount\": 9300,\n      \"self\": {\n        \"from\": \"2010-01-02T19:30:57.565Z\",\n        \"before\": \"1966-04-23T19:20:17.136Z\",\n        \"limit\": 1677,\n        \"sort\": \"-date\",\n        \"offset\": 7277,\n        \"cursor\": \"string\"\n      },\n      \"next\": {\n        \"from\": \"1964-04-07T05:48:57.048Z\",\n        \"before\": \"1947-07-08T09:09:55.949Z\",\n        \"limit\": 2543,\n        \"cursor\": \"string\"\n      }\n    }\n  },\n  \"data\": [\n    {\n      \"institutionId\": \"modelo-sandbox\",\n      \"paymentType\": \"DOMESTIC_PERIODIC_PAYMENT\",\n      \"request\": {\n        \"body\": {},\n        \"headers\": {}\n      },\n      \"institutionCountryCode\": \"GB\",\n      \"endpointPath\": \"string\",\n      \"endpointMethod\": \"string\"\n    },\n    {\n      \"institutionId\": \"modelo-sandbox\",\n      \"paymentType\": \"DOMESTIC_PERIODIC_PAYMENT\",\n      \"request\": {\n        \"body\": {},\n        \"headers\": {}\n      },\n      \"institutionCountryCode\": \"GB\",\n      \"endpointPath\": \"string\",\n      \"endpointMethod\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "247370e4-934b-4d8c-a715-271b0879345e",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3aa4656-6729-44e9-bbde-81a2643e395d",
+              "name": "Either authentication credentials were not supplied, or they were invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3174682a-a307-4a85-9ea3-cd0f3ab6ac29",
+              "name": "Not Found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17d0b691-1e9e-4272-9f60-6d48546c1c28",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "399c9b14-5876-4f26-a8b3-8b9e5688f316",
+          "name": "Get Data Constraints Rules",
+          "request": {
+            "name": "Get Data Constraints Rules",
+            "description": {
+              "content": "Get Data Constraints Rules against an Institution for Account Authorisation requests",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "institutions",
+                "constraints",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "institutionIds",
+                  "value": "<string>",
+                  "description": "(Required) Unique Id(s) of the `Institution`(s) to retrieve the Data Constraints for. Multiple institutionIds need to be separated by `,`"
+                },
+                {
+                  "disabled": false,
+                  "key": "institutionIds",
+                  "value": "<string>",
+                  "description": "(Required) Unique Id(s) of the `Institution`(s) to retrieve the Data Constraints for. Multiple institutionIds need to be separated by `,`"
+                },
+                {
+                  "disabled": false,
+                  "key": "institutionCountryCode",
+                  "value": "<string>",
+                  "description": "(Required) Country code of the `Institution`(s). Ensure that the country code matches the respective institutionIds; any mismatch will result in an HTTP 404 error response."
+                },
+                {
+                  "disabled": false,
+                  "key": "endpointPath",
+                  "value": "<string>",
+                  "description": "The path on the API that is associated with the operation for which constraints are to be retrieved"
+                },
+                {
+                  "disabled": false,
+                  "key": "endpointMethod",
+                  "value": "<string>",
+                  "description": "The HTTP method that is associated with the operation for which constraints are to be retrieved"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3e55d06-d9fa-4723-a5ac-efeb593972cd",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"string\"\n  },\n  \"data\": [\n    {\n      \"institutionId\": \"modelo-sandbox\",\n      \"request\": {\n        \"body\": {},\n        \"headers\": {}\n      },\n      \"institutionCountryCode\": \"GB\",\n      \"endpointPath\": \"string\",\n      \"endpointMethod\": \"string\"\n    },\n    {\n      \"institutionId\": \"modelo-sandbox\",\n      \"request\": {\n        \"body\": {},\n        \"headers\": {}\n      },\n      \"institutionCountryCode\": \"GB\",\n      \"endpointPath\": \"string\",\n      \"endpointMethod\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33dc8c93-1486-4dbf-a208-bd522abb74d3",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a10e0ff6-79fa-4ee2-9ad1-628ad486d8f4",
+              "name": "Either authentication credentials were not supplied, or they were invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c9210b9-1e99-4926-88b3-11a9b0e74967",
+              "name": "Not Found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2250c7fa-d606-4c81-8b7e-6954a6316ede",
+              "name": "Unexpected Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "institutions",
+                    "constraints",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "institutionCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointPath",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endpointMethod",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yapily.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c18ebe5a-1d1e-4751-91b2-31a0570fd75b",
+    "name": "Yapily Beneficiaries Application Beneficiaries Constraints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "type": "text/plain"
+    }
+  }
+}

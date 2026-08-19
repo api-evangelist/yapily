@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "a321a881-c145-4dc0-9f24-ebbb5b099e1a",
+      "id": "36f2f73e-f527-4401-a725-71b7d081f949",
       "name": "Payments",
       "description": {
         "content": "In order to make a Payment on behalf of a user, you are required to request an [Authorisation](#tag/Authorisations) from the user to authorise the user's account to make the payment from. Once a `consent-token` is obtained, you can call the necessary Payments endpoint(s) to execute a payment.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "7a976927-1783-437d-9151-39aee2dc73e7",
+          "id": "a730d683-936e-477a-ac14-74cc3295c309",
           "name": "Create Bulk Payment",
           "request": {
             "name": "Create Bulk Payment",
@@ -75,7 +75,7 @@
           },
           "response": [
             {
-              "id": "1c848bfa-564c-4134-a4c3-e40568c392e2",
+              "id": "f57bbfee-61ad-4084-ad71-63b77cb95a89",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -150,7 +150,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0ea16200-0d7b-48d6-a06d-33ee3ea13f8f",
+              "id": "4ab3cdf2-889e-49b4-9aa8-88bffb14e294",
               "name": "Error Response",
               "originalRequest": {
                 "url": {
@@ -231,7 +231,7 @@
           }
         },
         {
-          "id": "67e46e98-45bc-4638-bb46-4a08af679726",
+          "id": "4e9c6260-ea76-4a36-b905-e35b3148c47e",
           "name": "Get Bulk Payment File Status",
           "request": {
             "name": "Get Bulk Payment File Status",
@@ -275,7 +275,7 @@
           },
           "response": [
             {
-              "id": "afa29879-4a49-4545-ab03-4626c162f082",
+              "id": "96ed9f24-8cf8-4949-a299-cec3b5e294e6",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -333,7 +333,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6a01191b-e04f-4b0a-bbee-a20a7e355bdb",
+              "id": "61c895b4-f044-4417-bfa5-ca36e2278ef0",
               "name": "Required parameter missing or invalid",
               "originalRequest": {
                 "url": {
@@ -391,7 +391,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f34d914f-6429-4d3b-957b-7ce89ca4ff57",
+              "id": "734bad74-0e74-42b2-879a-47bca7a90283",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -449,7 +449,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7f1e8f17-b96a-46ce-8ed3-2893a8776cb0",
+              "id": "a7bcdde8-2e40-459e-bfcb-060324379e08",
               "name": "Bulk payment not found for provided id",
               "originalRequest": {
                 "url": {
@@ -507,7 +507,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d2035f03-86b9-4df9-a0a4-2fd2e4517020",
+              "id": "0a7ec863-9522-40c5-a80c-6aa201c3a36b",
               "name": "An unexpected error occurred.",
               "originalRequest": {
                 "url": {
@@ -571,7 +571,7 @@
           }
         },
         {
-          "id": "2425de23-7899-4102-aba5-0256ec643b14",
+          "id": "748b1ec4-6a90-4762-b778-1164cba593d0",
           "name": "Get Bulk Payment Status Details",
           "request": {
             "name": "Get Bulk Payment Status Details",
@@ -616,7 +616,7 @@
           },
           "response": [
             {
-              "id": "5616115e-5f10-4808-a79a-f6f830e53e88",
+              "id": "786c4029-a220-48a0-92ff-8aad73c35e73",
               "name": "OK",
               "originalRequest": {
                 "url": {
@@ -675,7 +675,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cc6ee784-28e6-446e-a6bf-354e726da26f",
+              "id": "94fa2579-b86f-4b24-a10c-b11e299c2d9b",
               "name": "Required parameter missing or invalid",
               "originalRequest": {
                 "url": {
@@ -734,7 +734,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4e6498e4-9cdb-4fe6-ad93-f8e4cdacdbe4",
+              "id": "07b10d4e-8e11-4eb6-bf50-7aa8ab730fe4",
               "name": "Authentication Error",
               "originalRequest": {
                 "url": {
@@ -793,7 +793,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "8043d052-32a0-4b72-8295-af528d3a350e",
+              "id": "255d7e15-a6ce-4e85-bf2d-16f3164b4227",
               "name": "Bulk payment not found for provided id",
               "originalRequest": {
                 "url": {
@@ -852,7 +852,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "012774c4-2c7f-45f7-979c-1c58b4d8f0f9",
+              "id": "db297472-8ed5-47f2-a5be-3bb99ae9d789",
               "name": "An unexpected error occurred.",
               "originalRequest": {
                 "url": {
@@ -917,7 +917,7 @@
           }
         },
         {
-          "id": "c73e5d1c-11cd-42c1-a900-7e74fe54a808",
+          "id": "7cc128b6-c86f-4625-9255-686a3b5436e0",
           "name": "Create Payment",
           "request": {
             "name": "Create Payment",
@@ -983,7 +983,7 @@
           },
           "response": [
             {
-              "id": "4bff21df-8a84-494f-a067-1719f076271a",
+              "id": "f68fec72-f3f7-4843-8b89-4855a85b3f78",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -1058,7 +1058,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "93790434-c91e-4d78-99f7-c35325b48a15",
+              "id": "6849b47c-fede-4619-a8c8-8e3c230d2975",
               "name": "Error Response",
               "originalRequest": {
                 "url": {
@@ -1139,7 +1139,7 @@
           }
         },
         {
-          "id": "0599ed1d-7148-47e1-b6a3-b213981fd0f1",
+          "id": "333c6ed1-acf6-434a-857c-8b38a24fa84f",
           "name": "Get Payment Details",
           "request": {
             "name": "Get Payment Details",
@@ -1202,7 +1202,7 @@
           },
           "response": [
             {
-              "id": "cf0a9a5b-724b-413e-981a-fbc7c38cb72c",
+              "id": "0461b718-b304-4dc6-9e54-d08d23e51b70",
               "name": "Ok",
               "originalRequest": {
                 "url": {
@@ -1279,7 +1279,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5fe0a5f2-ad43-404e-b1e1-d362093f2020",
+              "id": "ae365bd9-8a5d-429f-abb8-01597a2a1e39",
               "name": "Error Response",
               "originalRequest": {
                 "url": {
@@ -1387,11 +1387,11 @@
     ]
   },
   "info": {
-    "_postman_id": "f7dbca2e-969f-49ee-b5ca-68fbc2f646c8",
-    "name": "Yapily Payments API (PIS)",
+    "_postman_id": "d65d6547-aca7-4cb1-af7c-c8b24105e505",
+    "name": "Yapily Beneficiaries Application Beneficiaries Payments API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Payment Initiation Service Provider (PISP) endpoints for initiating single, scheduled, periodic, bulk, and international payments directly from a customer's bank account.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
       "type": "text/plain"
     }
   }
