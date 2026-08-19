@@ -37,7 +37,7 @@ tags:
   - UK
   - Europe
   - FinTech
-specificationVersion: '0.16'
+specificationVersion: '0.23'
 apis:
 - aid: yapily:yapily-institutions-api
   name: Yapily Institutions API
