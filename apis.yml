@@ -30,6 +30,20 @@ tags:
   - Payments
   - Account Information
   - Variable Recurring Payments
+  - Financial-Services
+  - PSD2
+  - FCA
+  - Berlin Group
+  - UK
+  - Europe
+  - Fintech
+tags_raw:
+  - Open Banking
+  - AISP
+  - PISP
+  - Payments
+  - Account Information
+  - Variable Recurring Payments
   - Financial Services
   - PSD2
   - FCA
@@ -42,6 +56,10 @@ apis:
 - aid: yapily:yapily-institutions-api
   name: Yapily Institutions API
   tags:
+  - institutions
+  - ASPSP
+  - Open Banking
+  tags_raw:
   - Institutions
   - ASPSP
   - Open Banking
@@ -326,6 +344,8 @@ apis:
   humanURL: https://docs.yapily.com/api/reference/
   baseURL: https://api.yapily.com
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -380,6 +400,8 @@ apis:
   humanURL: https://docs.yapily.com/api/reference/
   baseURL: https://api.yapily.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -439,6 +461,8 @@ apis:
   humanURL: https://docs.yapily.com/api/reference/
   baseURL: https://api.yapily.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
