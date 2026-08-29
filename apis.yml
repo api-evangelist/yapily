@@ -526,7 +526,7 @@ common:
   - url: https://github.com/yapily/registration-scripts
     type: Tools
   - url: https://github.com/yapily/yapily-demo-pisp-flutter
-    type: Samples
+    type: Examples
   - url: https://www.yapily.com/pricing
     type: Pricing
   - url: plans/yapily-plans-pricing.yml
