@@ -1,0 +1,57 @@
+slug: yapily
+provider: Yapily
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Payments
+  spec_file: yapily-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.9
+  evidence: POST /payments  createPayment  Create Payment; POST /bulk-payments  createBulkPayment  Create
+    Bulk Payment; schemas PaymentRequest, PaymentStatus, ChargeBearerType
+  reason: 'Open Banking payment initiation: capture and submission of payment instructions (single, bulk,
+    international) with status retrieval — squarely Payment Initiation Management.'
+- tag: Hosted Payment Pages
+  spec_file: yapily-hosted-payment-pages-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.8
+  evidence: POST /hosted/payment-requests createHostedPaymentRequest; POST /hosted/payment-requests/links
+    'Create Pay by Link'; POST /hosted/vrp/consent-requests/{consentRequestId}/payments 'Create Vrp Payment'
+  reason: Operations capture and authorise payment instructions (including pay-by-link, VRP payments and
+    funds-availability checks) with PaymentStatus/PayeeDetails schemas — payment initiation.
+- tag: Variable Recurring Payments
+  spec_file: yapily-variable-recurring-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.8
+  evidence: POST /variable-recurring-payments/payments  createVrpPayment  Create Vrp Payment; POST /variable-recurring-payments/funds-confirmation  Confirm
+    Funds for Vrp Payment
+  reason: VRP consent authorisation, funds confirmation and payment creation are payment instruction capture,
+    authorisation and submission — Payment Initiation Management (adjacent to real-time rails, hence not
+    0.95).
+- tag: Authorisations
+  spec_file: yapily-authorisations-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /payment-auth-requests createPaymentAuthorisation 'Create Payment Authorisation'; POST
+    /bulk-payment-auth-requests createBulkPaymentAuthorisation
+  reason: Majority of operations create and update payment (and bulk/embedded payment) authorisation requests
+    carrying PaymentRequest/PayeeDetails — payment instruction capture and authorisation. Confidence tempered
+    because the same tag also covers account-access authorisation.

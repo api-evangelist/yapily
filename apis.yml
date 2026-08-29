@@ -497,6 +497,9 @@ apis:
   - type: Documentation
     url: https://docs.yapily.com/payments/vrps/additional-information
 common:
+  - type: CapabilityMap
+    url: capabilities/yapily-capability-edges.yml
+    name: Yapily Business Capability Map
   - type: AgenticAccess
     url: agentic-access/yapily-agentic-access.yml
   - type: DomainSecurity
