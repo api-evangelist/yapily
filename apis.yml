@@ -69,7 +69,7 @@ apis:
 - aid: yapily:yapily-institutions-api
   name: Yapily Institutions API
   tags:
-  - institutions
+  - Institutions
   - ASPSP
   - Open Banking
   tags_raw:
