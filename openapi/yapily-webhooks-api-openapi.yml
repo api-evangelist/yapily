@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Webhooks API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Platform Webhooks API
+  description: Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -345,39 +345,6 @@ paths:
         content: '<Info>Learn more: [Webhook Setup](/tools-and-services/webhooks/get-started)</Info>'
 components:
   schemas:
-    RegisteredWebhook:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This webhook's ID, used to update or remove the webhook
-          format: uuid
-        applicationId:
-          type: string
-          format: uuid
-        categories:
-          type: array
-          items:
-            type: string
-            description: One or more event categories for which the webhook will be triggered
-        callbackUrl:
-          type: object
-          description: Callback URLs where events will be sent
-          properties:
-            main:
-              type: object
-              description: Primary URL where events will be sent
-              properties:
-                url:
-                  type: string
-            backup:
-              type: object
-              description: Secondary URL where events will be sent whenever the primary URL is not responding
-              properties:
-                url:
-                  type: string
-        metadata:
-          $ref: '#/components/schemas/WebhookMetadata'
     RegisteredWebhookWithStatus:
       allOf:
       - $ref: '#/components/schemas/RegisteredWebhook'
@@ -385,23 +352,11 @@ components:
         properties:
           status:
             $ref: '#/components/schemas/WebhookStatusType'
-    WebhookStatusType:
-      type: string
-      enum:
-      - active
-      - paused
     WebhookMetadata:
       type: object
       description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
       additionalProperties:
         type: string
-    CategoryStructure:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -456,6 +411,51 @@ components:
           type: string
           format: uuid
           description: yapily tracing id
+    CategoryStructure:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    RegisteredWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This webhook's ID, used to update or remove the webhook
+          format: uuid
+        applicationId:
+          type: string
+          format: uuid
+        categories:
+          type: array
+          items:
+            type: string
+            description: One or more event categories for which the webhook will be triggered
+        callbackUrl:
+          type: object
+          description: Callback URLs where events will be sent
+          properties:
+            main:
+              type: object
+              description: Primary URL where events will be sent
+              properties:
+                url:
+                  type: string
+            backup:
+              type: object
+              description: Secondary URL where events will be sent whenever the primary URL is not responding
+              properties:
+                url:
+                  type: string
+        metadata:
+          $ref: '#/components/schemas/WebhookMetadata'
+    WebhookStatusType:
+      type: string
+      enum:
+      - active
+      - paused
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

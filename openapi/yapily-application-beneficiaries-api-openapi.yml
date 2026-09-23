@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Yapily Beneficiaries Application Beneficiaries API
   description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
@@ -249,72 +249,6 @@ paths:
                   $ref: '#/components/examples/400-error-response'
 components:
   schemas:
-    Next:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    BeneficiaryId:
-      type: string
-      format: uuid
-      example: e7b7636d-a041-4013-8a1b-34dc85b7d341
-      description: Beneficiary Id
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    ResponseListMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
     ApplicationBeneficiaryData:
       type: object
       description: Application beneficiary data response.
@@ -333,6 +267,20 @@ components:
               example: John Doe
             accountIdentifier:
               $ref: '#/components/schemas/AccountIdentifier'
+    ApplicationBeneficiaryResponse:
+      type: object
+      description: Application beneficiary response.
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/ApplicationBeneficiaryData'
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -380,6 +328,28 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
     AccountIdentifier:
       type: object
       description: Account's details.
@@ -393,24 +363,54 @@ components:
           type: string
           description: Account's IBAN
           example: DE12345123451234512345123
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    ApplicationBeneficiaryResponse:
-      type: object
-      description: Application beneficiary response.
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/ApplicationBeneficiaryData'
     AccountIdentifierType:
       type: string
       enum:
       - IBAN
+    BeneficiaryId:
+      type: string
+      format: uuid
+      example: e7b7636d-a041-4013-8a1b-34dc85b7d341
+      description: Beneficiary Id
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    ResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

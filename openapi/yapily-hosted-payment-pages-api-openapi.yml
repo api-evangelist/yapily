@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Hosted Payment Pages API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Hosted Pages Hosted Payment Pages API
+  description: Hosted Payment Pages and Hosted Consent Pages endpoints providing Yapily-managed UI flows for payments and data access without building your own consent UI.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -568,7 +568,13 @@ paths:
       - Hosted Payment Pages
   /hosted/vrp/consent-requests/{consentRequestId}/funds-confirmation:
     post:
-      description: "Confirms whether there are available funds on the Payer account to execute a Variable Recurring Payment after obtaining the user's authorisation. \n\nFeatures:\n\n- `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`"
+      description: 'Confirms whether there are available funds on the Payer account to execute a Variable Recurring Payment after obtaining the user''s authorisation.
+
+
+        Features:
+
+
+        - `VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION`'
       operationId: createHostedVrpFundsConfirmation
       x-beta: true
       parameters:
@@ -633,61 +639,214 @@ paths:
       - Hosted Payment Pages
 components:
   schemas:
-    HostedVRPPaymentResponse:
+    ApiResponseOfGetHostedVRPConsentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedVRPConsentDetails'
+    HostedPaymentDetails:
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+          format: uuid
+          description: The unique ID of the payment request.
+        userId:
+          type: string
+          format: uuid
+          description: The Unique Identifier for the `User` assigned by Yapily.
+        applicationUserId:
+          type: string
+          description: Your reference to the `User`.
+        applicationId:
+          type: string
+          format: uuid
+          description: The Unique Identifier of the `Application` the user is associated with.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of your server to redirect the user after completion of the payment flow.
+          example: https://tpp-application.com
+        paymentRequestDetails:
+          $ref: '#/components/schemas/HostedPaymentRequestDetailsLink'
+        createdAt:
+          type: string
+          description: The date and time at which the payment request was created.
+          format: date-time
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: The date and time at which the auth Token will expire.
+        status:
+          type: string
+          description: "Current status of the payment request. \n\n Possible values: \n\n ACTIVE \n\n INACTIVE"
+        payments:
+          uniqueItems: true
+          type: array
+          description: Payments that have been initiated as part of this request
+          items:
+            $ref: '#/components/schemas/HostedPayment'
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    HostedVRPPhase:
+      type: object
+      properties:
+        phaseName:
+          type: string
+          description: "The name of the hosted VRP consent process phase. Allowed values are : \n\n- INITIATED - Process initiated\n- DECLINED - Process failed and will not proceed further\n- INSTITUTION_SUBMITTED - Consent institution submitted\n- INPUT_CAPTURED - Additional input captured to process the Consent\n- IBAN_VALIDATED - Payer IBAN successfully validated\n- AUTHORISATION_CREATED - Consent authorisation request created with Institution, awaiting authorisation completion\n- AUTHORISATION_REJECTED - Consent Authorisation request rejected by Institution and will not proceed further\n- AUTHORISED - Consent authorisation completed\n- AUTHORISATION_FAILED - Consent authorisation failed and will not proceed further\n- SUBMITTED - Consent execution created and submitted to Institution\n- ACCEPTED - Consent execution accepted by Institution and awaiting settlement\n- REJECTED - Consent execution request rejected by Institution and will not proceed further\n- STATUS_POLLING_STARTED - Consent status polling started\n- STATUS_POLLING_ENDED - Consent status polling ended\n- MERCHANT_ACKNOWLEDGED - Consent acknowledgement received from merchant\n- FINISHED - Consent process completed\n- REVOKED - Consent process completed"
+        phaseCreatedAt:
+          type: string
+          format: date-time
+          description: The date and time at which the phase of the hosted Consent was created.
+      description: The phase of the VRP Consent Request.
+    VrpFundsConfirmationResponse:
+      required:
+      - paymentAmount
+      - fundsAvailable
       type: object
       properties:
         id:
           type: string
-        paymentIdempotencyId:
-          type: string
-        amount:
-          $ref: '#/components/schemas/Amount'
         reference:
           type: string
-          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+          description: The payment reference or description. Limited to a maximum of 18 characters long.
           example: Own Account Sweeping
-        payee:
-          $ref: '#/components/schemas/Payee'
-        payer:
-          $ref: '#/components/schemas/HostedVrpPayerResponse'
-        refundAccount:
-          $ref: '#/components/schemas/HostedVrpRefundAccount'
-        risk:
-          $ref: '#/components/schemas/PaymentRisk'
-        paymentLifecycleId:
-          type: string
-          description: The Unique Identifier provided by TPP in the Payment request to identify the payment.
-        expectedExecutionTime:
-          type: string
-          format: date-time
-        expectedSettlementTime:
-          type: string
-          format: date-time
-        institutionPaymentId:
-          type: string
-        statusDetails:
-          $ref: '#/components/schemas/HostedPaymentStatusDetails'
-    HostedNonSweepingPeriodicLimits:
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+        fundsAvailable:
+          $ref: '#/components/schemas/VrpFundsAvailable'
+    CreateHostedPaymentRequestLink:
       required:
-      - maxAmount
-      - frequency
-      - alignment
+      - redirectUrl
+      - paymentRequestDetails
+      - institutionIdentifiers
       type: object
       properties:
-        maxAmount:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Mandatory__. Maximum amount that can be specified in all payment instructions in a given period under this VRP consent. If the Alignment is Calendar, the limit is pro-rated in the first period to the remaining number of days.
-        frequency:
+        userId:
           type: string
-          description: __Mandatory__. Frequency for which the payment limits are enforced. Allowed values are [MONTHLY].
-        alignment:
+          format: uuid
+          description: __Conditional__. Yapily Identifier for the `User` returned by the create user step POST /users. You must either provide `userId` or `applicationUserId`.
+        applicationUserId:
           type: string
-          description: __Mandatory__. Period alignment for which the payment limits are enforced. Allowed values are [CONSENT, CALENDAR]. If CONSENT, then period starts on consent creation date. If CALENDAR, then period lines up with the frequency e.g. WEEKLY period will begin at start of the week in question.
-    PaymentContextTypeV2:
-      title: Payment Code
-      type: string
-      description: __Optional__. The payment context code. Allowed values are [BILL_IN_ADVANCE, BILL_IN_ARREARS, ECOMMERCE_MERCHANT, FACE_TO_FACE_POS, TRANSFER_TO_SELF,TRANSFER_TO_THIRD_PARTY, PISP_PAYEE ].
+          description: __Conditional__. Your own `User` reference. If you want to work with their own unique references for individual PSUs then you can use the `applicationUserId` property to provide that value. Where Yapily does not already have a Yapily userId that matches the supplied `applicationUserId`, then a new Yapily userId is created automatically and linked to the `applicationUserId` value. You must either provide userId or `applicationUserId`.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiers'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of your server to redirect the user after completion of the payment flow.
+          example: https://tpp-application.com
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: The date and time that the authorisation expires. Must be between 10 minutes and 30 days in the future. If not specified, the authorisation URL will expire 10 minutes after creation.
+        paymentRequestDetails:
+          $ref: '#/components/schemas/HostedPaymentRequestDetailsLink'
+    HostedVrpAccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/HostedVrpAccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    GetHostedVRPConsentsResponse:
+      type: array
+      items:
+        required:
+        - id
+        - applicationId
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: Represents the Unique Id of the VRP consent request
+          applicationId:
+            type: string
+            format: uuid
+            description: Represents the Unique Id of the `Application` the user is associated with.
+          institutionIdentifiers:
+            $ref: '#/components/schemas/InstitutionIdentifiers'
+          vrpSetup:
+            $ref: '#/components/schemas/VRPSetupRequest'
+          updatedAt:
+            type: string
+            format: date-time
+            description: Represents the date and time at which the Consent was updated.
+          consentStatus:
+            type: string
+            description: Current status of the authorisation. Can be one of [AWAITING_AUTHORIZATION, AUTHORIZED, REJECTED, REVOKED, FAILED, EXPIRED]
+    HostedPaymentRequestResponse:
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+          format: uuid
+          description: Unique Id of the payment request.
+        userId:
+          type: string
+          format: uuid
+          description: Unique Id for the `User` assigned by Yapily.
+        applicationUserId:
+          type: string
+          description: Your reference to the `User`.
+        applicationId:
+          type: string
+          format: uuid
+          description: Unique Id of the `Application` the user is associated with.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of payment server to redirect the user after completion of the payment flow.
+          example: https://tpp-application.com
+        paymentRequestDetails:
+          $ref: '#/components/schemas/HostedPaymentResponseDetails'
+        hostedUrl:
+          type: string
+          description: "The URL of Hosted UI page for the applicationId which initiates the user journey for the payment. \n\n URL would be appended with authToken, applicationId and userSettings."
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time at which the payment was created.
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: The date and time at which the auth Token will expire.
+        status:
+          type: string
+          description: Current status of the payment request.
     CreateHostedVRPConsentRequest:
       required:
       - redirectUrl
@@ -716,73 +875,23 @@ components:
           example: 'false'
         vrpSetup:
           $ref: '#/components/schemas/VRPSetupRequest'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    GetHostedVRPConsentsResponse:
-      type: array
-      items:
-        required:
-        - id
-        - applicationId
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-            description: Represents the Unique Id of the VRP consent request
-          applicationId:
-            type: string
-            format: uuid
-            description: Represents the Unique Id of the `Application` the user is associated with.
-          institutionIdentifiers:
-            $ref: '#/components/schemas/InstitutionIdentifiers'
-          vrpSetup:
-            $ref: '#/components/schemas/VRPSetupRequest'
-          updatedAt:
-            type: string
-            format: date-time
-            description: Represents the date and time at which the Consent was updated.
-          consentStatus:
-            type: string
-            description: Current status of the authorisation. Can be one of [AWAITING_AUTHORIZATION, AUTHORIZED, REJECTED, REVOKED, FAILED, EXPIRED]
-    ApiError:
-      type: object
-      description: Provides details of the error that has occurred.
-      properties:
-        code:
-          type: integer
-          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
-          format: int32
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-        message:
-          type: string
-          description: __Mandatory__. Description of the exact error that has been experienced.
-        source:
-          type: string
-        status:
-          type: string
-          description: __Mandatory__. Textual description of the `HTTP` error status type.
-        tracingId:
-          type: string
-          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
-    AddressTypeEnumResponse:
-      title: Address Type
+    PaymentType:
+      title: Payment Type
       type: string
-      description: The type of address
+      description: '__Mandatory__. Used to specify which of the [payment types](/payments/payment-resources/intro-to-payment-execution#payment-types) to execute.
+
+
+        See [European Payments](/payments/payment-resources/european-payments) to verify whether the `type` should be `DOMESTIC` or `INTERNATIONAL`.'
       enum:
-      - BUSINESS
-      - CORRESPONDENCE
-      - DELIVERY_TO
-      - MAIL_TO
-      - PO_BOX
-      - POSTAL
-      - RESIDENTIAL
-      - STATEMENT
-      - UNKNOWN
+      - DOMESTIC_PAYMENT
+      - DOMESTIC_INSTANT_PAYMENT
+      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - DOMESTIC_SCHEDULED_PAYMENT
+      - DOMESTIC_PERIODIC_PAYMENT
+      - INTERNATIONAL_PAYMENT
+      - INTERNATIONAL_SCHEDULED_PAYMENT
+      - INTERNATIONAL_PERIODIC_PAYMENT
+      - BULK_PAYMENT
     PaymentStatus:
       type: string
       description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
@@ -796,201 +905,7 @@ components:
       - UNKNOWN
       - ACTIVE
       - INACTIVE
-    InstitutionIdentifiers:
-      description: Specifies the institution requirements for making the payment. Skips the bank selection screen in payment flow if the `institutionId` and `institutionCountryCode` are provided.
-      type: object
-      required:
-      - institutionCountryCode
-      properties:
-        institutionId:
-          type: string
-          description: Yapily identifier which identifies the `Institution` the payment request is sent to.
-        institutionCountryCode:
-          type: string
-          description: 2 letter ISO Country code of the `Institution` the payment request is sent to.
-          example: GB
-    RawResponse:
-      deprecated: true
-      type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
-      properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
-          type: string
-          format: iso8601
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
-          type: object
-    ApiResponseOfRevokeHostedVRPConsentRequest:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedVRPConsentDetails'
-    PaymentContextTypeResponse:
-      title: Payment Code
-      type: string
-      description: The payment context code.
-      enum:
-      - BILL
-      - GOODS
-      - SERVICES
-      - OTHER
-      - PERSON_TO_PERSON
-    HostedVrpRefundAccount:
-      type: object
-      description: The account to which funds should be returned if the payment is to be later refunded.
-      properties:
-        name:
-          type: string
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/HostedVrpAccountIdentification'
-    PaymentContextType:
-      title: Payment Code
-      type: string
-      default: OTHER
-      description: __Optional__. The payment context code. This defaults to `OTHER` if not specified.
-      enum:
-      - BILL
-      - GOODS
-      - SERVICES
-      - OTHER
-      - PERSON_TO_PERSON
-      - BILL_IN_ADVANCE
-      - BILL_IN_ARREARS
-      - ECOMMERCE_MERCHANT
-      - FACE_TO_FACE_POS
-      - TRANSFER_TO_SELF
-      - TRANSFER_TO_THIRD_PARTY
-      - PISP_PAYEE
-    VRPSetupRequest:
-      required:
-      - payee
-      type: object
-      properties:
-        payer:
-          $ref: '#/components/schemas/Payer'
-        payee:
-          $ref: '#/components/schemas/Payee'
-        reference:
-          type: string
-          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Own Account Sweeping
-        limits:
-          $ref: '#/components/schemas/HostedVRPLimitsRequest'
-        validFrom:
-          type: string
-          format: date-time
-          description: __Optional__. Start date when the consent becomes valid.
-        validTo:
-          type: string
-          format: date-time
-          description: __Optional__. End date when the consent expires and becomes invalid.
-        recurringPaymentCategory:
-          type: string
-          description: "The use-case for the VRP consent supported by the bank. Allowed values: \n\n`ONGOING` \n\n`SUBSCRIPTION`"
-        initialPayment:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Optional__. Initial payment to be charged under this consent. If enforced, this amount must match the first payment amount executed using this consent.
-        risk:
-          $ref: '#/components/schemas/PaymentRisk'
-    AccountIdentification:
-      title: Account Identifications
-      required:
-      - type
-      - identification
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountIdentificationType'
-        identification:
-          title: Account Identification
-          type: string
-          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    HostedPaymentIsoStatus:
-      description: The ISO status of the payment.
-      type: object
-      properties:
-        code:
-          type: string
-          description: "The ISO 20022 `PaymentStatusCode`. One of : \n\n ACSC \n\n ACCC \n\n ACCP  \n\n ACSP \n\n ACTC \n\n ACWC \n\n ACWP \n\n ACFC \n\n RCVD \n\n PART \n\n PATC \n\n PDNG \n\n RJCT \n\n CANC"
-          example: ACSC
-        name:
-          type: string
-          description: The full name of the ISO 20022 `PaymentStatusCode`.
-          example: AcceptedCreditSettlementCompleted
-    PayeeAccountType:
-      title: Payee Account Type
-      type: string
-      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
-    ApiResponseOfCreateHostedPaymentRequestLink:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedPaymentRequestResponse'
-    HostedVrpAccountIdentification:
-      title: Account Identifications
-      required:
-      - type
-      - identification
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/HostedVrpAccountIdentificationType'
-        identification:
-          title: Account Identification
-          type: string
-          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    VrpFundsAvailable:
-      required:
-      - fundsAvailable
-      - fundsAvailableAt
-      type: object
-      properties:
-        fundsAvailable:
-          type: boolean
-          description: __Mandatory__. The flag indicating whether the funds are available.
-        fundsAvailableAt:
-          type: string
-          format: date-time
-          description: __Mandatory__. The datetime when the funds were checked.
-    HostedVrpPayerResponse:
-      title: Payer Details
-      required:
-      - accountIdentifications
-      type: object
-      properties:
-        name:
-          title: Payer Name
-          type: string
-          description: The account holder name of the Payer.
-          example: John Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
-          items:
-            $ref: '#/components/schemas/HostedVrpAccountIdentification'
-        address:
-          $ref: '#/components/schemas/Address'
-      description: __Conditional__. Details of the benefactor [person or business].
-    HostedVRPLimits:
+    HostedVRPLimitsRequest:
       type: object
       description: The restrictions and limits for payments executed under the VRP consent
       properties:
@@ -1010,33 +925,376 @@ components:
           type: integer
           format: int32
           description: __Optional__. Max number of payments that can be submitted under this consent.
-        editedByUser:
-          type: boolean
-          description: Indicates if the user edited the control parameters during authorisation
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
-    CreateHostedVRPPaymentRequest:
+    AddressTypeEnum:
+      title: Address Type
+      type: string
+      description: __Optional__. The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
+    HostedAmountDetails:
       required:
-      - paymentIdempotencyId
-      - amount
+      - amountToPay
+      - currency
       type: object
       properties:
+        amountToPay:
+          type: number
+          description: The payment amount
+          minimum: 0.01
+          example: 10.5
+        currency:
+          type: string
+          description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: The payment amount and currency
+    AmountDetailsResponse:
+      title: Amount Details
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: Monetary Amount.
+    Address:
+      title: Address Details
+      type: object
+      properties:
+        addressLines:
+          title: Address Lines
+          type: array
+          description: __Optional__. The address line of the address
+          example:
+          - Ardenham Court
+          items:
+            type: string
+        streetName:
+          title: Street
+          type: string
+          description: __Optional__. The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: __Optional__. The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: __Optional__. The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: __Optional__. The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: __Optional__. The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: __Optional__. The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: __Optional__. The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnum'
+      description: '__Conditional__. The address of the `Payee` or `Payer`.
+
+
+        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
+
+        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
+      example:
+        country: GB
+    ApiResponseOfCreateHostedVRPPaymentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedVRPPaymentResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    Payer:
+      title: Payer Details
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Conditional__. Details of the benefactor [person or business].
+    HostedVrpRefundAccount:
+      type: object
+      description: The account to which funds should be returned if the payment is to be later refunded.
+      properties:
+        name:
+          type: string
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/HostedVrpAccountIdentification'
+    PayeeAccountType:
+      title: Payee Account Type
+      type: string
+      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
+    ApiResponseOfCreateHostedPaymentRequestLink:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedPaymentRequestResponse'
+    ApiResponseOfGetHostedPaymentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedPaymentDetails'
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    PaymentRisk:
+      type: object
+      description: Additional information about the payment that may be used for risk scoring
+      properties:
+        contextType:
+          $ref: '#/components/schemas/PaymentContextTypeV2'
+    HostedVRPConsentRequestResponse:
+      required:
+      - id
+      - applicationId
+      - hostedUrl
+      - authToken
+      - createdAt
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Represents the Unique Id of the VRP consent request
+        userId:
+          type: string
+          format: uuid
+          description: Represents the Unique Id for the `User` assigned by Yapily.
+        applicationUserId:
+          type: string
+          description: Represents the user-friendly reference to the `User`.
+        applicationId:
+          type: string
+          format: uuid
+          description: Represents the Unique Id of the `Application` the user is associated with.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiers'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of client's server to redirect the PSU after completion of the consent authorisation.
+          example: https://tpp-application.com
+        vrpSetup:
+          $ref: '#/components/schemas/VRPSetupRequest'
+        hostedUrl:
+          type: string
+          description: "Represents the URL of Hosted UI page for the applicationId which initiates the user journey for the Consent. \n\n URL would be appended with authToken, applicationId and userSettings."
+        authToken:
+          type: string
+          description: Represents the JWT Token signed by the certificate-vault using Yapily's keys.
+        createdAt:
+          type: string
+          format: date-time
+          description: Represents the date and time at which the Consent was created.
+        authorisationExpiresAt:
+          type: string
+          format: date-time
+          description: Represents the date and time at which the auth Token will expire.
+    ApiResponseOfRevokeHostedVRPConsentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedVRPConsentDetails'
+    HostedPayment:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          format: uuid
+          description: The Unique Identifier of the payment.
+        hostedPaymentId:
+          type: string
+          format: uuid
+          description: The Unique Identifier of the payment created using Yapily hosted application.
+        consentId:
+          type: string
+          format: uuid
+          description: The Unique Identifier of the consent.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
+        phases:
+          description: The phase reached by the payment and its timestamp.
+          type: array
+          items:
+            $ref: '#/components/schemas/HostedPaymentPhase'
+        paymentStatus:
+          type: string
+          description: "Payment status based on latest HostedAuthPaymentPhase in phases. Value can be \n\n- PENDING  -  Payment pending processing\n- COMPLETED  -  Payment processing completed\n- FAILED  -  Payment process failed"
+        statusDetails:
+          description: Details of the payment status.
+          type: array
+          items:
+            $ref: '#/components/schemas/HostedPaymentStatusDetails'
+        institutionPaymentId:
+          type: string
+          description: The Unique Identifier of the payment created with the `Institution`.
+        paymentLifecycleId:
+          type: string
+          description: The Unique Identifier provided by TPP in the Payment request to identify the payment.
         paymentIdempotencyId:
           type: string
-          description: __Mandatory__. A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+          description: A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
           example: 04ab4536gaerfc0e1f93c4f4
+        reference:
+          type: string
+          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
+          example: Bill payment
+        contextType:
+          $ref: '#/components/schemas/PaymentContextTypeResponse'
+        type:
+          $ref: '#/components/schemas/PaymentTypeResponse'
+        payee:
+          $ref: '#/components/schemas/PayeeDetailsResponse'
+        payer:
+          $ref: '#/components/schemas/PayerDetailsResponse'
         amount:
-          $ref: '#/components/schemas/Amount'
-      description: __Mandatory__. The payment request object defining the details of the payment for execution under the Variable Recurring Payment consent.
+          $ref: '#/components/schemas/AmountDetailsResponse'
+    AddressResponse:
+      title: Address Details
+      type: object
+      properties:
+        addressLines:
+          title: Address Lines
+          type: array
+          description: The address line of the address
+          example:
+          - Ardenham Court
+          items:
+            type: string
+        streetName:
+          title: Street
+          type: string
+          description: The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: The 2-letter country code for the address.
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnumResponse'
+      description: The address of the `Payee` or `Payer`.
+      example:
+        country: GB
+    HostedNonSweepingPeriodicLimits:
+      required:
+      - maxAmount
+      - frequency
+      - alignment
+      type: object
+      properties:
+        maxAmount:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Mandatory__. Maximum amount that can be specified in all payment instructions in a given period under this VRP consent. If the Alignment is Calendar, the limit is pro-rated in the first period to the remaining number of days.
+        frequency:
+          type: string
+          description: __Mandatory__. Frequency for which the payment limits are enforced. Allowed values are [MONTHLY].
+        alignment:
+          type: string
+          description: __Mandatory__. Period alignment for which the payment limits are enforced. Allowed values are [CONSENT, CALENDAR]. If CONSENT, then period starts on consent creation date. If CALENDAR, then period lines up with the frequency e.g. WEEKLY period will begin at start of the week in question.
     Payee:
       title: Payee Details
       type: object
@@ -2906,69 +3164,121 @@ components:
 
             - `9950` (Intra-Company Purchases)'
           example: '0742'
-    HostedPaymentRequestDetailsLink:
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    HostedPaymentStatusDetails:
+      description: The status of the payment.
       type: object
       properties:
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        statusUpdateDate:
+          description: Date and time the status was updated.
+          type: string
+          format: date-time
+        isoStatus:
+          $ref: '#/components/schemas/HostedPaymentIsoStatus'
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    AccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    UserSettings:
+      description: Specifies the language and location preferences of the user.
+      type: object
+      properties:
+        language:
+          type: string
+          description: 2 letter ISO Language code which denotes the language preference for the `User`.
+          example: en
+        location:
+          type: string
+          description: 2 letter ISO Country code which denotes the location preference for the `User`.
+          example: GB
+    HostedPaymentRequestDetails:
+      description: Details of the payment.
+      required:
+      - paymentIdempotencyId
+      - type
+      - payee
+      - amountDetails
+      type: object
+      properties:
+        paymentIdempotencyId:
+          type: string
+          description: A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+          example: 04ab4536gaerfc0e1f93c4f4
         reference:
           type: string
           description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
           example: Bill payment
         contextType:
-          $ref: '#/components/schemas/PaymentContextTypeResponse'
+          $ref: '#/components/schemas/PaymentContextType'
         type:
-          $ref: '#/components/schemas/PaymentTypeResponse'
+          $ref: '#/components/schemas/PaymentType'
         payee:
-          $ref: '#/components/schemas/PayeeDetailsResponse'
+          $ref: '#/components/schemas/Payee'
         payer:
-          $ref: '#/components/schemas/PayerDetailsResponse'
+          $ref: '#/components/schemas/Payer'
         amountDetails:
-          $ref: '#/components/schemas/AmountDetailsResponse'
+          $ref: '#/components/schemas/HostedAmountDetails'
         paymentDueDate:
           type: string
           format: date
           description: The date that the payment is due. Displayed to the end user in the payment summary screen.
-    HostedPaymentRequestResponse:
-      type: object
-      properties:
-        paymentRequestId:
-          type: string
-          format: uuid
-          description: Unique Id of the payment request.
-        userId:
-          type: string
-          format: uuid
-          description: Unique Id for the `User` assigned by Yapily.
-        applicationUserId:
-          type: string
-          description: Your reference to the `User`.
-        applicationId:
-          type: string
-          format: uuid
-          description: Unique Id of the `Application` the user is associated with.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
-        userSettings:
-          $ref: '#/components/schemas/UserSettings'
-        redirectUrl:
-          type: string
-          description: URL of payment server to redirect the user after completion of the payment flow.
-          example: https://tpp-application.com
-        paymentRequestDetails:
-          $ref: '#/components/schemas/HostedPaymentResponseDetails'
-        hostedUrl:
-          type: string
-          description: "The URL of Hosted UI page for the applicationId which initiates the user journey for the payment. \n\n URL would be appended with authToken, applicationId and userSettings."
-        createdAt:
-          type: string
-          format: date-time
-          description: The date and time at which the payment was created.
-        authorisationExpiresAt:
-          type: string
-          format: date-time
-          description: The date and time at which the auth Token will expire.
-        status:
-          type: string
-          description: Current status of the payment request.
     ApiResponseError:
       type: object
       properties:
@@ -3017,40 +3327,29 @@ components:
       - INTERNATIONAL_PAYMENT
       - INTERNATIONAL_SCHEDULED_PAYMENT
       - INTERNATIONAL_PERIODIC_PAYMENT
-    ApiResponseOfCreateHostedVRPPaymentRequest:
+    ApiResponseOfVrpFundsConfirmationResponse:
       type: object
       properties:
         meta:
           $ref: '#/components/schemas/ResponseMeta'
         data:
-          $ref: '#/components/schemas/HostedVRPPaymentResponse'
+          $ref: '#/components/schemas/VrpFundsConfirmationResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
         tracingId:
           type: string
           writeOnly: true
-    CreateHostedPaymentRequest:
-      required:
-      - redirectUrl
-      - paymentRequestDetails
-      - institutionIdentifiers
-      type: object
-      properties:
-        userId:
-          type: string
-          format: uuid
-          description: __Conditional__. Yapily Identifier for the `User` returned by the create user step POST /users. You must provide either a `userId` or `applicationUserId`.
-        applicationUserId:
-          type: string
-          description: __Conditional__. Your own `User` reference. This field allows you to use your own unique references for individual users. Where the `User` reference doesn't have an associated Yapily `userId`, a new `userId` is created and linked to it. You must provide either a `userId` or `applicationUserId`.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiers'
-        userSettings:
-          $ref: '#/components/schemas/UserSettings'
-        redirectUrl:
-          type: string
-          description: URL of your server to redirect the user after completion of the payment flow.
-          example: https://tpp-application.com
-        paymentRequestDetails:
-          $ref: '#/components/schemas/HostedPaymentRequestDetails'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
     HostedVRPConsentDetails:
       required:
       - id
@@ -3101,413 +3400,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HostedVRPPhase'
-    AmountDetailsResponse:
-      title: Amount Details
-      type: object
-      properties:
-        amount:
-          title: Amount
-          type: number
-          description: The monetary value
-          example: 10
-        currency:
-          title: Currency
-          type: string
-          description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: Monetary Amount.
-    Payer:
-      title: Payer Details
-      required:
-      - accountIdentifications
-      type: object
-      properties:
-        name:
-          title: Payer Name
-          type: string
-          description: The account holder name of the Payer.
-          example: John Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        address:
-          $ref: '#/components/schemas/Address'
-      description: __Conditional__. Details of the benefactor [person or business].
-    ResponseForwardedData:
-      type: object
-      properties:
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        url:
-          type: string
-    HostedVrpAccountIdentificationType:
-      title: Account Identification Type
+    PaymentContextTypeV2:
+      title: Payment Code
       type: string
-      description: "Used to describe the format of the account.\n\n Allowed values: \n\nMASKED_ACCOUNT_NUMBER\n\nSORT_CODE\n\nACCOUNT_NUMBER"
-      example: SORT_CODE
-    PayeeDetailsResponse:
-      title: Payee Details
+      description: __Optional__. The payment context code. Allowed values are [BILL_IN_ADVANCE, BILL_IN_ARREARS, ECOMMERCE_MERCHANT, FACE_TO_FACE_POS, TRANSFER_TO_SELF,TRANSFER_TO_THIRD_PARTY, PISP_PAYEE ].
+    InstitutionError:
       type: object
-      description: ' Details of the beneficiary [person or business].'
+      description: Raw error details provided by the `Institution`, when it was the error source.
       properties:
-        name:
-          title: Payee Name
+        errorMessage:
           type: string
-          description: The account holder name of the beneficiary.
-          example: Jane Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: The account identifications that identify the `Payee` bank account.
-          example:
-          - identification: '401016'
-            type: SORT_CODE
-          - identification: '71518920'
-            type: ACCOUNT_NUMBER
-          items:
-            $ref: '#/components/schemas/AccountIdentificationResponse'
-        address:
-          $ref: '#/components/schemas/AddressResponse'
-        merchantId:
-          title: Merchant Id
-          type: string
-          description: The merchant ID is a unique code provided by the payment processor to the merchant.
-          example: '24589303'
-        merchantCategoryCode:
-          title: Merchant Category
-          type: string
-          description: The category code of the merchant in case the `Payee` is a business. Specified as a 3-letter ISO 18245 code.
-          example: '5551'
-    ApiResponseOfCreateHostedVRPConsentRequest:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedVRPConsentRequestResponse'
-    ApiResponseOfGetHostedPaymentRequest:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedPaymentDetails'
-    HostedPayment:
-      type: object
-      properties:
-        paymentId:
-          type: string
-          format: uuid
-          description: The Unique Identifier of the payment.
-        hostedPaymentId:
-          type: string
-          format: uuid
-          description: The Unique Identifier of the payment created using Yapily hosted application.
-        consentId:
-          type: string
-          format: uuid
-          description: The Unique Identifier of the consent.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
-        phases:
-          description: The phase reached by the payment and its timestamp.
-          type: array
-          items:
-            $ref: '#/components/schemas/HostedPaymentPhase'
-        paymentStatus:
-          type: string
-          description: "Payment status based on latest HostedAuthPaymentPhase in phases. Value can be \n\n- PENDING  -  Payment pending processing\n- COMPLETED  -  Payment processing completed\n- FAILED  -  Payment process failed"
-        statusDetails:
-          description: Details of the payment status.
-          type: array
-          items:
-            $ref: '#/components/schemas/HostedPaymentStatusDetails'
-        institutionPaymentId:
-          type: string
-          description: The Unique Identifier of the payment created with the `Institution`.
-        paymentLifecycleId:
-          type: string
-          description: The Unique Identifier provided by TPP in the Payment request to identify the payment.
-        paymentIdempotencyId:
-          type: string
-          description: A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
-          example: 04ab4536gaerfc0e1f93c4f4
-        reference:
-          type: string
-          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
-          example: Bill payment
-        contextType:
-          $ref: '#/components/schemas/PaymentContextTypeResponse'
-        type:
-          $ref: '#/components/schemas/PaymentTypeResponse'
-        payee:
-          $ref: '#/components/schemas/PayeeDetailsResponse'
-        payer:
-          $ref: '#/components/schemas/PayerDetailsResponse'
-        amount:
-          $ref: '#/components/schemas/AmountDetailsResponse'
-    VrpFundsConfirmationResponse:
-      required:
-      - paymentAmount
-      - fundsAvailable
-      type: object
-      properties:
-        id:
-          type: string
-        reference:
-          type: string
-          description: The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Own Account Sweeping
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-        fundsAvailable:
-          $ref: '#/components/schemas/VrpFundsAvailable'
-    CreateHostedPaymentRequestLink:
-      required:
-      - redirectUrl
-      - paymentRequestDetails
-      - institutionIdentifiers
-      type: object
-      properties:
-        userId:
-          type: string
-          format: uuid
-          description: __Conditional__. Yapily Identifier for the `User` returned by the create user step POST /users. You must either provide `userId` or `applicationUserId`.
-        applicationUserId:
-          type: string
-          description: __Conditional__. Your own `User` reference. If you want to work with their own unique references for individual PSUs then you can use the `applicationUserId` property to provide that value. Where Yapily does not already have a Yapily userId that matches the supplied `applicationUserId`, then a new Yapily userId is created automatically and linked to the `applicationUserId` value. You must either provide userId or `applicationUserId`.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiers'
-        userSettings:
-          $ref: '#/components/schemas/UserSettings'
-        redirectUrl:
-          type: string
-          description: URL of your server to redirect the user after completion of the payment flow.
-          example: https://tpp-application.com
-        authorisationExpiresAt:
-          type: string
-          format: date-time
-          description: The date and time that the authorisation expires. Must be between 10 minutes and 30 days in the future. If not specified, the authorisation URL will expire 10 minutes after creation.
-        paymentRequestDetails:
-          $ref: '#/components/schemas/HostedPaymentRequestDetailsLink'
-    HostedPaymentResponseDetails:
-      description: Details of the payment.
-      type: object
-      properties:
-        paymentIdempotencyId:
-          type: string
-          description: A unique identifier provided to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
-          example: 04ab4536gaerfc0e1f93c4f4
-        reference:
-          type: string
-          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
-          example: Bill payment
-        contextType:
-          $ref: '#/components/schemas/PaymentContextTypeResponse'
-        type:
-          $ref: '#/components/schemas/PaymentTypeResponse'
-        payee:
-          $ref: '#/components/schemas/PayeeDetailsResponse'
-        payer:
-          $ref: '#/components/schemas/PayerDetailsResponse'
-        amountDetails:
-          $ref: '#/components/schemas/AmountDetailsResponse'
-        paymentDueDate:
-          type: string
-          format: date
-          description: The date that the payment is due.
-    AddressResponse:
-      title: Address Details
-      type: object
-      properties:
-        addressLines:
-          title: Address Lines
-          type: array
-          description: The address line of the address
-          example:
-          - Ardenham Court
-          items:
-            type: string
-        streetName:
-          title: Street
-          type: string
-          description: The street name of the address
-          example: Oxford Road
-        buildingNumber:
-          title: Building Number
-          type: string
-          description: The building number of the address
-          example: '45'
-        postCode:
-          title: Post Code
-          type: string
-          description: The post code of the address
-          example: HP19 3EQ
-        townName:
-          title: Town
-          type: string
-          description: The town name of the address
-          example: Aylesbury
-        county:
-          title: County
-          type: array
-          description: The list of counties for the address
-          example:
-          - Buckinghamshire
-          items:
-            type: string
-        country:
-          title: Country
-          type: string
-          description: The 2-letter country code for the address.
-          example: GB
-        department:
-          title: Department
-          type: string
-          description: The department for the address
-          example: Unit 2
-        subDepartment:
-          title: Sub-Department
-          type: string
-          description: The sub-department for the address
-          example: Floor 3
-        addressType:
-          $ref: '#/components/schemas/AddressTypeEnumResponse'
-      description: The address of the `Payee` or `Payer`.
-      example:
-        country: GB
-    HostedAmountDetails:
-      required:
-      - amountToPay
-      - currency
-      type: object
-      properties:
-        amountToPay:
-          type: number
-          description: The payment amount
-          minimum: 0.01
-          example: 10.5
-        currency:
-          type: string
-          description: The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: The payment amount and currency
-    HostedVRPLimitsRequest:
-      type: object
-      description: The restrictions and limits for payments executed under the VRP consent
-      properties:
-        periodicLimits:
-          type: array
-          items:
-            $ref: '#/components/schemas/HostedNonSweepingPeriodicLimits'
-        maxAmountPerPayment:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Optional__. Max amount that can be submitted per payment.
-        maxCumulativeAmount:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Optional__. Max cumulative amount that can be submitted under this consent.
-        maxCumulativeNumberOfPayments:
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
           type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
           format: int32
-          description: __Optional__. Max number of payments that can be submitted under this consent.
-    PaymentRisk:
-      type: object
-      description: Additional information about the payment that may be used for risk scoring
-      properties:
-        contextType:
-          $ref: '#/components/schemas/PaymentContextTypeV2'
-    PayerDetailsResponse:
-      title: Payer Details
-      type: object
-      properties:
-        name:
-          title: Payer Name
-          type: string
-          description: The account holder name of the Payer.
-          example: John Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: The account identifications that identify the `Payer` bank account.
-          items:
-            $ref: '#/components/schemas/AccountIdentificationResponse'
-        address:
-          $ref: '#/components/schemas/AddressResponse'
-      description: Details of the benefactor [person or business].
-    PaymentType:
-      title: Payment Type
-      type: string
-      description: '__Mandatory__. Used to specify which of the [payment types](/payments/payment-resources/intro-to-payment-execution#payment-types) to execute.
-
-
-        See [European Payments](/payments/payment-resources/european-payments) to verify whether the `type` should be `DOMESTIC` or `INTERNATIONAL`.'
-      enum:
-      - DOMESTIC_PAYMENT
-      - DOMESTIC_INSTANT_PAYMENT
-      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - DOMESTIC_SCHEDULED_PAYMENT
-      - DOMESTIC_PERIODIC_PAYMENT
-      - INTERNATIONAL_PAYMENT
-      - INTERNATIONAL_SCHEDULED_PAYMENT
-      - INTERNATIONAL_PERIODIC_PAYMENT
-      - BULK_PAYMENT
-    Amount:
-      title: Amount Details
-      required:
-      - amount
-      - currency
-      type: object
-      properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
-          type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
-    VRPSetup:
-      required:
-      - payee
-      type: object
-      properties:
-        payer:
-          $ref: '#/components/schemas/HostedVrpPayerResponse'
-        payee:
-          $ref: '#/components/schemas/Payee'
-        reference:
-          type: string
-          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Own Account Sweeping
-        limits:
-          $ref: '#/components/schemas/HostedVRPLimits'
-        validFrom:
-          type: string
-          format: date-time
-          description: __Optional__. Start date when the consent becomes valid.
-        validTo:
-          type: string
-          format: date-time
-          description: __Optional__. End date when the consent expires and becomes invalid.
-        recurringPaymentCategory:
-          type: string
-          description: "The use-case for the VRP consent supported by the bank. Allowed values: \n\n`ONGOING` \n\n`SUBSCRIPTION`"
-        initialPayment:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Optional__. Initial payment to be charged under this consent. If enforced, this amount must match the first payment amount executed using this consent.
-        risk:
-          $ref: '#/components/schemas/PaymentRisk'
     AccountIdentificationType:
       title: Account Identification Type
       type: string
@@ -3542,259 +3449,38 @@ components:
           $ref: '#/components/schemas/ResponseMeta'
         data:
           $ref: '#/components/schemas/HostedPaymentRequestResponse'
-    HostedPaymentRequestDetails:
-      description: Details of the payment.
+    VRPSetup:
       required:
-      - paymentIdempotencyId
-      - type
       - payee
-      - amountDetails
       type: object
       properties:
-        paymentIdempotencyId:
-          type: string
-          description: A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
-          example: 04ab4536gaerfc0e1f93c4f4
-        reference:
-          type: string
-          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
-          example: Bill payment
-        contextType:
-          $ref: '#/components/schemas/PaymentContextType'
-        type:
-          $ref: '#/components/schemas/PaymentType'
+        payer:
+          $ref: '#/components/schemas/HostedVrpPayerResponse'
         payee:
           $ref: '#/components/schemas/Payee'
-        payer:
-          $ref: '#/components/schemas/Payer'
-        amountDetails:
-          $ref: '#/components/schemas/HostedAmountDetails'
-        paymentDueDate:
-          type: string
-          format: date
-          description: The date that the payment is due. Displayed to the end user in the payment summary screen.
-    AddressTypeEnum:
-      title: Address Type
-      type: string
-      description: __Optional__. The type of address
-      enum:
-      - BUSINESS
-      - CORRESPONDENCE
-      - DELIVERY_TO
-      - MAIL_TO
-      - PO_BOX
-      - POSTAL
-      - RESIDENTIAL
-      - STATEMENT
-      - UNKNOWN
-    ApiResponseOfGetHostedVRPPaymentRequest:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedVRPPaymentResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    HostedVRPConsentRequestResponse:
-      required:
-      - id
-      - applicationId
-      - hostedUrl
-      - authToken
-      - createdAt
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Represents the Unique Id of the VRP consent request
-        userId:
-          type: string
-          format: uuid
-          description: Represents the Unique Id for the `User` assigned by Yapily.
-        applicationUserId:
-          type: string
-          description: Represents the user-friendly reference to the `User`.
-        applicationId:
-          type: string
-          format: uuid
-          description: Represents the Unique Id of the `Application` the user is associated with.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiers'
-        userSettings:
-          $ref: '#/components/schemas/UserSettings'
-        redirectUrl:
-          type: string
-          description: URL of client's server to redirect the PSU after completion of the consent authorisation.
-          example: https://tpp-application.com
-        vrpSetup:
-          $ref: '#/components/schemas/VRPSetupRequest'
-        hostedUrl:
-          type: string
-          description: "Represents the URL of Hosted UI page for the applicationId which initiates the user journey for the Consent. \n\n URL would be appended with authToken, applicationId and userSettings."
-        authToken:
-          type: string
-          description: Represents the JWT Token signed by the certificate-vault using Yapily's keys.
-        createdAt:
-          type: string
-          format: date-time
-          description: Represents the date and time at which the Consent was created.
-        authorisationExpiresAt:
-          type: string
-          format: date-time
-          description: Represents the date and time at which the auth Token will expire.
-    VrpFundsConfirmationRequest:
-      type: object
-      required:
-      - paymentAmount
-      properties:
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
         reference:
           type: string
-          description: __Optional__. The reference/description associated with the VRP consent. Limited to a maximum of 18 characters long.
-    HostedPaymentDetails:
-      type: object
-      properties:
-        paymentRequestId:
-          type: string
-          format: uuid
-          description: The unique ID of the payment request.
-        userId:
-          type: string
-          format: uuid
-          description: The Unique Identifier for the `User` assigned by Yapily.
-        applicationUserId:
-          type: string
-          description: Your reference to the `User`.
-        applicationId:
-          type: string
-          format: uuid
-          description: The Unique Identifier of the `Application` the user is associated with.
-        institutionIdentifiers:
-          $ref: '#/components/schemas/InstitutionIdentifiersResponse'
-        userSettings:
-          $ref: '#/components/schemas/UserSettings'
-        redirectUrl:
-          type: string
-          description: URL of your server to redirect the user after completion of the payment flow.
-          example: https://tpp-application.com
-        paymentRequestDetails:
-          $ref: '#/components/schemas/HostedPaymentRequestDetailsLink'
-        createdAt:
-          type: string
-          description: The date and time at which the payment request was created.
-          format: date-time
-        authorisationExpiresAt:
+          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+          example: Own Account Sweeping
+        limits:
+          $ref: '#/components/schemas/HostedVRPLimits'
+        validFrom:
           type: string
           format: date-time
-          description: The date and time at which the auth Token will expire.
-        status:
+          description: __Optional__. Start date when the consent becomes valid.
+        validTo:
           type: string
-          description: "Current status of the payment request. \n\n Possible values: \n\n ACTIVE \n\n INACTIVE"
-        payments:
-          uniqueItems: true
-          type: array
-          description: Payments that have been initiated as part of this request
-          items:
-            $ref: '#/components/schemas/HostedPayment'
-    UserSettings:
-      description: Specifies the language and location preferences of the user.
-      type: object
-      properties:
-        language:
+          format: date-time
+          description: __Optional__. End date when the consent expires and becomes invalid.
+        recurringPaymentCategory:
           type: string
-          description: 2 letter ISO Language code which denotes the language preference for the `User`.
-          example: en
-        location:
-          type: string
-          description: 2 letter ISO Country code which denotes the location preference for the `User`.
-          example: GB
-    ApiResponseOfGetHostedVRPConsentRequest:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/HostedVRPConsentDetails'
-    AccountIdentificationResponse:
-      title: Account Identifications
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountIdentificationTypeResponse'
-        identification:
-          title: Account Identification
-          type: string
-          description: "The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    Address:
-      title: Address Details
-      type: object
-      properties:
-        addressLines:
-          title: Address Lines
-          type: array
-          description: __Optional__. The address line of the address
-          example:
-          - Ardenham Court
-          items:
-            type: string
-        streetName:
-          title: Street
-          type: string
-          description: __Optional__. The street name of the address
-          example: Oxford Road
-        buildingNumber:
-          title: Building Number
-          type: string
-          description: __Optional__. The building number of the address
-          example: '45'
-        postCode:
-          title: Post Code
-          type: string
-          description: __Optional__. The post code of the address
-          example: HP19 3EQ
-        townName:
-          title: Town
-          type: string
-          description: __Optional__. The town name of the address
-          example: Aylesbury
-        county:
-          title: County
-          type: array
-          description: __Optional__. The list of counties for the address
-          example:
-          - Buckinghamshire
-          items:
-            type: string
-        country:
-          title: Country
-          type: string
-          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
-          example: GB
-        department:
-          title: Department
-          type: string
-          description: __Optional__. The department for the address
-          example: Unit 2
-        subDepartment:
-          title: Sub-Department
-          type: string
-          description: __Optional__. The sub-department for the address
-          example: Floor 3
-        addressType:
-          $ref: '#/components/schemas/AddressTypeEnum'
-      description: '__Conditional__. The address of the `Payee` or `Payer`.
-
-
-        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
-
-        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
-      example:
-        country: GB
+          description: "The use-case for the VRP consent supported by the bank. Allowed values: \n\n`ONGOING` \n\n`SUBSCRIPTION`"
+        initialPayment:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Optional__. Initial payment to be charged under this consent. If enforced, this amount must match the first payment amount executed using this consent.
+        risk:
+          $ref: '#/components/schemas/PaymentRisk'
     HostedPaymentPhase:
       type: object
       properties:
@@ -3806,18 +3492,343 @@ components:
           format: date-time
           description: The date and time when phase of the hosted payment was inserted.
       description: The phase of the payment.
-    HostedPaymentStatusDetails:
-      description: The status of the payment.
+    ApiResponseOfCreateHostedVRPConsentRequest:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/PaymentStatus'
-        statusUpdateDate:
-          description: Date and time the status was updated.
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedVRPConsentRequestResponse'
+    VrpFundsAvailable:
+      required:
+      - fundsAvailable
+      - fundsAvailableAt
+      type: object
+      properties:
+        fundsAvailable:
+          type: boolean
+          description: __Mandatory__. The flag indicating whether the funds are available.
+        fundsAvailableAt:
           type: string
           format: date-time
-        isoStatus:
-          $ref: '#/components/schemas/HostedPaymentIsoStatus'
+          description: __Mandatory__. The datetime when the funds were checked.
+    HostedVrpPayerResponse:
+      title: Payer Details
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/HostedVrpAccountIdentification'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Conditional__. Details of the benefactor [person or business].
+    HostedVRPLimits:
+      type: object
+      description: The restrictions and limits for payments executed under the VRP consent
+      properties:
+        periodicLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostedNonSweepingPeriodicLimits'
+        maxAmountPerPayment:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Optional__. Max amount that can be submitted per payment.
+        maxCumulativeAmount:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Optional__. Max cumulative amount that can be submitted under this consent.
+        maxCumulativeNumberOfPayments:
+          type: integer
+          format: int32
+          description: __Optional__. Max number of payments that can be submitted under this consent.
+        editedByUser:
+          type: boolean
+          description: Indicates if the user edited the control parameters during authorisation
+    PayeeDetailsResponse:
+      title: Payee Details
+      type: object
+      description: ' Details of the beneficiary [person or business].'
+      properties:
+        name:
+          title: Payee Name
+          type: string
+          description: The account holder name of the beneficiary.
+          example: Jane Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: The account identifications that identify the `Payee` bank account.
+          example:
+          - identification: '401016'
+            type: SORT_CODE
+          - identification: '71518920'
+            type: ACCOUNT_NUMBER
+          items:
+            $ref: '#/components/schemas/AccountIdentificationResponse'
+        address:
+          $ref: '#/components/schemas/AddressResponse'
+        merchantId:
+          title: Merchant Id
+          type: string
+          description: The merchant ID is a unique code provided by the payment processor to the merchant.
+          example: '24589303'
+        merchantCategoryCode:
+          title: Merchant Category
+          type: string
+          description: The category code of the merchant in case the `Payee` is a business. Specified as a 3-letter ISO 18245 code.
+          example: '5551'
+    ApiResponseOfGetHostedVRPConsentsRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/GetHostedVRPConsentsResponse'
+    InstitutionIdentifiers:
+      description: Specifies the institution requirements for making the payment. Skips the bank selection screen in payment flow if the `institutionId` and `institutionCountryCode` are provided.
+      type: object
+      required:
+      - institutionCountryCode
+      properties:
+        institutionId:
+          type: string
+          description: Yapily identifier which identifies the `Institution` the payment request is sent to.
+        institutionCountryCode:
+          type: string
+          description: 2 letter ISO Country code of the `Institution` the payment request is sent to.
+          example: GB
+    HostedVRPPaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentIdempotencyId:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        reference:
+          type: string
+          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+          example: Own Account Sweeping
+        payee:
+          $ref: '#/components/schemas/Payee'
+        payer:
+          $ref: '#/components/schemas/HostedVrpPayerResponse'
+        refundAccount:
+          $ref: '#/components/schemas/HostedVrpRefundAccount'
+        risk:
+          $ref: '#/components/schemas/PaymentRisk'
+        paymentLifecycleId:
+          type: string
+          description: The Unique Identifier provided by TPP in the Payment request to identify the payment.
+        expectedExecutionTime:
+          type: string
+          format: date-time
+        expectedSettlementTime:
+          type: string
+          format: date-time
+        institutionPaymentId:
+          type: string
+        statusDetails:
+          $ref: '#/components/schemas/HostedPaymentStatusDetails'
+    PaymentContextType:
+      title: Payment Code
+      type: string
+      default: OTHER
+      description: __Optional__. The payment context code. This defaults to `OTHER` if not specified.
+      enum:
+      - BILL
+      - GOODS
+      - SERVICES
+      - OTHER
+      - PERSON_TO_PERSON
+      - BILL_IN_ADVANCE
+      - BILL_IN_ARREARS
+      - ECOMMERCE_MERCHANT
+      - FACE_TO_FACE_POS
+      - TRANSFER_TO_SELF
+      - TRANSFER_TO_THIRD_PARTY
+      - PISP_PAYEE
+    AccountIdentificationResponse:
+      title: Account Identifications
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentificationTypeResponse'
+        identification:
+          title: Account Identification
+          type: string
+          description: "The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    HostedVrpAccountIdentificationType:
+      title: Account Identification Type
+      type: string
+      description: "Used to describe the format of the account.\n\n Allowed values: \n\nMASKED_ACCOUNT_NUMBER\n\nSORT_CODE\n\nACCOUNT_NUMBER"
+      example: SORT_CODE
+    AddressTypeEnumResponse:
+      title: Address Type
+      type: string
+      description: The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
+    PayerDetailsResponse:
+      title: Payer Details
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentificationResponse'
+        address:
+          $ref: '#/components/schemas/AddressResponse'
+      description: Details of the benefactor [person or business].
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    HostedPaymentIsoStatus:
+      description: The ISO status of the payment.
+      type: object
+      properties:
+        code:
+          type: string
+          description: "The ISO 20022 `PaymentStatusCode`. One of : \n\n ACSC \n\n ACCC \n\n ACCP  \n\n ACSP \n\n ACTC \n\n ACWC \n\n ACWP \n\n ACFC \n\n RCVD \n\n PART \n\n PATC \n\n PDNG \n\n RJCT \n\n CANC"
+          example: ACSC
+        name:
+          type: string
+          description: The full name of the ISO 20022 `PaymentStatusCode`.
+          example: AcceptedCreditSettlementCompleted
+    VrpFundsConfirmationRequest:
+      type: object
+      required:
+      - paymentAmount
+      properties:
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+        reference:
+          type: string
+          description: __Optional__. The reference/description associated with the VRP consent. Limited to a maximum of 18 characters long.
+    ApiResponseOfGetHostedVRPPaymentRequest:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/HostedVRPPaymentResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    VRPSetupRequest:
+      required:
+      - payee
+      type: object
+      properties:
+        payer:
+          $ref: '#/components/schemas/Payer'
+        payee:
+          $ref: '#/components/schemas/Payee'
+        reference:
+          type: string
+          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+          example: Own Account Sweeping
+        limits:
+          $ref: '#/components/schemas/HostedVRPLimitsRequest'
+        validFrom:
+          type: string
+          format: date-time
+          description: __Optional__. Start date when the consent becomes valid.
+        validTo:
+          type: string
+          format: date-time
+          description: __Optional__. End date when the consent expires and becomes invalid.
+        recurringPaymentCategory:
+          type: string
+          description: "The use-case for the VRP consent supported by the bank. Allowed values: \n\n`ONGOING` \n\n`SUBSCRIPTION`"
+        initialPayment:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Optional__. Initial payment to be charged under this consent. If enforced, this amount must match the first payment amount executed using this consent.
+        risk:
+          $ref: '#/components/schemas/PaymentRisk'
+    HostedPaymentResponseDetails:
+      description: Details of the payment.
+      type: object
+      properties:
+        paymentIdempotencyId:
+          type: string
+          description: A unique identifier provided to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+          example: 04ab4536gaerfc0e1f93c4f4
+        reference:
+          type: string
+          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
+          example: Bill payment
+        contextType:
+          $ref: '#/components/schemas/PaymentContextTypeResponse'
+        type:
+          $ref: '#/components/schemas/PaymentTypeResponse'
+        payee:
+          $ref: '#/components/schemas/PayeeDetailsResponse'
+        payer:
+          $ref: '#/components/schemas/PayerDetailsResponse'
+        amountDetails:
+          $ref: '#/components/schemas/AmountDetailsResponse'
+        paymentDueDate:
+          type: string
+          format: date
+          description: The date that the payment is due.
+    PaymentContextTypeResponse:
+      title: Payment Code
+      type: string
+      description: The payment context code.
+      enum:
+      - BILL
+      - GOODS
+      - SERVICES
+      - OTHER
+      - PERSON_TO_PERSON
     InstitutionIdentifiersResponse:
       description: Specifies the institution selected for making the payment.
       type: object
@@ -3829,74 +3840,69 @@ components:
           type: string
           description: 2 letter ISO Country code of the `Institution` the payment request is sent to.
           example: GB
-    ApiResponseOfVrpFundsConfirmationResponse:
+    HostedPaymentRequestDetailsLink:
       type: object
       properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/VrpFundsConfirmationResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
+        reference:
+          type: string
+          description: The payment reference or description. Limited to a maximum of 18 characters for UK institutions.
+          example: Bill payment
+        contextType:
+          $ref: '#/components/schemas/PaymentContextTypeResponse'
+        type:
+          $ref: '#/components/schemas/PaymentTypeResponse'
+        payee:
+          $ref: '#/components/schemas/PayeeDetailsResponse'
+        payer:
+          $ref: '#/components/schemas/PayerDetailsResponse'
+        amountDetails:
+          $ref: '#/components/schemas/AmountDetailsResponse'
+        paymentDueDate:
+          type: string
+          format: date
+          description: The date that the payment is due. Displayed to the end user in the payment summary screen.
+    ResponseMeta:
+      type: object
+      properties:
         tracingId:
           type: string
-          writeOnly: true
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-    HostedVRPPhase:
+    CreateHostedPaymentRequest:
+      required:
+      - redirectUrl
+      - paymentRequestDetails
+      - institutionIdentifiers
       type: object
       properties:
-        phaseName:
+        userId:
           type: string
-          description: "The name of the hosted VRP consent process phase. Allowed values are : \n\n- INITIATED - Process initiated\n- DECLINED - Process failed and will not proceed further\n- INSTITUTION_SUBMITTED - Consent institution submitted\n- INPUT_CAPTURED - Additional input captured to process the Consent\n- IBAN_VALIDATED - Payer IBAN successfully validated\n- AUTHORISATION_CREATED - Consent authorisation request created with Institution, awaiting authorisation completion\n- AUTHORISATION_REJECTED - Consent Authorisation request rejected by Institution and will not proceed further\n- AUTHORISED - Consent authorisation completed\n- AUTHORISATION_FAILED - Consent authorisation failed and will not proceed further\n- SUBMITTED - Consent execution created and submitted to Institution\n- ACCEPTED - Consent execution accepted by Institution and awaiting settlement\n- REJECTED - Consent execution request rejected by Institution and will not proceed further\n- STATUS_POLLING_STARTED - Consent status polling started\n- STATUS_POLLING_ENDED - Consent status polling ended\n- MERCHANT_ACKNOWLEDGED - Consent acknowledgement received from merchant\n- FINISHED - Consent process completed\n- REVOKED - Consent process completed"
-        phaseCreatedAt:
+          format: uuid
+          description: __Conditional__. Yapily Identifier for the `User` returned by the create user step POST /users. You must provide either a `userId` or `applicationUserId`.
+        applicationUserId:
           type: string
-          format: date-time
-          description: The date and time at which the phase of the hosted Consent was created.
-      description: The phase of the VRP Consent Request.
-    ApiResponseOfGetHostedVRPConsentsRequest:
+          description: __Conditional__. Your own `User` reference. This field allows you to use your own unique references for individual users. Where the `User` reference doesn't have an associated Yapily `userId`, a new `userId` is created and linked to it. You must provide either a `userId` or `applicationUserId`.
+        institutionIdentifiers:
+          $ref: '#/components/schemas/InstitutionIdentifiers'
+        userSettings:
+          $ref: '#/components/schemas/UserSettings'
+        redirectUrl:
+          type: string
+          description: URL of your server to redirect the user after completion of the payment flow.
+          example: https://tpp-application.com
+        paymentRequestDetails:
+          $ref: '#/components/schemas/HostedPaymentRequestDetails'
+    CreateHostedVRPPaymentRequest:
+      required:
+      - paymentIdempotencyId
+      - amount
       type: object
       properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/GetHostedVRPConsentsResponse'
-    RawRequest:
-      type: object
-      properties:
-        method:
+        paymentIdempotencyId:
           type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
+          description: __Mandatory__. A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+          example: 04ab4536gaerfc0e1f93c4f4
+        amount:
+          $ref: '#/components/schemas/Amount'
+      description: __Mandatory__. The payment request object defining the details of the payment for execution under the Variable Recurring Payment consent.
     AccountIdentificationTypeResponse:
       title: Account Identification Type
       type: string

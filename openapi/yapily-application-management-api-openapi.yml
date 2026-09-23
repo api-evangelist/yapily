@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Application Management API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Platform Application Management API
+  description: Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -18,7 +18,7 @@ paths:
   /applications:
     post:
       description: Creates a sub-application under the given root application id provided in the authentication token. The sub-application can use the root's credentials to call the API
-      summary: Creates a Sub-application for the Root Application Id Provided in the Authentication Token
+      summary: Creates a Sub-application for the Root Application Id Provided in the…
       x-beta: true
       operationId: createSubApplication
       requestBody:
@@ -83,7 +83,7 @@ paths:
         content: '<Info>Learn more: [Application Management](/getting-started/application-management)</Info>'
     get:
       description: Retrieves sub-applications for the root application provided in the authentication token. If a sub-application is provided in the authentication token, it will return an empty list.
-      summary: Retrieve Sub-applications for the Root Application Provided in the Authentication Token.
+      summary: Retrieve Sub-applications for the Root Application Provided in the…
       x-beta: true
       operationId: searchApplications
       parameters:
@@ -500,47 +500,6 @@ paths:
       - Application Management
 components:
   schemas:
-    ApiResponseOfApplicationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/ApplicationResponse'
-    ApplicationResponseListMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-          minimum: 0
-          description: The number of applications in the current page.
-        pagination:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                offset:
-                  type: integer
-                  format: int32
-                  minimum: 0
-                  description: The number of skipped applications.
-                limit:
-                  type: integer
-                  format: int32
-                  minimum: 0
-                  description: The maximum number of applications for the current page.
-                sort:
-                  type: string
-                  description: The field by which results are sorted by. Default direction is ascending, descending is identified by a "-" prefix.
-            totalCount:
-              type: integer
-              format: int32
-              minimum: 0
-              description: The total number of applications that match the given filter.
     ApiErrorResponse:
       type: object
       properties:
@@ -577,73 +536,16 @@ components:
             institutionError:
               errorMessage: '{"Code":"400 BadRequest","Id":"3517bfc2-c3ee-4f2f-b4f8-12f62478e0d1","Message":"No Resource found","Errors":[{"ErrorCode":"UK.OBIE.Resource.NotFound","Message":"No resource found corresponding to the consent id"}]}'
               httpStatusCode: 400
-    ErrorIssue:
-      required:
-      - type
-      - code
-      type: object
-      description: Detailed information regarding the issue that was experienced during processing of the request
-      properties:
-        type:
-          type: string
-          description: Category of the issue
-        code:
-          type: string
-          description: Code that uniquely identifies the type of issue
-        parameter:
-          type: string
-          description: Identifies the parameter / property within the request (headers, query parameters or body) that the issue relates to. For headers and query parameters, it refers to the parameter name. For the body, it refers to the JSONPath of the property
-        message:
-          type: string
-          description: Human readable description of the issue that was experienced
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-    VrpConfiguration:
-      properties:
-        maximumIndividualAmount:
-          description: Maximum amount per transaction
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-        maximumCumulativeAmount:
-          description: Maximum cumulative amount
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-        maximumCumulativeNumberOfPayments:
-          description: Maximum cumulative number of payments
-          type: integer
-          minimum: 0
-        periodicLimits:
-          type: array
-          items:
-            $ref: '#/components/schemas/VrpPeriodicLimit'
-          minItems: 1
-        recurringPaymentCategory:
-          description: 'Payment Category with allowed values: ONGOING, SUBSCRIPTION'
-          type: string
-          example: ONGOING
-    ValidationError:
-      required:
-      - fieldName
-      - error
-      properties:
-        fieldName:
-          type: string
-          format: string
-          description: name of the field with error
-        error:
-          $ref: '#/components/schemas/EnumError'
-    ValidationErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
     EnumError:
       type: string
       enum:
       - MANDATORY
       - INVALID_FORMAT
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
     ApplicationRequest:
       type: object
       required:
@@ -2537,37 +2439,13 @@ components:
         isContractPresent:
           type: boolean
           description: Indicates if a contract is in place with the merchant and a KYB process has been completed
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    AlignmentEnum:
-      type: string
-      description: __Mandatory__. Period alignment for which the payment limits are enforced. Allowed values are [CONSENT, CALENDAR]. If CONSENT, then period starts on consent creation date. If CALENDAR, then period lines up with the frequency e.g. WEEKLY period will begin at start of the week in question.
-      enum:
-      - CONSENT
-      - CALENDAR
-    ApiListOfApplicationResponse:
+    ApiResponseOfApplicationResponse:
       type: object
       properties:
         meta:
-          $ref: '#/components/schemas/ApplicationResponseListMeta'
+          $ref: '#/components/schemas/ResponseMeta'
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicationResponse'
+          $ref: '#/components/schemas/ApplicationResponse'
     Amount:
       title: Amount Details
       required:
@@ -2586,11 +2464,75 @@ components:
           description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
           example: GBP
       description: __Mandatory__. Monetary Amount.
-    FrequencyEnum:
-      type: string
-      description: __Mandatory__. Frequency for which the payment limits are enforced. Allowed values are [MONTHLY].
-      enum:
-      - MONTHLY
+    ErrorDetails:
+      required:
+      - tracingId
+      - code
+      - status
+      type: object
+      properties:
+        tracingId:
+          type: string
+          description: Unique identifier of the request, used by Yapily for support purposes
+        code:
+          type: integer
+          format: int32
+          description: Numeric HTTP status code associated with the error
+        status:
+          type: string
+          description: Textual description of the HTTP status
+        supportUrl:
+          type: string
+          description: Link to where further information regarding the error can be found
+        source:
+          type: string
+          description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
+        issues:
+          type: array
+          description: List of issues relating to the error
+          items:
+            $ref: '#/components/schemas/ErrorIssue'
+    ValidationErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ApplicationResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+          minimum: 0
+          description: The number of applications in the current page.
+        pagination:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                offset:
+                  type: integer
+                  format: int32
+                  minimum: 0
+                  description: The number of skipped applications.
+                limit:
+                  type: integer
+                  format: int32
+                  minimum: 0
+                  description: The maximum number of applications for the current page.
+                sort:
+                  type: string
+                  description: The field by which results are sorted by. Default direction is ascending, descending is identified by a "-" prefix.
+            totalCount:
+              type: integer
+              format: int32
+              minimum: 0
+              description: The total number of applications that match the given filter.
     ApplicationResponse:
       type: object
       properties:
@@ -4489,34 +4431,92 @@ components:
         isContractPresent:
           type: boolean
           description: Indicates if a contract is in place with the merchant and a KYB process has been completed
-    ErrorDetails:
+    VrpConfiguration:
+      properties:
+        maximumIndividualAmount:
+          description: Maximum amount per transaction
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+        maximumCumulativeAmount:
+          description: Maximum cumulative amount
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+        maximumCumulativeNumberOfPayments:
+          description: Maximum cumulative number of payments
+          type: integer
+          minimum: 0
+        periodicLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/VrpPeriodicLimit'
+          minItems: 1
+        recurringPaymentCategory:
+          description: 'Payment Category with allowed values: ONGOING, SUBSCRIPTION'
+          type: string
+          example: ONGOING
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    FrequencyEnum:
+      type: string
+      description: __Mandatory__. Frequency for which the payment limits are enforced. Allowed values are [MONTHLY].
+      enum:
+      - MONTHLY
+    ErrorIssue:
       required:
-      - tracingId
+      - type
       - code
-      - status
+      type: object
+      description: Detailed information regarding the issue that was experienced during processing of the request
+      properties:
+        type:
+          type: string
+          description: Category of the issue
+        code:
+          type: string
+          description: Code that uniquely identifies the type of issue
+        parameter:
+          type: string
+          description: Identifies the parameter / property within the request (headers, query parameters or body) that the issue relates to. For headers and query parameters, it refers to the parameter name. For the body, it refers to the JSONPath of the property
+        message:
+          type: string
+          description: Human readable description of the issue that was experienced
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+    AlignmentEnum:
+      type: string
+      description: __Mandatory__. Period alignment for which the payment limits are enforced. Allowed values are [CONSENT, CALENDAR]. If CONSENT, then period starts on consent creation date. If CALENDAR, then period lines up with the frequency e.g. WEEKLY period will begin at start of the week in question.
+      enum:
+      - CONSENT
+      - CALENDAR
+    ApiListOfApplicationResponse:
       type: object
       properties:
-        tracingId:
-          type: string
-          description: Unique identifier of the request, used by Yapily for support purposes
-        code:
-          type: integer
-          format: int32
-          description: Numeric HTTP status code associated with the error
-        status:
-          type: string
-          description: Textual description of the HTTP status
-        supportUrl:
-          type: string
-          description: Link to where further information regarding the error can be found
-        source:
-          type: string
-          description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
-        issues:
+        meta:
+          $ref: '#/components/schemas/ApplicationResponseListMeta'
+        data:
           type: array
-          description: List of issues relating to the error
           items:
-            $ref: '#/components/schemas/ErrorIssue'
+            $ref: '#/components/schemas/ApplicationResponse'
+    ValidationError:
+      required:
+      - fieldName
+      - error
+      properties:
+        fieldName:
+          type: string
+          format: string
+          description: name of the field with error
+        error:
+          $ref: '#/components/schemas/EnumError'
     VrpPeriodicLimit:
       required:
       - maximumAmount

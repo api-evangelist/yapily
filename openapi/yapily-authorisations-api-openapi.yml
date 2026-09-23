@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Authorisations API
+  title: Yapily Beneficiaries Application Beneficiaries……
   description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
   version: 12.4.0
   contact:
@@ -12,7 +12,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- description: 'Before calling [Financial Data](#yapily-api-financial-data) or [Payments](#yapily-api-payments) endpoints, a consent from an end-user must be obtained.
+- description: 'Before calling Financial Data or Payments endpoints, a consent from an end-user must be obtained.
 
 
     Consents are valid for up to 90 days for Financial Data endpoints and have a single-use for Payment endpoints i.e. a new consent must be obtained for each payment.
@@ -399,7 +399,7 @@ paths:
       - Authorisations
   /embedded-bulk-payment-auth-requests:
     post:
-      description: 'Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_BULK_PAYMENT` feature in order to obtain the the user''s authorisation for a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`'
+      description: 'Used to initiate the embedded authorisation process for an `Institution` that contains the `INITIATE_EMBEDDED_BULK_PAYMENT` feature in order to obtain the the user''s authorisation for a bulk payment. See Bulk Payments for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`'
       operationId: createEmbeddedBulkPaymentAuthorisation
       parameters:
       - description: "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required."
@@ -455,7 +455,7 @@ paths:
         content: '<Info>Learn more: [Embedded Payment Flows](/open-banking-flow/user-authorisation/embedded)</Info>'
   /embedded-bulk-payment-auth-requests/{consentId}:
     put:
-      description: 'Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a bulk payment. See [Bulk Payments](/payments/bulk-payments/additional-information) for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`'
+      description: 'Used to pass the SCA Code received from the `Institution` (and the SCA method selected by the user where multiple SCA methods are supported by the `Institution`) in order to complete the embedded authorisation to initiate a bulk payment. See Bulk Payments for more information. Feature: `INITIATE_EMBEDDED_BULK_PAYMENT`'
       operationId: updateEmbeddedBulkPaymentAuthorisation
       parameters:
       - description: __Mandatory__. The consent Id of the `Consent` to update.
@@ -641,7 +641,7 @@ paths:
         content: '<Info>Learn more: [Embedded Payment Flows](/open-banking-flow/user-authorisation/embedded)</Info>'
   /payment-auth-requests:
     post:
-      description: 'Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a payment. This endpoint is used to initiate all the different payment listed below. Based on the type of payment you wish to make, you may be required to provide specific properties in [PaymentRequest](/api-reference/createPaymentAuthorisation). First make sure that the payment feature you wish to execute is supported by the bank by checking the features array in [GET Institution](/api-reference/getInstitution).
+      description: 'Used to initiate the authorisation process and direct users to the login screen of their financial Institution in order to give their consent for a payment. This endpoint is used to initiate all the different payment listed below. Based on the type of payment you wish to make, you may be required to provide specific properties in PaymentRequest. First make sure that the payment feature you wish to execute is supported by the bank by checking the features array in GET Institution.
 
 
         Features:
@@ -788,7 +788,10 @@ paths:
         content: '<Info>Learn more: [Payment Pre-authorisation](/open-banking-flow/user-authorisation/pre-authorisation)</Info>'
   /pre-auth-requests:
     post:
-      description: "Used to initiate the pre-authorisation process for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature to authenticate the user. \n\nFeature: `INITIATE_PRE_AUTHORISATION`"
+      description: 'Used to initiate the pre-authorisation process for any `Institution` that contains the `INITIATE_PRE_AUTHORISATION` feature to authenticate the user.
+
+
+        Feature: `INITIATE_PRE_AUTHORISATION`'
       operationId: createPreAuthorisationRequest
       x-mint:
         content: '<Info>Learn more: [Pre-Authorisation Flow](/open-banking-flow/user-authorisation/pre-authorisation)</Info>'
@@ -855,7 +858,10 @@ paths:
       - Authorisations
   /payment-pre-auth-requests:
     post:
-      description: "Used to initiate the pre-authorisation process for payments for CBI Globe institutions that contain the `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS` feature to authenticate the user. \n\nFeature: `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS`"
+      description: 'Used to initiate the pre-authorisation process for payments for CBI Globe institutions that contain the `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS` feature to authenticate the user.
+
+
+        Feature: `INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS`'
       operationId: createPaymentPreAuthorisationRequest
       parameters:
       - description: __Optional__. Used to obtain the raw request and response to and from the `Institution`.
@@ -906,65 +912,113 @@ paths:
         content: '<Info>Learn more: [Payment Pre-Authorisation](/open-banking-flow/user-authorisation/pre-authorisation)</Info>'
 components:
   schemas:
-    PriorityCodeEnum:
-      type: string
-      enum:
-      - NORMAL
-      - URGENT
-    AccountRequest:
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
       type: object
       properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    PaymentAuthorisationRequestResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Unique identifier for the payment authorisation request. \n\nThe `consentID` used to [retrieve a consent](/api/reference/#operation/getConsentById)."
+          format: uuid
+        userUuid:
+          type: string
+          description: The `User` that the authorisation request was created for.
+          format: uuid
+        applicationUserId:
+          type: string
+          description: The user-friendly reference to the `User` that the authorisation request was created for.
+        referenceId:
+          type: string
+        institutionId:
+          type: string
+          description: The `Institution` the authorisation request was sent to.
+        status:
+          $ref: '#/components/schemas/AuthorisationStatus'
+        createdAt:
+          type: string
+          description: Date and time the consent was created.
+          format: date-time
         transactionFrom:
           type: string
-          description: "__Optional__. Specifies the earliest date of the transaction records to be returned.\n\n You must supply this field to retrieve transactions older than 90 days for banks accessed via the the [CBI Globe Gateway](/data/financial-data-resources/data-restrictions#cbi-globe-gateway)."
+          description: When performing a transaction query using the consent, this is the earliest date of transaction records that can be retrieved.
           format: date-time
-          example: '2020-01-01T00:00:00Z'
         transactionTo:
           type: string
-          description: __Optional__. Specifies the latest date of the transaction records to be returned.
+          description: When performing a transaction query using the consent, this is the latest date of transaction records that can be retrieved.
           format: date-time
-          example: '2021-01-01T00:00:00Z'
         expiresAt:
           type: string
-          description: '__Optional__. Used to set a hard date for when the user''s associated `Consent` will expire.
-
-
-            **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
-
-
-            **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
+          description: Date and time the authorisation expires. Re-authorisation is needed to retain access.
           format: date-time
-          example: '2025-01-01T00:00:00Z'
-        accountIdentifiers:
-          $ref: '#/components/schemas/AccountInfo'
-        accountIdentifiersForTransaction:
-          type: array
-          description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
-          items:
-            $ref: '#/components/schemas/AccountInfo'
-        accountIdentifiersForBalance:
-          type: array
-          description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
-          items:
-            $ref: '#/components/schemas/AccountInfo'
+        timeToExpireInMillis:
+          type: integer
+          format: int64
+          deprecated: true
+        timeToExpire:
+          type: string
+          format: iso8601
         featureScope:
           uniqueItems: true
+          description: The set of features the consent provides access to.
           type: array
-          description: '__Optional__. Used to granularly specify the set of features that the user will give their consent for when requesting access to their account information. Depending on the `Institution`, this may also populate a consent screen which list these scopes before the user authorises.
-
-
-            This endpoint accepts allow all [Financial Data Features](/guides/financial-data/features/#feature-list) that the `Institution` supports.To find out which scopes an `Institution` supports, check [GET Institution](./#get-institution).'
           items:
             $ref: '#/components/schemas/FeatureEnum'
-      description: "__Conditional__. Used to further specify details of the `Consent` to request \n\nConditions:\n\n1. Mandatory to specify the individual scopes to request from the user at the `Institution` for an account authorisation\n2. Mandatory to specify an expiry time on the created `Consent` at which time will render it unusable\n3. Mandatory to specify the date range that the created `Consent` will be able to access transactions for (given the range is support for the `Institution`)"
-    EmbeddedAccountAuthorisationRequest:
+        consentToken:
+          type: string
+          description: Represents the authorisation to gain access to the requested features. Required to make a payment request.
+        state:
+          type: string
+          description: Correlation ID used with the `Institution` during the authorisation process.
+        authorizedAt:
+          type: string
+          description: Date and time the request was authorised by the `Institution`.
+          format: date-time
+        institutionConsentId:
+          type: string
+          description: Unique identifier of the consent assigned by the `Institution`.
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentChargeDetails'
+        exchangeRateInformation:
+          $ref: '#/components/schemas/ExchangeRateInformationResponse'
+        authorisationUrl:
+          type: string
+        qrCodeUrl:
+          type: string
+          description: The URL for a QR code that may be scanned via a mobile device to make a authorisation redirect to the bank (authURL encoded).
+        explanation:
+          type: string
+          description: Message from the `Institution` received by Yapily, detailing the next action the user is required to take. This is used only for Decoupled flows.
+    PaymentPreAuthorisationRequest:
       required:
       - institutionId
+      - scope
+      - payee
+      - payer
+      - amount
+      - reference
       type: object
       properties:
         userUuid:
           type: string
-          description: '`User` for which the authorisation request was created.'
           format: uuid
         applicationUserId:
           type: string
@@ -972,7 +1026,7 @@ components:
           example: user-234562290
         forwardParameters:
           type: array
-          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
+          description: Extra parameters to be forwarded in the redirect back to the client after the user authorisation flow has been completed.
           items:
             type: string
         institutionId:
@@ -981,7 +1035,7 @@ components:
           example: yapily-mock
         callback:
           type: string
-          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/introduction) for more information."
+          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
           example: https://display-parameters.com
         redirect:
           $ref: '#/components/schemas/RedirectRequest'
@@ -989,57 +1043,57 @@ components:
           type: boolean
           description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
           example: false
-        userCredentials:
-          $ref: '#/components/schemas/UserCredentials'
-        selectedScaMethod:
-          $ref: '#/components/schemas/ScaMethod'
-        scaCode:
+        scope:
           type: string
-          description: '__Conditional__. Used to update the authorisation with the sca code received by the user from the `Institution` using the embedded account authorisation flow.
-
-
-            This is the penultimate step required in the embedded account authorisation flow to authorise the `Consent`. After sending the sca code, to obtain an authorised consent, the last step is to poll [Get Consent](/api-reference/getConsentById) until the `Institution` authorises the request and the `Consent` `status` transitions to `AUTHORIZED`.'
-          example: '325614'
-        accountRequest:
-          $ref: '#/components/schemas/AccountRequest'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
+          description: __Mandatory__. Defines the scope of the pre-authorisation request.
+          example: AIS
+        payee:
+          $ref: '#/components/schemas/PayeeDetails'
+        payer:
+          $ref: '#/components/schemas/PayerDetails'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        reference:
           type: string
-    PayerDetails:
+          description: __Mandatory__. The payment reference or description. Limited to a maximum of 18 characters long.
+          example: Bill payment
+      description: __Mandatory__. The payment pre authorisation request object defining the details of the payment and pre auth.
+    PreAuthorisationRequest:
       required:
-      - accountIdentifications
+      - institutionId
+      - scope
       type: object
       properties:
-        accountIdentifications:
-          uniqueItems: true
+        userUuid:
+          type: string
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        forwardParameters:
           type: array
-          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          description: Extra parameters to be forwarded in the redirect back to the client after the user authorisation flow has been completed.
           items:
-            $ref: '#/components/schemas/AccountIdentification'
-      description: __Conditional__. Details of the benefactor [person or business].
-    ApiError:
-      type: object
-      description: Provides details of the error that has occurred.
-      properties:
-        code:
-          type: integer
-          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
-          format: int32
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-        message:
+            type: string
+        institutionId:
           type: string
-          description: __Mandatory__. Description of the exact error that has been experienced.
-        source:
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
           type: string
-        status:
+          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        scope:
           type: string
-          description: __Mandatory__. Textual description of the `HTTP` error status type.
-        tracingId:
-          type: string
-          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+          description: __Mandatory__. Defines the scope of the pre-authorisation request.
+          example: AIS
     ApiResponseOfPaymentAuthorisationRequestResponse:
       type: object
       properties:
@@ -1063,83 +1117,157 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    RawResponse:
-      deprecated: true
+    PaymentChargeDetails:
       type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      description: Details the charges that will apply to the payment.
       properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
+        chargeType:
+          description: __Mandatory__. Specifies the nature of the transaction charge e.g. (Bank transfer fees).
           type: string
-          format: iso8601
-        headers:
+        chargeTo:
+          description: __Mandatory__. States which party of the payment bears the charges.
+          type: string
+    ApiResponseOfAccountAuthorisationResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/AccountAuthorisationResponse'
+        links:
           type: object
           additionalProperties:
             type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
-          type: object
-    PaymentRequest:
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    PaymentType:
+      title: Payment Type
+      type: string
+      description: '__Mandatory__. Used to specify which of the [payment types](/payments/payment-resources/intro-to-payment-execution#payment-types) to execute.
+
+
+        See [European Payments](/payments/payment-resources/european-payments) to verify whether the `type` should be `DOMESTIC` or `INTERNATIONAL`.'
+      enum:
+      - DOMESTIC_PAYMENT
+      - DOMESTIC_INSTANT_PAYMENT
+      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - DOMESTIC_SCHEDULED_PAYMENT
+      - DOMESTIC_PERIODIC_PAYMENT
+      - INTERNATIONAL_PAYMENT
+      - INTERNATIONAL_SCHEDULED_PAYMENT
+      - INTERNATIONAL_PERIODIC_PAYMENT
+      - BULK_PAYMENT
+    FeatureEnum:
+      type: string
+      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)"
+      enum:
+      - INITIATE_PRE_AUTHORISATION
+      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ACCOUNT_REQUEST
+      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
+      - ACCOUNT_REQUEST_DETAILS
+      - ACCOUNTS
+      - ACCOUNT
+      - ACCOUNT_TRANSACTIONS
+      - ACCOUNT_STATEMENTS
+      - ACCOUNT_STATEMENT
+      - ACCOUNT_STATEMENT_FILE
+      - ACCOUNT_SCHEDULED_PAYMENTS
+      - ACCOUNT_DIRECT_DEBITS
+      - ACCOUNT_PERIODIC_PAYMENTS
+      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
+      - IDENTITY
+      - ACCOUNTS_WITHOUT_BALANCE
+      - ACCOUNT_WITHOUT_BALANCE
+      - ACCOUNT_BALANCES
+      - INITIATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENT_INITIATION_DETAILS
+      - CREATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENTS_DETAILS
+      - INITIATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_BULK_PAYMENT
+      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
+      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
+      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
+      - CREATE_DOMESTIC_PERIODIC_PAYMENT
+      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
+      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
+      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
+      - INITIATE_BULK_PAYMENT
+      - CREATE_BULK_PAYMENT
+      - EXISTING_BULK_PAYMENT_DETAILS
+      - TRANSFER
+      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
+      - OPEN_DATA_ATMS
+      - READ_DOMESTIC_SINGLE_REFUND
+      - READ_DOMESTIC_SCHEDULED_REFUND
+      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
+      - READ_INTERNATIONAL_SINGLE_REFUND
+      - READ_INTERNATIONAL_SCHEDULED_REFUND
+      - ACCOUNT_BENEFICIARIES
+      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION
+      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
+    InternationalPaymentRequest:
       required:
-      - amount
-      - payee
-      - paymentIdempotencyId
-      - type
+      - currencyOfTransfer
       type: object
       properties:
-        paymentIdempotencyId:
-          title: Idempotency Id
+        currencyOfTransfer:
           type: string
-          description: __Mandatory__. A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
-          example: 04ab4536gaerfc0e1f93c4f4
-        payer:
-          $ref: '#/components/schemas/Payer'
-        reference:
-          title: Payment Reference
+          description: __Mandatory__. The currency to be transferred to the payee. This may differ from the currency the payment is denoted in and the currency of the payer's account. Specified as a 3-letter code (ISO 4217).
+        exchangeRateInformation:
+          $ref: '#/components/schemas/ExchangeRateInformation'
+        purpose:
           type: string
-          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Bill payment
-        contextType:
-          $ref: '#/components/schemas/PaymentContextType'
-        purposeCode:
-          $ref: '#/components/schemas/PaymentPurposeCode'
-        type:
-          $ref: '#/components/schemas/PaymentType'
-        payee:
-          $ref: '#/components/schemas/Payee'
-        periodicPayment:
-          $ref: '#/components/schemas/PeriodicPaymentRequest'
-        internationalPayment:
-          $ref: '#/components/schemas/InternationalPaymentRequest'
-        amount:
-          $ref: '#/components/schemas/Amount'
-        paymentDateTime:
-          title: Payment Date
-          type: string
-          description: '__Conditional__. Used to specify the date of the payment when the payment type is one of the following:
-
-
-            - `DOMESTIC_SCHEDULED_PAYMENT`
-
-            - `DOMESTIC_PERIODIC_PAYMENT`
-
-            - `INTERNATIONAL_SCHEDULED_PAYMENT`
-
-            - `INTERNATIONAL_PERIODIC_PAYMENT`'
-          format: date-time
-          example: '2021-07-21T17:32:28Z'
-        readRefundAccount:
-          title: Read Refund Account
-          type: boolean
-          description: '__Optional__. Used to request the payer details in the payment response when the `Institution` provides the feature `READ_DOMESTIC_SINGLE_REFUND`.
-
-
-            See [Reverse Payments](/payments/payment-resources/reverse-payments) for more information.'
-          example: false
-      description: __Mandatory__. The payment request object defining the details of the payment.
+          description: __Optional__. Used to indicate the external purpose as a [ISO20022 purpose code](https://www.rba.hr/documents/20182/183267/External+purpose+codes+list/8a28f888-1f83-5e29-d6ed-fce05f428689?version=1.1) value.
+        priority:
+          $ref: '#/components/schemas/PriorityCodeEnum'
+        chargeBearer:
+          $ref: '#/components/schemas/ChargeBearerType'
+      description: "__Conditional__. Used to specify properties to define an international payment. \n\nMust be specified when the payment `type` is one of the following:\n\n- `INTERNATIONAL_SINGLE_PAYMENT`\n- `INTERNATIONAL_SCHEDULED_PAYMENT`\n- `INTERNATIONAL_PERIODIC_PAYMENT`"
+    AddressTypeEnum:
+      title: Address Type
+      type: string
+      description: __Optional__. The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
     PreAuthorisationResponse:
       type: object
       properties:
@@ -1208,12 +1336,169 @@ components:
         qrCodeUrl:
           type: string
           description: The URL link for the QR code that may be scanned via a mobile device to make a authorisation redirect to the bank (authURL encoded).
-    PaymentEmbeddedAuthorisationRequestResponse:
+    AccountRequest:
+      type: object
+      properties:
+        transactionFrom:
+          type: string
+          description: "__Optional__. Specifies the earliest date of the transaction records to be returned.\n\n You must supply this field to retrieve transactions older than 90 days for banks accessed via the the [CBI Globe Gateway](/data/financial-data-resources/data-restrictions#cbi-globe-gateway)."
+          format: date-time
+          example: '2020-01-01T00:00:00Z'
+        transactionTo:
+          type: string
+          description: __Optional__. Specifies the latest date of the transaction records to be returned.
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        expiresAt:
+          type: string
+          description: '__Optional__. Used to set a hard date for when the user''s associated `Consent` will expire.
+
+
+            **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
+
+
+            **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
+          format: date-time
+          example: '2025-01-01T00:00:00Z'
+        accountIdentifiers:
+          $ref: '#/components/schemas/AccountInfo'
+        accountIdentifiersForTransaction:
+          type: array
+          description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
+          items:
+            $ref: '#/components/schemas/AccountInfo'
+        accountIdentifiersForBalance:
+          type: array
+          description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
+          items:
+            $ref: '#/components/schemas/AccountInfo'
+        featureScope:
+          uniqueItems: true
+          type: array
+          description: '__Optional__. Used to granularly specify the set of features that the user will give their consent for when requesting access to their account information. Depending on the `Institution`, this may also populate a consent screen which list these scopes before the user authorises.
+
+
+            This endpoint accepts allow all [Financial Data Features](/guides/financial-data/features/#feature-list) that the `Institution` supports.To find out which scopes an `Institution` supports, check [GET Institution](./#get-institution).'
+          items:
+            $ref: '#/components/schemas/FeatureEnum'
+      description: "__Conditional__. Used to further specify details of the `Consent` to request \n\nConditions:\n\n1. Mandatory to specify the individual scopes to request from the user at the `Institution` for an account authorisation\n2. Mandatory to specify an expiry time on the created `Consent` at which time will render it unusable\n3. Mandatory to specify the date range that the created `Consent` will be able to access transactions for (given the range is support for the `Institution`)"
+    Address:
+      title: Address Details
+      type: object
+      properties:
+        addressLines:
+          title: Address Lines
+          type: array
+          description: __Optional__. The address line of the address
+          example:
+          - Ardenham Court
+          items:
+            type: string
+        streetName:
+          title: Street
+          type: string
+          description: __Optional__. The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: __Optional__. The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: __Optional__. The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: __Optional__. The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: __Optional__. The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: __Optional__. The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: __Optional__. The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnum'
+      description: '__Conditional__. The address of the `Payee` or `Payer`.
+
+
+        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
+
+        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
+      example:
+        country: GB
+    PriorityCodeEnum:
+      type: string
+      enum:
+      - NORMAL
+      - URGENT
+    Payer:
+      title: Payer Details
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Conditional__. Details of the benefactor [person or business].
+    AuthorisationStatus:
+      description: Current status of the embedded authorisation request in code form.
+      type: string
+      enum:
+      - AWAITING_AUTHORIZATION
+      - AWAITING_FURTHER_AUTHORIZATION
+      - AWAITING_RE_AUTHORIZATION
+      - AUTHORIZED
+      - CONSUMED
+      - REJECTED
+      - REVOKED
+      - FAILED
+      - EXPIRED
+      - UNKNOWN
+      - INVALID
+      - AWAITING_DECOUPLED_PRE_AUTHORIZATION
+      - AWAITING_PRE_AUTHORIZATION
+      - PRE_AUTHORIZED
+      - AWAITING_DECOUPLED_AUTHORIZATION
+      - AWAITING_SCA_METHOD
+      - AWAITING_SCA_CODE
+    EmbeddedAccountAuthorisationResponse:
       type: object
       properties:
         id:
           type: string
-          description: Unique identifier for the embedded payment authorisation request.
+          description: Unique identifier for the embedded account authorisation request.
           format: uuid
         userUuid:
           type: string
@@ -1226,12 +1511,12 @@ components:
           type: string
         institutionId:
           type: string
-          description: The  `Institution` the authorisation request was sent to.
+          description: The `Institution` the authorisation request was sent to.
         status:
           $ref: '#/components/schemas/AuthorisationStatus'
         createdAt:
           type: string
-          description: Date and time the embedded payment authorisation was created.
+          description: Date and time the embedded authorisation was created by the application user.
           format: date-time
         transactionFrom:
           type: string
@@ -1243,7 +1528,7 @@ components:
           format: date-time
         expiresAt:
           type: string
-          description: Date and time the authorisation expires. Re-authorisation is needed to retain access.
+          description: Date and time the embedded authorisation expires. Re-authorisation is needed to retain access.
           format: date-time
         timeToExpireInMillis:
           type: integer
@@ -1260,10 +1545,10 @@ components:
             $ref: '#/components/schemas/FeatureEnum'
         consentToken:
           type: string
-          description: Represents the authorisation to gain access to the requested features. Required to make a payment request.
+          description: Represents the authorisation to gain access to the requested features. Required to access account information.
         state:
           type: string
-          description: Correlation ID used with the `Institution` during the authorisation process.
+          description: Correlation ID used when handshaking with a new institution via OAuth2 registration.
         authorizedAt:
           type: string
           description: Date and time the request was authorised by the `Institution`.
@@ -1271,165 +1556,22 @@ components:
         institutionConsentId:
           type: string
           description: Identification of the consent at the `Institution`.
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentChargeDetails'
-        exchangeRateInformation:
-          $ref: '#/components/schemas/ExchangeRateInformationResponse'
         authorisationUrl:
           type: string
         qrCodeUrl:
           type: string
           description: The URL link for the QR code that may be scanned via a mobile device to make an authorisation redirect to the bank (authURL encoded).
-        explanation:
-          type: string
         scaMethods:
           type: array
+          description: List of `SCA methods` that the `Institution` supports and are available for selection.
           items:
             $ref: '#/components/schemas/ScaMethod'
         selectedScaMethod:
           $ref: '#/components/schemas/ScaMethod'
-    FrequencyRequest:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/FrequencyEnumExtended'
-        intervalWeek:
-          type: integer
-          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
-          format: int32
-          example: 1
-        intervalMonth:
-          type: integer
-          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
-          format: int32
-          example: 1
-        executionDay:
-          type: integer
-          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
-          format: int32
-          example: 1
-      description: __Mandatory__. Defines the intervals at which payment should be made.
-    PaymentContextType:
-      title: Payment Code
-      type: string
-      default: OTHER
-      description: __Optional__. The payment context code. This defaults to `OTHER` if not specified.
-      enum:
-      - BILL
-      - GOODS
-      - SERVICES
-      - OTHER
-      - PERSON_TO_PERSON
-      - BILL_IN_ADVANCE
-      - BILL_IN_ARREARS
-      - ECOMMERCE_MERCHANT
-      - FACE_TO_FACE_POS
-      - TRANSFER_TO_SELF
-      - TRANSFER_TO_THIRD_PARTY
-      - PISP_PAYEE
-    AccountIdentification:
-      title: Account Identifications
-      required:
-      - type
-      - identification
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountIdentificationType'
-        identification:
-          title: Account Identification
-          type: string
-          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    PaymentAuthorisationRequest:
-      required:
-      - institutionId
-      - paymentRequest
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        forwardParameters:
-          type: array
-          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
-          items:
-            type: string
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: __Optional__. The URL to redirect the user to after the user complete the authorisation at the `Institution`.
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        paymentRequest:
-          $ref: '#/components/schemas/PaymentRequest'
-      description: The request body containing an `PaymentAuthorisationRequest` json payload
     PayeeAccountType:
       title: Payee Account Type
       type: string
       description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
-    PaymentChargeDetails:
-      type: object
-      description: Details the charges that will apply to the payment.
-      properties:
-        chargeAmount:
-          $ref: '#/components/schemas/Amount'
-        chargeType:
-          description: __Mandatory__. Specifies the nature of the transaction charge e.g. (Bank transfer fees).
-          type: string
-        chargeTo:
-          description: __Mandatory__. States which party of the payment bears the charges.
-          type: string
-    AccountAuthorisationRequest:
-      required:
-      - institutionId
-      type: object
-      properties:
-        userUuid:
-          type: string
-          description: '`User` for which the authorisation request was created.'
-          format: uuid
-        applicationUserId:
-          type: string
-          description: __Conditional__. User-friendly identifier of the `User` that provides authorisation. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        forwardParameters:
-          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
-          type: array
-          items:
-            type: string
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: "__Optional__. The server to redirect the user to after the user completes the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        accountRequest:
-          $ref: '#/components/schemas/AccountRequest'
     AccountAuthorisationResponse:
       type: object
       properties:
@@ -1509,280 +1651,105 @@ components:
         qrCodeUrl:
           type: string
           description: The URL link for the QR code that may be scanned via a mobile device to make an authorisation redirect to the bank (authURL encoded).
-    PayeeDetails:
-      type: object
-      required:
-      - accountIdentifications
-      - name
-      - country
-      properties:
-        name:
-          type: string
-          description: __Mandatory__. The account holder name of the beneficiary.
-          example: Jane Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: __Mandatory__. The account identifications that identify the `Payee` bank account.
-          example:
-          - identification: IBUK123456789
-            type: IBAN
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        country:
-          type: string
-          deprecated: true
-          description: "__Deprecated__. Use `address.country` instead. The 2-letter ISO 3166 country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment. This field will be removed in a future version - please use the `country` field within the `address` object."
-          example: GB
-        address:
-          $ref: '#/components/schemas/Address'
-      description: __Mandatory__. Details of the beneficiary [person or business].
-    PaymentAuthorisationRequestResponse:
+    ApiResponseOfPreAuthorisationResponse:
       type: object
       properties:
-        id:
-          type: string
-          description: "Unique identifier for the payment authorisation request. \n\nThe `consentID` used to [retrieve a consent](/api/reference/#operation/getConsentById)."
-          format: uuid
-        userUuid:
-          type: string
-          description: The `User` that the authorisation request was created for.
-          format: uuid
-        applicationUserId:
-          type: string
-          description: The user-friendly reference to the `User` that the authorisation request was created for.
-        referenceId:
-          type: string
-        institutionId:
-          type: string
-          description: The `Institution` the authorisation request was sent to.
-        status:
-          $ref: '#/components/schemas/AuthorisationStatus'
-        createdAt:
-          type: string
-          description: Date and time the consent was created.
-          format: date-time
-        transactionFrom:
-          type: string
-          description: When performing a transaction query using the consent, this is the earliest date of transaction records that can be retrieved.
-          format: date-time
-        transactionTo:
-          type: string
-          description: When performing a transaction query using the consent, this is the latest date of transaction records that can be retrieved.
-          format: date-time
-        expiresAt:
-          type: string
-          description: Date and time the authorisation expires. Re-authorisation is needed to retain access.
-          format: date-time
-        timeToExpireInMillis:
-          type: integer
-          format: int64
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/PreAuthorisationResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
           deprecated: true
-        timeToExpire:
-          type: string
-          format: iso8601
-        featureScope:
-          uniqueItems: true
-          description: The set of features the consent provides access to.
           type: array
           items:
-            $ref: '#/components/schemas/FeatureEnum'
-        consentToken:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
           type: string
-          description: Represents the authorisation to gain access to the requested features. Required to make a payment request.
-        state:
-          type: string
-          description: Correlation ID used with the `Institution` during the authorisation process.
-        authorizedAt:
-          type: string
-          description: Date and time the request was authorised by the `Institution`.
-          format: date-time
-        institutionConsentId:
-          type: string
-          description: Unique identifier of the consent assigned by the `Institution`.
-        charges:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentChargeDetails'
-        exchangeRateInformation:
-          $ref: '#/components/schemas/ExchangeRateInformationResponse'
-        authorisationUrl:
-          type: string
-        qrCodeUrl:
-          type: string
-          description: The URL for a QR code that may be scanned via a mobile device to make a authorisation redirect to the bank (authURL encoded).
-        explanation:
-          type: string
-          description: Message from the `Institution` received by Yapily, detailing the next action the user is required to take. This is used only for Decoupled flows.
-    FeatureEnum:
+          writeOnly: true
+    FrequencyEnumExtended:
       type: string
-      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)"
+      description: __Mandatory__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
       enum:
-      - INITIATE_PRE_AUTHORISATION
-      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
-      - INITIATE_PRE_AUTHORISATION_PAYMENTS
-      - INITIATE_ACCOUNT_REQUEST
-      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
-      - ACCOUNT_REQUEST_DETAILS
-      - ACCOUNTS
-      - ACCOUNT
-      - ACCOUNT_TRANSACTIONS
-      - ACCOUNT_STATEMENTS
-      - ACCOUNT_STATEMENT
-      - ACCOUNT_STATEMENT_FILE
-      - ACCOUNT_SCHEDULED_PAYMENTS
-      - ACCOUNT_DIRECT_DEBITS
-      - ACCOUNT_PERIODIC_PAYMENTS
-      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
-      - IDENTITY
-      - ACCOUNTS_WITHOUT_BALANCE
-      - ACCOUNT_WITHOUT_BALANCE
-      - ACCOUNT_BALANCES
-      - INITIATE_SINGLE_PAYMENT_SORTCODE
-      - EXISTING_PAYMENT_INITIATION_DETAILS
-      - CREATE_SINGLE_PAYMENT_SORTCODE
-      - EXISTING_PAYMENTS_DETAILS
-      - INITIATE_DOMESTIC_SINGLE_PAYMENT
-      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
-      - CREATE_DOMESTIC_SINGLE_PAYMENT
-      - INITIATE_EMBEDDED_BULK_PAYMENT
-      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
-      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
-      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
-      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
-      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
-      - CREATE_DOMESTIC_PERIODIC_PAYMENT
-      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
-      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
-      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
-      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
-      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
-      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
-      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
-      - INITIATE_BULK_PAYMENT
-      - CREATE_BULK_PAYMENT
-      - EXISTING_BULK_PAYMENT_DETAILS
-      - TRANSFER
-      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
-      - OPEN_DATA_ATMS
-      - READ_DOMESTIC_SINGLE_REFUND
-      - READ_DOMESTIC_SCHEDULED_REFUND
-      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
-      - READ_INTERNATIONAL_SINGLE_REFUND
-      - READ_INTERNATIONAL_SCHEDULED_REFUND
-      - ACCOUNT_BENEFICIARIES
-      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
-      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
-      - INITIATE_ONETIME_PRE_AUTHORISATION
-      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
-    BulkPaymentEmbeddedAuthorisationRequest:
-      required:
-      - institutionId
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-          description: __Conditional__. The reference to the `User` that will authorise the authorisation request using the Yapily generated UUID. Either the `userUuid` or `applicationUserId` must be provided.
-          example: e006a012-c306-4355-a6a1-99bf69ae5171
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        paymentRequest:
-          $ref: '#/components/schemas/BulkPaymentRequest'
-        userCredentials:
-          $ref: '#/components/schemas/UserCredentials'
-        selectedScaMethod:
-          $ref: '#/components/schemas/ScaMethod'
-        scaCode:
-          type: string
-          description: '__Conditional__. Used to update the authorisation with the sca code received by the user from the `Institution` using the embedded payment authorisation flow.
-
-
-            This is the penultimate step required in the embedded payment authorisation flow to authorise the `Consent`. After sending the sca code, to obtain an authorised consent, the last step is to poll [Get Consent](/api-reference/getConsentById) until the `Institution` authorises the request and the `Consent` `status` transitions to `AUTHORIZED`.'
-          example: '325614'
-      description: The request body containing a `BulkPaymentEmbeddedAuthorisationRequest` json payload
-    InternationalPaymentRequest:
-      required:
-      - currencyOfTransfer
-      type: object
-      properties:
-        currencyOfTransfer:
-          type: string
-          description: __Mandatory__. The currency to be transferred to the payee. This may differ from the currency the payment is denoted in and the currency of the payer's account. Specified as a 3-letter code (ISO 4217).
-        exchangeRateInformation:
-          $ref: '#/components/schemas/ExchangeRateInformation'
-        purpose:
-          type: string
-          description: __Optional__. Used to indicate the external purpose as a [ISO20022 purpose code](https://www.rba.hr/documents/20182/183267/External+purpose+codes+list/8a28f888-1f83-5e29-d6ed-fce05f428689?version=1.1) value.
-        priority:
-          $ref: '#/components/schemas/PriorityCodeEnum'
-        chargeBearer:
-          $ref: '#/components/schemas/ChargeBearerType'
-      description: "__Conditional__. Used to specify properties to define an international payment. \n\nMust be specified when the payment `type` is one of the following:\n\n- `INTERNATIONAL_SINGLE_PAYMENT`\n- `INTERNATIONAL_SCHEDULED_PAYMENT`\n- `INTERNATIONAL_PERIODIC_PAYMENT`"
-    ScaMethod:
+      - DAILY
+      - EVERY_WORKING_DAY
+      - CALENDAR_DAY
+      - WEEKLY
+      - EVERY_TWO_WEEKS
+      - MONTHLY
+      - EVERY_TWO_MONTHS
+      - QUARTERLY
+      - SEMIANNUAL
+      - ANNUAL
+    UserCredentials:
       required:
       - id
+      - password
       type: object
-      description: "__Conditional__. Used to update the authorisation with the sca method of the user's choice for the `Institution` that uses the embedded authorisation flow. If the user has multiple sca methods configured, the `Institution` will allow the user to select from each of these options. \n\nWhen the user has multiple sca methods for the `Institution`, this is the second step required in the embedded authorisation flow to authorise the `Consent`."
-      example:
-        id: '944'
-        type: PUSH_OTP
-        description: SecureSIGN
       properties:
         id:
           type: string
-          description: __Mandatory__. The id of the sca method provided by the `Institution`
-          example: 258211#OPTICAL
-        type:
-          $ref: '#/components/schemas/Type'
-        description:
+          description: __Mandatory__. The login id for the user for a particular `Institution`.
+          example: '6154057725'
+        corporateId:
           type: string
-          description: __Optional__. A description of the sca method if provided by the `Institution`
-          example: Testkarte Hr. Haubach_1, optisch
-        information:
+          description: __Conditional__. The corporate login for the user for a particular corporate `Institution`.
+          example: '6345898763'
+        password:
           type: string
-          description: Additional information from the institution to provide to the PSU to help with the selected SCA method. The language is determined by the institution and may vary.
-          example: Bitte bestätigen Sie den Vorgang in Ihrer SecureGo plus App
-        data:
-          description: Data from the institution to provide to the PSU to complete authorisation. The language is determined by the institution and may vary.
-          type: array
-          items:
-            type: string
-          example:
-          - 0488701109982928CY439040000100000010000520,00
-    InstitutionError:
+          description: __Mandatory__. The password of the user to login to a particular `Institution`.
+          example: PISPWD12
+      description: "__Conditional__. Used to capture the user's credentials to allow them to login to an `Institution` that uses the embedded account authorisation flow. \n\nThis is the first step required in the embedded account authorisation flow to authorise the `Consent`."
+    ExchangeRateInformationResponse:
+      required:
+      - rateType
+      - unitCurrency
       type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
       properties:
-        errorMessage:
+        unitCurrency:
           type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
+          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
+        rate:
+          type: number
+          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+        rateType:
+          $ref: '#/components/schemas/RateTypeEnum'
+        foreignExchangeContractReference:
+          type: string
+          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
+        exchangeRateExpiryDate:
+          type: string
+          format: date-time
+    FrequencyRequest:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/FrequencyEnumExtended'
+        intervalWeek:
           type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
+          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
           format: int32
+          example: 1
+        intervalMonth:
+          type: integer
+          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
+          format: int32
+          example: 1
+        executionDay:
+          type: integer
+          description: __Conditional__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
+          format: int32
+          example: 1
+      description: __Mandatory__. Defines the intervals at which payment should be made.
     Payee:
       title: Payee Details
       type: object
@@ -3652,695 +3619,25 @@ components:
 
             - `9950` (Intra-Company Purchases)'
           example: '0742'
-    AuthorisationStatus:
-      description: Current status of the embedded authorisation request in code form.
-      type: string
-      enum:
-      - AWAITING_AUTHORIZATION
-      - AWAITING_FURTHER_AUTHORIZATION
-      - AWAITING_RE_AUTHORIZATION
-      - AUTHORIZED
-      - CONSUMED
-      - REJECTED
-      - REVOKED
-      - FAILED
-      - EXPIRED
-      - UNKNOWN
-      - INVALID
-      - AWAITING_DECOUPLED_PRE_AUTHORIZATION
-      - AWAITING_PRE_AUTHORIZATION
-      - PRE_AUTHORIZED
-      - AWAITING_DECOUPLED_AUTHORIZATION
-      - AWAITING_SCA_METHOD
-      - AWAITING_SCA_CODE
-    ApiResponseError:
+    RawResponse:
+      deprecated: true
       type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
       properties:
-        error:
-          $ref: '#/components/schemas/ApiError'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-      description: 'Used to return errors from the bank from each request
-
-
-        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
-
-        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
-
-        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
-
-        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
-
-        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
-
-        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
-
-        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
-      example:
-        error:
-          tracingId: 74b13ce8ed51419f92c5d609e04532de
-          code: 424
-          institutionError:
-            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
-            httpStatusCode: 500
-          source: INSTITUTION
-          status: FAILED_DEPENDENCY
-    ExchangeRateInformationResponse:
-      required:
-      - rateType
-      - unitCurrency
-      type: object
-      properties:
-        unitCurrency:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
           type: string
-          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
-        rate:
-          type: number
-          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
-        rateType:
-          $ref: '#/components/schemas/RateTypeEnum'
-        foreignExchangeContractReference:
-          type: string
-          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
-        exchangeRateExpiryDate:
-          type: string
-          format: date-time
-    Payer:
-      title: Payer Details
-      required:
-      - accountIdentifications
-      type: object
-      properties:
-        name:
-          title: Payer Name
-          type: string
-          description: The account holder name of the Payer.
-          example: John Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        address:
-          $ref: '#/components/schemas/Address'
-      description: __Conditional__. Details of the benefactor [person or business].
-    ResponseForwardedData:
-      type: object
-      properties:
+          format: iso8601
         headers:
           type: object
           additionalProperties:
             type: string
-        url:
-          type: string
-    AccountInfo:
-      required:
-      - accountIdentification
-      type: object
-      properties:
-        accountId:
-          type: string
-          description: __Conditional__. Unique identifier of the account.
-          example: '500000000000000000000001'
-        accountIdentification:
-          $ref: '#/components/schemas/AccountIdentification'
-      description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
-    UserCredentials:
-      required:
-      - id
-      - password
-      type: object
-      properties:
-        id:
-          type: string
-          description: __Mandatory__. The login id for the user for a particular `Institution`.
-          example: '6154057725'
-        corporateId:
-          type: string
-          description: __Conditional__. The corporate login for the user for a particular corporate `Institution`.
-          example: '6345898763'
-        password:
-          type: string
-          description: __Mandatory__. The password of the user to login to a particular `Institution`.
-          example: PISPWD12
-      description: "__Conditional__. Used to capture the user's credentials to allow them to login to an `Institution` that uses the embedded account authorisation flow. \n\nThis is the first step required in the embedded account authorisation flow to authorise the `Consent`."
-    ApiResponseOfAccountAuthorisationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/AccountAuthorisationResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    RedirectRequest:
-      required:
-      - url
-      type: object
-      properties:
-        url:
-          type: string
-          description: __Mandatory__.Successful redirect after the user complete the authorisation at the `Institution`.
-      description: __Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
-    ApiResponseOfPaymentEmbeddedAuthorisationRequestResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/PaymentEmbeddedAuthorisationRequestResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    ExchangeRateInformation:
-      required:
-      - rateType
-      - unitCurrency
-      type: object
-      properties:
-        unitCurrency:
-          type: string
-          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
-        rate:
-          type: number
-          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
-        rateType:
-          $ref: '#/components/schemas/RateTypeEnum'
-        foreignExchangeContractReference:
-          type: string
-          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
-      description: __Optional__. Used to provide details on the currency exchange rate and contract.
-    FrequencyEnumExtended:
-      type: string
-      description: __Mandatory__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
-      enum:
-      - DAILY
-      - EVERY_WORKING_DAY
-      - CALENDAR_DAY
-      - WEEKLY
-      - EVERY_TWO_WEEKS
-      - MONTHLY
-      - EVERY_TWO_MONTHS
-      - QUARTERLY
-      - SEMIANNUAL
-      - ANNUAL
-    ApiResponseOfEmbeddedAccountAuthorisationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/EmbeddedAccountAuthorisationResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    PeriodicPaymentRequest:
-      required:
-      - frequency
-      type: object
-      properties:
-        frequency:
-          $ref: '#/components/schemas/FrequencyRequest'
-        numberOfPayments:
+        resultCode:
           type: integer
-          description: '__Conditional__. Defines the total number of payments to be made.
-
-
-            This is required if `finalPaymentDateTime` is not specified and it is intended for the periodic payment have a fixed amount of payments.'
           format: int32
-          example: 5
-        nextPaymentDateTime:
-          type: string
-          description: __Conditional__. Defines when to start the recurring payment date and time. Specify this if you want the first payment to start on a different day than what the frequency object defines.
-          format: date-time
-          example: '2018-01-10T00:00:00Z'
-        nextPaymentAmount:
-          $ref: '#/components/schemas/Amount'
-        finalPaymentDateTime:
-          type: string
-          description: __Conditional__. Defines the final payment date and time. To create an open-ended periodic payment, do not specify this property.
-          format: date-time
-          example: '2030-01-10T00:00:00Z'
-        finalPaymentAmount:
-          $ref: '#/components/schemas/Amount'
-      description: "__Conditional__. Used to specify properties to define a periodic payment. \n\nMust be specified when the payment `type` is one of the following:\n\n- `DOMESTIC_PERIODIC_PAYMENT`\n- `INTERNATIONAL_PERIODIC_PAYMENT`"
-    PaymentType:
-      title: Payment Type
-      type: string
-      description: '__Mandatory__. Used to specify which of the [payment types](/payments/payment-resources/intro-to-payment-execution#payment-types) to execute.
-
-
-        See [European Payments](/payments/payment-resources/european-payments) to verify whether the `type` should be `DOMESTIC` or `INTERNATIONAL`.'
-      enum:
-      - DOMESTIC_PAYMENT
-      - DOMESTIC_INSTANT_PAYMENT
-      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - DOMESTIC_SCHEDULED_PAYMENT
-      - DOMESTIC_PERIODIC_PAYMENT
-      - INTERNATIONAL_PAYMENT
-      - INTERNATIONAL_SCHEDULED_PAYMENT
-      - INTERNATIONAL_PERIODIC_PAYMENT
-      - BULK_PAYMENT
-    Amount:
-      title: Amount Details
-      required:
-      - amount
-      - currency
-      type: object
-      properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
-          type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
-    Type:
-      type: string
-      description: The `SCA` method type available for the user
-      enum:
-      - SMS_OTP
-      - CHIP_OTP
-      - PHOTO_OTP
-      - PUSH_OTP
-    AccountIdentificationType:
-      title: Account Identification Type
-      type: string
-      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-      example: SORT_CODE
-      enum:
-      - SORT_CODE
-      - ACCOUNT_NUMBER
-      - IBAN
-      - BBAN
-      - BIC
-      - PAN
-      - MASKED_PAN
-      - MSISDN
-      - BSB
-      - NCC
-      - ABA
-      - ABA_WIRE
-      - ABA_ACH
-      - EMAIL
-      - ROLL_NUMBER
-      - BLZ
-      - IFS
-      - CLABE
-      - CTN
-      - BRANCH_CODE
-      - VIRTUAL_ACCOUNT_ID
-    ApiResponseOfPreAuthorisationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/PreAuthorisationResponse'
-        links:
+        result:
           type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    PaymentPurposeCode:
-      title: Payment Purpose Code
-      type: string
-      description: "__Optional__. The payment purpose code. \n\nAllowed values: INTP, DEPT, BEXP, LICF, SERV, SUPP, TRAD, SUBS, GDSV, ROYA, COMT, CHAR, ECPR, CLPR, INTE, LOAN, LOAR, INPC, INPR, INSC, INSU, LIFI, PPTI, HLRP, HLST, PDEP, IVPT, REBT, REFU, CDBL, CPKC, EDUC, FEES, GAMB, LOTT, GIFT, INSM, REOD, GOVT, TCSC, BLDM, RENT, DIVD, INVS, SAVG, HLTI, DNTS, LTCF, MDCS, VIEW, BECH, BENE, SSBE, PEFC, PENS, ADCS, BONU, COMM, SALA, ESTX, HSTX, INTX, PTXP, RDTX, TAXS, VATX, WHLD, TAXR, CBTV, ELEC, GASB, PHON, UBIL, WTER . \n\nSee [Payment Purpose code](/getting-started/application-management#payment-purpose-code-and-user-groups) to see the definition of each code"
-    AddressTypeEnum:
-      title: Address Type
-      type: string
-      description: __Optional__. The type of address
-      enum:
-      - BUSINESS
-      - CORRESPONDENCE
-      - DELIVERY_TO
-      - MAIL_TO
-      - PO_BOX
-      - POSTAL
-      - RESIDENTIAL
-      - STATEMENT
-      - UNKNOWN
-    ChargeBearerType:
-      type: string
-      description: '__Conditional__. Depending on the bank and payment type for international Euro payments. The field ChargeBearer specifies which party/parties will bear the charges associated with the processing of the payment transaction. Valid values are:
-
-
-        - `DEBT` - All transaction charges are to be borne by the debtor.
-
-        - `CRED` - All transaction charges are to be borne by the creditor.
-
-        - `SHAR` - In a credit transfer context, means that transaction charges on the sender side are to be borne by the debtor, transaction charges on the receiver side are to be borne by the creditor
-
-        - `SLEV` - Charges are to be applied following the rules agreed in the service level and/or scheme.'
-      enum:
-      - DEBT
-      - CRED
-      - SHAR
-      - SLEV
-    PreAuthorisationRequest:
-      required:
-      - institutionId
-      - scope
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        forwardParameters:
-          type: array
-          description: Extra parameters to be forwarded in the redirect back to the client after the user authorisation flow has been completed.
-          items:
-            type: string
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        scope:
-          type: string
-          description: __Mandatory__. Defines the scope of the pre-authorisation request.
-          example: AIS
-    EmbeddedAccountAuthorisationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the embedded account authorisation request.
-          format: uuid
-        userUuid:
-          type: string
-          description: The `User` that the authorisation request was created for.
-          format: uuid
-        applicationUserId:
-          type: string
-          description: The user-friendly reference to the `User` that the authorisation request was created for.
-        referenceId:
-          type: string
-        institutionId:
-          type: string
-          description: The `Institution` the authorisation request was sent to.
-        status:
-          $ref: '#/components/schemas/AuthorisationStatus'
-        createdAt:
-          type: string
-          description: Date and time the embedded authorisation was created by the application user.
-          format: date-time
-        transactionFrom:
-          type: string
-          description: When performing a transaction query using the consent, this is the earliest date of transaction records that can be retrieved.
-          format: date-time
-        transactionTo:
-          type: string
-          description: When performing a transaction query using the consent, this is the latest date of transaction records that can be retrieved.
-          format: date-time
-        expiresAt:
-          type: string
-          description: Date and time the embedded authorisation expires. Re-authorisation is needed to retain access.
-          format: date-time
-        timeToExpireInMillis:
-          type: integer
-          format: int64
-          deprecated: true
-        timeToExpire:
-          type: string
-          format: iso8601
-        featureScope:
-          uniqueItems: true
-          description: The set of features the consent provides access to.
-          type: array
-          items:
-            $ref: '#/components/schemas/FeatureEnum'
-        consentToken:
-          type: string
-          description: Represents the authorisation to gain access to the requested features. Required to access account information.
-        state:
-          type: string
-          description: Correlation ID used when handshaking with a new institution via OAuth2 registration.
-        authorizedAt:
-          type: string
-          description: Date and time the request was authorised by the `Institution`.
-          format: date-time
-        institutionConsentId:
-          type: string
-          description: Identification of the consent at the `Institution`.
-        authorisationUrl:
-          type: string
-        qrCodeUrl:
-          type: string
-          description: The URL link for the QR code that may be scanned via a mobile device to make an authorisation redirect to the bank (authURL encoded).
-        scaMethods:
-          type: array
-          description: List of `SCA methods` that the `Institution` supports and are available for selection.
-          items:
-            $ref: '#/components/schemas/ScaMethod'
-        selectedScaMethod:
-          $ref: '#/components/schemas/ScaMethod'
-    BulkPaymentAuthorisationRequest:
-      required:
-      - institutionId
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-          description: __Conditional__. The reference to the `User` that will authorise the authorisation request using the Yapily generated UUID. Either the `userUuid` or `applicationUserId` must be provided.
-          example: e006a012-c306-4355-a6a1-99bf69ae5171
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        forwardParameters:
-          type: array
-          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
-          items:
-            type: string
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        paymentRequest:
-          $ref: '#/components/schemas/BulkPaymentRequest'
-    Address:
-      title: Address Details
-      type: object
-      properties:
-        addressLines:
-          title: Address Lines
-          type: array
-          description: __Optional__. The address line of the address
-          example:
-          - Ardenham Court
-          items:
-            type: string
-        streetName:
-          title: Street
-          type: string
-          description: __Optional__. The street name of the address
-          example: Oxford Road
-        buildingNumber:
-          title: Building Number
-          type: string
-          description: __Optional__. The building number of the address
-          example: '45'
-        postCode:
-          title: Post Code
-          type: string
-          description: __Optional__. The post code of the address
-          example: HP19 3EQ
-        townName:
-          title: Town
-          type: string
-          description: __Optional__. The town name of the address
-          example: Aylesbury
-        county:
-          title: County
-          type: array
-          description: __Optional__. The list of counties for the address
-          example:
-          - Buckinghamshire
-          items:
-            type: string
-        country:
-          title: Country
-          type: string
-          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
-          example: GB
-        department:
-          title: Department
-          type: string
-          description: __Optional__. The department for the address
-          example: Unit 2
-        subDepartment:
-          title: Sub-Department
-          type: string
-          description: __Optional__. The sub-department for the address
-          example: Floor 3
-        addressType:
-          $ref: '#/components/schemas/AddressTypeEnum'
-      description: '__Conditional__. The address of the `Payee` or `Payer`.
-
-
-        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
-
-        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
-      example:
-        country: GB
-    PaymentPreAuthorisationRequest:
-      required:
-      - institutionId
-      - scope
-      - payee
-      - payer
-      - amount
-      - reference
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          example: user-234562290
-        forwardParameters:
-          type: array
-          description: Extra parameters to be forwarded in the redirect back to the client after the user authorisation flow has been completed.
-          items:
-            type: string
-        institutionId:
-          type: string
-          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-          example: yapily-mock
-        callback:
-          type: string
-          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: https://display-parameters.com
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        oneTimeToken:
-          type: boolean
-          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-          example: false
-        scope:
-          type: string
-          description: __Mandatory__. Defines the scope of the pre-authorisation request.
-          example: AIS
-        payee:
-          $ref: '#/components/schemas/PayeeDetails'
-        payer:
-          $ref: '#/components/schemas/PayerDetails'
-        amount:
-          $ref: '#/components/schemas/Amount'
-        reference:
-          type: string
-          description: __Mandatory__. The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Bill payment
-      description: __Mandatory__. The payment pre authorisation request object defining the details of the payment and pre auth.
-    BulkPaymentRequest:
-      required:
-      - payments
-      type: object
-      properties:
-        payments:
-          type: array
-          description: __Mandatory__. The array of `PaymentRequest` objects to initiate in the bulk payment.
-          items:
-            $ref: '#/components/schemas/PaymentRequest'
-        originatorIdentificationNumber:
-          type: string
-          description: '__Conditional__. The identification number of the originator.
-
-
-            - Mandatory for AIB bulk payments
-
-            - Mandatory for HSBC Corporate bulk payments. This will be the Connect Profile ID'
-        executionDateTime:
-          type: string
-          description: __Optional__. Used to schedule the bulk payment to be executed at a future date if supported by the `Institution`. This value establishes the requirement for the subsequent payment submission. The final payment request must occur on the same calendar day as this timestamp to pass validation.
-          format: date-time
-      description: The payment request object defining the details of the bulk payment
     PaymentEmbeddedAuthorisationRequest:
       required:
       - institutionId
@@ -4409,6 +3706,701 @@ components:
           type: string
           format: date-time
           deprecated: true
+    BulkPaymentRequest:
+      required:
+      - payments
+      type: object
+      properties:
+        payments:
+          type: array
+          description: __Mandatory__. The array of `PaymentRequest` objects to initiate in the bulk payment.
+          items:
+            $ref: '#/components/schemas/PaymentRequest'
+        originatorIdentificationNumber:
+          type: string
+          description: '__Conditional__. The identification number of the originator.
+
+
+            - Mandatory for AIB bulk payments
+
+            - Mandatory for HSBC Corporate bulk payments. This will be the Connect Profile ID'
+        executionDateTime:
+          type: string
+          description: __Optional__. Used to schedule the bulk payment to be executed at a future date if supported by the `Institution`. This value establishes the requirement for the subsequent payment submission. The final payment request must occur on the same calendar day as this timestamp to pass validation.
+          format: date-time
+      description: The payment request object defining the details of the bulk payment
+    AccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    PayeeDetails:
+      type: object
+      required:
+      - accountIdentifications
+      - name
+      - country
+      properties:
+        name:
+          type: string
+          description: __Mandatory__. The account holder name of the beneficiary.
+          example: Jane Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payee` bank account.
+          example:
+          - identification: IBUK123456789
+            type: IBAN
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        country:
+          type: string
+          deprecated: true
+          description: "__Deprecated__. Use `address.country` instead. The 2-letter ISO 3166 country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment. This field will be removed in a future version - please use the `country` field within the `address` object."
+          example: GB
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Mandatory__. Details of the beneficiary [person or business].
+    AccountAuthorisationRequest:
+      required:
+      - institutionId
+      type: object
+      properties:
+        userUuid:
+          type: string
+          description: '`User` for which the authorisation request was created.'
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. User-friendly identifier of the `User` that provides authorisation. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        forwardParameters:
+          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
+          type: array
+          items:
+            type: string
+        institutionId:
+          type: string
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
+          type: string
+          description: "__Optional__. The server to redirect the user to after the user completes the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        accountRequest:
+          $ref: '#/components/schemas/AccountRequest'
+    ApiResponseError:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    ApiResponseOfPaymentEmbeddedAuthorisationRequestResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/PaymentEmbeddedAuthorisationRequestResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    EmbeddedAccountAuthorisationRequest:
+      required:
+      - institutionId
+      type: object
+      properties:
+        userUuid:
+          type: string
+          description: '`User` for which the authorisation request was created.'
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        forwardParameters:
+          type: array
+          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
+          items:
+            type: string
+        institutionId:
+          type: string
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
+          type: string
+          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/introduction) for more information."
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        userCredentials:
+          $ref: '#/components/schemas/UserCredentials'
+        selectedScaMethod:
+          $ref: '#/components/schemas/ScaMethod'
+        scaCode:
+          type: string
+          description: '__Conditional__. Used to update the authorisation with the sca code received by the user from the `Institution` using the embedded account authorisation flow.
+
+
+            This is the penultimate step required in the embedded account authorisation flow to authorise the `Consent`. After sending the sca code, to obtain an authorised consent, the last step is to poll [Get Consent](/api-reference/getConsentById) until the `Institution` authorises the request and the `Consent` `status` transitions to `AUTHORIZED`.'
+          example: '325614'
+        accountRequest:
+          $ref: '#/components/schemas/AccountRequest'
+    BulkPaymentEmbeddedAuthorisationRequest:
+      required:
+      - institutionId
+      type: object
+      properties:
+        userUuid:
+          type: string
+          format: uuid
+          description: __Conditional__. The reference to the `User` that will authorise the authorisation request using the Yapily generated UUID. Either the `userUuid` or `applicationUserId` must be provided.
+          example: e006a012-c306-4355-a6a1-99bf69ae5171
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        institutionId:
+          type: string
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
+          type: string
+          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        paymentRequest:
+          $ref: '#/components/schemas/BulkPaymentRequest'
+        userCredentials:
+          $ref: '#/components/schemas/UserCredentials'
+        selectedScaMethod:
+          $ref: '#/components/schemas/ScaMethod'
+        scaCode:
+          type: string
+          description: '__Conditional__. Used to update the authorisation with the sca code received by the user from the `Institution` using the embedded payment authorisation flow.
+
+
+            This is the penultimate step required in the embedded payment authorisation flow to authorise the `Consent`. After sending the sca code, to obtain an authorised consent, the last step is to poll [Get Consent](/api-reference/getConsentById) until the `Institution` authorises the request and the `Consent` `status` transitions to `AUTHORIZED`.'
+          example: '325614'
+      description: The request body containing a `BulkPaymentEmbeddedAuthorisationRequest` json payload
+    AccountInfo:
+      required:
+      - accountIdentification
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: __Conditional__. Unique identifier of the account.
+          example: '500000000000000000000001'
+        accountIdentification:
+          $ref: '#/components/schemas/AccountIdentification'
+      description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    PaymentEmbeddedAuthorisationRequestResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the embedded payment authorisation request.
+          format: uuid
+        userUuid:
+          type: string
+          description: The `User` that the authorisation request was created for.
+          format: uuid
+        applicationUserId:
+          type: string
+          description: The user-friendly reference to the `User` that the authorisation request was created for.
+        referenceId:
+          type: string
+        institutionId:
+          type: string
+          description: The  `Institution` the authorisation request was sent to.
+        status:
+          $ref: '#/components/schemas/AuthorisationStatus'
+        createdAt:
+          type: string
+          description: Date and time the embedded payment authorisation was created.
+          format: date-time
+        transactionFrom:
+          type: string
+          description: When performing a transaction query using the consent, this is the earliest date of transaction records that can be retrieved.
+          format: date-time
+        transactionTo:
+          type: string
+          description: When performing a transaction query using the consent, this is the latest date of transaction records that can be retrieved.
+          format: date-time
+        expiresAt:
+          type: string
+          description: Date and time the authorisation expires. Re-authorisation is needed to retain access.
+          format: date-time
+        timeToExpireInMillis:
+          type: integer
+          format: int64
+          deprecated: true
+        timeToExpire:
+          type: string
+          format: iso8601
+        featureScope:
+          uniqueItems: true
+          description: The set of features the consent provides access to.
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureEnum'
+        consentToken:
+          type: string
+          description: Represents the authorisation to gain access to the requested features. Required to make a payment request.
+        state:
+          type: string
+          description: Correlation ID used with the `Institution` during the authorisation process.
+        authorizedAt:
+          type: string
+          description: Date and time the request was authorised by the `Institution`.
+          format: date-time
+        institutionConsentId:
+          type: string
+          description: Identification of the consent at the `Institution`.
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentChargeDetails'
+        exchangeRateInformation:
+          $ref: '#/components/schemas/ExchangeRateInformationResponse'
+        authorisationUrl:
+          type: string
+        qrCodeUrl:
+          type: string
+          description: The URL link for the QR code that may be scanned via a mobile device to make an authorisation redirect to the bank (authURL encoded).
+        explanation:
+          type: string
+        scaMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScaMethod'
+        selectedScaMethod:
+          $ref: '#/components/schemas/ScaMethod'
+    AccountIdentificationType:
+      title: Account Identification Type
+      type: string
+      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+      example: SORT_CODE
+      enum:
+      - SORT_CODE
+      - ACCOUNT_NUMBER
+      - IBAN
+      - BBAN
+      - BIC
+      - PAN
+      - MASKED_PAN
+      - MSISDN
+      - BSB
+      - NCC
+      - ABA
+      - ABA_WIRE
+      - ABA_ACH
+      - EMAIL
+      - ROLL_NUMBER
+      - BLZ
+      - IFS
+      - CLABE
+      - CTN
+      - BRANCH_CODE
+      - VIRTUAL_ACCOUNT_ID
+    ApiResponseOfEmbeddedAccountAuthorisationResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/EmbeddedAccountAuthorisationResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ExchangeRateInformation:
+      required:
+      - rateType
+      - unitCurrency
+      type: object
+      properties:
+        unitCurrency:
+          type: string
+          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
+        rate:
+          type: number
+          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+        rateType:
+          $ref: '#/components/schemas/RateTypeEnum'
+        foreignExchangeContractReference:
+          type: string
+          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
+      description: __Optional__. Used to provide details on the currency exchange rate and contract.
+    ScaMethod:
+      required:
+      - id
+      type: object
+      description: "__Conditional__. Used to update the authorisation with the sca method of the user's choice for the `Institution` that uses the embedded authorisation flow. If the user has multiple sca methods configured, the `Institution` will allow the user to select from each of these options. \n\nWhen the user has multiple sca methods for the `Institution`, this is the second step required in the embedded authorisation flow to authorise the `Consent`."
+      example:
+        id: '944'
+        type: PUSH_OTP
+        description: SecureSIGN
+      properties:
+        id:
+          type: string
+          description: __Mandatory__. The id of the sca method provided by the `Institution`
+          example: 258211#OPTICAL
+        type:
+          $ref: '#/components/schemas/Type'
+        description:
+          type: string
+          description: __Optional__. A description of the sca method if provided by the `Institution`
+          example: Testkarte Hr. Haubach_1, optisch
+        information:
+          type: string
+          description: Additional information from the institution to provide to the PSU to help with the selected SCA method. The language is determined by the institution and may vary.
+          example: Bitte bestätigen Sie den Vorgang in Ihrer SecureGo plus App
+        data:
+          description: Data from the institution to provide to the PSU to complete authorisation. The language is determined by the institution and may vary.
+          type: array
+          items:
+            type: string
+          example:
+          - 0488701109982928CY439040000100000010000520,00
+    PayerDetails:
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+      description: __Conditional__. Details of the benefactor [person or business].
+    PaymentRequest:
+      required:
+      - amount
+      - payee
+      - paymentIdempotencyId
+      - type
+      type: object
+      properties:
+        paymentIdempotencyId:
+          title: Idempotency Id
+          type: string
+          description: __Mandatory__. A unique identifier that you must provide to identify the payment. This can be any alpha-numeric string but is limited to a maximum of 35 characters.
+          example: 04ab4536gaerfc0e1f93c4f4
+        payer:
+          $ref: '#/components/schemas/Payer'
+        reference:
+          title: Payment Reference
+          type: string
+          description: __Optional__. The payment reference or description. Limited to a maximum of 18 characters long.
+          example: Bill payment
+        contextType:
+          $ref: '#/components/schemas/PaymentContextType'
+        purposeCode:
+          $ref: '#/components/schemas/PaymentPurposeCode'
+        type:
+          $ref: '#/components/schemas/PaymentType'
+        payee:
+          $ref: '#/components/schemas/Payee'
+        periodicPayment:
+          $ref: '#/components/schemas/PeriodicPaymentRequest'
+        internationalPayment:
+          $ref: '#/components/schemas/InternationalPaymentRequest'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        paymentDateTime:
+          title: Payment Date
+          type: string
+          description: '__Conditional__. Used to specify the date of the payment when the payment type is one of the following:
+
+
+            - `DOMESTIC_SCHEDULED_PAYMENT`
+
+            - `DOMESTIC_PERIODIC_PAYMENT`
+
+            - `INTERNATIONAL_SCHEDULED_PAYMENT`
+
+            - `INTERNATIONAL_PERIODIC_PAYMENT`'
+          format: date-time
+          example: '2021-07-21T17:32:28Z'
+        readRefundAccount:
+          title: Read Refund Account
+          type: boolean
+          description: '__Optional__. Used to request the payer details in the payment response when the `Institution` provides the feature `READ_DOMESTIC_SINGLE_REFUND`.
+
+
+            See [Reverse Payments](/payments/payment-resources/reverse-payments) for more information.'
+          example: false
+      description: __Mandatory__. The payment request object defining the details of the payment.
+    PaymentContextType:
+      title: Payment Code
+      type: string
+      default: OTHER
+      description: __Optional__. The payment context code. This defaults to `OTHER` if not specified.
+      enum:
+      - BILL
+      - GOODS
+      - SERVICES
+      - OTHER
+      - PERSON_TO_PERSON
+      - BILL_IN_ADVANCE
+      - BILL_IN_ARREARS
+      - ECOMMERCE_MERCHANT
+      - FACE_TO_FACE_POS
+      - TRANSFER_TO_SELF
+      - TRANSFER_TO_THIRD_PARTY
+      - PISP_PAYEE
+    Type:
+      type: string
+      description: The `SCA` method type available for the user
+      enum:
+      - SMS_OTP
+      - CHIP_OTP
+      - PHOTO_OTP
+      - PUSH_OTP
+    PaymentPurposeCode:
+      title: Payment Purpose Code
+      type: string
+      description: "__Optional__. The payment purpose code. \n\nAllowed values: INTP, DEPT, BEXP, LICF, SERV, SUPP, TRAD, SUBS, GDSV, ROYA, COMT, CHAR, ECPR, CLPR, INTE, LOAN, LOAR, INPC, INPR, INSC, INSU, LIFI, PPTI, HLRP, HLST, PDEP, IVPT, REBT, REFU, CDBL, CPKC, EDUC, FEES, GAMB, LOTT, GIFT, INSM, REOD, GOVT, TCSC, BLDM, RENT, DIVD, INVS, SAVG, HLTI, DNTS, LTCF, MDCS, VIEW, BECH, BENE, SSBE, PEFC, PENS, ADCS, BONU, COMM, SALA, ESTX, HSTX, INTX, PTXP, RDTX, TAXS, VATX, WHLD, TAXR, CBTV, ELEC, GASB, PHON, UBIL, WTER . \n\nSee [Payment Purpose code](/getting-started/application-management#payment-purpose-code-and-user-groups) to see the definition of each code"
+    BulkPaymentAuthorisationRequest:
+      required:
+      - institutionId
+      type: object
+      properties:
+        userUuid:
+          type: string
+          format: uuid
+          description: __Conditional__. The reference to the `User` that will authorise the authorisation request using the Yapily generated UUID. Either the `userUuid` or `applicationUserId` must be provided.
+          example: e006a012-c306-4355-a6a1-99bf69ae5171
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        forwardParameters:
+          type: array
+          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
+          items:
+            type: string
+        institutionId:
+          type: string
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
+          type: string
+          description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        paymentRequest:
+          $ref: '#/components/schemas/BulkPaymentRequest'
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    PeriodicPaymentRequest:
+      required:
+      - frequency
+      type: object
+      properties:
+        frequency:
+          $ref: '#/components/schemas/FrequencyRequest'
+        numberOfPayments:
+          type: integer
+          description: '__Conditional__. Defines the total number of payments to be made.
+
+
+            This is required if `finalPaymentDateTime` is not specified and it is intended for the periodic payment have a fixed amount of payments.'
+          format: int32
+          example: 5
+        nextPaymentDateTime:
+          type: string
+          description: __Conditional__. Defines when to start the recurring payment date and time. Specify this if you want the first payment to start on a different day than what the frequency object defines.
+          format: date-time
+          example: '2018-01-10T00:00:00Z'
+        nextPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        finalPaymentDateTime:
+          type: string
+          description: __Conditional__. Defines the final payment date and time. To create an open-ended periodic payment, do not specify this property.
+          format: date-time
+          example: '2030-01-10T00:00:00Z'
+        finalPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+      description: "__Conditional__. Used to specify properties to define a periodic payment. \n\nMust be specified when the payment `type` is one of the following:\n\n- `DOMESTIC_PERIODIC_PAYMENT`\n- `INTERNATIONAL_PERIODIC_PAYMENT`"
+    PaymentAuthorisationRequest:
+      required:
+      - institutionId
+      - paymentRequest
+      type: object
+      properties:
+        userUuid:
+          type: string
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User` that will authorise the authorisation request. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
+          example: user-234562290
+        forwardParameters:
+          type: array
+          description: Extra parameters the TPP may want to get forwarded in the callback request after the PSU redirect.
+          items:
+            type: string
+        institutionId:
+          type: string
+          description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+          example: yapily-mock
+        callback:
+          type: string
+          description: __Optional__. The URL to redirect the user to after the user complete the authorisation at the `Institution`.
+          example: https://display-parameters.com
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        oneTimeToken:
+          type: boolean
+          description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+          example: false
+        paymentRequest:
+          $ref: '#/components/schemas/PaymentRequest'
+      description: The request body containing an `PaymentAuthorisationRequest` json payload
+    RedirectRequest:
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+          description: __Mandatory__.Successful redirect after the user complete the authorisation at the `Institution`.
+      description: __Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
+    ChargeBearerType:
+      type: string
+      description: '__Conditional__. Depending on the bank and payment type for international Euro payments. The field ChargeBearer specifies which party/parties will bear the charges associated with the processing of the payment transaction. Valid values are:
+
+
+        - `DEBT` - All transaction charges are to be borne by the debtor.
+
+        - `CRED` - All transaction charges are to be borne by the creditor.
+
+        - `SHAR` - In a credit transfer context, means that transaction charges on the sender side are to be borne by the debtor, transaction charges on the receiver side are to be borne by the creditor
+
+        - `SLEV` - Charges are to be applied following the rules agreed in the service level and/or scheme.'
+      enum:
+      - DEBT
+      - CRED
+      - SHAR
+      - SLEV
     RateTypeEnum:
       type: string
       description: __Mandatory__. The type used to complete the currency exchange.
@@ -4416,6 +4408,20 @@ components:
       - ACTUAL
       - AGREED
       - INDICATIVE
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

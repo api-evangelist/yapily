@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Yapily Beneficiaries Application Beneficiaries Data Plus API
   description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
@@ -12,7 +12,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- description: 'Data Plus endpoints enable our customers to enrich transaction data. '
+- description: Data Plus endpoints enable our customers to enrich transaction data.
   name: Data Plus
 paths:
   /accounts/{accountId}/transactions/categorisation:
@@ -52,7 +52,7 @@ paths:
     post:
       operationId: post-accounts-accountId-transactions-categorisation
       summary: Transactions and Enrichment
-      description: Trigger categorisation for transactions from [AIS (see Get Transactions endpoint)](/api-reference/getTransactions) in the specified time range.
+      description: Trigger categorisation for transactions from AIS (see Get Transactions endpoint) in the specified time range.
       tags:
       - Data Plus
       requestBody:
@@ -170,7 +170,7 @@ paths:
       description: '__Deprecated__. Retrieve categorised transactions by Categorisation ID.
 
 
-        Use the [other endpoint (`/transactions/categorisation/{categorisationId}`)](#operation/get-transactions-categorised) instead.'
+        Use the other endpoint (`/transactions/categorisation/{categorisationId}`) instead.'
       tags:
       - Data Plus
       responses:
@@ -376,10 +376,10 @@ paths:
       description: 'Retrieve categorised transactions by Categorisation ID.
 
 
-        Please [use webhooks](/introductionpages/data/data-plus/tutorial-categorisation/) to be notified when your transactions have been categorised and are ready for retrieval.
+        Please use webhooks to be notified when your transactions have been categorised and are ready for retrieval.
 
 
-        Note that when using the [Transactions and Categorisation endpoint](/api-reference/post-accounts-accountId-transactions-categorisation) this endpoint may also return any data specified by the [Get Account Transactions endpoint](/api-reference/getTransactions); this endpoint''s docs mentions a non-exhaustive subset of such data.'
+        Note that when using the Transactions and Categorisation endpoint this endpoint may also return any data specified by the Get Account Transactions endpoint; this endpoint''s docs mentions a non-exhaustive subset of such data.'
       tags:
       - Data Plus
       responses:
@@ -515,6 +515,74 @@ paths:
                   $ref: '#/components/examples/500-error-response'
 components:
   schemas:
+    GetCategoriesResponse:
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
+    ApiErrorResponseV2:
+      type: object
+      description: API Error Response
+      properties:
+        error:
+          required:
+          - tracingId
+          - code
+          - status
+          - issues
+          type: object
+          properties:
+            tracingId:
+              type: string
+              description: Unique identifier of the request, used by Yapily for support purposes
+            code:
+              type: integer
+              format: int32
+              description: Numeric HTTP status code associated with the error
+            status:
+              type: string
+              description: Textual description of the HTTP status
+            supportUrl:
+              type: string
+              description: Link to where further information regarding the error can be found
+            source:
+              type: string
+              description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
+            issues:
+              type: array
+              description: List of issues relating to the error
+              items:
+                required:
+                - message
+                - code
+                type: object
+                description: Detailed information regarding the issue that was experienced during processing of the request
+                properties:
+                  type:
+                    type: string
+                    description: Category of the issue
+                  code:
+                    type: string
+                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes pelase check our documentation
+                  message:
+                    type: string
+                    description: Human readable description of the issue that was experienced
+    ApiResponseOfCreateTransactionsCategorisationRequest:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            tracingId:
+              type: string
+        data:
+          type: object
+          properties:
+            categorisationId:
+              type: string
+              format: uuid
     ApiResponseOfGetCategorisedTransactionsRequest:
       type: object
       properties:
@@ -745,74 +813,6 @@ components:
               type: string
             last:
               type: string
-    ApiErrorResponseV2:
-      type: object
-      description: API Error Response
-      properties:
-        error:
-          required:
-          - tracingId
-          - code
-          - status
-          - issues
-          type: object
-          properties:
-            tracingId:
-              type: string
-              description: Unique identifier of the request, used by Yapily for support purposes
-            code:
-              type: integer
-              format: int32
-              description: Numeric HTTP status code associated with the error
-            status:
-              type: string
-              description: Textual description of the HTTP status
-            supportUrl:
-              type: string
-              description: Link to where further information regarding the error can be found
-            source:
-              type: string
-              description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
-            issues:
-              type: array
-              description: List of issues relating to the error
-              items:
-                required:
-                - message
-                - code
-                type: object
-                description: Detailed information regarding the issue that was experienced during processing of the request
-                properties:
-                  type:
-                    type: string
-                    description: Category of the issue
-                  code:
-                    type: string
-                    description: 5 digit Error Code that uniquely identifies the type of issue, for full list of error codes pelase check our documentation
-                  message:
-                    type: string
-                    description: Human readable description of the issue that was experienced
-    ApiResponseOfCreateTransactionsCategorisationRequest:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            tracingId:
-              type: string
-        data:
-          type: object
-          properties:
-            categorisationId:
-              type: string
-              format: uuid
-    GetCategoriesResponse:
-      type: object
-      properties:
-        labels:
-          type: array
-          items:
-            type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

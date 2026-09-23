@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Financial Data API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Data Access API (AIS) Financial Data API
+  description: Account Information Service Provider (AISP) endpoints for retrieving accounts, balances, transactions, identity, beneficiaries, scheduled payments, standing orders, direct debits, and statements with user consent.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -12,7 +12,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- description: In order to access a user's Financial Data, you are required to request an [Authorisation](#tag/Authorisations) from the user to share the account information the bank has. Once a `consent-token` is obtained, you can call the necessary Financial Data endpoint(s) to retrieve the user's data.
+- description: In order to access a user's Financial Data, you are required to request an Authorisation from the user to share the account information the bank has. Once a `consent-token` is obtained, you can call the necessary Financial Data endpoint(s) to retrieve the user's data.
   name: Financial Data
 paths:
   /accounts:
@@ -892,7 +892,46 @@ paths:
       - Financial Data
 components:
   schemas:
-    ApiListResponseOfTransaction:
+    ApiListResponseOfRealTimeTransaction:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMetaWithCount'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealTimeTransaction'
+        links:
+          type: object
+          properties:
+            first:
+              type: string
+              description: A cursor or link to the first page in the data set.
+            prev:
+              type: string
+              description: A cursor or link to the previous page in the data set.
+            self:
+              type: string
+              description: A cursor or link to the current page in the data set.
+            next:
+              type: string
+              description: A cursor or link to the next page in the data set.
+            last:
+              type: string
+              description: A cursor or link to the last page in the data set.
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ApiListResponseOfAccountStatement:
       type: object
       properties:
         meta:
@@ -900,7 +939,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/Transaction'
+            $ref: '#/components/schemas/AccountStatement'
         links:
           type: object
           additionalProperties:
@@ -915,10 +954,498 @@ components:
           items:
             $ref: '#/components/schemas/RawResponse'
         paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListTransaction'
+          $ref: '#/components/schemas/FilteredClientPayloadListAccountStatement'
         tracingId:
           type: string
           writeOnly: true
+    PaymentStatusDetails:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        statusReason:
+          type: string
+        statusReasonDescription:
+          type: string
+        statusUpdateDate:
+          type: string
+          format: date-time
+        multiAuthorisationStatus:
+          $ref: '#/components/schemas/MultiAuthorisation'
+        isoStatus:
+          $ref: '#/components/schemas/PaymentIsoStatus'
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    ApiResponseOfIdentity:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Identity'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    EnrichmentMerchant:
+      type: object
+      description: Details of the merchant, identified by Yapily data services.
+      properties:
+        merchantName:
+          type: string
+          description: The name of the indivdual merchant involved in the transaction e.g. (TESCO Petrol).
+        parentGroup:
+          type: string
+          description: The parent organisation that the merchant belongs to e.g. (TESCO).
+    ApiResponseOfAccount:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Account'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    AddressTypeEnum:
+      title: Address Type
+      type: string
+      description: __Optional__. The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
+    MultiAuthorisation:
+      type: object
+      description: Details the additional levels of authorisation which are required from, and being managed by, the `Institution`.
+      properties:
+        status:
+          type: string
+          description: __Mandatory__. Specifies the current status of the multi-authorisation flow.
+        numberOfAuthorisationRequired:
+          type: integer
+          description: __Mandatory__. Total number of authorisations required.
+          format: int32
+        numberOfAuthorisationReceived:
+          type: integer
+          description: __Mandatory__. The total number of authorisations that have been received.
+          format: int32
+        lastUpdatedDateTime:
+          type: string
+          description: __Mandatory__. Date and time of when the authorisation was last updated.
+          format: date-time
+        expirationDateTime:
+          type: string
+          description: __Mandatory__. Date and time by when the authorisation flow must be completed before it expires and the authorisation request is terminated.
+          format: date-time
+    DirectDebitPayee:
+      type: object
+      properties:
+        name:
+          type: string
+          description: __Mandatory__. The account holder name.
+          example: Tempus Risus Company
+    FilteredClientPayloadListAccountStatement:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountStatement'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    AccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    ProprietaryBankTransactionCode:
+      type: object
+      description: Transaction code that is proprietary to the `Institution`.
+      properties:
+        code:
+          type: string
+          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
+        issuer:
+          type: string
+          description: __Mandatory__. Issuer of the proprietary code.
+    PaymentIsoStatus:
+      type: object
+      description: The payment status code, as denoted by a 3-letter ISO 20022 code.
+      properties:
+        code:
+          $ref: '#/components/schemas/PaymentIsoStatusCodeEnum'
+        name:
+          type: string
+          description: The full name of the ISO 20022 `PaymentStatusCode`.
+          example: AcceptedCreditSettlementCompleted
+    AccountName:
+      type: object
+      properties:
+        name:
+          description: The bank account holder's name given by the account owner.
+          type: string
+    Categorisation:
+      type: object
+      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    StatementReference:
+      type: object
+      description: Unique reference for a statement period. This may be optionally populated if available.
+      properties:
+        value:
+          type: string
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    PaymentChargeDetails:
+      type: object
+      description: Details the charges that will apply to the payment.
+      properties:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
+        chargeType:
+          description: __Mandatory__. Specifies the nature of the transaction charge e.g. (Bank transfer fees).
+          type: string
+        chargeTo:
+          description: __Mandatory__. States which party of the payment bears the charges.
+          type: string
+    Identity:
+      type: object
+      description: Identification details of a party associated with an account e.g. (account owner or operator).
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+        gender:
+          type: string
+        birthdate:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityAddress'
+    PriorityCodeEnum:
+      type: string
+      enum:
+      - NORMAL
+      - URGENT
+    CreditLineType:
+      type: string
+      description: __Mandatory__. The type of credit that has been provided.
+      enum:
+      - AVAILABLE
+      - CREDIT
+      - EMERGENCY
+      - PRE_AGREED
+      - TEMPORARY
+      - OTHER
+      - UNKNOWN
+    Payer:
+      title: Payer Details
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          title: Payer Name
+          type: string
+          description: The account holder name of the Payer.
+          example: John Doe
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: __Conditional__. Details of the benefactor [person or business].
+    FilteredClientPayloadListPaymentResponse:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    ApiResponseOfAccountStatement:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/AccountStatement'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    FrequencyEnumExtended:
+      type: string
+      description: __Mandatory__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
+      enum:
+      - DAILY
+      - EVERY_WORKING_DAY
+      - CALENDAR_DAY
+      - WEEKLY
+      - EVERY_TWO_WEEKS
+      - MONTHLY
+      - EVERY_TWO_MONTHS
+      - QUARTERLY
+      - SEMIANNUAL
+      - ANNUAL
+    ApiListResponseOfPaymentResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListPaymentResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    AccountBalance:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountBalanceType'
+        dateTime:
+          type: string
+          format: date-time
+          description: Date and time of the reported balance.
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+        creditLineIncluded:
+          type: boolean
+          description: __Optional__. Indicates whether any credit lines are included in the balance.
+        creditLines:
+          type: array
+          description: __Optional__. Specifies the type of balance.
+          items:
+            $ref: '#/components/schemas/CreditLine'
+    FilteredClientPayloadListDirectDebitResponse:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectDebitResponse'
+        nextCursorHash:
+          type: string
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    ApiResponseOfBalances:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/Balances'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    AccountIdentificationType:
+      title: Account Identification Type
+      type: string
+      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+      example: SORT_CODE
+      enum:
+      - SORT_CODE
+      - ACCOUNT_NUMBER
+      - IBAN
+      - BBAN
+      - BIC
+      - PAN
+      - MASKED_PAN
+      - MSISDN
+      - BSB
+      - NCC
+      - ABA
+      - ABA_WIRE
+      - ABA_ACH
+      - EMAIL
+      - ROLL_NUMBER
+      - BLZ
+      - IFS
+      - CLABE
+      - CTN
+      - BRANCH_CODE
+      - VIRTUAL_ACCOUNT_ID
     PaymentResponse:
       type: object
       properties:
@@ -1011,33 +1538,19 @@ components:
           $ref: '#/components/schemas/RefundAccount'
         bulkAmountSum:
           type: number
-    ApiListResponseOfRealTimeTransaction:
+    ApiListResponseOfTransaction:
       type: object
       properties:
         meta:
-          $ref: '#/components/schemas/ResponseMetaWithCount'
+          $ref: '#/components/schemas/ResponseListMeta'
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RealTimeTransaction'
+            $ref: '#/components/schemas/Transaction'
         links:
           type: object
-          properties:
-            first:
-              type: string
-              description: A cursor or link to the first page in the data set.
-            prev:
-              type: string
-              description: A cursor or link to the previous page in the data set.
-            self:
-              type: string
-              description: A cursor or link to the current page in the data set.
-            next:
-              type: string
-              description: A cursor or link to the next page in the data set.
-            last:
-              type: string
-              description: A cursor or link to the last page in the data set.
+          additionalProperties:
+            type: string
         forwardedData:
           type: array
           items:
@@ -1047,59 +1560,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListTransaction'
         tracingId:
           type: string
           writeOnly: true
-    ExchangeRateInformationResponse:
-      required:
-      - rateType
-      - unitCurrency
-      type: object
-      properties:
-        unitCurrency:
-          type: string
-          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
-        rate:
-          type: number
-          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
-        rateType:
-          $ref: '#/components/schemas/RateTypeEnum'
-        foreignExchangeContractReference:
-          type: string
-          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
-        exchangeRateExpiryDate:
-          type: string
-          format: date-time
-    IsoBankTransactionCode:
-      type: object
-      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
-      properties:
-        domainCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        familyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        subFamilyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-    PaymentIsoStatusCodeEnum:
-      type: string
-      description: The ISO 20022 `PaymentStatusCode`.
-      example: ACCC
-      enum:
-      - ACCC
-      - ACCP
-      - ACSC
-      - ACSP
-      - ACTC
-      - ACWC
-      - ACWP
-      - RCVD
-      - PDNG
-      - RJCT
-      - CANC
-      - ACFC
-      - PATC
-      - PART
-      - ACCO
     IdentityAddress:
       type: object
       properties:
@@ -1121,387 +1586,17 @@ components:
           $ref: '#/components/schemas/AddressTypeEnum'
         county:
           type: string
-    FilteredClientPayloadListTransaction:
-      type: object
-      properties:
-        apiCall:
-          $ref: '#/components/schemas/ApiCall'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        nextCursorHash:
-          type: string
-        nextLink:
-          type: string
-        pagingMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FilterAndSort'
-        totalCount:
-          type: integer
-          format: int64
-    FrequencyResponse:
-      type: object
-      description: __Mandatory__. Defines the intervals at which payment should be made.
-      properties:
-        frequencyType:
-          $ref: '#/components/schemas/FrequencyEnumExtended'
-        intervalWeek:
-          type: integer
-          description: The weekly intervals at which a payment will be made. e.g. 1 = Every months, 2 = Every 2 months.
-          format: int32
-        intervalMonth:
-          type: integer
-          description: The monthly intervals at which a payment will be made. e.g. 1 = Every month, 2 = Every 2 months
-          format: int32
-        executionDay:
-          type: integer
-          description: The day on which a payment will be made, according to the weekly or monthly interval.
-          format: int32
-    AddressTypeEnum:
-      title: Address Type
-      type: string
-      description: __Optional__. The type of address
-      enum:
-      - BUSINESS
-      - CORRESPONDENCE
-      - DELIVERY_TO
-      - MAIL_TO
-      - PO_BOX
-      - POSTAL
-      - RESIDENTIAL
-      - STATEMENT
-      - UNKNOWN
-    RateTypeEnum:
-      type: string
-      description: __Mandatory__. The type used to complete the currency exchange.
-      enum:
-      - ACTUAL
-      - AGREED
-      - INDICATIVE
-    IsoCodeDetails:
-      type: object
-      description: __Mandatory__. Details the identification of the ISO code.
-      properties:
-        code:
-          default: UNKNOWN
-          description: __Mandatory__. Unique identifier of the ISO code.
-          type: string
-        name:
-          default: UNKNOWN
-          description: __Mandatory__. Name of the ISO Code.
-          type: string
-    ApiError:
-      type: object
-      description: Provides details of the error that has occurred.
-      properties:
-        code:
-          type: integer
-          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
-          format: int32
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-        message:
-          type: string
-          description: __Mandatory__. Description of the exact error that has been experienced.
-        source:
-          type: string
-        status:
-          type: string
-          description: __Mandatory__. Textual description of the `HTTP` error status type.
-        tracingId:
-          type: string
-          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
-    ApiListResponseOfBeneficiary:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseListMeta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Beneficiary'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    AccountBalance:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountBalanceType'
-        dateTime:
-          type: string
-          format: date-time
-          description: Date and time of the reported balance.
-        balanceAmount:
-          $ref: '#/components/schemas/Amount'
-        creditLineIncluded:
-          type: boolean
-          description: __Optional__. Indicates whether any credit lines are included in the balance.
-        creditLines:
-          type: array
-          description: __Optional__. Specifies the type of balance.
-          items:
-            $ref: '#/components/schemas/CreditLine'
-    Account:
+    ConsolidatedAccountInformation:
       type: object
       properties:
         id:
-          description: Unique identifier of the account.
           type: string
-        type:
-          type: string
-          description: Specifies the type of account e.g. (BUSINESS_CURRENT).
-        description:
-          description: Product name as defined by the financial institution for this account
-          type: string
-        balance:
-          type: number
-          description: "Main / headline balance for the account. \n\n Use of this field is recommended as fallback only. Instead, use of the typed balances (accountBalances) is recommended."
-        currency:
-          description: "Currency the bank account balance is denoted in. \n\n Specified as a 3-letter ISO 4217 currency code"
-          type: string
-        usageType:
-          $ref: '#/components/schemas/UsageType'
-        accountType:
-          $ref: '#/components/schemas/AccountType'
-        nickname:
-          description: "Nickname of the account that was provided by the account owner. \n\n May be used to aid identification of the account."
-          type: string
-        details:
-          description: Supplementary specifications that might be provided by the Bank. These provide further characteristics about the account.
-          type: string
-        accountNames:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountName'
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
+          description: Identifier of the consolidated account. When used in Get Account Transactions calls, the transactions between the sub-accounts will not be reported
         accountBalances:
           type: array
           items:
             $ref: '#/components/schemas/AccountBalance'
-        consolidatedAccountInformation:
-          $ref: '#/components/schemas/ConsolidatedAccountInformation'
-    PaymentChargeDetails:
-      type: object
-      description: Details the charges that will apply to the payment.
-      properties:
-        chargeAmount:
-          $ref: '#/components/schemas/Amount'
-        chargeType:
-          description: __Mandatory__. Specifies the nature of the transaction charge e.g. (Bank transfer fees).
-          type: string
-        chargeTo:
-          description: __Mandatory__. States which party of the payment bears the charges.
-          type: string
-    Categorisation:
-      type: object
-      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
-      properties:
-        categories:
-          type: array
-          items:
-            type: string
-        source:
-          type: string
-    RefundAccount:
-      type: object
-      description: The account to which funds should be returned if the payment is to be later refunded.
-      properties:
-        name:
-          type: string
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-    RealTimeTransaction:
-      type: object
-      properties:
-        id:
-          type: string
-        date:
-          type: string
-          format: date-time
-        bookingDateTime:
-          type: string
-          format: date-time
-        valueDateTime:
-          type: string
-          format: date-time
-        status:
-          $ref: '#/components/schemas/TransactionStatusEnum'
-        transactionAmount:
-          $ref: '#/components/schemas/Amount'
-        grossAmount:
-          $ref: '#/components/schemas/Amount'
-        currencyExchange:
-          $ref: '#/components/schemas/CurrencyExchange'
-        chargeDetails:
-          $ref: '#/components/schemas/TransactionChargeDetails'
-        reference:
-          type: string
-        statementReferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatementReference'
-        description:
-          type: string
-        transactionInformation:
-          type: array
-          items:
-            type: string
-        addressDetails:
-          $ref: '#/components/schemas/AddressDetails'
-        isoBankTransactionCode:
-          $ref: '#/components/schemas/IsoBankTransactionCode'
-        proprietaryBankTransactionCode:
-          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
-        balance:
-          $ref: '#/components/schemas/TransactionBalance'
-        payeeDetails:
-          $ref: '#/components/schemas/Payee'
-        payerDetails:
-          $ref: '#/components/schemas/Payer'
-        merchant:
-          $ref: '#/components/schemas/Merchant'
-        supplementaryData:
-          type: object
-    FilteredClientPayloadListAccountStatement:
-      type: object
-      properties:
-        apiCall:
-          $ref: '#/components/schemas/ApiCall'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountStatement'
-        nextCursorHash:
-          type: string
-        nextLink:
-          type: string
-        pagingMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FilterAndSort'
-        totalCount:
-          type: integer
-          format: int64
-    ApiListResponseOfAccountStatement:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseListMeta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountStatement'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListAccountStatement'
-        tracingId:
-          type: string
-          writeOnly: true
-    FilteredClientPayloadListAccount:
-      type: object
-      properties:
-        apiCall:
-          $ref: '#/components/schemas/ApiCall'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        nextCursorHash:
-          type: string
-        nextLink:
-          type: string
-        pagingMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FilterAndSort'
-        totalCount:
-          type: integer
-          format: int64
-    MultiAuthorisation:
-      type: object
-      description: Details the additional levels of authorisation which are required from, and being managed by, the `Institution`.
-      properties:
-        status:
-          type: string
-          description: __Mandatory__. Specifies the current status of the multi-authorisation flow.
-        numberOfAuthorisationRequired:
-          type: integer
-          description: __Mandatory__. Total number of authorisations required.
-          format: int32
-        numberOfAuthorisationReceived:
-          type: integer
-          description: __Mandatory__. The total number of authorisations that have been received.
-          format: int32
-        lastUpdatedDateTime:
-          type: string
-          description: __Mandatory__. Date and time of when the authorisation was last updated.
-          format: date-time
-        expirationDateTime:
-          type: string
-          description: __Mandatory__. Date and time by when the authorisation flow must be completed before it expires and the authorisation request is terminated.
-          format: date-time
-    AccountIdentificationType:
-      title: Account Identification Type
-      type: string
-      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-      example: SORT_CODE
-      enum:
-      - SORT_CODE
-      - ACCOUNT_NUMBER
-      - IBAN
-      - BBAN
-      - BIC
-      - PAN
-      - MASKED_PAN
-      - MSISDN
-      - BSB
-      - NCC
-      - ABA
-      - ABA_WIRE
-      - ABA_ACH
-      - EMAIL
-      - ROLL_NUMBER
-      - BLZ
-      - IFS
-      - CLABE
-      - CTN
-      - BRANCH_CODE
-      - VIRTUAL_ACCOUNT_ID
+      description: Summary information regarding account balances of the overall account provided by the bank
     Merchant:
       type: object
       description: Details of the merchant involved in the transaction.
@@ -3343,22 +3438,136 @@ components:
             - `9754` (Quasi Cash - Gambling-Horse Racing, Dog Racing, State Lotteries)
 
             - `9950` (Intra-Company Purchases)'
-    CurrencyExchange:
+    DirectDebitResponse:
       type: object
-      description: Provides details on the currrency exchange.
       properties:
-        sourceCurrency:
+        id:
           type: string
-          description: Currency from which an amount is to be converted.
-        targetCurrency:
+        statusDetails:
+          $ref: '#/components/schemas/PaymentStatusDetails'
+        payeeDetails:
+          $ref: '#/components/schemas/DirectDebitPayee'
+        reference:
           type: string
-          description: Currency to which an amount is to be converted.
-        unitCurrency:
+        previousPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        previousPaymentDateTime:
           type: string
-          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
-        exchangeRate:
-          type: number
-          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+          format: date-time
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    Enrichment:
+      type: object
+      description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
+      properties:
+        categorisation:
+          $ref: '#/components/schemas/Categorisation'
+        transactionHash:
+          $ref: '#/components/schemas/TransactionHash'
+        cleansedDescription:
+          type: string
+          description: Cleaned version of the `Transaction Description` that removes miscellaneous, generic and unhelpful text.
+        merchant:
+          $ref: '#/components/schemas/EnrichmentMerchant'
+        location:
+          type: string
+          description: The location of where the transaction took place.
+        paymentProcessor:
+          type: string
+          description: A payment provider that manages (credit/debit) transactions between the `Institution` and the merchant.
+        correctedDate:
+          type: string
+          description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
+          format: date-time
+    AccountStatement:
+      type: object
+      description: Statement information belonging to the account.
+      properties:
+        id:
+          description: Unique identifier for the statement.
+          type: string
+        startDateTime:
+          type: string
+          description: Date and time of when the statement period starts.
+          format: date-time
+        endDateTime:
+          type: string
+          description: Date and time of when the statement period ends.
+          format: date-time
+        creationDateTime:
+          type: string
+          description: Date and time of when the statement was created.
+          format: date-time
+    BeneficiaryPayee:
+      description: __Mandatory__. Account details belonging to the `Beneficiary Payee` (person/ business). You must define this in your payment request along with all of the nested mandatory properties.
+      required:
+      - accountIdentifications
+      type: object
+      properties:
+        name:
+          type: string
+          description: The account holder name of the beneficiary.
+          example: Jane Doe
+        accountIdentifications:
+          type: array
+          description: __Mandatory__. The account identifications that identify the `BeneficiaryPayee` bank account.
+          example:
+          - identification: '401016'
+            type: SORT_CODE
+          - identification: '71518920'
+            type: ACCOUNT_NUMBER
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+          uniqueItems: true
+        address:
+          $ref: '#/components/schemas/Address'
+    AccountBalanceType:
+      type: string
+      description: Specifies the type of the stated account balance.
+      enum:
+      - CLOSING_AVAILABLE
+      - CLOSING_BOOKED
+      - CLOSING_CLEARED
+      - EXPECTED
+      - FORWARD_AVAILABLE
+      - INFORMATION
+      - INTERIM_AVAILABLE
+      - INTERIM_BOOKED
+      - INTERIM_CLEARED
+      - OPENING_AVAILABLE
+      - OPENING_BOOKED
+      - OPENING_CLEARED
+      - PREVIOUSLY_CLOSED_BOOKED
+      - AUTHORISED
+      - OTHER
+      - UNKNOWN
+    UsageType:
+      type: string
+      description: The customer segment of the account.
+      enum:
+      - PERSONAL
+      - BUSINESS
+      - OTHER
+      - UNKNOWN
     Next:
       type: object
       properties:
@@ -3373,139 +3582,19 @@ components:
           format: int32
         cursor:
           type: string
-    StatementReference:
+    IsoCodeDetails:
       type: object
-      description: Unique reference for a statement period. This may be optionally populated if available.
+      description: __Mandatory__. Details the identification of the ISO code.
       properties:
-        value:
+        code:
+          default: UNKNOWN
+          description: __Mandatory__. Unique identifier of the ISO code.
           type: string
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    AccountName:
-      type: object
-      properties:
         name:
-          description: The bank account holder's name given by the account owner.
+          default: UNKNOWN
+          description: __Mandatory__. Name of the ISO Code.
           type: string
-    Address:
-      title: Address Details
-      type: object
-      properties:
-        addressLines:
-          title: Address Lines
-          type: array
-          description: __Optional__. The address line of the address
-          example:
-          - Ardenham Court
-          items:
-            type: string
-        streetName:
-          title: Street
-          type: string
-          description: __Optional__. The street name of the address
-          example: Oxford Road
-        buildingNumber:
-          title: Building Number
-          type: string
-          description: __Optional__. The building number of the address
-          example: '45'
-        postCode:
-          title: Post Code
-          type: string
-          description: __Optional__. The post code of the address
-          example: HP19 3EQ
-        townName:
-          title: Town
-          type: string
-          description: __Optional__. The town name of the address
-          example: Aylesbury
-        county:
-          title: County
-          type: array
-          description: __Optional__. The list of counties for the address
-          example:
-          - Buckinghamshire
-          items:
-            type: string
-        country:
-          title: Country
-          type: string
-          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
-          example: GB
-        department:
-          title: Department
-          type: string
-          description: __Optional__. The department for the address
-          example: Unit 2
-        subDepartment:
-          title: Sub-Department
-          type: string
-          description: __Optional__. The sub-department for the address
-          example: Floor 3
-        addressType:
-          $ref: '#/components/schemas/AddressTypeEnum'
-      description: '__Conditional__. The address of the `Payee` or `Payer`.
-
-
-        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
-
-        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
-      example:
-        country: GB
-    AccountApiListResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseListMeta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListAccount'
-        tracingId:
-          type: string
-          writeOnly: true
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    FilteredClientPayloadListPaymentResponse:
+    FilteredClientPayloadListTransaction:
       type: object
       properties:
         apiCall:
@@ -3513,7 +3602,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/PaymentResponse'
+            $ref: '#/components/schemas/Transaction'
         nextCursorHash:
           type: string
         nextLink:
@@ -3525,48 +3614,40 @@ components:
         totalCount:
           type: integer
           format: int64
-    ResponseMeta:
+    CreditLine:
       type: object
+      description: __Mandatory__. Details whether the account has access to a credit line from an `Institution`.
       properties:
-        tracingId:
-          type: string
-    TransactionChargeDetails:
-      type: object
-      description: Details the charges that will apply to the transaction.
-      properties:
-        chargeAmount:
+        type:
+          $ref: '#/components/schemas/CreditLineType'
+        creditLineAmount:
           $ref: '#/components/schemas/Amount'
-    ProprietaryBankTransactionCode:
+    TransactionHash:
       type: object
-      description: Transaction code that is proprietary to the `Institution`.
+      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
       properties:
-        code:
+        hash:
           type: string
-          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
-        issuer:
-          type: string
-          description: __Mandatory__. Issuer of the proprietary code.
-    EnrichmentMerchant:
+    ExchangeRateInformationResponse:
+      required:
+      - rateType
+      - unitCurrency
       type: object
-      description: Details of the merchant, identified by Yapily data services.
       properties:
-        merchantName:
+        unitCurrency:
           type: string
-          description: The name of the indivdual merchant involved in the transaction e.g. (TESCO Petrol).
-        parentGroup:
+          description: __Mandatory__. The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is `GBP`.
+        rate:
+          type: number
+          description: __Optional__. The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+        rateType:
+          $ref: '#/components/schemas/RateTypeEnum'
+        foreignExchangeContractReference:
           type: string
-          description: The parent organisation that the merchant belongs to e.g. (TESCO).
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
+          description: __Optional__. The unique and unambiguous reference to the foreign exchange contract agreed between the initiating party/creditor and the debtor agent.
+        exchangeRateExpiryDate:
           type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
+          format: date-time
     Payee:
       title: Payee Details
       type: object
@@ -5436,136 +5517,76 @@ components:
 
             - `9950` (Intra-Company Purchases)'
           example: '0742'
-    ConsolidatedAccountInformation:
+    RawRequest:
       type: object
       properties:
-        id:
+        method:
           type: string
-          description: Identifier of the consolidated account. When used in Get Account Transactions calls, the transactions between the sub-accounts will not be reported
-        accountBalances:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountBalance'
-      description: Summary information regarding account balances of the overall account provided by the bank
-    Payer:
-      title: Payer Details
-      required:
-      - accountIdentifications
-      type: object
-      properties:
-        name:
-          title: Payer Name
+        url:
           type: string
-          description: The account holder name of the Payer.
-          example: John Doe
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          description: __Mandatory__. The account identifications that identify the `Payer` bank account.
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        address:
-          $ref: '#/components/schemas/Address'
-      description: __Conditional__. Details of the benefactor [person or business].
-    ResponseForwardedData:
-      type: object
-      properties:
+        requestInstant:
+          type: string
+          format: date-time
         headers:
           type: object
           additionalProperties:
             type: string
-        url:
-          type: string
-    AccountType:
-      type: string
-      description: The type of account e.g. (Credit Card, Savings).
-      enum:
-      - CASH_TRADING
-      - CASH_INCOME
-      - CASH_PAYMENT
-      - CHARGE_CARD
-      - CHARGES
-      - COMMISSION
-      - CREDIT_CARD
-      - CURRENT
-      - E_MONEY
-      - LIMITED_LIQUIDITY_SAVINGS_ACCOUNT
-      - LOAN
-      - MARGINAL_LENDING
-      - MONEY_MARKET
-      - MORTGAGE
-      - NON_RESIDENT_EXTERNAL
-      - OTHER
-      - OVERDRAFT
-      - OVERNIGHT_DEPOSIT
-      - PREPAID_CARD
-      - SALARY
-      - SAVINGS
-      - SETTLEMENT
-      - TAX
-      - UNKNOWN
-    FrequencyEnumExtended:
-      type: string
-      description: __Mandatory__. See [payment frequency](/guides/payments/payment-execution/periodic-payments/#payment-frequency) for more information
-      enum:
-      - DAILY
-      - EVERY_WORKING_DAY
-      - CALENDAR_DAY
-      - WEEKLY
-      - EVERY_TWO_WEEKS
-      - MONTHLY
-      - EVERY_TWO_MONTHS
-      - QUARTERLY
-      - SEMIANNUAL
-      - ANNUAL
-    DirectDebitResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        statusDetails:
-          $ref: '#/components/schemas/PaymentStatusDetails'
-        payeeDetails:
-          $ref: '#/components/schemas/DirectDebitPayee'
-        reference:
-          type: string
-        previousPaymentAmount:
-          $ref: '#/components/schemas/Amount'
-        previousPaymentDateTime:
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
           type: string
           format: date-time
-    Beneficiary:
-      type: object
-      description: Account information belonging to the target beneficiary (person/ business).
-      properties:
-        id:
+        startedAt:
           type: string
-          description: Unique identifier of the `beneficiary`.
-        reference:
-          type: string
-          description: A creditor reference that is requested to be used for all payment instructions to this beneficiary.
-        payee:
-          $ref: '#/components/schemas/BeneficiaryPayee'
-        trusted:
-          type: boolean
-          description: Indicates whether the account owner has stated that this beneficiary should be trusted. This often results in reduced authentication and authorisation requirements on payments to the beneficiary.
-    TransactionStatusEnum:
-      type: string
-      enum:
-      - BOOKED
-      - PENDING
-    PaymentIsoStatus:
-      type: object
-      description: The payment status code, as denoted by a 3-letter ISO 20022 code.
-      properties:
-        code:
-          $ref: '#/components/schemas/PaymentIsoStatusCodeEnum'
-        name:
-          type: string
-          description: The full name of the ISO 20022 `PaymentStatusCode`.
-          example: AcceptedCreditSettlementCompleted
+          format: date-time
+          deprecated: true
     ApiCall:
       type: object
+    IsoBankTransactionCode:
+      type: object
+      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
+      properties:
+        domainCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        familyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        subFamilyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    ResponseMetaWithCount:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+    AddressDetails:
+      type: object
+      properties:
+        addressLine:
+          type: string
+          description: Information, in free format text, that identifies a specific address.
+    TransactionChargeDetails:
+      type: object
+      description: Details the charges that will apply to the transaction.
+      properties:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
     Transaction:
       type: object
       description: Details of a transaction (credit or debit) that has occurred on the account.
@@ -5681,29 +5702,17 @@ components:
 
             - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Mutable` is mutable.'
           example: Mutable
-    ApiResponseOfIdentity:
+    RefundAccount:
       type: object
+      description: The account to which funds should be returned if the payment is to be later refunded.
       properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/Identity'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
+        name:
           type: string
-          writeOnly: true
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
     ResponseListMeta:
       type: object
       properties:
@@ -5714,13 +5723,278 @@ components:
           format: int32
         pagination:
           $ref: '#/components/schemas/Pagination'
-    AddressDetails:
+    FrequencyResponse:
+      type: object
+      description: __Mandatory__. Defines the intervals at which payment should be made.
+      properties:
+        frequencyType:
+          $ref: '#/components/schemas/FrequencyEnumExtended'
+        intervalWeek:
+          type: integer
+          description: The weekly intervals at which a payment will be made. e.g. 1 = Every months, 2 = Every 2 months.
+          format: int32
+        intervalMonth:
+          type: integer
+          description: The monthly intervals at which a payment will be made. e.g. 1 = Every month, 2 = Every 2 months
+          format: int32
+        executionDay:
+          type: integer
+          description: The day on which a payment will be made, according to the weekly or monthly interval.
+          format: int32
+    TransactionBalance:
       type: object
       properties:
-        addressLine:
+        type:
+          $ref: '#/components/schemas/AccountBalanceType'
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+    FilteredClientPayloadListAccount:
+      type: object
+      properties:
+        apiCall:
+          $ref: '#/components/schemas/ApiCall'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        nextCursorHash:
           type: string
-          description: Information, in free format text, that identifies a specific address.
-    ApiListResponseOfDirectDebitResponse:
+        nextLink:
+          type: string
+        pagingMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FilterAndSort'
+        totalCount:
+          type: integer
+          format: int64
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    TransactionStatusEnum:
+      type: string
+      enum:
+      - BOOKED
+      - PENDING
+    RealTimeTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date-time
+        bookingDateTime:
+          type: string
+          format: date-time
+        valueDateTime:
+          type: string
+          format: date-time
+        status:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        transactionAmount:
+          $ref: '#/components/schemas/Amount'
+        grossAmount:
+          $ref: '#/components/schemas/Amount'
+        currencyExchange:
+          $ref: '#/components/schemas/CurrencyExchange'
+        chargeDetails:
+          $ref: '#/components/schemas/TransactionChargeDetails'
+        reference:
+          type: string
+        statementReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatementReference'
+        description:
+          type: string
+        transactionInformation:
+          type: array
+          items:
+            type: string
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+        isoBankTransactionCode:
+          $ref: '#/components/schemas/IsoBankTransactionCode'
+        proprietaryBankTransactionCode:
+          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
+        balance:
+          $ref: '#/components/schemas/TransactionBalance'
+        payeeDetails:
+          $ref: '#/components/schemas/Payee'
+        payerDetails:
+          $ref: '#/components/schemas/Payer'
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        supplementaryData:
+          type: object
+    Balances:
+      type: object
+      properties:
+        mainBalanceAmount:
+          $ref: '#/components/schemas/Amount'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+    CurrencyExchange:
+      type: object
+      description: Provides details on the currrency exchange.
+      properties:
+        sourceCurrency:
+          type: string
+          description: Currency from which an amount is to be converted.
+        targetCurrency:
+          type: string
+          description: Currency to which an amount is to be converted.
+        unitCurrency:
+          type: string
+          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
+        exchangeRate:
+          type: number
+          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    PaymentStatus:
+      type: string
+      description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
+      enum:
+      - PENDING
+      - FAILED
+      - DECLINED
+      - COMPLETED
+      - COMPLETED_SETTLEMENT_IN_PROCESS
+      - EXPIRED
+      - UNKNOWN
+      - ACTIVE
+      - INACTIVE
+    Account:
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the account.
+          type: string
+        type:
+          type: string
+          description: Specifies the type of account e.g. (BUSINESS_CURRENT).
+        description:
+          description: Product name as defined by the financial institution for this account
+          type: string
+        balance:
+          type: number
+          description: "Main / headline balance for the account. \n\n Use of this field is recommended as fallback only. Instead, use of the typed balances (accountBalances) is recommended."
+        currency:
+          description: "Currency the bank account balance is denoted in. \n\n Specified as a 3-letter ISO 4217 currency code"
+          type: string
+        usageType:
+          $ref: '#/components/schemas/UsageType'
+        accountType:
+          $ref: '#/components/schemas/AccountType'
+        nickname:
+          description: "Nickname of the account that was provided by the account owner. \n\n May be used to aid identification of the account."
+          type: string
+        details:
+          description: Supplementary specifications that might be provided by the Bank. These provide further characteristics about the account.
+          type: string
+        accountNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountName'
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        accountBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+        consolidatedAccountInformation:
+          $ref: '#/components/schemas/ConsolidatedAccountInformation'
+    Address:
+      title: Address Details
+      type: object
+      properties:
+        addressLines:
+          title: Address Lines
+          type: array
+          description: __Optional__. The address line of the address
+          example:
+          - Ardenham Court
+          items:
+            type: string
+        streetName:
+          title: Street
+          type: string
+          description: __Optional__. The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: __Optional__. The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: __Optional__. The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: __Optional__. The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: __Optional__. The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: __Optional__. The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: __Optional__. The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnum'
+      description: '__Conditional__. The address of the `Payee` or `Payer`.
+
+
+        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
+
+        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
+      example:
+        country: GB
+    PayeeAccountType:
+      title: Payee Account Type
+      type: string
+      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
+    AccountApiListResponse:
       type: object
       properties:
         meta:
@@ -5728,7 +6002,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/DirectDebitResponse'
+            $ref: '#/components/schemas/Account'
         links:
           type: object
           additionalProperties:
@@ -5743,51 +6017,10 @@ components:
           items:
             $ref: '#/components/schemas/RawResponse'
         paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListDirectDebitResponse'
+          $ref: '#/components/schemas/FilteredClientPayloadListAccount'
         tracingId:
           type: string
           writeOnly: true
-    Enrichment:
-      type: object
-      description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
-      properties:
-        categorisation:
-          $ref: '#/components/schemas/Categorisation'
-        transactionHash:
-          $ref: '#/components/schemas/TransactionHash'
-        cleansedDescription:
-          type: string
-          description: Cleaned version of the `Transaction Description` that removes miscellaneous, generic and unhelpful text.
-        merchant:
-          $ref: '#/components/schemas/EnrichmentMerchant'
-        location:
-          type: string
-          description: The location of where the transaction took place.
-        paymentProcessor:
-          type: string
-          description: A payment provider that manages (credit/debit) transactions between the `Institution` and the merchant.
-        correctedDate:
-          type: string
-          description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
-          format: date-time
-    PriorityCodeEnum:
-      type: string
-      enum:
-      - NORMAL
-      - URGENT
-    PaymentStatus:
-      type: string
-      description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
-      enum:
-      - PENDING
-      - FAILED
-      - DECLINED
-      - COMPLETED
-      - COMPLETED_SETTLEMENT_IN_PROCESS
-      - EXPIRED
-      - UNKNOWN
-      - ACTIVE
-      - INACTIVE
     RawResponse:
       deprecated: true
       type: object
@@ -5807,98 +6040,21 @@ components:
           format: int32
         result:
           type: object
-    TransactionBalance:
+    Beneficiary:
       type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountBalanceType'
-        balanceAmount:
-          $ref: '#/components/schemas/Amount'
-    Identity:
-      type: object
-      description: Identification details of a party associated with an account e.g. (account owner or operator).
+      description: Account information belonging to the target beneficiary (person/ business).
       properties:
         id:
           type: string
-        firstName:
+          description: Unique identifier of the `beneficiary`.
+        reference:
           type: string
-        lastName:
-          type: string
-        fullName:
-          type: string
-        gender:
-          type: string
-        birthdate:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/IdentityAddress'
-    AccountIdentification:
-      title: Account Identifications
-      required:
-      - type
-      - identification
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountIdentificationType'
-        identification:
-          title: Account Identification
-          type: string
-          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    PayeeAccountType:
-      title: Payee Account Type
-      type: string
-      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
-    ApiResponseOfAccountStatement:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/AccountStatement'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    AccountBalanceType:
-      type: string
-      description: Specifies the type of the stated account balance.
-      enum:
-      - CLOSING_AVAILABLE
-      - CLOSING_BOOKED
-      - CLOSING_CLEARED
-      - EXPECTED
-      - FORWARD_AVAILABLE
-      - INFORMATION
-      - INTERIM_AVAILABLE
-      - INTERIM_BOOKED
-      - INTERIM_CLEARED
-      - OPENING_AVAILABLE
-      - OPENING_BOOKED
-      - OPENING_CLEARED
-      - PREVIOUSLY_CLOSED_BOOKED
-      - AUTHORISED
-      - OTHER
-      - UNKNOWN
+          description: A creditor reference that is requested to be used for all payment instructions to this beneficiary.
+        payee:
+          $ref: '#/components/schemas/BeneficiaryPayee'
+        trusted:
+          type: boolean
+          description: Indicates whether the account owner has stated that this beneficiary should be trusted. This often results in reduced authentication and authorisation requirements on payments to the beneficiary.
     ApiResponseError:
       type: object
       properties:
@@ -5934,59 +6090,27 @@ components:
             httpStatusCode: 500
           source: INSTITUTION
           status: FAILED_DEPENDENCY
-    AccountStatement:
-      type: object
-      description: Statement information belonging to the account.
-      properties:
-        id:
-          description: Unique identifier for the statement.
-          type: string
-        startDateTime:
-          type: string
-          description: Date and time of when the statement period starts.
-          format: date-time
-        endDateTime:
-          type: string
-          description: Date and time of when the statement period ends.
-          format: date-time
-        creationDateTime:
-          type: string
-          description: Date and time of when the statement was created.
-          format: date-time
-    UsageType:
+    PaymentIsoStatusCodeEnum:
       type: string
-      description: The customer segment of the account.
+      description: The ISO 20022 `PaymentStatusCode`.
+      example: ACCC
       enum:
-      - PERSONAL
-      - BUSINESS
-      - OTHER
-      - UNKNOWN
-    DirectDebitPayee:
-      type: object
-      properties:
-        name:
-          type: string
-          description: __Mandatory__. The account holder name.
-          example: Tempus Risus Company
-    ResponseMetaWithCount:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-    Pagination:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
-    ApiListResponseOfPaymentResponse:
+      - ACCC
+      - ACCP
+      - ACSC
+      - ACSP
+      - ACTC
+      - ACWC
+      - ACWP
+      - RCVD
+      - PDNG
+      - RJCT
+      - CANC
+      - ACFC
+      - PATC
+      - PART
+      - ACCO
+    ApiListResponseOfDirectDebitResponse:
       type: object
       properties:
         meta:
@@ -5994,7 +6118,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/PaymentResponse'
+            $ref: '#/components/schemas/DirectDebitResponse'
         links:
           type: object
           additionalProperties:
@@ -6009,147 +6133,47 @@ components:
           items:
             $ref: '#/components/schemas/RawResponse'
         paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListPaymentResponse'
+          $ref: '#/components/schemas/FilteredClientPayloadListDirectDebitResponse'
         tracingId:
           type: string
           writeOnly: true
-    Amount:
-      title: Amount Details
-      required:
-      - amount
-      - currency
-      type: object
-      properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
-          type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
-    CreditLineType:
+    AccountType:
       type: string
-      description: __Mandatory__. The type of credit that has been provided.
+      description: The type of account e.g. (Credit Card, Savings).
       enum:
-      - AVAILABLE
-      - CREDIT
-      - EMERGENCY
-      - PRE_AGREED
-      - TEMPORARY
+      - CASH_TRADING
+      - CASH_INCOME
+      - CASH_PAYMENT
+      - CHARGE_CARD
+      - CHARGES
+      - COMMISSION
+      - CREDIT_CARD
+      - CURRENT
+      - E_MONEY
+      - LIMITED_LIQUIDITY_SAVINGS_ACCOUNT
+      - LOAN
+      - MARGINAL_LENDING
+      - MONEY_MARKET
+      - MORTGAGE
+      - NON_RESIDENT_EXTERNAL
       - OTHER
+      - OVERDRAFT
+      - OVERNIGHT_DEPOSIT
+      - PREPAID_CARD
+      - SALARY
+      - SAVINGS
+      - SETTLEMENT
+      - TAX
       - UNKNOWN
-    TransactionHash:
-      type: object
-      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
-      properties:
-        hash:
-          type: string
-    Balances:
-      type: object
-      properties:
-        mainBalanceAmount:
-          $ref: '#/components/schemas/Amount'
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountBalance'
-    BeneficiaryPayee:
-      description: __Mandatory__. Account details belonging to the `Beneficiary Payee` (person/ business). You must define this in your payment request along with all of the nested mandatory properties.
-      required:
-      - accountIdentifications
-      type: object
-      properties:
-        name:
-          type: string
-          description: The account holder name of the beneficiary.
-          example: Jane Doe
-        accountIdentifications:
-          type: array
-          description: __Mandatory__. The account identifications that identify the `BeneficiaryPayee` bank account.
-          example:
-          - identification: '401016'
-            type: SORT_CODE
-          - identification: '71518920'
-            type: ACCOUNT_NUMBER
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-          uniqueItems: true
-        address:
-          $ref: '#/components/schemas/Address'
-    RawRequest:
-      type: object
-      properties:
-        method:
-          type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
-    FilteredClientPayloadListDirectDebitResponse:
-      type: object
-      properties:
-        apiCall:
-          $ref: '#/components/schemas/ApiCall'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DirectDebitResponse'
-        nextCursorHash:
-          type: string
-        nextLink:
-          type: string
-        pagingMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FilterAndSort'
-        totalCount:
-          type: integer
-          format: int64
-    PaymentStatusDetails:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/PaymentStatus'
-        statusReason:
-          type: string
-        statusReasonDescription:
-          type: string
-        statusUpdateDate:
-          type: string
-          format: date-time
-        multiAuthorisationStatus:
-          $ref: '#/components/schemas/MultiAuthorisation'
-        isoStatus:
-          $ref: '#/components/schemas/PaymentIsoStatus'
-    ApiResponseOfBalances:
+    ApiListResponseOfBeneficiary:
       type: object
       properties:
         meta:
-          $ref: '#/components/schemas/ResponseMeta'
+          $ref: '#/components/schemas/ResponseListMeta'
         data:
-          $ref: '#/components/schemas/Balances'
+          type: array
+          items:
+            $ref: '#/components/schemas/Beneficiary'
         links:
           type: object
           additionalProperties:
@@ -6166,37 +6190,13 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    CreditLine:
-      type: object
-      description: __Mandatory__. Details whether the account has access to a credit line from an `Institution`.
-      properties:
-        type:
-          $ref: '#/components/schemas/CreditLineType'
-        creditLineAmount:
-          $ref: '#/components/schemas/Amount'
-    ApiResponseOfAccount:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/Account'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
+    RateTypeEnum:
+      type: string
+      description: __Mandatory__. The type used to complete the currency exchange.
+      enum:
+      - ACTUAL
+      - AGREED
+      - INDICATIVE
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

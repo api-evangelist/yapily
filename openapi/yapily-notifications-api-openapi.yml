@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Notifications API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Platform Notifications API
+  description: Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -12,7 +12,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- description: "The Notifications endpoints provide an interactive way for user to receive notifications according to different event-types. This feature is currently in private beta. Please reach out if you require access. \n\n"
+- description: The Notifications endpoints provide an interactive way for user to receive notifications according to different event-types. This feature is currently in private beta. Please reach out if you require access.
   name: Notifications
 paths:
   /notifications/event-subscriptions:
@@ -121,78 +121,105 @@ paths:
           description: Event subscription not found
 components:
   schemas:
-    EventSubscriptionDeleteResponse:
-      title: Response upon successful unsubscribe on subscription
+    StatementReference:
+      type: object
+      description: Unique reference for a statement period. This may be optionally populated if available.
+      properties:
+        value:
+          type: string
+    TransactionStatusEnum:
+      type: string
+      enum:
+      - BOOKED
+      - PENDING
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    EventSubscriptionRequest:
+      title: Request to create a subscription for notifications
       type: object
       required:
       - eventTypeId
-      - applicationId
-      - created
-      - deleteStatus
+      - notification
       properties:
         eventTypeId:
           type: string
-          description: Unique identifier of the event type (for which notifications will be sent)
+          description: 'Unique identifier of the event type (for which notifications will be sent).
+
+
+            Allowed values: payment.status, payment.status.completed, payment.isoStatus'
           example: payment.status.completed
-        applicationId:
+        notification:
+          $ref: '#/components/schemas/Notification'
+    DeleteStatusEnum:
+      type: string
+      description: Indicates the outcome of the delete request.
+      enum:
+      - SUCCESS
+      - FAILED
+    AccountBalanceType:
+      type: string
+      description: Specifies the type of the stated account balance.
+      enum:
+      - CLOSING_AVAILABLE
+      - CLOSING_BOOKED
+      - CLOSING_CLEARED
+      - EXPECTED
+      - FORWARD_AVAILABLE
+      - INFORMATION
+      - INTERIM_AVAILABLE
+      - INTERIM_BOOKED
+      - INTERIM_CLEARED
+      - OPENING_AVAILABLE
+      - OPENING_BOOKED
+      - OPENING_CLEARED
+      - PREVIOUSLY_CLOSED_BOOKED
+      - AUTHORISED
+      - OTHER
+      - UNKNOWN
+    FilterAndSort:
+      type: object
+      properties:
+        from:
           type: string
-          format: uuid
-          description: Application related to event subscription.
-          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
-        created:
-          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
           format: date-time
-          description: Creation datetime of event subscription.
-          example: 28-07-2021 15:47:03
-        deleteStatus:
-          $ref: '#/components/schemas/DeleteStatusEnum'
-    TransactionChargeDetails:
-      type: object
-      description: Details the charges that will apply to the transaction.
-      properties:
-        chargeAmount:
-          $ref: '#/components/schemas/Amount'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
+        before:
           type: string
-    RawResponse:
-      deprecated: true
-      type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
-      properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
-          type: string
-          format: iso8601
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        resultCode:
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
           type: integer
           format: int32
-        result:
-          type: object
-    TransactionBalance:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountBalanceType'
-        balanceAmount:
-          $ref: '#/components/schemas/Amount'
-    ProprietaryBankTransactionCode:
-      type: object
-      description: Transaction code that is proprietary to the `Institution`.
-      properties:
-        code:
+        cursor:
           type: string
-          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
-        issuer:
-          type: string
-          description: __Mandatory__. Issuer of the proprietary code.
     EnrichmentMerchant:
       type: object
       description: Details of the merchant, identified by Yapily data services.
@@ -203,15 +230,45 @@ components:
         parentGroup:
           type: string
           description: The parent organisation that the merchant belongs to e.g. (TESCO).
-    Categorisation:
+    CurrencyExchange:
       type: object
-      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
+      description: Provides details on the currrency exchange.
       properties:
-        categories:
-          type: array
-          items:
-            type: string
-        source:
+        sourceCurrency:
+          type: string
+          description: Currency from which an amount is to be converted.
+        targetCurrency:
+          type: string
+          description: Currency to which an amount is to be converted.
+        unitCurrency:
+          type: string
+          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
+        exchangeRate:
+          type: number
+          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
           type: string
     ApiResponseOfEventSubscriptionResponse:
       type: object
@@ -236,79 +293,18 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    AccountBalanceType:
-      type: string
-      description: Specifies the type of the stated account balance.
-      enum:
-      - CLOSING_AVAILABLE
-      - CLOSING_BOOKED
-      - CLOSING_CLEARED
-      - EXPECTED
-      - FORWARD_AVAILABLE
-      - INFORMATION
-      - INTERIM_AVAILABLE
-      - INTERIM_BOOKED
-      - INTERIM_CLEARED
-      - OPENING_AVAILABLE
-      - OPENING_BOOKED
-      - OPENING_CLEARED
-      - PREVIOUSLY_CLOSED_BOOKED
-      - AUTHORISED
-      - OTHER
-      - UNKNOWN
-    EventSubscriptionResponse:
-      title: Response on successful creation of event subscription
+    IsoCodeDetails:
       type: object
-      required:
-      - eventTypeId
-      - applicationId
-      - created
-      - notification
+      description: __Mandatory__. Details the identification of the ISO code.
       properties:
-        eventTypeId:
+        code:
+          default: UNKNOWN
+          description: __Mandatory__. Unique identifier of the ISO code.
           type: string
-          description: Unique identifier of the event type (for which notifications will be sent)
-          example: payment.status.completed
-        applicationId:
+        name:
+          default: UNKNOWN
+          description: __Mandatory__. Name of the ISO Code.
           type: string
-          format: uuid
-          description: Application related to event subscription.
-          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
-        created:
-          type: string
-          description: Creation date of event subscription.
-          example: 28-07-2021 15:47:03
-        notification:
-          $ref: '#/components/schemas/Notification'
-    ResponseForwardedData:
-      type: object
-      properties:
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        url:
-          type: string
-    IsoBankTransactionCode:
-      type: object
-      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
-      properties:
-        domainCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        familyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        subFamilyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-    Pagination:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
     FilteredClientPayloadListTransaction:
       type: object
       properties:
@@ -329,29 +325,118 @@ components:
         totalCount:
           type: integer
           format: int64
-    TransactionStatusEnum:
-      type: string
-      enum:
-      - BOOKED
-      - PENDING
-    Amount:
-      title: Amount Details
+    TransactionHash:
+      type: object
+      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
+      properties:
+        hash:
+          type: string
+    Notification:
+      description: Subscription details for how and where to receive notifications.
+      type: object
       required:
-      - amount
-      - currency
+      - type
+      - url
+      properties:
+        type:
+          type: string
+          description: How the notification will be delivered. This is currently only via WEBHOOK.
+          example: WEBHOOK
+        url:
+          type: string
+          description: URL to which the notification will be sent.
+          example: https://httpbin.com/new_endpoint
+    RawResponse:
+      deprecated: true
+      type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      properties:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    ApiResponseOfEventSubscriptionDeleteResponse:
       type: object
       properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/EventSubscriptionDeleteResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
           type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
+          writeOnly: true
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    ProprietaryBankTransactionCode:
+      type: object
+      description: Transaction code that is proprietary to the `Institution`.
+      properties:
+        code:
+          type: string
+          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
+        issuer:
+          type: string
+          description: __Mandatory__. Issuer of the proprietary code.
+    ApiCall:
+      type: object
+    IsoBankTransactionCode:
+      type: object
+      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
+      properties:
+        domainCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        familyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        subFamilyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
     AccountIdentificationType:
       title: Account Identification Type
       type: string
@@ -379,6 +464,88 @@ components:
       - CTN
       - BRANCH_CODE
       - VIRTUAL_ACCOUNT_ID
+    EventSubscriptionResponse:
+      title: Response on successful creation of event subscription
+      type: object
+      required:
+      - eventTypeId
+      - applicationId
+      - created
+      - notification
+      properties:
+        eventTypeId:
+          type: string
+          description: Unique identifier of the event type (for which notifications will be sent)
+          example: payment.status.completed
+        applicationId:
+          type: string
+          format: uuid
+          description: Application related to event subscription.
+          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
+        created:
+          type: string
+          description: Creation date of event subscription.
+          example: 28-07-2021 15:47:03
+        notification:
+          $ref: '#/components/schemas/Notification'
+    ApiListResponseOfEventSubscriptionResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseListMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSubscriptionResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        paging:
+          $ref: '#/components/schemas/FilteredClientPayloadListTransaction'
+        tracingId:
+          type: string
+          writeOnly: true
+    AddressDetails:
+      type: object
+      properties:
+        addressLine:
+          type: string
+          description: Information, in free format text, that identifies a specific address.
+    EventSubscriptionDeleteResponse:
+      title: Response upon successful unsubscribe on subscription
+      type: object
+      required:
+      - eventTypeId
+      - applicationId
+      - created
+      - deleteStatus
+      properties:
+        eventTypeId:
+          type: string
+          description: Unique identifier of the event type (for which notifications will be sent)
+          example: payment.status.completed
+        applicationId:
+          type: string
+          format: uuid
+          description: Application related to event subscription.
+          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
+        created:
+          type: string
+          format: date-time
+          description: Creation datetime of event subscription.
+          example: 28-07-2021 15:47:03
+        deleteStatus:
+          $ref: '#/components/schemas/DeleteStatusEnum'
     Merchant:
       type: object
       description: Details of the merchant involved in the transaction.
@@ -2220,80 +2387,12 @@ components:
             - `9754` (Quasi Cash - Gambling-Horse Racing, Dog Racing, State Lotteries)
 
             - `9950` (Intra-Company Purchases)'
-    CurrencyExchange:
+    TransactionChargeDetails:
       type: object
-      description: Provides details on the currrency exchange.
+      description: Details the charges that will apply to the transaction.
       properties:
-        sourceCurrency:
-          type: string
-          description: Currency from which an amount is to be converted.
-        targetCurrency:
-          type: string
-          description: Currency to which an amount is to be converted.
-        unitCurrency:
-          type: string
-          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
-        exchangeRate:
-          type: number
-          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
-    ApiResponseOfEventSubscriptionDeleteResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/EventSubscriptionDeleteResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    ApiListResponseOfEventSubscriptionResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseListMeta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventSubscriptionResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        paging:
-          $ref: '#/components/schemas/FilteredClientPayloadListTransaction'
-        tracingId:
-          type: string
-          writeOnly: true
-    TransactionHash:
-      type: object
-      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
-      properties:
-        hash:
-          type: string
-    ApiCall:
-      type: object
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
     Transaction:
       type: object
       description: Details of a transaction (credit or debit) that has occurred on the account.
@@ -2409,70 +2508,16 @@ components:
 
             - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Mutable` is mutable.'
           example: Mutable
-    Next:
+    Categorisation:
       type: object
+      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
       properties:
-        from:
+        categories:
+          type: array
+          items:
+            type: string
+        source:
           type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    StatementReference:
-      type: object
-      description: Unique reference for a statement period. This may be optionally populated if available.
-      properties:
-        value:
-          type: string
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    DeleteStatusEnum:
-      type: string
-      description: Indicates the outcome of the delete request.
-      enum:
-      - SUCCESS
-      - FAILED
-    ResponseListMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    AddressDetails:
-      type: object
-      properties:
-        addressLine:
-          type: string
-          description: Information, in free format text, that identifies a specific address.
     Enrichment:
       type: object
       description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
@@ -2496,81 +2541,36 @@ components:
           type: string
           description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
           format: date-time
-    Notification:
-      description: Subscription details for how and where to receive notifications.
+    ResponseListMeta:
       type: object
-      required:
-      - type
-      - url
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    TransactionBalance:
+      type: object
       properties:
         type:
-          type: string
-          description: How the notification will be delivered. This is currently only via WEBHOOK.
-          example: WEBHOOK
-        url:
-          type: string
-          description: URL to which the notification will be sent.
-          example: https://httpbin.com/new_endpoint
-    RawRequest:
+          $ref: '#/components/schemas/AccountBalanceType'
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+    ResponseForwardedData:
       type: object
       properties:
-        method:
-          type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
         headers:
           type: object
           additionalProperties:
             type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    EventSubscriptionRequest:
-      title: Request to create a subscription for notifications
-      type: object
-      required:
-      - eventTypeId
-      - notification
-      properties:
-        eventTypeId:
-          type: string
-          description: 'Unique identifier of the event type (for which notifications will be sent).
-
-
-            Allowed values: payment.status, payment.status.completed, payment.isoStatus'
-          example: payment.status.completed
-        notification:
-          $ref: '#/components/schemas/Notification'
-    IsoCodeDetails:
-      type: object
-      description: __Mandatory__. Details the identification of the ISO code.
-      properties:
-        code:
-          default: UNKNOWN
-          description: __Mandatory__. Unique identifier of the ISO code.
-          type: string
-        name:
-          default: UNKNOWN
-          description: __Mandatory__. Name of the ISO Code.
+        url:
           type: string
   securitySchemes:
     basicAuth:

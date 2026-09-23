@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries Constraints API
-  description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
+  title: Yapily Platform Constraints API
+  description: Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.
   version: 12.4.0
   contact:
     name: Yapily Support
@@ -202,312 +202,44 @@ paths:
       - Constraints
 components:
   schemas:
-    PaymentConstraintsResponse:
+    RequestConstraints:
       required:
-      - institutionId
-      - institutionCountry
-      - paymentType
-      - request
+      - body
       type: object
+      description: Object defining the constraints rules applicable for a given requests.
       properties:
-        institutionId:
-          type: string
-          description: The id to represent the `Institution`.
-          example: modelo-sandbox
-        institutionCountryCode:
-          type: string
-          description: 2 letter ISO Country code of the `Institution`.
-          example: GB
-        endpointPath:
-          type: string
-          description: Define the applicable API end point.
-        endpointMethod:
-          type: string
-          description: Https Method for the endpoint.
-        paymentType:
-          $ref: '#/components/schemas/PaymentTypeOfConstraints'
-        request:
-          $ref: '#/components/schemas/RequestConstraints'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    ApiError:
-      type: object
-      description: Provides details of the error that has occurred.
-      properties:
-        code:
-          type: integer
-          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
-          format: int32
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-        message:
-          type: string
-          description: __Mandatory__. Description of the exact error that has been experienced.
-        source:
-          type: string
-        status:
-          type: string
-          description: __Mandatory__. Textual description of the `HTTP` error status type.
-        tracingId:
-          type: string
-          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
-    RawResponse:
-      deprecated: true
-      type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
-      properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
-          type: string
-          format: iso8601
         headers:
-          type: object
-          additionalProperties:
-            type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
-          type: object
-    ApiListResponseOfDataConstraints:
+          $ref: '#/components/schemas/Schema'
+        body:
+          $ref: '#/components/schemas/Schema'
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    FilterAndSort:
       type: object
       properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataConstraintsResponse'
-      example:
-        meta:
-          tracingId: a43049c1dbc04d6f8c8e2dfdc523217a
-        data:
-        - institutionId: mock-sandbox
-          institutionCountryCode: GB
-          endpointPath: /account-auth-requests
-          endpointMethod: POST
-          request:
-            headers:
-              title: Header
-              type: object
-              properties:
-                psuID:
-                  title: PSU Id
-                  type: string
-                  description: __Mandatory__. The psu id
-            body:
-              required:
-              - institutionId
-              type: object
-              properties:
-                userUuid:
-                  title: User UUID
-                  type: string
-                  format: uuid
-                institutionId:
-                  title: Institution Identifier
-                  type: string
-                  description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
-                  example: yapily-mock
-                oneTimeToken:
-                  title: One Time Token
-                  type: boolean
-                  description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-                  example: false
-                callback:
-                  title: Callback
-                  type: string
-                  description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
-                  example: https://display-parameters.com
-                accountRequest:
-                  title: Account Request
-                  type: object
-                  properties:
-                    transactionFrom:
-                      title: Transaction From Date
-                      type: string
-                      description: __Optional__. Used to specify the lower bound on when to pull transaction. This should be declared when accessing transaction older than 90 days for banks in the [CBI Globe](/data/financial-data-resources/data-restrictions#cbi-globe-gateway).
-                      format: date-time
-                    transactionTo:
-                      title: Transaction To Date
-                      type: string
-                      description: __Optional__. When performing a request using the consent, this is the latest date of transaction records that can be retrieved.
-                      format: date-time
-                    expiresAt:
-                      title: Expires At
-                      type: string
-                      description: '__Optional__. Used to set a hard date for when the user''s associated `Consent` will expire.
-
-
-                        **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
-
-
-                        **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
-                      format: date-time
-                    accountIdentifiers:
-                      title: Account Info
-                      required:
-                      - accountIdentification
-                      type: object
-                      properties:
-                        accountId:
-                          type: string
-                          description: __Conditional__. Unique identifier of the account.
-                          example: '500000000000000000000001'
-                        accountIdentification:
-                          title: Account Identifications
-                          required:
-                          - identification
-                          - type
-                          type: object
-                          properties:
-                            type:
-                              enum:
-                              - SORT_CODE
-                              - ACCOUNT_NUMBER
-                              - IBAN
-                              - BBAN
-                              - BIC
-                              - PAN
-                              - MASKED_PAN
-                              - MSISDN
-                              - BSB
-                              - NCC
-                              - ABA
-                              - ABA_WIRE
-                              - ABA_ACH
-                              - EMAIL
-                              - ROLL_NUMBER
-                              - BLZ
-                              - IFS
-                              - CLABE
-                              - CTN
-                              - BRANCH_CODE
-                              - VIRTUAL_ACCOUNT_ID
-                              title: Account Identification Type
-                              type: string
-                              description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-                              example: SORT_CODE
-                            identification:
-                              title: Account Identification
-                              type: string
-                              description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-                              example: '401016'
-                      description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
-                    accountIdentifiersForTransaction:
-                      type: array
-                      items:
-                        required:
-                        - accountIdentification
-                        type: object
-                        properties:
-                          accountId:
-                            type: string
-                            description: __Conditional__. Unique identifier of the account.
-                            example: '500000000000000000000001'
-                          accountIdentification:
-                            title: Account Identifications
-                            required:
-                            - identification
-                            - type
-                            type: object
-                            properties:
-                              type:
-                                enum:
-                                - SORT_CODE
-                                - ACCOUNT_NUMBER
-                                - IBAN
-                                - BBAN
-                                - BIC
-                                - PAN
-                                - MASKED_PAN
-                                - MSISDN
-                                - BSB
-                                - NCC
-                                - ABA
-                                - ABA_WIRE
-                                - ABA_ACH
-                                - EMAIL
-                                - ROLL_NUMBER
-                                - BLZ
-                                - IFS
-                                - CLABE
-                                - CTN
-                                - BRANCH_CODE
-                                - VIRTUAL_ACCOUNT_ID
-                                title: Account Identification Type
-                                type: string
-                                description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-                                example: SORT_CODE
-                              identification:
-                                title: Account Identification
-                                type: string
-                                description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-                                example: '401016'
-                      description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
-                    accountIdentifiersForBalance:
-                      type: array
-                      items:
-                        required:
-                        - accountIdentification
-                        type: object
-                        properties:
-                          accountId:
-                            type: string
-                            description: __Conditional__. Unique identifier of the account.
-                            example: '500000000000000000000001'
-                          accountIdentification:
-                            title: Account Identifications
-                            required:
-                            - identification
-                            - type
-                            type: object
-                            properties:
-                              type:
-                                enum:
-                                - SORT_CODE
-                                - ACCOUNT_NUMBER
-                                - IBAN
-                                - BBAN
-                                - BIC
-                                - PAN
-                                - MASKED_PAN
-                                - MSISDN
-                                - BSB
-                                - NCC
-                                - ABA
-                                - ABA_WIRE
-                                - ABA_ACH
-                                - EMAIL
-                                - ROLL_NUMBER
-                                - BLZ
-                                - IFS
-                                - CLABE
-                                - CTN
-                                - BRANCH_CODE
-                                - VIRTUAL_ACCOUNT_ID
-                                title: Account Identification Type
-                                type: string
-                                description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-                                example: SORT_CODE
-                              identification:
-                                title: Account Identification
-                                type: string
-                                description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-                                example: '401016'
-                      description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
-                    featureScope:
-                      title: Feature Scope
-                      type: array
-                      items:
-                        type: string
-                      description: Used to describe what functions are supported by the associated `Institution`
-                  description: Account authorisation request schema
-              description: The request body containing an `AccountAuthorisationRequest` json payload
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
     SchemaType:
       type: string
       enum:
@@ -517,52 +249,30 @@ components:
       - number
       - object
       - string
-    InstitutionError:
+    Pagination:
       type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
       properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
+        totalCount:
           type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
-    ApiResponseError:
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    Next:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/ApiError'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-      description: 'Used to return errors from the bank from each request
-
-
-        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
-
-        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
-
-        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
-
-        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
-
-        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
-
-        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
-
-        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
-      example:
-        error:
-          tracingId: 74b13ce8ed51419f92c5d609e04532de
-          code: 424
-          institutionError:
-            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
-            httpStatusCode: 500
-          source: INSTITUTION
-          status: FAILED_DEPENDENCY
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
     Schema:
       type: object
       properties:
@@ -662,52 +372,52 @@ components:
               type: string
               format: duration
       additionalProperties: false
-    PaymentTypeOfConstraints:
-      title: Payment Type
-      type: string
-      description: Payment type associated with constraints.
-      enum:
-      - DOMESTIC_PAYMENT
-      - DOMESTIC_INSTANT_PAYMENT
-      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - DOMESTIC_SCHEDULED_PAYMENT
-      - DOMESTIC_PERIODIC_PAYMENT
-      - INTERNATIONAL_PAYMENT
-      - INTERNATIONAL_SCHEDULED_PAYMENT
-      - INTERNATIONAL_PERIODIC_PAYMENT
-    DataConstraintsResponse:
-      required:
-      - institutionId
-      - institutionCountry
-      - request
+    RawResponse:
+      deprecated: true
       type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
       properties:
-        institutionId:
-          type: string
-          description: The id to represent the `Institution`.
-          example: modelo-sandbox
-        institutionCountryCode:
-          type: string
-          description: 2 letter ISO Country code of the `Institution`.
-          example: GB
-        endpointPath:
-          type: string
-          description: Define the applicable API end point.
-        endpointMethod:
-          type: string
-          description: Https Method for the endpoint.
         request:
-          $ref: '#/components/schemas/RequestConstraints'
-    Pagination:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
+          type: string
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    RawRequest:
       type: object
       properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
     ApiListResponseOfPaymentConstraints:
       type: object
       properties:
@@ -974,52 +684,321 @@ components:
                   description: __Optional__, If present date should be greater than or equal to current date
                   format: date-time
               description: Domestic payment request schema
-    Next:
+    ApiResponseError:
       type: object
       properties:
-        from:
+        error:
+          $ref: '#/components/schemas/ApiError'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/addUser)
+
+        - `424` - Returned by any [Financial Data](/api-reference#financial-data) and any [Payments](/api-reference#payments) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 74b13ce8ed51419f92c5d609e04532de
+          code: 424
+          institutionError:
+            errorMessage: '{"Code":"500 Internal Server Error","Id":"5ff8d331-4282-41e0-b5ef-1ac9ac39f009","Message":"Technical Error. Please try again later","Errors":[{"ErrorCode":"UK.OBIE.UnexpectedError","Message":"There was a problem processing your request. Please try again later"}]}'
+            httpStatusCode: 500
+          source: INSTITUTION
+          status: FAILED_DEPENDENCY
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
           type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
           type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
           format: int32
-        cursor:
+    PaymentTypeOfConstraints:
+      title: Payment Type
+      type: string
+      description: Payment type associated with constraints.
+      enum:
+      - DOMESTIC_PAYMENT
+      - DOMESTIC_INSTANT_PAYMENT
+      - DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - DOMESTIC_SCHEDULED_PAYMENT
+      - DOMESTIC_PERIODIC_PAYMENT
+      - INTERNATIONAL_PAYMENT
+      - INTERNATIONAL_SCHEDULED_PAYMENT
+      - INTERNATIONAL_PERIODIC_PAYMENT
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
           type: string
-    FilterAndSort:
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    ApiListResponseOfDataConstraints:
       type: object
       properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    RequestConstraints:
-      required:
-      - body
-      type: object
-      description: Object defining the constraints rules applicable for a given requests.
-      properties:
-        headers:
-          $ref: '#/components/schemas/Schema'
-        body:
-          $ref: '#/components/schemas/Schema'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataConstraintsResponse'
+      example:
+        meta:
+          tracingId: a43049c1dbc04d6f8c8e2dfdc523217a
+        data:
+        - institutionId: mock-sandbox
+          institutionCountryCode: GB
+          endpointPath: /account-auth-requests
+          endpointMethod: POST
+          request:
+            headers:
+              title: Header
+              type: object
+              properties:
+                psuID:
+                  title: PSU Id
+                  type: string
+                  description: __Mandatory__. The psu id
+            body:
+              required:
+              - institutionId
+              type: object
+              properties:
+                userUuid:
+                  title: User UUID
+                  type: string
+                  format: uuid
+                institutionId:
+                  title: Institution Identifier
+                  type: string
+                  description: __Mandatory__. The reference to the `Institution` which identifies which institution the authorisation request is sent to.
+                  example: yapily-mock
+                oneTimeToken:
+                  title: One Time Token
+                  type: boolean
+                  description: "__Conditional__. Used to receive a `oneTimeToken` rather than a `consentToken` at the `callback` for additional security. This can only be used when the `callback` is set. \n\nSee [Using a callback with an OTT (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+                  example: false
+                callback:
+                  title: Callback
+                  type: string
+                  description: "__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`. \n\nSee [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url) for more information."
+                  example: https://display-parameters.com
+                accountRequest:
+                  title: Account Request
+                  type: object
+                  properties:
+                    transactionFrom:
+                      title: Transaction From Date
+                      type: string
+                      description: __Optional__. Used to specify the lower bound on when to pull transaction. This should be declared when accessing transaction older than 90 days for banks in the [CBI Globe](/data/financial-data-resources/data-restrictions#cbi-globe-gateway).
+                      format: date-time
+                    transactionTo:
+                      title: Transaction To Date
+                      type: string
+                      description: __Optional__. When performing a request using the consent, this is the latest date of transaction records that can be retrieved.
+                      format: date-time
+                    expiresAt:
+                      title: Expires At
+                      type: string
+                      description: '__Optional__. Used to set a hard date for when the user''s associated `Consent` will expire.
+
+
+                        **Note**: If this supported by the bank, specifying this is property is opting out of having a long-lived consent that can be perpetually re-authorised by the user. This will add an `expiresAt` field on the `Consent` object which will render it unusable after this date.
+
+
+                        **Note**: This is not supported by every `Institution`. In such case, the request will not fail but the property will be ignored and the created `Consent` will not have an expiry date.'
+                      format: date-time
+                    accountIdentifiers:
+                      title: Account Info
+                      required:
+                      - accountIdentification
+                      type: object
+                      properties:
+                        accountId:
+                          type: string
+                          description: __Conditional__. Unique identifier of the account.
+                          example: '500000000000000000000001'
+                        accountIdentification:
+                          title: Account Identifications
+                          required:
+                          - identification
+                          - type
+                          type: object
+                          properties:
+                            type:
+                              enum:
+                              - SORT_CODE
+                              - ACCOUNT_NUMBER
+                              - IBAN
+                              - BBAN
+                              - BIC
+                              - PAN
+                              - MASKED_PAN
+                              - MSISDN
+                              - BSB
+                              - NCC
+                              - ABA
+                              - ABA_WIRE
+                              - ABA_ACH
+                              - EMAIL
+                              - ROLL_NUMBER
+                              - BLZ
+                              - IFS
+                              - CLABE
+                              - CTN
+                              - BRANCH_CODE
+                              - VIRTUAL_ACCOUNT_ID
+                              title: Account Identification Type
+                              type: string
+                              description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+                              example: SORT_CODE
+                            identification:
+                              title: Account Identification
+                              type: string
+                              description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+                              example: '401016'
+                      description: "__Conditional__. Used to create a request for the balance of the account specified. Once the user authorises the request, only the balance can be obtained by executing [GET Account Balances](./#get-account-balances).\n\n This can be specified in conjunction with `accountIdentifiersForTransaction` to generate a `Consent` that can both access the accounts balance and transactions."
+                    accountIdentifiersForTransaction:
+                      type: array
+                      items:
+                        required:
+                        - accountIdentification
+                        type: object
+                        properties:
+                          accountId:
+                            type: string
+                            description: __Conditional__. Unique identifier of the account.
+                            example: '500000000000000000000001'
+                          accountIdentification:
+                            title: Account Identifications
+                            required:
+                            - identification
+                            - type
+                            type: object
+                            properties:
+                              type:
+                                enum:
+                                - SORT_CODE
+                                - ACCOUNT_NUMBER
+                                - IBAN
+                                - BBAN
+                                - BIC
+                                - PAN
+                                - MASKED_PAN
+                                - MSISDN
+                                - BSB
+                                - NCC
+                                - ABA
+                                - ABA_WIRE
+                                - ABA_ACH
+                                - EMAIL
+                                - ROLL_NUMBER
+                                - BLZ
+                                - IFS
+                                - CLABE
+                                - CTN
+                                - BRANCH_CODE
+                                - VIRTUAL_ACCOUNT_ID
+                                title: Account Identification Type
+                                type: string
+                                description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+                                example: SORT_CODE
+                              identification:
+                                title: Account Identification
+                                type: string
+                                description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+                                example: '401016'
+                      description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
+                    accountIdentifiersForBalance:
+                      type: array
+                      items:
+                        required:
+                        - accountIdentification
+                        type: object
+                        properties:
+                          accountId:
+                            type: string
+                            description: __Conditional__. Unique identifier of the account.
+                            example: '500000000000000000000001'
+                          accountIdentification:
+                            title: Account Identifications
+                            required:
+                            - identification
+                            - type
+                            type: object
+                            properties:
+                              type:
+                                enum:
+                                - SORT_CODE
+                                - ACCOUNT_NUMBER
+                                - IBAN
+                                - BBAN
+                                - BIC
+                                - PAN
+                                - MASKED_PAN
+                                - MSISDN
+                                - BSB
+                                - NCC
+                                - ABA
+                                - ABA_WIRE
+                                - ABA_ACH
+                                - EMAIL
+                                - ROLL_NUMBER
+                                - BLZ
+                                - IFS
+                                - CLABE
+                                - CTN
+                                - BRANCH_CODE
+                                - VIRTUAL_ACCOUNT_ID
+                                title: Account Identification Type
+                                type: string
+                                description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+                                example: SORT_CODE
+                              identification:
+                                title: Account Identification
+                                type: string
+                                description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+                                example: '401016'
+                      description: "__Conditional__. Used to create a request for the transactions of the account specified. Once the user authorises the request, only the transactions can be obtained by executing [GET Account Transactions](./#get-account-transactions). \n\nThis can be specified in conjunction with `accountIdentifiersForBalance` to generate a `Consent` that can both access the accounts balance and transactions."
+                    featureScope:
+                      title: Feature Scope
+                      type: array
+                      items:
+                        type: string
+                      description: Used to describe what functions are supported by the associated `Institution`
+                  description: Account authorisation request schema
+              description: The request body containing an `AccountAuthorisationRequest` json payload
     ResponseListMeta:
       type: object
       properties:
@@ -1030,39 +1009,60 @@ components:
           format: int32
         pagination:
           $ref: '#/components/schemas/Pagination'
-    RawRequest:
+    DataConstraintsResponse:
+      required:
+      - institutionId
+      - institutionCountry
+      - request
       type: object
       properties:
-        method:
+        institutionId:
           type: string
-        url:
+          description: The id to represent the `Institution`.
+          example: modelo-sandbox
+        institutionCountryCode:
           type: string
-        requestInstant:
+          description: 2 letter ISO Country code of the `Institution`.
+          example: GB
+        endpointPath:
           type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
+          description: Define the applicable API end point.
+        endpointMethod:
           type: string
-          format: date-time
-        startedAt:
+          description: Https Method for the endpoint.
+        request:
+          $ref: '#/components/schemas/RequestConstraints'
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
           type: string
-          format: date-time
-          deprecated: true
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
+    PaymentConstraintsResponse:
+      required:
+      - institutionId
+      - institutionCountry
+      - paymentType
+      - request
+      type: object
+      properties:
+        institutionId:
+          type: string
+          description: The id to represent the `Institution`.
+          example: modelo-sandbox
+        institutionCountryCode:
+          type: string
+          description: 2 letter ISO Country code of the `Institution`.
+          example: GB
+        endpointPath:
+          type: string
+          description: Define the applicable API end point.
+        endpointMethod:
+          type: string
+          description: Https Method for the endpoint.
+        paymentType:
+          $ref: '#/components/schemas/PaymentTypeOfConstraints'
+        request:
+          $ref: '#/components/schemas/RequestConstraints'
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

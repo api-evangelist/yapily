@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Yapily Beneficiaries Application Beneficiaries User Beneficiaries API
+  title: Yapily Beneficiaries User Beneficiaries API
   description: Application and User Beneficiaries endpoints for managing reusable payment counterparties.
   version: 12.4.0
   contact:
@@ -323,7 +323,7 @@ paths:
       tags:
       - User Beneficiaries
       operationId: deleteUserBeneficiary
-      summary: Delete User Beneficiary by Id.
+      summary: Delete User Beneficiary by Id
       description: Delete user beneficiary by id.
       parameters:
       - $ref: '#/components/parameters/BeneficiaryIdPath'
@@ -548,81 +548,43 @@ paths:
         content: '<Info>Learn more: [Verification of Payee](/payments/payment-resources/verification-of-payee)</Info>'
 components:
   schemas:
+    UserBeneficiaryResponse:
+      type: object
+      description: The user beneficiary response.
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/UserBeneficiaryData'
+    UserBeneficiaryMatch:
+      type: object
+      description: Details of the match given by the institution.
+      properties:
+        status:
+          $ref: '#/components/schemas/BeneficiaryMatchStatus'
+        closeMatchName:
+          type: string
+          example: John Doe
+          description: the name returned by the institution, in a case of CLOSE_MATCH
+    BeneficiaryStatus:
+      description: Status of the beneficiary check.
+      type: string
+      enum:
+      - PENDING
+      - VERIFIED
+      - REJECTED
     SortEnum:
       type: string
       description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
       enum:
       - date
       - -date
-    Next:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    ResponseListMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
-    BeneficiaryMatchStatus:
+    PatchOperation:
       type: string
+      description: The operation to be performed
       enum:
-      - FULL_MATCH
-      - CLOSE_MATCH
-      - NO_MATCH
-      - EXEMPTED
-      - VERIFICATION_CHECK_NOT_POSSIBLE
+      - add
+      - replace
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -670,12 +632,36 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
-    PatchOperation:
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    BeneficiaryMatchStatus:
       type: string
-      description: The operation to be performed
       enum:
-      - add
-      - replace
+      - FULL_MATCH
+      - CLOSE_MATCH
+      - NO_MATCH
+      - EXEMPTED
+      - VERIFICATION_CHECK_NOT_POSSIBLE
     AccountIdentifier:
       type: object
       description: Account's details.
@@ -689,16 +675,10 @@ components:
           type: string
           description: Account's IBAN
           example: DE12345123451234512345123
-    UserBeneficiaryMatch:
-      type: object
-      description: Details of the match given by the institution.
-      properties:
-        status:
-          $ref: '#/components/schemas/BeneficiaryMatchStatus'
-        closeMatchName:
-          type: string
-          example: John Doe
-          description: the name returned by the institution, in a case of CLOSE_MATCH
+    AccountIdentifierType:
+      type: string
+      enum:
+      - IBAN
     UserBeneficiaryValidationRequest:
       type: object
       description: Beneficiary request with the details of the VoP result.
@@ -714,6 +694,16 @@ components:
           $ref: '#/components/schemas/UserBeneficiaryMatch'
         accountIdentifier:
           $ref: '#/components/schemas/AccountIdentifier'
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
     UserBeneficiaryData:
       type: object
       description: Beneficiary data response.
@@ -739,25 +729,35 @@ components:
               $ref: '#/components/schemas/UserBeneficiaryMatch'
             accountIdentifier:
               $ref: '#/components/schemas/AccountIdentifier'
-    UserBeneficiaryResponse:
+    ResponseListMeta:
       type: object
-      description: The user beneficiary response.
       properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/UserBeneficiaryData'
-    BeneficiaryStatus:
-      description: Status of the beneficiary check.
-      type: string
-      enum:
-      - PENDING
-      - VERIFIED
-      - REJECTED
-    AccountIdentifierType:
-      type: string
-      enum:
-      - IBAN
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
