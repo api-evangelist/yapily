@@ -672,24 +672,148 @@ paths:
         content: '<Info>Learn more: [VRP Paymenent Details](/payments/vrps/get-started#get-vrp-payment-details)</Info>'
 components:
   schemas:
-    Amount:
-      title: Amount Details
-      required:
-      - amount
-      - currency
+    PayeeAccountType:
+      title: Payee Account Type
+      type: string
+      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
+    VrpSweepingRiskDetails:
+      type: object
+      description: The details required by the institutions to detect and prevent fraud.
+      properties:
+        paymentContextCode:
+          type: string
+    VrpComplianceData:
       type: object
       properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
+        payer:
+          $ref: '#/components/schemas/VrpComplianceDataPayer'
+      description: __Conditional__. Information needed to complete compliance checks. Mandatory for Yapily Connect customers.
+    VrpControlParameters:
+      type: object
+      description: The definition of VRP parameters.
+      required:
+      - psuAuthenticationMethods
+      - maxAmountPerPayment
+      - periodicLimits
+      properties:
+        psuAuthenticationMethods:
+          type: array
+          items:
+            type: string
+          description: '__Mandatory__. Defines the authentication method(s) allowed in payment submission step.
+
+            Allowed values are [`SCA_REQUIRED`, `SCA_NOT_REQUIRED`].'
+        maxAmountPerPayment:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: __Mandatory__. The maximum amount that will be allowed per VRP payment.
+        periodicLimits:
+          type: array
+          description: 'The maximum amount over all VRP payments within the specified periods. For instance, a `MONTHLY` limit of `20 GBP`.
+
+
+            See [VRP Mandate Details](/payments/vrps/mandate-details).'
+          items:
+            $ref: '#/components/schemas/VrpPeriodicLimits'
+        validFrom:
           type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
+          format: date-time
+          description: __Optional__. The start date when the consent becomes valid.
+        validTo:
+          type: string
+          format: date-time
+          description: __Optional__. The end date when the consent expires and becomes invalid.
+    VrpPeriodicLimits:
+      required:
+      - frequency
+      - totalMaxAmount
+      - alignment
+      type: object
+      properties:
+        frequency:
+          type: string
+          description: '__Mandatory__. The frequency/period over which the limit is enforced.
+
+            Allowed values are [`DAILY`, `WEEKLY`, `EVERY_TWO_WEEKS`, `MONTHLY`, `YEARLY`].'
+        totalMaxAmount:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: '__Mandatory__. The maximum amount that will be allowed over the specified frequency/period.
+
+
+            If the `alignment` is set to `CALENDAR`, then the limit will be [pro-rated](/payments/vrps/mandate-details#pro-rata-calculation) in the first period to the remaining number of days.'
+        alignment:
+          type: string
+          description: '__Mandatory__. The alignment of the frequency/period for which the limit is enforced. Allowed values are [`CONSENT`, `CALENDAR`].
+
+
+            See [VRP Mandate Details](/payments/vrps/mandate-details).'
+    VrpSubmissionResponse:
+      type: object
+      required:
+      - initiationDetails
+      - submissionDetails
+      properties:
+        id:
+          type: string
+          description: The Payment ID.
+        paymentIdempotencyId:
+          type: string
+          description: The Payment Idempotency ID (as provided in the request).
+        paymentLifecycleId:
+          type: string
+        institutionConsentId:
+          type: string
+          description: The Institution's Consent ID on which the payment was submitted. Note that this cannot be used to interact with Yapily API.
+        status:
+          $ref: '#/components/schemas/PaymentStatus'
+        statusDetails:
+          $ref: '#/components/schemas/PaymentStatusDetails'
+        initiationDetails:
+          $ref: '#/components/schemas/VrpInitiationDetails'
+        submissionDetails:
+          $ref: '#/components/schemas/VrpSubmissionDetails'
+        payer:
+          $ref: '#/components/schemas/Payer'
+        refundAccount:
+          $ref: '#/components/schemas/RefundAccount'
+        expectedExecutionTime:
+          type: string
+          format: date-time
+        expectedSettlementTime:
+          type: string
+          format: date-time
+        riskDetails:
+          $comment: 'NOTE: This model is shared between Sweeping and Commercial, but we use VrpSweepingRiskDetails because it is minimal and sufficient!'
+          $ref: '#/components/schemas/VrpSweepingRiskDetails'
+    VrpSubmissionDetails:
+      type: object
+      description: __Mandatory__. The payment submission object defining the details of the payment instruction to be executed under the Variable Recurring Payment.
+      required:
+      - payee
+      - paymentAmount
+      properties:
+        reference:
+          type: string
+          description: __Optional__. The reference/description associated with the VRP consent. Limited to a maximum of 18 characters long.
+          example: Own Account Sweeping
+        payee:
+          $ref: '#/components/schemas/Payee'
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+    VrpFundsAvailable:
+      required:
+      - fundsAvailable
+      - fundsAvailableAt
+      type: object
+      properties:
+        fundsAvailable:
+          type: boolean
+          description: __Mandatory__. The flag indicating whether the funds are available.
+        fundsAvailableAt:
+          type: string
+          format: date-time
+          description: __Mandatory__. The datetime when the funds were checked.
     PaymentStatusDetails:
       type: object
       properties:
@@ -706,115 +830,102 @@ components:
           $ref: '#/components/schemas/MultiAuthorisation'
         isoStatus:
           $ref: '#/components/schemas/PaymentIsoStatus'
-    VrpFundsConfirmationResponse:
+    ErrorIssue:
       required:
-      - paymentAmount
-      - fundsAvailable
+      - type
+      - code
       type: object
+      description: Detailed information regarding the issue that was experienced during processing of the request
       properties:
-        id:
+        type:
           type: string
-        reference:
+          description: Category of the issue
+        code:
           type: string
-          description: The payment reference or description. Limited to a maximum of 18 characters long.
-          example: Own Account Sweeping
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-        fundsAvailable:
-          $ref: '#/components/schemas/VrpFundsAvailable'
-    VrpSweepingRiskDetails:
+          description: Code that uniquely identifies the type of issue
+        parameter:
+          type: string
+          description: Identifies the parameter / property within the request (headers, query parameters or body) that the issue relates to. For headers and query parameters, it refers to the parameter name. For the body, it refers to the JSONPath of the property
+        message:
+          type: string
+          description: Human readable description of the issue that was experienced
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+    AddressTypeEnum:
+      title: Address Type
+      type: string
+      description: __Optional__. The type of address
+      enum:
+      - BUSINESS
+      - CORRESPONDENCE
+      - DELIVERY_TO
+      - MAIL_TO
+      - PO_BOX
+      - POSTAL
+      - RESIDENTIAL
+      - STATEMENT
+      - UNKNOWN
+    RawResponse:
+      deprecated: true
       type: object
-      description: The details required by the institutions to detect and prevent fraud.
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
       properties:
-        paymentContextCode:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
           type: string
-    VrpComplianceDataBusiness:
+          format: iso8601
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
+    PaymentIsoStatus:
       type: object
-      required:
-      - name
-      - registrationNumber
-      - registeredAddress
+      description: The payment status code, as denoted by a 3-letter ISO 20022 code.
       properties:
+        code:
+          $ref: '#/components/schemas/PaymentIsoStatusCodeEnum'
         name:
           type: string
-          example: Company LTD
-          description: This is the registered company name of your end user.
-        registrationNumber:
+          description: The full name of the ISO 20022 `PaymentStatusCode`.
+          example: AcceptedCreditSettlementCompleted
+    MultiAuthorisation:
+      type: object
+      description: Details the additional levels of authorisation which are required from, and being managed by, the `Institution`.
+      properties:
+        status:
           type: string
-          example: COM123NO
-          description: This is the registered company number of the business.
-        registeredAddress:
-          $ref: '#/components/schemas/VrpComplianceDataAddress'
-        tradingAddress:
-          $ref: '#/components/schemas/VrpComplianceDataAddress'
-      description: __Conditional__. Mandatory if the type is BUSINESS.
-    FeatureEnum:
-      type: string
-      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)"
-      enum:
-      - INITIATE_PRE_AUTHORISATION
-      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
-      - INITIATE_PRE_AUTHORISATION_PAYMENTS
-      - INITIATE_ACCOUNT_REQUEST
-      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
-      - ACCOUNT_REQUEST_DETAILS
-      - ACCOUNTS
-      - ACCOUNT
-      - ACCOUNT_TRANSACTIONS
-      - ACCOUNT_STATEMENTS
-      - ACCOUNT_STATEMENT
-      - ACCOUNT_STATEMENT_FILE
-      - ACCOUNT_SCHEDULED_PAYMENTS
-      - ACCOUNT_DIRECT_DEBITS
-      - ACCOUNT_PERIODIC_PAYMENTS
-      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
-      - IDENTITY
-      - ACCOUNTS_WITHOUT_BALANCE
-      - ACCOUNT_WITHOUT_BALANCE
-      - ACCOUNT_BALANCES
-      - INITIATE_SINGLE_PAYMENT_SORTCODE
-      - EXISTING_PAYMENT_INITIATION_DETAILS
-      - CREATE_SINGLE_PAYMENT_SORTCODE
-      - EXISTING_PAYMENTS_DETAILS
-      - INITIATE_DOMESTIC_SINGLE_PAYMENT
-      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
-      - CREATE_DOMESTIC_SINGLE_PAYMENT
-      - INITIATE_EMBEDDED_BULK_PAYMENT
-      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
-      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
-      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
-      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
-      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
-      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
-      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
-      - CREATE_DOMESTIC_PERIODIC_PAYMENT
-      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
-      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
-      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
-      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
-      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
-      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
-      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
-      - INITIATE_BULK_PAYMENT
-      - CREATE_BULK_PAYMENT
-      - EXISTING_BULK_PAYMENT_DETAILS
-      - TRANSFER
-      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
-      - OPEN_DATA_ATMS
-      - READ_DOMESTIC_SINGLE_REFUND
-      - READ_DOMESTIC_SCHEDULED_REFUND
-      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
-      - READ_INTERNATIONAL_SINGLE_REFUND
-      - READ_INTERNATIONAL_SCHEDULED_REFUND
-      - ACCOUNT_BENEFICIARIES
-      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
-      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
-      - INITIATE_ONETIME_PRE_AUTHORISATION
-      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
+          description: __Mandatory__. Specifies the current status of the multi-authorisation flow.
+        numberOfAuthorisationRequired:
+          type: integer
+          description: __Mandatory__. Total number of authorisations required.
+          format: int32
+        numberOfAuthorisationReceived:
+          type: integer
+          description: __Mandatory__. The total number of authorisations that have been received.
+          format: int32
+        lastUpdatedDateTime:
+          type: string
+          description: __Mandatory__. Date and time of when the authorisation was last updated.
+          format: date-time
+        expirationDateTime:
+          type: string
+          description: __Mandatory__. Date and time by when the authorisation flow must be completed before it expires and the authorisation request is terminated.
+          format: date-time
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
     VrpComplianceDataAddress:
       type: object
       required:
@@ -844,119 +955,207 @@ components:
           example: GB
           description: __Mandatory__. Country of the business.
       description: This is the registered company or trading address of your end user.
-    ErrorIssue:
+    AccountIdentificationType:
+      title: Account Identification Type
+      type: string
+      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
+      example: SORT_CODE
+      enum:
+      - SORT_CODE
+      - ACCOUNT_NUMBER
+      - IBAN
+      - BBAN
+      - BIC
+      - PAN
+      - MASKED_PAN
+      - MSISDN
+      - BSB
+      - NCC
+      - ABA
+      - ABA_WIRE
+      - ABA_ACH
+      - EMAIL
+      - ROLL_NUMBER
+      - BLZ
+      - IFS
+      - CLABE
+      - CTN
+      - BRANCH_CODE
+      - VIRTUAL_ACCOUNT_ID
+    ApiResponseOfVrpSweepingAuthorisationResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/VrpSweepingAuthorisationResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        tracingId:
+          type: string
+          writeOnly: true
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+    RefundAccount:
+      type: object
+      description: The account to which funds should be returned if the payment is to be later refunded.
+      properties:
+        name:
+          type: string
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    ApiResponseOfVrpFundsConfirmationResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/VrpFundsConfirmationResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        tracingId:
+          type: string
+          writeOnly: true
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+    VrpComplianceDataPayer:
+      type: object
       required:
       - type
-      - code
-      type: object
-      description: Detailed information regarding the issue that was experienced during processing of the request
       properties:
         type:
           type: string
-          description: Category of the issue
-        code:
+          example: INDIVIDUAL
+          description: 'The payer type. Allowed values: INDIVIDUAL, BUSINESS. The corresponding object must be included.'
+        individual:
+          $ref: '#/components/schemas/VrpComplianceDataIndividual'
+        business:
+          $ref: '#/components/schemas/VrpComplianceDataBusiness'
+      description: __Conditional__. Payer details required for compliance checks.
+    VrpComplianceDataIndividual:
+      type: object
+      required:
+      - name
+      - birthDate
+      properties:
+        name:
           type: string
-          description: Code that uniquely identifies the type of issue
-        parameter:
+          example: John Doe
+          description: This is the first and last name of your end user.
+        birthDate:
           type: string
-          description: Identifies the parameter / property within the request (headers, query parameters or body) that the issue relates to. For headers and query parameters, it refers to the parameter name. For the body, it refers to the JSONPath of the property
-        message:
-          type: string
-          description: Human readable description of the issue that was experienced
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-    PaymentStatus:
-      type: string
-      description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
-      enum:
-      - PENDING
-      - FAILED
-      - DECLINED
-      - COMPLETED
-      - COMPLETED_SETTLEMENT_IN_PROCESS
-      - EXPIRED
-      - UNKNOWN
-      - ACTIVE
-      - INACTIVE
-    AddressTypeEnum:
-      title: Address Type
-      type: string
-      description: __Optional__. The type of address
-      enum:
-      - BUSINESS
-      - CORRESPONDENCE
-      - DELIVERY_TO
-      - MAIL_TO
-      - PO_BOX
-      - POSTAL
-      - RESIDENTIAL
-      - STATEMENT
-      - UNKNOWN
-    Address:
-      title: Address Details
+          format: date
+          example: '2000-08-12'
+          description: This is the date of birth of your end user.
+      description: __Conditional__. Mandatory if the type is INDIVIDUAL.
+    AccountIdentification:
+      title: Account Identifications
+      required:
+      - type
+      - identification
       type: object
       properties:
-        addressLines:
-          title: Address Lines
+        type:
+          $ref: '#/components/schemas/AccountIdentificationType'
+        identification:
+          title: Account Identification
+          type: string
+          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
+          example: '401016'
+    VrpComplianceDataBusiness:
+      type: object
+      required:
+      - name
+      - registrationNumber
+      - registeredAddress
+      properties:
+        name:
+          type: string
+          example: Company LTD
+          description: This is the registered company name of your end user.
+        registrationNumber:
+          type: string
+          example: COM123NO
+          description: This is the registered company number of the business.
+        registeredAddress:
+          $ref: '#/components/schemas/VrpComplianceDataAddress'
+        tradingAddress:
+          $ref: '#/components/schemas/VrpComplianceDataAddress'
+      description: __Conditional__. Mandatory if the type is BUSINESS.
+    VrpUltimatePayer:
+      type: object
+      properties:
+        name:
+          type: string
+        accountIdentifications:
+          uniqueItems: true
           type: array
-          description: __Optional__. The address line of the address
-          example:
-          - Ardenham Court
           items:
+            $ref: '#/components/schemas/AccountIdentification'
+        legalEntityIdentification:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    ApiResponseOfVrpSubmissionResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/VrpSubmissionResponse'
+        links:
+          type: object
+          additionalProperties:
             type: string
-        streetName:
-          title: Street
-          type: string
-          description: __Optional__. The street name of the address
-          example: Oxford Road
-        buildingNumber:
-          title: Building Number
-          type: string
-          description: __Optional__. The building number of the address
-          example: '45'
-        postCode:
-          title: Post Code
-          type: string
-          description: __Optional__. The post code of the address
-          example: HP19 3EQ
-        townName:
-          title: Town
-          type: string
-          description: __Optional__. The town name of the address
-          example: Aylesbury
-        county:
-          title: County
+        forwardedData:
           type: array
-          description: __Optional__. The list of counties for the address
-          example:
-          - Buckinghamshire
           items:
-            type: string
-        country:
-          title: Country
+            $ref: '#/components/schemas/ResponseForwardedData'
+        tracingId:
           type: string
-          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
-          example: GB
-        department:
-          title: Department
-          type: string
-          description: __Optional__. The department for the address
-          example: Unit 2
-        subDepartment:
-          title: Sub-Department
-          type: string
-          description: __Optional__. The sub-department for the address
-          example: Floor 3
-        addressType:
-          $ref: '#/components/schemas/AddressTypeEnum'
-      description: '__Conditional__. The address of the `Payee` or `Payer`.
-
-
-        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
-
-        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
-      example:
-        country: GB
+          writeOnly: true
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
     Payer:
       title: Payer Details
       required:
@@ -977,42 +1176,188 @@ components:
         address:
           $ref: '#/components/schemas/Address'
       description: __Conditional__. Details of the benefactor [person or business].
-    ApiErrorResponse:
+    VrpSweepingAuthorisationRequest:
+      required:
+      - institutionId
+      - controlParameters
+      - initiationDetails
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/ErrorDetails'
-      description: 'Used to return errors from the bank from each request
+        userUuid:
+          type: string
+          format: uuid
+          description: __Conditional.__ The Yapily User UUID. One of `userUuid` or `applicationUserId` must be present in the request.
+        applicationUserId:
+          type: string
+          description: __Conditional.__ The Application User ID. One of `userUuid` or `applicationUserId` must be present in the request.
+        institutionId:
+          type: string
+          description: The Institution ID which will carry out authorisation.
+        callback:
+          type: string
+          description: '__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
 
 
-        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+            See [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url#callback-url) for more information.'
+        redirect:
+          $ref: '#/components/schemas/RedirectRequest'
+        forwardParameters:
+          type: array
+          description: Any parameters that you may want to get forwarded in the callback request after the PSU is redirected.
+          items:
+            type: string
+        oneTimeToken:
+          type: boolean
+          description: '__Conditional__. Set to `true` to receive a `oneTimeToken` instead of `consentToken` at the `callback`. This is used for additional security and can only be used when the `callback` is set.
 
-        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
 
-        - `403` - Returned by any [Financial Data](/api-reference/...) and any [Payments](/api-reference/...) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+            See [Using a One-Time Token](/open-banking-flow/handling-redirects/callback-url#using-a-ott) for more information.'
+        controlParameters:
+          $ref: '#/components/schemas/VrpControlParameters'
+        initiationDetails:
+          $ref: '#/components/schemas/VrpInitiationDetails'
+        complianceData:
+          $ref: '#/components/schemas/VrpComplianceData'
+    PaymentIsoStatusCodeEnum:
+      type: string
+      description: The ISO 20022 `PaymentStatusCode`.
+      example: ACCC
+      enum:
+      - ACCC
+      - ACCP
+      - ACSC
+      - ACSP
+      - ACTC
+      - ACWC
+      - ACWP
+      - RCVD
+      - PDNG
+      - RJCT
+      - CANC
+      - ACFC
+      - PATC
+      - PART
+      - ACCO
+    ErrorDetails:
+      required:
+      - tracingId
+      - code
+      - status
+      type: object
+      properties:
+        tracingId:
+          type: string
+          description: Unique identifier of the request, used by Yapily for support purposes
+        code:
+          type: integer
+          format: int32
+          description: Numeric HTTP status code associated with the error
+        status:
+          type: string
+          description: Textual description of the HTTP status
+        supportUrl:
+          type: string
+          description: Link to where further information regarding the error can be found
+        source:
+          type: string
+          description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
+        issues:
+          type: array
+          description: List of issues relating to the error
+          items:
+            $ref: '#/components/schemas/ErrorIssue'
+    VrpUltimatePayee:
+      type: object
+      properties:
+        name:
+          type: string
+        accountIdentifications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentification'
+        legalEntityIdentification:
+          type: string
+        accountType:
+          $ref: '#/components/schemas/PayeeAccountType'
+        address:
+          $ref: '#/components/schemas/Address'
+        merchantId:
+          type: string
+        merchantCategoryCode:
+          type: string
+    VrpSubmissionRequest:
+      type: object
+      required:
+      - paymentIdempotencyId
+      - psuAuthenticationMethod
+      - paymentAmount
+      properties:
+        paymentIdempotencyId:
+          type: string
+          description: '__Mandatory__. A unique identifier for the payment.
 
-        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
 
-        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/...)
+            This can be any alpha-numeric string but is limited to a maximum of 35 characters.'
+        psuAuthenticationMethod:
+          type: string
+          description: '__Mandatory__. Defines the authentication method(s) allowed in payment submission step.
 
-        - `424` - Returned by any [Financial Data](/api-reference/...) and any [Payments](/api-reference/...) endpoint when the feature to be accessed is not supported by the `Institution`.
+            Allowed values are [`SCA_REQUIRED`, `SCA_NOT_REQUIRED`].
 
-        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
-      example:
-        error:
-          tracingId: 0c2d0973bdd24224a65e5d0f7d1b6154
-          code: 400
-          status: BAD_REQUEST
-          supportUrl: https://support.yapily.com/
-          source: YAPILY
-          issues:
-          - type: INVALID_REQUEST
-            code: INVALID_PROPERTY_UNEXPECTED_VALUE
-            parameter: $.payer.accountidentifications.type
-            message: Type Should be one of [PAN, SORT_CODE, ACCOUNT_NUMBER]
-            institutionError:
-              errorMessage: '{"Code":"400 BadRequest","Id":"3517bfc2-c3ee-4f2f-b4f8-12f62478e0d1","Message":"No Resource found","Errors":[{"ErrorCode":"UK.OBIE.Resource.NotFound","Message":"No resource found corresponding to the consent id"}]}'
-              httpStatusCode: 400
+
+            See [SCA](/getting-started/glossary#strong-customer-authentication-sca).'
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+      description: __Mandatory__. The payment request object defining the details of the payment for execution under the Variable Recurring Payment consent.
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    AuthorisationStatus:
+      description: Current status of the embedded authorisation request in code form.
+      type: string
+      enum:
+      - AWAITING_AUTHORIZATION
+      - AWAITING_FURTHER_AUTHORIZATION
+      - AWAITING_RE_AUTHORIZATION
+      - AUTHORIZED
+      - CONSUMED
+      - REJECTED
+      - REVOKED
+      - FAILED
+      - EXPIRED
+      - UNKNOWN
+      - INVALID
+      - AWAITING_DECOUPLED_PRE_AUTHORIZATION
+      - AWAITING_PRE_AUTHORIZATION
+      - PRE_AUTHORIZED
+      - AWAITING_DECOUPLED_AUTHORIZATION
+      - AWAITING_SCA_METHOD
+      - AWAITING_SCA_CODE
     VrpSweepingAuthorisationResponse:
       type: object
       properties:
@@ -1067,201 +1412,43 @@ components:
           $ref: '#/components/schemas/VrpInitiationDetails'
         riskDetails:
           $ref: '#/components/schemas/VrpSweepingRiskDetails'
-    AuthorisationStatus:
-      description: Current status of the embedded authorisation request in code form.
+    RedirectRequest:
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          type: string
+          description: __Mandatory__.Successful redirect after the user complete the authorisation at the `Institution`.
+      description: __Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
+    PaymentStatus:
       type: string
+      description: "The status of the Payment. \n\nFor more information, see [Payment Status](/guides/payments/payment-status/)"
       enum:
-      - AWAITING_AUTHORIZATION
-      - AWAITING_FURTHER_AUTHORIZATION
-      - AWAITING_RE_AUTHORIZATION
-      - AUTHORIZED
-      - CONSUMED
-      - REJECTED
-      - REVOKED
+      - PENDING
       - FAILED
+      - DECLINED
+      - COMPLETED
+      - COMPLETED_SETTLEMENT_IN_PROCESS
       - EXPIRED
       - UNKNOWN
-      - INVALID
-      - AWAITING_DECOUPLED_PRE_AUTHORIZATION
-      - AWAITING_PRE_AUTHORIZATION
-      - PRE_AUTHORIZED
-      - AWAITING_DECOUPLED_AUTHORIZATION
-      - AWAITING_SCA_METHOD
-      - AWAITING_SCA_CODE
-    PayeeAccountType:
-      title: Payee Account Type
-      type: string
-      description: "__Optional__. The payee account type. \n\nAllowed values: BUSINESS, BUSINESS_SAVING, CHARITY, COLLECTION, CORPORATE, E_WALLET, GOVERNMENT, INVESTMENT, INVESTMENT_ISA, JOINT_PERSONAL, PENSION, PERSONAL, PERSONAL_SAVING, PREMIER, WEALTH ."
-    ErrorDetails:
-      required:
-      - tracingId
-      - code
-      - status
+      - ACTIVE
+      - INACTIVE
+    VrpInitiationDetails:
       type: object
+      description: The definition of the payer and payee.
       properties:
-        tracingId:
+        reference:
           type: string
-          description: Unique identifier of the request, used by Yapily for support purposes
-        code:
-          type: integer
-          format: int32
-          description: Numeric HTTP status code associated with the error
-        status:
-          type: string
-          description: Textual description of the HTTP status
-        supportUrl:
-          type: string
-          description: Link to where further information regarding the error can be found
-        source:
-          type: string
-          description: Source of the error. This may be YAPILY, the INSTITUTION, or the USER
-        issues:
-          type: array
-          description: List of issues relating to the error
-          items:
-            $ref: '#/components/schemas/ErrorIssue'
-    MultiAuthorisation:
-      type: object
-      description: Details the additional levels of authorisation which are required from, and being managed by, the `Institution`.
-      properties:
-        status:
-          type: string
-          description: __Mandatory__. Specifies the current status of the multi-authorisation flow.
-        numberOfAuthorisationRequired:
-          type: integer
-          description: __Mandatory__. Total number of authorisations required.
-          format: int32
-        numberOfAuthorisationReceived:
-          type: integer
-          description: __Mandatory__. The total number of authorisations that have been received.
-          format: int32
-        lastUpdatedDateTime:
-          type: string
-          description: __Mandatory__. Date and time of when the authorisation was last updated.
-          format: date-time
-        expirationDateTime:
-          type: string
-          description: __Mandatory__. Date and time by when the authorisation flow must be completed before it expires and the authorisation request is terminated.
-          format: date-time
-    ApiResponseOfVrpSubmissionResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/VrpSubmissionResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        tracingId:
-          type: string
-          writeOnly: true
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-    VrpComplianceDataPayer:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          example: INDIVIDUAL
-          description: 'The payer type. Allowed values: INDIVIDUAL, BUSINESS. The corresponding object must be included.'
-        individual:
-          $ref: '#/components/schemas/VrpComplianceDataIndividual'
-        business:
-          $ref: '#/components/schemas/VrpComplianceDataBusiness'
-      description: __Conditional__. Payer details required for compliance checks.
-    VrpSubmissionResponse:
-      type: object
-      required:
-      - initiationDetails
-      - submissionDetails
-      properties:
-        id:
-          type: string
-          description: The Payment ID.
-        paymentIdempotencyId:
-          type: string
-          description: The Payment Idempotency ID (as provided in the request).
-        paymentLifecycleId:
-          type: string
-        institutionConsentId:
-          type: string
-          description: The Institution's Consent ID on which the payment was submitted. Note that this cannot be used to interact with Yapily API.
-        status:
-          $ref: '#/components/schemas/PaymentStatus'
-        statusDetails:
-          $ref: '#/components/schemas/PaymentStatusDetails'
-        initiationDetails:
-          $ref: '#/components/schemas/VrpInitiationDetails'
-        submissionDetails:
-          $ref: '#/components/schemas/VrpSubmissionDetails'
+          description: The reference/description of the payments that will be carried out on this VRP consent.
         payer:
           $ref: '#/components/schemas/Payer'
-        refundAccount:
-          $ref: '#/components/schemas/RefundAccount'
-        expectedExecutionTime:
-          type: string
-          format: date-time
-        expectedSettlementTime:
-          type: string
-          format: date-time
-        riskDetails:
-          $comment: 'NOTE: This model is shared between Sweeping and Commercial, but we use VrpSweepingRiskDetails because it is minimal and sufficient!'
-          $ref: '#/components/schemas/VrpSweepingRiskDetails'
-    RawResponse:
-      deprecated: true
-      type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
-      properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
-          type: string
-          format: iso8601
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
-          type: object
-    VrpPeriodicLimits:
-      required:
-      - frequency
-      - totalMaxAmount
-      - alignment
-      type: object
-      properties:
-        frequency:
-          type: string
-          description: '__Mandatory__. The frequency/period over which the limit is enforced.
-
-            Allowed values are [`DAILY`, `WEEKLY`, `EVERY_TWO_WEEKS`, `MONTHLY`, `YEARLY`].'
-        totalMaxAmount:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: '__Mandatory__. The maximum amount that will be allowed over the specified frequency/period.
-
-
-            If the `alignment` is set to `CALENDAR`, then the limit will be [pro-rated](/payments/vrps/mandate-details#pro-rata-calculation) in the first period to the remaining number of days.'
-        alignment:
-          type: string
-          description: '__Mandatory__. The alignment of the frequency/period for which the limit is enforced. Allowed values are [`CONSENT`, `CALENDAR`].
-
-
-            See [VRP Mandate Details](/payments/vrps/mandate-details).'
+        ultimatePayer:
+          $ref: '#/components/schemas/VrpUltimatePayer'
+        payee:
+          $ref: '#/components/schemas/Payee'
+        ultimatePayee:
+          $ref: '#/components/schemas/VrpUltimatePayee'
     Payee:
       title: Payee Details
       type: object
@@ -3131,250 +3318,143 @@ components:
 
             - `9950` (Intra-Company Purchases)'
           example: '0742'
-    RawRequest:
-      type: object
-      properties:
-        method:
-          type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
-    VrpSubmissionRequest:
-      type: object
+    VrpFundsConfirmationResponse:
       required:
-      - paymentIdempotencyId
-      - psuAuthenticationMethod
       - paymentAmount
-      properties:
-        paymentIdempotencyId:
-          type: string
-          description: '__Mandatory__. A unique identifier for the payment.
-
-
-            This can be any alpha-numeric string but is limited to a maximum of 35 characters.'
-        psuAuthenticationMethod:
-          type: string
-          description: '__Mandatory__. Defines the authentication method(s) allowed in payment submission step.
-
-            Allowed values are [`SCA_REQUIRED`, `SCA_NOT_REQUIRED`].
-
-
-            See [SCA](/getting-started/glossary#strong-customer-authentication-sca).'
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-      description: __Mandatory__. The payment request object defining the details of the payment for execution under the Variable Recurring Payment consent.
-    AccountIdentification:
-      title: Account Identifications
-      required:
-      - type
-      - identification
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountIdentificationType'
-        identification:
-          title: Account Identification
-          type: string
-          description: "__Mandatory__. The value associated with the account identification type.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on the format of the values."
-          example: '401016'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-    PaymentIsoStatusCodeEnum:
-      type: string
-      description: The ISO 20022 `PaymentStatusCode`.
-      example: ACCC
-      enum:
-      - ACCC
-      - ACCP
-      - ACSC
-      - ACSP
-      - ACTC
-      - ACWC
-      - ACWP
-      - RCVD
-      - PDNG
-      - RJCT
-      - CANC
-      - ACFC
-      - PATC
-      - PART
-      - ACCO
-    ApiResponseOfVrpFundsConfirmationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/VrpFundsConfirmationResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        tracingId:
-          type: string
-          writeOnly: true
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
-    AccountIdentificationType:
-      title: Account Identification Type
-      type: string
-      description: "__Mandatory__. Used to describe the format of the account.\n\n See [Account Identification Combinations](/payments/payment-resources/intro-to-payment-execution#account-identifications-combinations) for more information on when to specify each type."
-      example: SORT_CODE
-      enum:
-      - SORT_CODE
-      - ACCOUNT_NUMBER
-      - IBAN
-      - BBAN
-      - BIC
-      - PAN
-      - MASKED_PAN
-      - MSISDN
-      - BSB
-      - NCC
-      - ABA
-      - ABA_WIRE
-      - ABA_ACH
-      - EMAIL
-      - ROLL_NUMBER
-      - BLZ
-      - IFS
-      - CLABE
-      - CTN
-      - BRANCH_CODE
-      - VIRTUAL_ACCOUNT_ID
-    PaymentIsoStatus:
-      type: object
-      description: The payment status code, as denoted by a 3-letter ISO 20022 code.
-      properties:
-        code:
-          $ref: '#/components/schemas/PaymentIsoStatusCodeEnum'
-        name:
-          type: string
-          description: The full name of the ISO 20022 `PaymentStatusCode`.
-          example: AcceptedCreditSettlementCompleted
-    VrpUltimatePayer:
-      type: object
-      properties:
-        name:
-          type: string
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        legalEntityIdentification:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    VrpFundsAvailable:
-      required:
       - fundsAvailable
-      - fundsAvailableAt
       type: object
       properties:
-        fundsAvailable:
-          type: boolean
-          description: __Mandatory__. The flag indicating whether the funds are available.
-        fundsAvailableAt:
+        id:
           type: string
-          format: date-time
-          description: __Mandatory__. The datetime when the funds were checked.
-    VrpControlParameters:
-      type: object
-      description: The definition of VRP parameters.
-      required:
-      - psuAuthenticationMethods
-      - maxAmountPerPayment
-      - periodicLimits
-      properties:
-        psuAuthenticationMethods:
-          type: array
-          items:
-            type: string
-          description: '__Mandatory__. Defines the authentication method(s) allowed in payment submission step.
-
-            Allowed values are [`SCA_REQUIRED`, `SCA_NOT_REQUIRED`].'
-        maxAmountPerPayment:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: __Mandatory__. The maximum amount that will be allowed per VRP payment.
-        periodicLimits:
-          type: array
-          description: 'The maximum amount over all VRP payments within the specified periods. For instance, a `MONTHLY` limit of `20 GBP`.
-
-
-            See [VRP Mandate Details](/payments/vrps/mandate-details).'
-          items:
-            $ref: '#/components/schemas/VrpPeriodicLimits'
-        validFrom:
-          type: string
-          format: date-time
-          description: __Optional__. The start date when the consent becomes valid.
-        validTo:
-          type: string
-          format: date-time
-          description: __Optional__. The end date when the consent expires and becomes invalid.
-    VrpSubmissionDetails:
-      type: object
-      description: __Mandatory__. The payment submission object defining the details of the payment instruction to be executed under the Variable Recurring Payment.
-      required:
-      - payee
-      - paymentAmount
-      properties:
         reference:
           type: string
-          description: __Optional__. The reference/description associated with the VRP consent. Limited to a maximum of 18 characters long.
+          description: The payment reference or description. Limited to a maximum of 18 characters long.
           example: Own Account Sweeping
-        payee:
-          $ref: '#/components/schemas/Payee'
         paymentAmount:
           $ref: '#/components/schemas/Amount'
-    VrpComplianceData:
+        fundsAvailable:
+          $ref: '#/components/schemas/VrpFundsAvailable'
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
       type: object
       properties:
-        payer:
-          $ref: '#/components/schemas/VrpComplianceDataPayer'
-      description: __Conditional__. Information needed to complete compliance checks. Mandatory for Yapily Connect customers.
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    FeatureEnum:
+      type: string
+      description: "Used to describe what functions are supported by the associated `Institution`.        \n\nFor more information on each feature, see the following links:        \n\n- [Financial Data Features](/data/financial-data-resources/financial-data-features)\n- [Payments Features](/payments/payment-resources/payment-features)"
+      enum:
+      - INITIATE_PRE_AUTHORISATION
+      - INITIATE_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ACCOUNT_REQUEST
+      - INITIATE_EMBEDDED_ACCOUNT_REQUEST
+      - ACCOUNT_REQUEST_DETAILS
+      - ACCOUNTS
+      - ACCOUNT
+      - ACCOUNT_TRANSACTIONS
+      - ACCOUNT_STATEMENTS
+      - ACCOUNT_STATEMENT
+      - ACCOUNT_STATEMENT_FILE
+      - ACCOUNT_SCHEDULED_PAYMENTS
+      - ACCOUNT_DIRECT_DEBITS
+      - ACCOUNT_PERIODIC_PAYMENTS
+      - ACCOUNT_TRANSACTIONS_WITH_MERCHANT
+      - IDENTITY
+      - ACCOUNTS_WITHOUT_BALANCE
+      - ACCOUNT_WITHOUT_BALANCE
+      - ACCOUNT_BALANCES
+      - INITIATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENT_INITIATION_DETAILS
+      - CREATE_SINGLE_PAYMENT_SORTCODE
+      - EXISTING_PAYMENTS_DETAILS
+      - INITIATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_DOMESTIC_SINGLE_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_PAYMENT
+      - INITIATE_EMBEDDED_BULK_PAYMENT
+      - INITIATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING
+      - INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL
+      - INITIATE_DOMESTIC_SCHEDULED_PAYMENT
+      - CREATE_DOMESTIC_SCHEDULED_PAYMENT
+      - INITIATE_DOMESTIC_PERIODIC_PAYMENT
+      - CREATE_DOMESTIC_PERIODIC_PAYMENT
+      - PERIODIC_PAYMENT_FREQUENCY_EXTENDED
+      - INITIATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - CREATE_INTERNATIONAL_SCHEDULED_PAYMENT
+      - INITIATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - CREATE_INTERNATIONAL_PERIODIC_PAYMENT
+      - INITIATE_INTERNATIONAL_SINGLE_PAYMENT
+      - CREATE_INTERNATIONAL_SINGLE_PAYMENT
+      - INITIATE_BULK_PAYMENT
+      - CREATE_BULK_PAYMENT
+      - EXISTING_BULK_PAYMENT_DETAILS
+      - TRANSFER
+      - OPEN_DATA_PERSONAL_CURRENT_ACCOUNTS
+      - OPEN_DATA_ATMS
+      - READ_DOMESTIC_SINGLE_REFUND
+      - READ_DOMESTIC_SCHEDULED_REFUND
+      - READ_DOMESTIC_PERIODIC_PAYMENT_REFUND
+      - READ_INTERNATIONAL_SINGLE_REFUND
+      - READ_INTERNATIONAL_SCHEDULED_REFUND
+      - ACCOUNT_BENEFICIARIES
+      - INITIATE_ONETIME_PRE_AUTHORISATION_PAYMENTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION_ACCOUNTS
+      - INITIATE_ONETIME_PRE_AUTHORISATION
+      - VARIABLE_RECURRING_PAYMENT_FUNDS_CONFIRMATION
+    ApiErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetails'
+      description: 'Used to return errors from the bank from each request
+
+
+        - `400` - Returned by any `POST` endpoint when the body does not conform to the contract
+
+        - `401` - Returned by any endpoint when an invalid `authToken` is used for authentication
+
+        - `403` - Returned by any [Financial Data](/api-reference/...) and any [Payments](/api-reference/...) endpoint when the `Consent` is no longer authorised to access financial data or to make a payment
+
+        - `404` - Returned by any endpoint where there are path parameters and the path parameters supplied are unable to find the desired resource
+
+        - `409` - Returned by any `POST` endpoint when creating a resource that conflicts with any other existing resource e.g. [Create User](/api-reference/...)
+
+        - `424` - Returned by any [Financial Data](/api-reference/...) and any [Payments](/api-reference/...) endpoint when the feature to be accessed is not supported by the `Institution`.
+
+        - `500` - Returned by any endpoint when Yapily is down. If you encounter any false positives, please [notify us](mailto:support@yapily.com)'
+      example:
+        error:
+          tracingId: 0c2d0973bdd24224a65e5d0f7d1b6154
+          code: 400
+          status: BAD_REQUEST
+          supportUrl: https://support.yapily.com/
+          source: YAPILY
+          issues:
+          - type: INVALID_REQUEST
+            code: INVALID_PROPERTY_UNEXPECTED_VALUE
+            parameter: $.payer.accountidentifications.type
+            message: Type Should be one of [PAN, SORT_CODE, ACCOUNT_NUMBER]
+            institutionError:
+              errorMessage: '{"Code":"400 BadRequest","Id":"3517bfc2-c3ee-4f2f-b4f8-12f62478e0d1","Message":"No Resource found","Errors":[{"ErrorCode":"UK.OBIE.Resource.NotFound","Message":"No resource found corresponding to the consent id"}]}'
+              httpStatusCode: 400
     VrpFundsConfirmationRequest:
       type: object
       required:
@@ -3385,151 +3465,71 @@ components:
         reference:
           type: string
           description: __Optional__. The reference/description associated with the VRP consent. Limited to a maximum of 18 characters long.
-    RedirectRequest:
-      required:
-      - url
+    Address:
+      title: Address Details
       type: object
       properties:
-        url:
-          type: string
-          description: __Mandatory__.Successful redirect after the user complete the authorisation at the `Institution`.
-      description: __Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
-    VrpUltimatePayee:
-      type: object
-      properties:
-        name:
-          type: string
-        accountIdentifications:
-          uniqueItems: true
+        addressLines:
+          title: Address Lines
           type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-        legalEntityIdentification:
-          type: string
-        accountType:
-          $ref: '#/components/schemas/PayeeAccountType'
-        address:
-          $ref: '#/components/schemas/Address'
-        merchantId:
-          type: string
-        merchantCategoryCode:
-          type: string
-    RefundAccount:
-      type: object
-      description: The account to which funds should be returned if the payment is to be later refunded.
-      properties:
-        name:
-          type: string
-        accountIdentifications:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentification'
-    VrpSweepingAuthorisationRequest:
-      required:
-      - institutionId
-      - controlParameters
-      - initiationDetails
-      type: object
-      properties:
-        userUuid:
-          type: string
-          format: uuid
-          description: __Conditional.__ The Yapily User UUID. One of `userUuid` or `applicationUserId` must be present in the request.
-        applicationUserId:
-          type: string
-          description: __Conditional.__ The Application User ID. One of `userUuid` or `applicationUserId` must be present in the request.
-        institutionId:
-          type: string
-          description: The Institution ID which will carry out authorisation.
-        callback:
-          type: string
-          description: '__Optional__. The server to redirect the user to after the user complete the authorisation at the `Institution`.
-
-
-            See [Using a callback (Optional)](/open-banking-flow/handling-redirects/callback-url#callback-url) for more information.'
-        redirect:
-          $ref: '#/components/schemas/RedirectRequest'
-        forwardParameters:
-          type: array
-          description: Any parameters that you may want to get forwarded in the callback request after the PSU is redirected.
+          description: __Optional__. The address line of the address
+          example:
+          - Ardenham Court
           items:
             type: string
-        oneTimeToken:
-          type: boolean
-          description: '__Conditional__. Set to `true` to receive a `oneTimeToken` instead of `consentToken` at the `callback`. This is used for additional security and can only be used when the `callback` is set.
+        streetName:
+          title: Street
+          type: string
+          description: __Optional__. The street name of the address
+          example: Oxford Road
+        buildingNumber:
+          title: Building Number
+          type: string
+          description: __Optional__. The building number of the address
+          example: '45'
+        postCode:
+          title: Post Code
+          type: string
+          description: __Optional__. The post code of the address
+          example: HP19 3EQ
+        townName:
+          title: Town
+          type: string
+          description: __Optional__. The town name of the address
+          example: Aylesbury
+        county:
+          title: County
+          type: array
+          description: __Optional__. The list of counties for the address
+          example:
+          - Buckinghamshire
+          items:
+            type: string
+        country:
+          title: Country
+          type: string
+          description: "__Conditional__. The 2-letter country code for the address. \n\nAn `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment"
+          example: GB
+        department:
+          title: Department
+          type: string
+          description: __Optional__. The department for the address
+          example: Unit 2
+        subDepartment:
+          title: Sub-Department
+          type: string
+          description: __Optional__. The sub-department for the address
+          example: Floor 3
+        addressType:
+          $ref: '#/components/schemas/AddressTypeEnum'
+      description: '__Conditional__. The address of the `Payee` or `Payer`.
 
 
-            See [Using a One-Time Token](/open-banking-flow/handling-redirects/callback-url#using-a-ott) for more information.'
-        controlParameters:
-          $ref: '#/components/schemas/VrpControlParameters'
-        initiationDetails:
-          $ref: '#/components/schemas/VrpInitiationDetails'
-        complianceData:
-          $ref: '#/components/schemas/VrpComplianceData'
-    VrpComplianceDataIndividual:
-      type: object
-      required:
-      - name
-      - birthDate
-      properties:
-        name:
-          type: string
-          example: John Doe
-          description: This is the first and last name of your end user.
-        birthDate:
-          type: string
-          format: date
-          example: '2000-08-12'
-          description: This is the date of birth of your end user.
-      description: __Conditional__. Mandatory if the type is INDIVIDUAL.
-    VrpInitiationDetails:
-      type: object
-      description: The definition of the payer and payee.
-      properties:
-        reference:
-          type: string
-          description: The reference/description of the payments that will be carried out on this VRP consent.
-        payer:
-          $ref: '#/components/schemas/Payer'
-        ultimatePayer:
-          $ref: '#/components/schemas/VrpUltimatePayer'
-        payee:
-          $ref: '#/components/schemas/Payee'
-        ultimatePayee:
-          $ref: '#/components/schemas/VrpUltimatePayee'
-    ApiResponseOfVrpSweepingAuthorisationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/VrpSweepingAuthorisationResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        tracingId:
-          type: string
-          writeOnly: true
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-    ResponseForwardedData:
-      type: object
-      properties:
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        url:
-          type: string
+        - `payee.address` is mandatory when the `paymentType` is an `INTERNATIONAL` payment
+
+        - An `Institution` may require you to specify the `country` when used in the context of the `Payee` to be able to make a payment.'
+      example:
+        country: GB
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

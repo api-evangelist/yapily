@@ -8,17 +8,20 @@ description: >-
   Pages. Yapily Connect Ltd is FCA-authorised in the UK and Yapily Connect UAB is authorised by the Bank of Lithuania
   for EU coverage, allowing customers to launch without holding their own PSD2 permissions.
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - yapily/yapily-openapi
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid
@@ -44,7 +47,7 @@ tags:
   - Payments
   - Account Information
   - Variable Recurring Payments
-  - Financial-Services
+  - Financial Services
   - PSD2
   - FCA
   - Berlin Group
@@ -65,6 +68,7 @@ tags_raw:
   - UK
   - Europe
   - FinTech
+  - Financial-Services
 specificationVersion: '0.23'
 apis:
 - aid: yapily:yapily-institutions-api

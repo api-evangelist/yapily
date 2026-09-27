@@ -352,11 +352,23 @@ components:
         properties:
           status:
             $ref: '#/components/schemas/WebhookStatusType'
+    Metadata:
+      type: object
+      properties:
+        tracingId:
+          type: string
+          format: uuid
+          description: yapily tracing id
     WebhookMetadata:
       type: object
       description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
       additionalProperties:
         type: string
+    WebhookStatusType:
+      type: string
+      enum:
+      - active
+      - paused
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -404,20 +416,6 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
-    Metadata:
-      type: object
-      properties:
-        tracingId:
-          type: string
-          format: uuid
-          description: yapily tracing id
-    CategoryStructure:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
     RegisteredWebhook:
       type: object
       properties:
@@ -451,11 +449,13 @@ components:
                   type: string
         metadata:
           $ref: '#/components/schemas/WebhookMetadata'
-    WebhookStatusType:
-      type: string
-      enum:
-      - active
-      - paused
+    CategoryStructure:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
