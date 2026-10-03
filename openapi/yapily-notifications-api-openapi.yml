@@ -121,112 +121,231 @@ paths:
           description: Event subscription not found
 components:
   schemas:
-    EventSubscriptionResponse:
-      title: Response on successful creation of event subscription
-      type: object
-      required:
-      - eventTypeId
-      - applicationId
-      - created
-      - notification
-      properties:
-        eventTypeId:
-          type: string
-          description: Unique identifier of the event type (for which notifications will be sent)
-          example: payment.status.completed
-        applicationId:
-          type: string
-          format: uuid
-          description: Application related to event subscription.
-          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
-        created:
-          type: string
-          description: Creation date of event subscription.
-          example: 28-07-2021 15:47:03
-        notification:
-          $ref: '#/components/schemas/Notification'
-    Next:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    ProprietaryBankTransactionCode:
-      type: object
-      description: Transaction code that is proprietary to the `Institution`.
-      properties:
-        code:
-          type: string
-          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
-        issuer:
-          type: string
-          description: __Mandatory__. Issuer of the proprietary code.
-    Enrichment:
-      type: object
-      description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
-      properties:
-        categorisation:
-          $ref: '#/components/schemas/Categorisation'
-        transactionHash:
-          $ref: '#/components/schemas/TransactionHash'
-        cleansedDescription:
-          type: string
-          description: Cleaned version of the `Transaction Description` that removes miscellaneous, generic and unhelpful text.
-        merchant:
-          $ref: '#/components/schemas/EnrichmentMerchant'
-        location:
-          type: string
-          description: The location of where the transaction took place.
-        paymentProcessor:
-          type: string
-          description: A payment provider that manages (credit/debit) transactions between the `Institution` and the merchant.
-        correctedDate:
-          type: string
-          description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
-          format: date-time
-    TransactionBalance:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AccountBalanceType'
-        balanceAmount:
-          $ref: '#/components/schemas/Amount'
     DeleteStatusEnum:
       type: string
       description: Indicates the outcome of the delete request.
       enum:
       - SUCCESS
       - FAILED
+    IsoBankTransactionCode:
+      type: object
+      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
+      properties:
+        domainCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        familyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+        subFamilyCode:
+          $ref: '#/components/schemas/IsoCodeDetails'
+    Categorisation:
+      type: object
+      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    EnrichmentMerchant:
+      type: object
+      description: Details of the merchant, identified by Yapily data services.
+      properties:
+        merchantName:
+          type: string
+          description: The name of the indivdual merchant involved in the transaction e.g. (TESCO Petrol).
+        parentGroup:
+          type: string
+          description: The parent organisation that the merchant belongs to e.g. (TESCO).
+    ApiResponseOfEventSubscriptionDeleteResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/EventSubscriptionDeleteResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    ApiResponseOfEventSubscriptionResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/EventSubscriptionResponse'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+        forwardedData:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseForwardedData'
+        raw:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RawResponse'
+        tracingId:
+          type: string
+          writeOnly: true
+    Transaction:
+      type: object
+      description: Details of a transaction (credit or debit) that has occurred on the account.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the transaction.
+        date:
+          type: string
+          format: date-time
+        bookingDateTime:
+          type: string
+          description: Date and time in UTC format of when a transaction was booked.
+          format: date-time
+        valueDateTime:
+          type: string
+          description: Date and time in UTC format when the funds either cease to be available (for debit transactions) or become available (for credit transactions) to the account owner.
+          format: date-time
+        status:
+          $ref: '#/components/schemas/TransactionStatusEnum'
+        amount:
+          type: number
+          description: The transaction amount.
+        currency:
+          type: string
+          description: Currency the transaction amount is denoted in. Specified as a 3-letter ISO 4217 code.
+        transactionAmount:
+          $ref: '#/components/schemas/Amount'
+        grossAmount:
+          $ref: '#/components/schemas/Amount'
+        currencyExchange:
+          $ref: '#/components/schemas/CurrencyExchange'
+        chargeDetails:
+          $ref: '#/components/schemas/TransactionChargeDetails'
+        reference:
+          type: string
+        statementReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatementReference'
+        description:
+          type: string
+        transactionInformation:
+          type: array
+          description: Further details on the transaction. This is narrative data, caught as unstructured text.
+          items:
+            type: string
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+        isoBankTransactionCode:
+          $ref: '#/components/schemas/IsoBankTransactionCode'
+        proprietaryBankTransactionCode:
+          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
+        balance:
+          $ref: '#/components/schemas/TransactionBalance'
+        payeeDetails:
+          type: object
+          description: Details of the beneficiary [person or business].
+          properties:
+            name:
+              type: string
+              description: The account holder name of the Payee.
+            accountIdentifications:
+              type: array
+              description: The account identifications that identify the Payee's bank account.
+              items:
+                type: object
+                properties:
+                  type:
+                    allOf:
+                    - $ref: '#/components/schemas/AccountIdentificationType'
+                    description: Describes the format of the account.
+                  identification:
+                    type: string
+                    description: The value associated with the account identification type.
+        payerDetails:
+          type: object
+          description: Details of the benefactor [person or business].
+          properties:
+            name:
+              type: string
+              description: The account holder name of the Payer.
+            accountIdentifications:
+              type: array
+              description: The account identifications that identify the Payer's bank account.
+              items:
+                type: object
+                properties:
+                  type:
+                    allOf:
+                    - $ref: '#/components/schemas/AccountIdentificationType'
+                    description: Describes the format of the account.
+                  identification:
+                    type: string
+                    description: The value associated with the account identification type.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        enrichment:
+          $ref: '#/components/schemas/Enrichment'
+        supplementaryData:
+          type: object
+          description: Additional information that cannot be captured in a structured field or block.
+        transactionMutability:
+          type: string
+          description: '__Optional__. Specifies the Mutability of the Transaction record.
+
+
+            - A transaction with a `Status` of `Pending` is mutable.
+
+            - A transaction with a `Status` of `Booked` where the `TransactionMutability` flag is not specified is not guaranteed to be immutable (although in most instances it will be).
+
+            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Immutable` is immutable.
+
+            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Mutable` is mutable.'
+          example: Mutable
+    EventSubscriptionRequest:
+      title: Request to create a subscription for notifications
+      type: object
+      required:
+      - eventTypeId
+      - notification
+      properties:
+        eventTypeId:
+          type: string
+          description: 'Unique identifier of the event type (for which notifications will be sent).
+
+
+            Allowed values: payment.status, payment.status.completed, payment.isoStatus'
+          example: payment.status.completed
+        notification:
+          $ref: '#/components/schemas/Notification'
+    TransactionHash:
+      type: object
+      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
+      properties:
+        hash:
+          type: string
     FilteredClientPayloadListTransaction:
       type: object
       properties:
@@ -247,37 +366,17 @@ components:
         totalCount:
           type: integer
           format: int64
-    ApiCall:
+    TransactionStatusEnum:
+      type: string
+      enum:
+      - BOOKED
+      - PENDING
+    AddressDetails:
       type: object
-    Categorisation:
-      type: object
-      description: Income and Expense categorisation that the Yapily categorisation engine has determined for the transaction.
       properties:
-        categories:
-          type: array
-          items:
-            type: string
-        source:
+        addressLine:
           type: string
-    RawResponse:
-      deprecated: true
-      type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
-      properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
-          type: string
-          format: iso8601
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
-          type: object
+          description: Information, in free format text, that identifies a specific address.
     ApiListResponseOfEventSubscriptionResponse:
       type: object
       properties:
@@ -305,15 +404,107 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    ResponseForwardedData:
+    Notification:
+      description: Subscription details for how and where to receive notifications.
+      type: object
+      required:
+      - type
+      - url
+      properties:
+        type:
+          type: string
+          description: How the notification will be delivered. This is currently only via WEBHOOK.
+          example: WEBHOOK
+        url:
+          type: string
+          description: URL to which the notification will be sent.
+          example: https://httpbin.com/new_endpoint
+    RawRequest:
       type: object
       properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
         headers:
           type: object
           additionalProperties:
             type: string
-        url:
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
           type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    StatementReference:
+      type: object
+      description: Unique reference for a statement period. This may be optionally populated if available.
+      properties:
+        value:
+          type: string
+    Enrichment:
+      type: object
+      description: Enriched data that has been derived by Yapily using it's data processing and machine learning techniques.
+      properties:
+        categorisation:
+          $ref: '#/components/schemas/Categorisation'
+        transactionHash:
+          $ref: '#/components/schemas/TransactionHash'
+        cleansedDescription:
+          type: string
+          description: Cleaned version of the `Transaction Description` that removes miscellaneous, generic and unhelpful text.
+        merchant:
+          $ref: '#/components/schemas/EnrichmentMerchant'
+        location:
+          type: string
+          description: The location of where the transaction took place.
+        paymentProcessor:
+          type: string
+          description: A payment provider that manages (credit/debit) transactions between the `Institution` and the merchant.
+        correctedDate:
+          type: string
+          description: The likely date and time on which the transaction took place. This is distinct from `Booking Date Time` which usually refers to the post-clearing value.
+          format: date-time
+    TransactionChargeDetails:
+      type: object
+      description: Details the charges that will apply to the transaction.
+      properties:
+        chargeAmount:
+          $ref: '#/components/schemas/Amount'
+    EventSubscriptionResponse:
+      title: Response on successful creation of event subscription
+      type: object
+      required:
+      - eventTypeId
+      - applicationId
+      - created
+      - notification
+      properties:
+        eventTypeId:
+          type: string
+          description: Unique identifier of the event type (for which notifications will be sent)
+          example: payment.status.completed
+        applicationId:
+          type: string
+          format: uuid
+          description: Application related to event subscription.
+          example: 2698db90-6635-4f76-b673-5ce8e2aeda0e
+        created:
+          type: string
+          description: Creation date of event subscription.
+          example: 28-07-2021 15:47:03
+        notification:
+          $ref: '#/components/schemas/Notification'
     Merchant:
       type: object
       description: Details of the merchant involved in the transaction.
@@ -2155,6 +2346,57 @@ components:
             - `9754` (Quasi Cash - Gambling-Horse Racing, Dog Racing, State Lotteries)
 
             - `9950` (Intra-Company Purchases)'
+    ProprietaryBankTransactionCode:
+      type: object
+      description: Transaction code that is proprietary to the `Institution`.
+      properties:
+        code:
+          type: string
+          description: __Mandatory__. Proprietary code used to identify the underlying transaction.
+        issuer:
+          type: string
+          description: __Mandatory__. Issuer of the proprietary code.
+    IsoCodeDetails:
+      type: object
+      description: __Mandatory__. Details the identification of the ISO code.
+      properties:
+        code:
+          default: UNKNOWN
+          description: __Mandatory__. Unique identifier of the ISO code.
+          type: string
+        name:
+          default: UNKNOWN
+          description: __Mandatory__. Name of the ISO Code.
+          type: string
+    ResponseForwardedData:
+      type: object
+      properties:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
+          type: string
+    AccountBalanceType:
+      type: string
+      description: Specifies the type of the stated account balance.
+      enum:
+      - CLOSING_AVAILABLE
+      - CLOSING_BOOKED
+      - CLOSING_CLEARED
+      - EXPECTED
+      - FORWARD_AVAILABLE
+      - INFORMATION
+      - INTERIM_AVAILABLE
+      - INTERIM_BOOKED
+      - INTERIM_CLEARED
+      - OPENING_AVAILABLE
+      - OPENING_BOOKED
+      - OPENING_CLEARED
+      - PREVIOUSLY_CLOSED_BOOKED
+      - AUTHORISED
+      - OTHER
+      - UNKNOWN
     AccountIdentificationType:
       title: Account Identification Type
       type: string
@@ -2182,85 +2424,25 @@ components:
       - CTN
       - BRANCH_CODE
       - VIRTUAL_ACCOUNT_ID
-    ResponseMeta:
+    RawResponse:
+      deprecated: true
       type: object
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
       properties:
-        tracingId:
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
           type: string
-    TransactionStatusEnum:
-      type: string
-      enum:
-      - BOOKED
-      - PENDING
-    EnrichmentMerchant:
-      type: object
-      description: Details of the merchant, identified by Yapily data services.
-      properties:
-        merchantName:
-          type: string
-          description: The name of the indivdual merchant involved in the transaction e.g. (TESCO Petrol).
-        parentGroup:
-          type: string
-          description: The parent organisation that the merchant belongs to e.g. (TESCO).
-    IsoBankTransactionCode:
-      type: object
-      description: "Defines the underlying transaction type (e.g. Card or Debit Transactions, Loans or Mortages). \n\n Conforms to `ISO` standards - ISO 20022."
-      properties:
-        domainCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        familyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-        subFamilyCode:
-          $ref: '#/components/schemas/IsoCodeDetails'
-    TransactionHash:
-      type: object
-      description: An unique identifier for the transaction that was generated by Yapily. This is a hash of transaction attributes and may be useful an id is not present (and therefore hasn't been provided by an Institution).
-      properties:
-        hash:
-          type: string
-    AccountBalanceType:
-      type: string
-      description: Specifies the type of the stated account balance.
-      enum:
-      - CLOSING_AVAILABLE
-      - CLOSING_BOOKED
-      - CLOSING_CLEARED
-      - EXPECTED
-      - FORWARD_AVAILABLE
-      - INFORMATION
-      - INTERIM_AVAILABLE
-      - INTERIM_BOOKED
-      - INTERIM_CLEARED
-      - OPENING_AVAILABLE
-      - OPENING_BOOKED
-      - OPENING_CLEARED
-      - PREVIOUSLY_CLOSED_BOOKED
-      - AUTHORISED
-      - OTHER
-      - UNKNOWN
-    ApiResponseOfEventSubscriptionDeleteResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/EventSubscriptionDeleteResponse'
-        links:
+          format: iso8601
+        headers:
           type: object
           additionalProperties:
             type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
     Pagination:
       type: object
       properties:
@@ -2271,150 +2453,6 @@ components:
           $ref: '#/components/schemas/FilterAndSort'
         next:
           $ref: '#/components/schemas/Next'
-    Transaction:
-      type: object
-      description: Details of a transaction (credit or debit) that has occurred on the account.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the transaction.
-        date:
-          type: string
-          format: date-time
-        bookingDateTime:
-          type: string
-          description: Date and time in UTC format of when a transaction was booked.
-          format: date-time
-        valueDateTime:
-          type: string
-          description: Date and time in UTC format when the funds either cease to be available (for debit transactions) or become available (for credit transactions) to the account owner.
-          format: date-time
-        status:
-          $ref: '#/components/schemas/TransactionStatusEnum'
-        amount:
-          type: number
-          description: The transaction amount.
-        currency:
-          type: string
-          description: Currency the transaction amount is denoted in. Specified as a 3-letter ISO 4217 code.
-        transactionAmount:
-          $ref: '#/components/schemas/Amount'
-        grossAmount:
-          $ref: '#/components/schemas/Amount'
-        currencyExchange:
-          $ref: '#/components/schemas/CurrencyExchange'
-        chargeDetails:
-          $ref: '#/components/schemas/TransactionChargeDetails'
-        reference:
-          type: string
-        statementReferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatementReference'
-        description:
-          type: string
-        transactionInformation:
-          type: array
-          description: Further details on the transaction. This is narrative data, caught as unstructured text.
-          items:
-            type: string
-        addressDetails:
-          $ref: '#/components/schemas/AddressDetails'
-        isoBankTransactionCode:
-          $ref: '#/components/schemas/IsoBankTransactionCode'
-        proprietaryBankTransactionCode:
-          $ref: '#/components/schemas/ProprietaryBankTransactionCode'
-        balance:
-          $ref: '#/components/schemas/TransactionBalance'
-        payeeDetails:
-          type: object
-          description: Details of the beneficiary [person or business].
-          properties:
-            name:
-              type: string
-              description: The account holder name of the Payee.
-            accountIdentifications:
-              type: array
-              description: The account identifications that identify the Payee's bank account.
-              items:
-                type: object
-                properties:
-                  type:
-                    allOf:
-                    - $ref: '#/components/schemas/AccountIdentificationType'
-                    description: Describes the format of the account.
-                  identification:
-                    type: string
-                    description: The value associated with the account identification type.
-        payerDetails:
-          type: object
-          description: Details of the benefactor [person or business].
-          properties:
-            name:
-              type: string
-              description: The account holder name of the Payer.
-            accountIdentifications:
-              type: array
-              description: The account identifications that identify the Payer's bank account.
-              items:
-                type: object
-                properties:
-                  type:
-                    allOf:
-                    - $ref: '#/components/schemas/AccountIdentificationType'
-                    description: Describes the format of the account.
-                  identification:
-                    type: string
-                    description: The value associated with the account identification type.
-        merchant:
-          $ref: '#/components/schemas/Merchant'
-        enrichment:
-          $ref: '#/components/schemas/Enrichment'
-        supplementaryData:
-          type: object
-          description: Additional information that cannot be captured in a structured field or block.
-        transactionMutability:
-          type: string
-          description: '__Optional__. Specifies the Mutability of the Transaction record.
-
-
-            - A transaction with a `Status` of `Pending` is mutable.
-
-            - A transaction with a `Status` of `Booked` where the `TransactionMutability` flag is not specified is not guaranteed to be immutable (although in most instances it will be).
-
-            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Immutable` is immutable.
-
-            - A transaction with a `Status` of `Booked` with the `TransactionMutability` flag set to `Mutable` is mutable.'
-          example: Mutable
-    ApiResponseOfEventSubscriptionResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/EventSubscriptionResponse'
-        links:
-          type: object
-          additionalProperties:
-            type: string
-        forwardedData:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseForwardedData'
-        raw:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RawResponse'
-        tracingId:
-          type: string
-          writeOnly: true
-    AddressDetails:
-      type: object
-      properties:
-        addressLine:
-          type: string
-          description: Information, in free format text, that identifies a specific address.
     ResponseListMeta:
       type: object
       properties:
@@ -2425,6 +2463,90 @@ components:
           format: int32
         pagination:
           $ref: '#/components/schemas/Pagination'
+    Amount:
+      title: Amount Details
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          title: Amount
+          type: number
+          description: __Mandatory__. The monetary value
+          example: 10
+        currency:
+          title: Currency
+          type: string
+          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
+          example: GBP
+      description: __Mandatory__. Monetary Amount.
+    TransactionBalance:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AccountBalanceType'
+        balanceAmount:
+          $ref: '#/components/schemas/Amount'
+    ApiCall:
+      type: object
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    CurrencyExchange:
+      type: object
+      description: Provides details on the currrency exchange.
+      properties:
+        sourceCurrency:
+          type: string
+          description: Currency from which an amount is to be converted.
+        targetCurrency:
+          type: string
+          description: Currency to which an amount is to be converted.
+        unitCurrency:
+          type: string
+          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
+        exchangeRate:
+          type: number
+          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
     EventSubscriptionDeleteResponse:
       title: Response upon successful unsubscribe on subscription
       type: object
@@ -2450,128 +2572,6 @@ components:
           example: 28-07-2021 15:47:03
         deleteStatus:
           $ref: '#/components/schemas/DeleteStatusEnum'
-    EventSubscriptionRequest:
-      title: Request to create a subscription for notifications
-      type: object
-      required:
-      - eventTypeId
-      - notification
-      properties:
-        eventTypeId:
-          type: string
-          description: 'Unique identifier of the event type (for which notifications will be sent).
-
-
-            Allowed values: payment.status, payment.status.completed, payment.isoStatus'
-          example: payment.status.completed
-        notification:
-          $ref: '#/components/schemas/Notification'
-    TransactionChargeDetails:
-      type: object
-      description: Details the charges that will apply to the transaction.
-      properties:
-        chargeAmount:
-          $ref: '#/components/schemas/Amount'
-    RawRequest:
-      type: object
-      properties:
-        method:
-          type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
-    StatementReference:
-      type: object
-      description: Unique reference for a statement period. This may be optionally populated if available.
-      properties:
-        value:
-          type: string
-    CurrencyExchange:
-      type: object
-      description: Provides details on the currrency exchange.
-      properties:
-        sourceCurrency:
-          type: string
-          description: Currency from which an amount is to be converted.
-        targetCurrency:
-          type: string
-          description: Currency to which an amount is to be converted.
-        unitCurrency:
-          type: string
-          description: The currency in which the rate of exchange is expressed in a currency exchange. In the example 1GBP = xxxCUR, the unit currency is GBP.
-        exchangeRate:
-          type: number
-          description: The factor used for conversion of an amount from one currency to another. This reflects the price at which one currency was bought with another currency.
-    Amount:
-      title: Amount Details
-      required:
-      - amount
-      - currency
-      type: object
-      properties:
-        amount:
-          title: Amount
-          type: number
-          description: __Mandatory__. The monetary value
-          example: 10
-        currency:
-          title: Currency
-          type: string
-          description: __Mandatory__. The [ISO 4217](https://www.xe.com/iso4217.php) currency code
-          example: GBP
-      description: __Mandatory__. Monetary Amount.
-    Notification:
-      description: Subscription details for how and where to receive notifications.
-      type: object
-      required:
-      - type
-      - url
-      properties:
-        type:
-          type: string
-          description: How the notification will be delivered. This is currently only via WEBHOOK.
-          example: WEBHOOK
-        url:
-          type: string
-          description: URL to which the notification will be sent.
-          example: https://httpbin.com/new_endpoint
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    IsoCodeDetails:
-      type: object
-      description: __Mandatory__. Details the identification of the ISO code.
-      properties:
-        code:
-          default: UNKNOWN
-          description: __Mandatory__. Unique identifier of the ISO code.
-          type: string
-        name:
-          default: UNKNOWN
-          description: __Mandatory__. Name of the ISO Code.
-          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

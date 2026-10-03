@@ -191,31 +191,163 @@ paths:
       - Users
 components:
   schemas:
-    RawResponse:
-      deprecated: true
+    DeleteStatusEnum:
+      type: string
+      description: Indicates the outcome of the delete request.
+      enum:
+      - SUCCESS
+      - FAILED
+    UserDeleteResponse:
       type: object
-      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
+      description: Deletion of the user. Includes the user profile and all associate consents.
       properties:
-        request:
-          $ref: '#/components/schemas/RawRequest'
-        duration:
+        id:
           type: string
-          format: iso8601
+          description: Unique identifier of the user.
+        deleteStatus:
+          $ref: '#/components/schemas/DeleteStatusEnum'
+        creationDate:
+          type: string
+          format: date-time
+          description: Date and time that the user was created.
+        userConsents:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentDeleteResponse'
+    ResponseForwardedData:
+      type: object
+      properties:
         headers:
           type: object
           additionalProperties:
             type: string
-        resultCode:
-          type: integer
-          format: int32
-        result:
+        url:
+          type: string
+    RawRequest:
+      type: object
+      properties:
+        method:
+          type: string
+        url:
+          type: string
+        requestInstant:
+          type: string
+          format: date-time
+        headers:
           type: object
+          additionalProperties:
+            type: string
+        body:
+          type: object
+        bodyParameters:
+          type: object
+          additionalProperties:
+            type: string
+        startTime:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          deprecated: true
+    ApiError:
+      type: object
+      description: Provides details of the error that has occurred.
+      properties:
+        code:
+          type: integer
+          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
+          format: int32
+        institutionError:
+          $ref: '#/components/schemas/InstitutionError'
+        message:
+          type: string
+          description: __Mandatory__. Description of the exact error that has been experienced.
+        source:
+          type: string
+        status:
+          type: string
+          description: __Mandatory__. Textual description of the `HTTP` error status type.
+        tracingId:
+          type: string
+          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
+    ApplicationUserPatchRequest:
+      type: object
+      required:
+      - op
+      - path
+      - value
+      properties:
+        op:
+          $ref: '#/components/schemas/PatchOperation'
+        path:
+          description: The path to the target location.
+          type: string
+        value:
+          description: The value to be replaced or tested.
+          type: string
     PatchOperation:
       type: string
       description: The operation to be performed
       enum:
       - add
       - replace
+    ApplicationUser:
+      type: object
+      description: Information about a user of an application.
+      properties:
+        uuid:
+          type: string
+          description: A unique identifier for the 'User' assigned by Yapily.
+          format: uuid
+        applicationUuid:
+          type: string
+          description: Unique identifier of the application the user is associated with.
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User`.
+        referenceId:
+          type: string
+        createdAt:
+          type: string
+          description: Date and time of when the user was created.
+          format: date-time
+        institutionConsents:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstitutionConsent'
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
+    NewApplicationUser:
+      type: object
+      description: Details of a new user to be created for the application.
+      properties:
+        applicationUserId:
+          type: string
+          description: __Optional__. The unique identifier of the `Application User` assigned by the Application Owner.
+          example: user-234562290
+        referenceId:
+          type: string
+          description: __Deprecated__. A non-unique reference Id for the `Application User`.
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
     ApiResponseError:
       type: object
       properties:
@@ -251,33 +383,6 @@ components:
             httpStatusCode: 500
           source: INSTITUTION
           status: FAILED_DEPENDENCY
-    RawRequest:
-      type: object
-      properties:
-        method:
-          type: string
-        url:
-          type: string
-        requestInstant:
-          type: string
-          format: date-time
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: object
-        bodyParameters:
-          type: object
-          additionalProperties:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        startedAt:
-          type: string
-          format: date-time
-          deprecated: true
     ConsentDeleteResponse:
       type: object
       properties:
@@ -297,84 +402,25 @@ components:
           type: string
           description: Date and time of when the consent was authorised.
           format: date-time
-    ApplicationUserPatchRequest:
+    RawResponse:
+      deprecated: true
       type: object
-      required:
-      - op
-      - path
-      - value
+      description: '[DEPRECATED] Interaction (raw request and response) that occurred with the `Institution` in order to fulfil a request.'
       properties:
-        op:
-          $ref: '#/components/schemas/PatchOperation'
-        path:
-          description: The path to the target location.
+        request:
+          $ref: '#/components/schemas/RawRequest'
+        duration:
           type: string
-        value:
-          description: The value to be replaced or tested.
-          type: string
-    ApiError:
-      type: object
-      description: Provides details of the error that has occurred.
-      properties:
-        code:
-          type: integer
-          description: __Mandatory__. Numeric `HTTP` status code associated with the error.
-          format: int32
-        institutionError:
-          $ref: '#/components/schemas/InstitutionError'
-        message:
-          type: string
-          description: __Mandatory__. Description of the exact error that has been experienced.
-        source:
-          type: string
-        status:
-          type: string
-          description: __Mandatory__. Textual description of the `HTTP` error status type.
-        tracingId:
-          type: string
-          description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
-    ResponseForwardedData:
-      type: object
-      properties:
+          format: iso8601
         headers:
           type: object
           additionalProperties:
             type: string
-        url:
-          type: string
-    NewApplicationUser:
-      type: object
-      description: Details of a new user to be created for the application.
-      properties:
-        applicationUserId:
-          type: string
-          description: __Optional__. The unique identifier of the `Application User` assigned by the Application Owner.
-          example: user-234562290
-        referenceId:
-          type: string
-          description: __Deprecated__. A non-unique reference Id for the `Application User`.
-        vopOptOut:
-          type: boolean
-          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
-          default: false
-    UserDeleteResponse:
-      type: object
-      description: Deletion of the user. Includes the user profile and all associate consents.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the user.
-        deleteStatus:
-          $ref: '#/components/schemas/DeleteStatusEnum'
-        creationDate:
-          type: string
-          format: date-time
-          description: Date and time that the user was created.
-        userConsents:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsentDeleteResponse'
+        resultCode:
+          type: integer
+          format: int32
+        result:
+          type: object
     ApiResponseOfUserDeleteResponse:
       type: object
       properties:
@@ -398,57 +444,11 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    DeleteStatusEnum:
-      type: string
-      description: Indicates the outcome of the delete request.
-      enum:
-      - SUCCESS
-      - FAILED
     ResponseMeta:
       type: object
       properties:
         tracingId:
           type: string
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
-    ApplicationUser:
-      type: object
-      description: Information about a user of an application.
-      properties:
-        uuid:
-          type: string
-          description: A unique identifier for the 'User' assigned by Yapily.
-          format: uuid
-        applicationUuid:
-          type: string
-          description: Unique identifier of the application the user is associated with.
-          format: uuid
-        applicationUserId:
-          type: string
-          description: __Conditional__. The user-friendly reference to the `User`.
-        referenceId:
-          type: string
-        createdAt:
-          type: string
-          description: Date and time of when the user was created.
-          format: date-time
-        institutionConsents:
-          type: array
-          items:
-            $ref: '#/components/schemas/InstitutionConsent'
-        vopOptOut:
-          type: boolean
-          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
-          default: false
     InstitutionConsent:
       type: object
       description: '`Institution` authorised consents which are currently in place for the `Application User`.'

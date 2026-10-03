@@ -352,23 +352,39 @@ components:
         properties:
           status:
             $ref: '#/components/schemas/WebhookStatusType'
-    Metadata:
+    RegisteredWebhook:
       type: object
       properties:
-        tracingId:
+        id:
+          type: string
+          description: This webhook's ID, used to update or remove the webhook
+          format: uuid
+        applicationId:
           type: string
           format: uuid
-          description: yapily tracing id
-    WebhookMetadata:
-      type: object
-      description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
-      additionalProperties:
-        type: string
-    WebhookStatusType:
-      type: string
-      enum:
-      - active
-      - paused
+        categories:
+          type: array
+          items:
+            type: string
+            description: One or more event categories for which the webhook will be triggered
+        callbackUrl:
+          type: object
+          description: Callback URLs where events will be sent
+          properties:
+            main:
+              type: object
+              description: Primary URL where events will be sent
+              properties:
+                url:
+                  type: string
+            backup:
+              type: object
+              description: Secondary URL where events will be sent whenever the primary URL is not responding
+              properties:
+                url:
+                  type: string
+        metadata:
+          $ref: '#/components/schemas/WebhookMetadata'
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -416,39 +432,6 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
-    RegisteredWebhook:
-      type: object
-      properties:
-        id:
-          type: string
-          description: This webhook's ID, used to update or remove the webhook
-          format: uuid
-        applicationId:
-          type: string
-          format: uuid
-        categories:
-          type: array
-          items:
-            type: string
-            description: One or more event categories for which the webhook will be triggered
-        callbackUrl:
-          type: object
-          description: Callback URLs where events will be sent
-          properties:
-            main:
-              type: object
-              description: Primary URL where events will be sent
-              properties:
-                url:
-                  type: string
-            backup:
-              type: object
-              description: Secondary URL where events will be sent whenever the primary URL is not responding
-              properties:
-                url:
-                  type: string
-        metadata:
-          $ref: '#/components/schemas/WebhookMetadata'
     CategoryStructure:
       type: object
       properties:
@@ -456,6 +439,23 @@ components:
           type: string
         description:
           type: string
+    Metadata:
+      type: object
+      properties:
+        tracingId:
+          type: string
+          format: uuid
+          description: yapily tracing id
+    WebhookStatusType:
+      type: string
+      enum:
+      - active
+      - paused
+    WebhookMetadata:
+      type: object
+      description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
+      additionalProperties:
+        type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

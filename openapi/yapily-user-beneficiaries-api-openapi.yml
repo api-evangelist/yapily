@@ -558,97 +558,6 @@ components:
           type: string
           example: John Doe
           description: the name returned by the institution, in a case of CLOSE_MATCH
-    BeneficiaryStatus:
-      description: Status of the beneficiary check.
-      type: string
-      enum:
-      - PENDING
-      - VERIFIED
-      - REJECTED
-    UserBeneficiaryResponse:
-      type: object
-      description: The user beneficiary response.
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/UserBeneficiaryData'
-    Pagination:
-      type: object
-      properties:
-        totalCount:
-          type: integer
-          format: int64
-        self:
-          $ref: '#/components/schemas/FilterAndSort'
-        next:
-          $ref: '#/components/schemas/Next'
-    Next:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    PatchOperation:
-      type: string
-      description: The operation to be performed
-      enum:
-      - add
-      - replace
-    FilterAndSort:
-      type: object
-      properties:
-        from:
-          type: string
-          description: __Optional__. The earliest date and time of resources / records that should be returned.
-          format: date-time
-        before:
-          type: string
-          description: __Optional__. The latest date and time of resources / records that should be returned.
-          format: date-time
-        limit:
-          type: integer
-          description: __Optional__. The maximum number of resources / records that should be returned.
-          format: int32
-        sort:
-          $ref: '#/components/schemas/SortEnum'
-        offset:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    AccountIdentifierType:
-      type: string
-      enum:
-      - IBAN
-    UserBeneficiaryValidationRequest:
-      type: object
-      description: Beneficiary request with the details of the VoP result.
-      required:
-      - name
-      - accountIdentifier
-      properties:
-        name:
-          type: string
-          description: name of the beneficiary
-          example: John Doe
-        match:
-          $ref: '#/components/schemas/UserBeneficiaryMatch'
-        accountIdentifier:
-          $ref: '#/components/schemas/AccountIdentifier'
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
     BeneficiaryMatchStatus:
       type: string
       enum:
@@ -657,16 +566,56 @@ components:
       - NO_MATCH
       - EXEMPTED
       - VERIFICATION_CHECK_NOT_POSSIBLE
-    ResponseListMeta:
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    PatchOperation:
+      type: string
+      description: The operation to be performed
+      enum:
+      - add
+      - replace
+    ResponseMeta:
       type: object
       properties:
         tracingId:
           type: string
-        count:
-          type: integer
-          format: int32
-        pagination:
-          $ref: '#/components/schemas/Pagination'
+    UserBeneficiaryData:
+      type: object
+      description: Beneficiary data response.
+      properties:
+        beneficiaryId:
+          type: string
+          format: uuid
+          example: e7b7636d-a041-4013-8a1b-34dc85b7d341
+          description: id of the beneficiary
+        status:
+          $ref: '#/components/schemas/BeneficiaryStatus'
+        details:
+          description: Beneficiary response with the details of the VoP result.
+          required:
+          - name
+          - accountIdentifier
+          properties:
+            name:
+              type: string
+              description: name of the beneficiary
+              example: John Doe
+            match:
+              $ref: '#/components/schemas/UserBeneficiaryMatch'
+            accountIdentifier:
+              $ref: '#/components/schemas/AccountIdentifier'
+    UserBeneficiaryResponse:
+      type: object
+      description: The user beneficiary response.
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/UserBeneficiaryData'
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -714,6 +663,53 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
+    FilterAndSort:
+      type: object
+      properties:
+        from:
+          type: string
+          description: __Optional__. The earliest date and time of resources / records that should be returned.
+          format: date-time
+        before:
+          type: string
+          description: __Optional__. The latest date and time of resources / records that should be returned.
+          format: date-time
+        limit:
+          type: integer
+          description: __Optional__. The maximum number of resources / records that should be returned.
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortEnum'
+        offset:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        self:
+          $ref: '#/components/schemas/FilterAndSort'
+        next:
+          $ref: '#/components/schemas/Next'
+    UserBeneficiaryValidationRequest:
+      type: object
+      description: Beneficiary request with the details of the VoP result.
+      required:
+      - name
+      - accountIdentifier
+      properties:
+        name:
+          type: string
+          description: name of the beneficiary
+          example: John Doe
+        match:
+          $ref: '#/components/schemas/UserBeneficiaryMatch'
+        accountIdentifier:
+          $ref: '#/components/schemas/AccountIdentifier'
     AccountIdentifier:
       type: object
       description: Account's details.
@@ -727,37 +723,41 @@ components:
           type: string
           description: Account's IBAN
           example: DE12345123451234512345123
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    UserBeneficiaryData:
+    ResponseListMeta:
       type: object
-      description: Beneficiary data response.
       properties:
-        beneficiaryId:
+        tracingId:
           type: string
-          format: uuid
-          example: e7b7636d-a041-4013-8a1b-34dc85b7d341
-          description: id of the beneficiary
-        status:
-          $ref: '#/components/schemas/BeneficiaryStatus'
-        details:
-          description: Beneficiary response with the details of the VoP result.
-          required:
-          - name
-          - accountIdentifier
-          properties:
-            name:
-              type: string
-              description: name of the beneficiary
-              example: John Doe
-            match:
-              $ref: '#/components/schemas/UserBeneficiaryMatch'
-            accountIdentifier:
-              $ref: '#/components/schemas/AccountIdentifier'
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    BeneficiaryStatus:
+      description: Status of the beneficiary check.
+      type: string
+      enum:
+      - PENDING
+      - VERIFIED
+      - REJECTED
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    AccountIdentifierType:
+      type: string
+      enum:
+      - IBAN
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

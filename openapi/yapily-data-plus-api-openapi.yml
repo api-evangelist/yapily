@@ -515,20 +515,6 @@ paths:
                   $ref: '#/components/examples/500-error-response'
 components:
   schemas:
-    ApiResponseOfCreateTransactionsCategorisationRequest:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            tracingId:
-              type: string
-        data:
-          type: object
-          properties:
-            categorisationId:
-              type: string
-              format: uuid
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -576,6 +562,20 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
+    ApiResponseOfCreateTransactionsCategorisationRequest:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            tracingId:
+              type: string
+        data:
+          type: object
+          properties:
+            categorisationId:
+              type: string
+              format: uuid
     ApiResponseOfGetCategorisedTransactionsRequest:
       type: object
       properties:
