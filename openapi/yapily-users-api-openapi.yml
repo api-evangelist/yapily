@@ -191,12 +191,6 @@ paths:
       - Users
 components:
   schemas:
-    DeleteStatusEnum:
-      type: string
-      description: Indicates the outcome of the delete request.
-      enum:
-      - SUCCESS
-      - FAILED
     UserDeleteResponse:
       type: object
       description: Deletion of the user. Includes the user profile and all associate consents.
@@ -215,15 +209,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ConsentDeleteResponse'
-    ResponseForwardedData:
-      type: object
-      properties:
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        url:
-          type: string
+    DeleteStatusEnum:
+      type: string
+      description: Indicates the outcome of the delete request.
+      enum:
+      - SUCCESS
+      - FAILED
     RawRequest:
       type: object
       properties:
@@ -251,6 +242,11 @@ components:
           type: string
           format: date-time
           deprecated: true
+    ResponseMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
     ApiError:
       type: object
       description: Provides details of the error that has occurred.
@@ -272,17 +268,12 @@ components:
         tracingId:
           type: string
           description: __Optional__.  A unique identifier assigned by Yapily for the request that can be used for support purposes.
-    InstitutionError:
-      type: object
-      description: Raw error details provided by the `Institution`, when it was the error source.
-      properties:
-        errorMessage:
-          type: string
-          description: Textual description of the `Institution` error.
-        httpStatusCode:
-          type: integer
-          description: Numeric HTTP status code associated with the `Institution` error.
-          format: int32
+    PatchOperation:
+      type: string
+      description: The operation to be performed
+      enum:
+      - add
+      - replace
     ApplicationUserPatchRequest:
       type: object
       required:
@@ -298,56 +289,34 @@ components:
         value:
           description: The value to be replaced or tested.
           type: string
-    PatchOperation:
-      type: string
-      description: The operation to be performed
-      enum:
-      - add
-      - replace
-    ApplicationUser:
+    ResponseForwardedData:
       type: object
-      description: Information about a user of an application.
       properties:
-        uuid:
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        url:
           type: string
-          description: A unique identifier for the 'User' assigned by Yapily.
+    ConsentDeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: __Conditional__. User-friendly identifier of the `User` that provides authorisation. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
           format: uuid
-        applicationUuid:
+        deleteStatus:
+          $ref: '#/components/schemas/DeleteStatusEnum'
+        institutionId:
           type: string
-          description: Unique identifier of the application the user is associated with.
-          format: uuid
-        applicationUserId:
+          description: __Mandatory__. The `Institution` the authorisation request is sent to.
+        institutionConsentId:
           type: string
-          description: __Conditional__. The user-friendly reference to the `User`.
-        referenceId:
+          description: Identification of the consent at the Institution.
+        creationDate:
           type: string
-        createdAt:
-          type: string
-          description: Date and time of when the user was created.
+          description: Date and time of when the consent was authorised.
           format: date-time
-        institutionConsents:
-          type: array
-          items:
-            $ref: '#/components/schemas/InstitutionConsent'
-        vopOptOut:
-          type: boolean
-          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
-          default: false
-    NewApplicationUser:
-      type: object
-      description: Details of a new user to be created for the application.
-      properties:
-        applicationUserId:
-          type: string
-          description: __Optional__. The unique identifier of the `Application User` assigned by the Application Owner.
-          example: user-234562290
-        referenceId:
-          type: string
-          description: __Deprecated__. A non-unique reference Id for the `Application User`.
-        vopOptOut:
-          type: boolean
-          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
-          default: false
     ApiResponseError:
       type: object
       properties:
@@ -383,25 +352,6 @@ components:
             httpStatusCode: 500
           source: INSTITUTION
           status: FAILED_DEPENDENCY
-    ConsentDeleteResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: __Conditional__. User-friendly identifier of the `User` that provides authorisation. If a `User` with the specified `applicationUserId` exists, it will be used otherwise, a new `User` with the specified `applicationUserId` will be created and used. Either the `userUuid` or `applicationUserId` must be provided.
-          format: uuid
-        deleteStatus:
-          $ref: '#/components/schemas/DeleteStatusEnum'
-        institutionId:
-          type: string
-          description: __Mandatory__. The `Institution` the authorisation request is sent to.
-        institutionConsentId:
-          type: string
-          description: Identification of the consent at the Institution.
-        creationDate:
-          type: string
-          description: Date and time of when the consent was authorised.
-          format: date-time
     RawResponse:
       deprecated: true
       type: object
@@ -421,6 +371,46 @@ components:
           format: int32
         result:
           type: object
+    ApplicationUser:
+      type: object
+      description: Information about a user of an application.
+      properties:
+        uuid:
+          type: string
+          description: A unique identifier for the 'User' assigned by Yapily.
+          format: uuid
+        applicationUuid:
+          type: string
+          description: Unique identifier of the application the user is associated with.
+          format: uuid
+        applicationUserId:
+          type: string
+          description: __Conditional__. The user-friendly reference to the `User`.
+        referenceId:
+          type: string
+        createdAt:
+          type: string
+          description: Date and time of when the user was created.
+          format: date-time
+        institutionConsents:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstitutionConsent'
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
+    InstitutionError:
+      type: object
+      description: Raw error details provided by the `Institution`, when it was the error source.
+      properties:
+        errorMessage:
+          type: string
+          description: Textual description of the `Institution` error.
+        httpStatusCode:
+          type: integer
+          description: Numeric HTTP status code associated with the `Institution` error.
+          format: int32
     ApiResponseOfUserDeleteResponse:
       type: object
       properties:
@@ -444,11 +434,6 @@ components:
         tracingId:
           type: string
           writeOnly: true
-    ResponseMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
     InstitutionConsent:
       type: object
       description: '`Institution` authorised consents which are currently in place for the `Application User`.'
@@ -456,6 +441,21 @@ components:
         institutionId:
           type: string
           description: __Mandatory__. The `Institution` the authorisation request is sent to.
+    NewApplicationUser:
+      type: object
+      description: Details of a new user to be created for the application.
+      properties:
+        applicationUserId:
+          type: string
+          description: __Optional__. The unique identifier of the `Application User` assigned by the Application Owner.
+          example: user-234562290
+        referenceId:
+          type: string
+          description: __Deprecated__. A non-unique reference Id for the `Application User`.
+        vopOptOut:
+          type: boolean
+          description: __Optional__. A flag to indicate whether the user has opted out of VOP.
+          default: false
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

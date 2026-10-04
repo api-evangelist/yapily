@@ -515,6 +515,13 @@ paths:
                   $ref: '#/components/examples/500-error-response'
 components:
   schemas:
+    GetCategoriesResponse:
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -562,20 +569,6 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
-    ApiResponseOfCreateTransactionsCategorisationRequest:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            tracingId:
-              type: string
-        data:
-          type: object
-          properties:
-            categorisationId:
-              type: string
-              format: uuid
     ApiResponseOfGetCategorisedTransactionsRequest:
       type: object
       properties:
@@ -806,13 +799,20 @@ components:
               type: string
             last:
               type: string
-    GetCategoriesResponse:
+    ApiResponseOfCreateTransactionsCategorisationRequest:
       type: object
       properties:
-        labels:
-          type: array
-          items:
-            type: string
+        meta:
+          type: object
+          properties:
+            tracingId:
+              type: string
+        data:
+          type: object
+          properties:
+            categorisationId:
+              type: string
+              format: uuid
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
