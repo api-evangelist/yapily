@@ -1,20 +1,23 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/yapily-beneficiaries-api-openapi.yml, openapi/yapily-consents-api-openapi.yml,
-  openapi/yapily-data-api-openapi.yml, openapi/yapily-data-plus-api-openapi.yml, openapi/yapily-hosted-pages-api-openapi.yml,
-  openapi/yapily-institutions-api-openapi.yml, openapi/yapily-payments-api-openapi.yml, openapi/yapily-platform-api-openapi.yml,
-  openapi/yapily-vrp-api-openapi.yml
+source: openapi/yapily-application-beneficiaries-api-openapi.yml, openapi/yapily-application-management-api-openapi.yml,
+  openapi/yapily-authorisations-api-openapi.yml, openapi/yapily-consents-api-openapi.yml, openapi/yapily-constraints-api-openapi.yml,
+  openapi/yapily-data-plus-api-openapi.yml, openapi/yapily-financial-data-api-openapi.yml, openapi/yapily-hosted-consent-pages-api-openapi.yml,
+  openapi/yapily-hosted-payment-pages-api-openapi.yml, openapi/yapily-institutions-api-openapi.yml,
+  openapi/yapily-notifications-api-openapi.yml, openapi/yapily-payments-api-openapi.yml, openapi/yapily-user-beneficiaries-api-openapi.yml,
+  openapi/yapily-users-api-openapi.yml, openapi/yapily-variable-recurring-payments-api-openapi.yml,
+  openapi/yapily-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 97
   by_action_class:
-    acting: 52
-    connected: 45
+    acting: 51
+    connected: 46
   by_consequence:
-    write: 32
-    read: 45
+    write: 31
+    read: 46
     physical: 18
     safety-critical: 2
   human_in_the_loop_required: 2
@@ -71,9 +74,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{userId}/beneficiaries
+- path: /applications
   method: post
-  operationId: createUserBeneficiary
+  operationId: createSubApplication
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -87,9 +90,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{userId}/beneficiaries
+- path: /applications
   method: get
-  operationId: getUserBeneficiaries
+  operationId: searchApplications
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -97,9 +100,19 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /users/{userId}/beneficiaries/{beneficiaryId}
-  method: patch
-  operationId: patchUserBeneficiary
+- path: /applications/{applicationId}
+  method: get
+  operationId: getApplicationById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /applications/{applicationId}
+  method: put
+  operationId: updateApplication
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -113,19 +126,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{userId}/beneficiaries/{beneficiaryId}
-  method: get
-  operationId: getUserBeneficiary
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /users/{userId}/beneficiaries/{beneficiaryId}
+- path: /applications/{applicationId}
   method: delete
-  operationId: deleteUserBeneficiary
+  operationId: deleteApplication
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -139,9 +142,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{userId}/beneficiaries/{beneficiaryId}/approve
+- path: /applications/{applicationId}/vrp
   method: post
-  operationId: approveBeneficiary
+  operationId: createApplicationVRPConfigurationByApplicationId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -155,9 +158,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{userId}/beneficiaries/{beneficiaryId}/reject
-  method: post
-  operationId: rejectBeneficiary
+- path: /applications/{applicationId}/vrp
+  method: put
+  operationId: updateApplicationVRPConfigurationByApplicationId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -171,6 +174,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /applications/{applicationId}/vrp
+  method: get
+  operationId: getApplicationVRPConfigurationByApplicationId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /account-auth-requests
   method: patch
   operationId: reAuthoriseAccount
@@ -231,90 +244,6 @@ operations:
       max-ttl: 300
       exchange: true
       purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /consent-auth-code
-  method: post
-  operationId: createConsentWithCode
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /consent-one-time-token
-  method: post
-  operationId: getConsentBySingleAccessConsent
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /consents
-  method: get
-  operationId: getConsents
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /consents/{consentId}
-  method: delete
-  operationId: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /consents/{consentId}
-  method: get
-  operationId: getConsentById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /consents/{consentId}/extend
-  method: post
-  operationId: extendConsent
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
     escalation:
       human-in-the-loop: conditional
       triggers:
@@ -495,6 +424,166 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /consent-auth-code
+  method: post
+  operationId: createConsentWithCode
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consent-one-time-token
+  method: post
+  operationId: getConsentBySingleAccessConsent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents
+  method: get
+  operationId: getConsents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents/{consentId}
+  method: delete
+  operationId: delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consents/{consentId}
+  method: get
+  operationId: getConsentById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consents/{consentId}/extend
+  method: post
+  operationId: extendConsent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /institutions/constraints/payments
+  method: get
+  operationId: getPaymentConstraintsRulesByInstitution
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /institutions/constraints/data
+  method: get
+  operationId: getAccountConstraintsRulesByInstitution
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /accounts/{accountId}/transactions/categorisation
+  method: post
+  operationId: post-accounts-accountId-transactions-categorisation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /accounts/{accountId}/transactions/categorisation/{categorisationId}
+  method: get
+  operationId: get-accounts-transactions-categorised
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transactions/categorisation
+  method: post
+  operationId: post-transactions-categorisation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /transactions/categorisation/{categorisationId}
+  method: get
+  operationId: get-transactions-categorised
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transactions/categorisation/categories/{accountType}
+  method: get
+  operationId: get-categorisation-accountType
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /accounts
   method: get
   operationId: getAccounts
@@ -618,68 +707,6 @@ operations:
 - path: /accounts/{accountId}/real-time/transactions
   method: get
   operationId: getRealTimeTransactions
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /accounts/{accountId}/transactions/categorisation
-  method: post
-  operationId: post-accounts-accountId-transactions-categorisation
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /accounts/{accountId}/transactions/categorisation/{categorisationId}
-  method: get
-  operationId: get-accounts-transactions-categorised
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /transactions/categorisation
-  method: post
-  operationId: post-transactions-categorisation
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /transactions/categorisation/{categorisationId}
-  method: get
-  operationId: get-transactions-categorised
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /transactions/categorisation/categories/{accountType}
-  method: get
-  operationId: get-categorisation-accountType
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -879,6 +906,58 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /notifications/event-subscriptions
+  method: post
+  operationId: createEventSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /notifications/event-subscriptions
+  method: get
+  operationId: getEventSubscriptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /notifications/event-subscriptions/{eventTypeId}
+  method: get
+  operationId: getEventSubscriptionById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /notifications/event-subscriptions/{eventTypeId}
+  method: delete
+  operationId: deleteEventSubscriptionById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /bulk-payments
   method: post
   operationId: createBulkPayment
@@ -945,6 +1024,106 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /users/{userId}/beneficiaries
+  method: post
+  operationId: createUserBeneficiary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /users/{userId}/beneficiaries
+  method: get
+  operationId: getUserBeneficiaries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /users/{userId}/beneficiaries/{beneficiaryId}
+  method: patch
+  operationId: patchUserBeneficiary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /users/{userId}/beneficiaries/{beneficiaryId}
+  method: get
+  operationId: getUserBeneficiary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /users/{userId}/beneficiaries/{beneficiaryId}
+  method: delete
+  operationId: deleteUserBeneficiary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /users/{userId}/beneficiaries/{beneficiaryId}/approve
+  method: post
+  operationId: approveBeneficiary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /users/{userId}/beneficiaries/{beneficiaryId}/reject
+  method: post
+  operationId: rejectBeneficiary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /users
   method: get
   operationId: getUsers
@@ -1013,25 +1192,27 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /notifications/event-subscriptions
+- path: /variable-recurring-payments/sweeping/consents
   method: post
-  operationId: createEventSubscription
+  operationId: createSweepingAuthorisation
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /notifications/event-subscriptions
+- path: /variable-recurring-payments/sweeping/consents/{consentId}
   method: get
-  operationId: getEventSubscriptions
+  operationId: getSweepingVrpConsentById
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1039,155 +1220,45 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /notifications/event-subscriptions/{eventTypeId}
-  method: get
-  operationId: getEventSubscriptionById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /notifications/event-subscriptions/{eventTypeId}
-  method: delete
-  operationId: deleteEventSubscriptionById
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /institutions/constraints/payments
-  method: get
-  operationId: getPaymentConstraintsRulesByInstitution
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /institutions/constraints/data
-  method: get
-  operationId: getAccountConstraintsRulesByInstitution
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /applications
+- path: /variable-recurring-payments/funds-confirmation
   method: post
-  operationId: createSubApplication
+  operationId: createVrpFundsConfirmation
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /applications
-  method: get
-  operationId: searchApplications
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /applications/{applicationId}
-  method: get
-  operationId: getApplicationById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /applications/{applicationId}
-  method: put
-  operationId: updateApplication
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /applications/{applicationId}
-  method: delete
-  operationId: deleteApplication
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /applications/{applicationId}/vrp
+- path: /variable-recurring-payments/payments
   method: post
-  operationId: createApplicationVRPConfigurationByApplicationId
+  operationId: createVrpPayment
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /applications/{applicationId}/vrp
-  method: put
-  operationId: updateApplicationVRPConfigurationByApplicationId
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /applications/{applicationId}/vrp
+- path: /variable-recurring-payments/payments/{paymentId}/details
   method: get
-  operationId: getApplicationVRPConfigurationByApplicationId
+  operationId: getVrpPaymentDetails
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1263,77 +1334,3 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
-- path: /variable-recurring-payments/sweeping/consents
-  method: post
-  operationId: createSweepingAuthorisation
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /variable-recurring-payments/sweeping/consents/{consentId}
-  method: get
-  operationId: getSweepingVrpConsentById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /variable-recurring-payments/funds-confirmation
-  method: post
-  operationId: createVrpFundsConfirmation
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /variable-recurring-payments/payments
-  method: post
-  operationId: createVrpPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /variable-recurring-payments/payments/{paymentId}/details
-  method: get
-  operationId: getVrpPaymentDetails
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
