@@ -264,6 +264,24 @@ components:
           $ref: '#/components/schemas/FilterAndSort'
         next:
           $ref: '#/components/schemas/Next'
+    ApplicationBeneficiaryData:
+      type: object
+      description: Application beneficiary data response.
+      properties:
+        beneficiaryId:
+          $ref: '#/components/schemas/BeneficiaryId'
+        details:
+          type: object
+          required:
+          - name
+          - accountIdentifier
+          properties:
+            name:
+              type: string
+              description: name of the beneficiary
+              example: John Doe
+            accountIdentifier:
+              $ref: '#/components/schemas/AccountIdentifier'
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -311,6 +329,36 @@ components:
                   message:
                     type: string
                     description: Human readable description of the issue that was experienced
+    Next:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+    SortEnum:
+      type: string
+      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
+      enum:
+      - date
+      - -date
+    ResponseListMeta:
+      type: object
+      properties:
+        tracingId:
+          type: string
+        count:
+          type: integer
+          format: int32
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     FilterAndSort:
       type: object
       properties:
@@ -333,28 +381,23 @@ components:
           format: int32
         cursor:
           type: string
-    ApplicationBeneficiaryData:
-      type: object
-      description: Application beneficiary data response.
-      properties:
-        beneficiaryId:
-          $ref: '#/components/schemas/BeneficiaryId'
-        details:
-          type: object
-          required:
-          - name
-          - accountIdentifier
-          properties:
-            name:
-              type: string
-              description: name of the beneficiary
-              example: John Doe
-            accountIdentifier:
-              $ref: '#/components/schemas/AccountIdentifier'
     AccountIdentifierType:
       type: string
       enum:
       - IBAN
+    BeneficiaryId:
+      type: string
+      format: uuid
+      example: e7b7636d-a041-4013-8a1b-34dc85b7d341
+      description: Beneficiary Id
+    ApplicationBeneficiaryResponse:
+      type: object
+      description: Application beneficiary response.
+      properties:
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        data:
+          $ref: '#/components/schemas/ApplicationBeneficiaryData'
     AccountIdentifier:
       type: object
       description: Account's details.
@@ -368,49 +411,6 @@ components:
           type: string
           description: Account's IBAN
           example: DE12345123451234512345123
-    Next:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        before:
-          type: string
-          format: date-time
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-    BeneficiaryId:
-      type: string
-      format: uuid
-      example: e7b7636d-a041-4013-8a1b-34dc85b7d341
-      description: Beneficiary Id
-    SortEnum:
-      type: string
-      description: The attribute on which resources / records returned should be sorted. Valid options for the sort parameter.
-      enum:
-      - date
-      - -date
-    ResponseListMeta:
-      type: object
-      properties:
-        tracingId:
-          type: string
-        count:
-          type: integer
-          format: int32
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    ApplicationBeneficiaryResponse:
-      type: object
-      description: Application beneficiary response.
-      properties:
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
-        data:
-          $ref: '#/components/schemas/ApplicationBeneficiaryData'
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.

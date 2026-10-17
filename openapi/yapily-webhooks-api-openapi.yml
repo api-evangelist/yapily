@@ -345,13 +345,6 @@ paths:
         content: '<Info>Learn more: [Webhook Setup](/tools-and-services/webhooks/get-started)</Info>'
 components:
   schemas:
-    RegisteredWebhookWithStatus:
-      allOf:
-      - $ref: '#/components/schemas/RegisteredWebhook'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/WebhookStatusType'
     ApiErrorResponseV2:
       type: object
       description: API Error Response
@@ -404,13 +397,6 @@ components:
       description: Any data (under 10kB total) that should be associated with the Webhook. A copy of this data will be returned on every Webhook trigger.
       additionalProperties:
         type: string
-    CategoryStructure:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
     Metadata:
       type: object
       properties:
@@ -423,6 +409,13 @@ components:
       enum:
       - active
       - paused
+    RegisteredWebhookWithStatus:
+      allOf:
+      - $ref: '#/components/schemas/RegisteredWebhook'
+      - type: object
+        properties:
+          status:
+            $ref: '#/components/schemas/WebhookStatusType'
     RegisteredWebhook:
       type: object
       properties:
@@ -456,6 +449,13 @@ components:
                   type: string
         metadata:
           $ref: '#/components/schemas/WebhookMetadata'
+    CategoryStructure:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
   securitySchemes:
     basicAuth:
       description: Use HTTP Basic Authentication with your Application ID as username and Application Secret as password. Manage credentials in the [Yapily Console](https://console.yapily.com/). See [Authentication](/api-reference/authentication) for details.
