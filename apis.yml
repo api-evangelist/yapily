@@ -141,6 +141,12 @@ apis:
 - aid: yapily:yapily-data-plus-api
   name: Yapily Data Plus API
   tags:
+  - Data Enrichment
+  - Categorisation
+  - Merchant Detection
+  - Insights
+  - Open Banking
+  tags_raw:
   - Enrichment
   - Categorisation
   - Merchant Detection
