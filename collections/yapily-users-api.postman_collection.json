@@ -1,176 +1,626 @@
 {
+  "info": {
+    "_postman_id": "14bf385d-8628-46dc-aeb4-4bc896fba69d",
+    "name": "Yapily Platform Users API",
+    "description": "Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:19:04.000Z",
+    "updatedAt": "2026-10-21T20:19:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-14bf385d-8628-46dc-aeb4-4bc896fba69d"
+  },
   "item": [
     {
-      "id": "517d5c87-93e5-4a5a-a6e8-bc0b32f073c5",
-      "name": "Users",
-      "description": {
-        "content": "The Users endpoints are used to manage each user (otherwise known as the PSU) in Yapily. Each user belongs to an Application and as a consequence, so do each `Consent` created for a particular `User`.",
-        "type": "text/plain"
-      },
+      "name": "users",
       "item": [
         {
-          "id": "efcbb926-898d-4541-9f5f-39405e24d3eb",
-          "name": "Get Users",
-          "request": {
-            "name": "Get Users",
-            "description": {
-              "content": "Retrieves all users created in your application for a specified applicationUserId using the filter[applicationUserId] query parameter. If filter[applicationUserId] is not provided, the response will include up to 50,000 users.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "{userUuid}",
+          "item": [
+            {
+              "name": "Update User",
+              "id": "883315be-0540-4d6a-8ae3-e8422e50700e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json-patch+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userUuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":userUuid"
+                  ],
+                  "variable": [
+                    {
+                      "id": "58a48b18-6230-458b-a763-9a8a20ab090b",
+                      "key": "userUuid",
+                      "value": "<uuid>",
+                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
+                    }
+                  ]
+                },
+                "description": "Update the users information"
+              },
+              "response": [
                 {
-                  "disabled": false,
-                  "key": "filter[applicationUserId]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided."
+                  "id": "3497ec33-7a5a-413b-9656-ed728be996ca",
+                  "name": "Created",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json-patch+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"uuid\": \"<uuid>\",\n  \"applicationUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"institutionConsents\": [\n    {\n      \"institutionId\": \"<string>\"\n    },\n    {\n      \"institutionId\": \"<string>\"\n    }\n  ],\n  \"vopOptOut\": false\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-3497ec33-7a5a-413b-9656-ed728be996ca"
                 },
                 {
-                  "disabled": false,
-                  "key": "filter[applicationUserId]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided."
+                  "id": "3b03428f-f3ce-4050-86df-cc81823021f4",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json-patch+json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"laborisa\": \"<string>\",\n          \"ullamco_53\": \"<string>\",\n          \"quis5b\": \"<string>\",\n          \"voluptate_ff\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aute_93\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"officia_7ad\": \"<string>\",\n        \"velit391\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"incididunt54f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"esse4\": \"<string>\",\n          \"et7dd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"amet_64\": \"<string>\",\n        \"ipsum_67\": \"<string>\",\n        \"nisi97\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-3b03428f-f3ce-4050-86df-cc81823021f4"
                 }
               ],
-              "variable": []
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-883315be-0540-4d6a-8ae3-e8422e50700e"
             },
+            {
+              "name": "Delete User",
+              "id": "d386ab70-d3c2-4758-bffe-2708af0d0d1e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userUuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":userUuid"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d1965f25-0ea5-4082-ac58-447698bd7795",
+                      "key": "userUuid",
+                      "value": "<uuid>",
+                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
+                    }
+                  ]
+                },
+                "description": "Delete a user from your application along with any sub-resources (including consent resources on institution APIs if they exist)"
+              },
+              "response": [
+                {
+                  "id": "26fd7b63-a9d3-47f5-a6ff-21ff8b5a46f3",
+                  "name": "Ok",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<string>\",\n    \"deleteStatus\": \"FAILED\",\n    \"creationDate\": \"<dateTime>\",\n    \"userConsents\": [\n      {\n        \"id\": \"<uuid>\",\n        \"deleteStatus\": \"SUCCESS\",\n        \"institutionId\": \"<string>\",\n        \"institutionConsentId\": \"<string>\",\n        \"creationDate\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"deleteStatus\": \"SUCCESS\",\n        \"institutionId\": \"<string>\",\n        \"institutionConsentId\": \"<string>\",\n        \"creationDate\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"links\": {\n    \"sint__b\": \"<string>\",\n    \"consectetureb\": \"<string>\",\n    \"velitc9\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"velit35\": \"<string>\",\n        \"velit_1\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"Ut_e7c\": \"<string>\",\n        \"exercitationd5\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"voluptate_b93\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"ut_b8\": \"<string>\",\n          \"Duis_b3\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"aute_4\": \"<string>\",\n        \"qui_06\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"esse_3_c\": \"<string>\",\n          \"ea04\": \"<string>\",\n          \"ut_2\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliqua_7f\": \"<string>\",\n          \"enim2\": \"<string>\",\n          \"do_8ce\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"Ut_6\": \"<string>\",\n        \"sit_f_f\": \"<string>\",\n        \"fugiat2d\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-26fd7b63-a9d3-47f5-a6ff-21ff8b5a46f3"
+                },
+                {
+                  "id": "0fec7a23-e4c8-4060-9da0-63a54c50aae8",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"laborisa\": \"<string>\",\n          \"ullamco_53\": \"<string>\",\n          \"quis5b\": \"<string>\",\n          \"voluptate_ff\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aute_93\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"officia_7ad\": \"<string>\",\n        \"velit391\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"incididunt54f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"esse4\": \"<string>\",\n          \"et7dd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"amet_64\": \"<string>\",\n        \"ipsum_67\": \"<string>\",\n        \"nisi97\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-0fec7a23-e4c8-4060-9da0-63a54c50aae8"
+                }
+              ],
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-d386ab70-d3c2-4758-bffe-2708af0d0d1e"
+            },
+            {
+              "name": "Get User",
+              "id": "f6a05f7e-8ad8-411b-9567-fc189c7f783e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:userUuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":userUuid"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e15280db-e3da-4ac6-ae09-43d2eddca02b",
+                      "key": "userUuid",
+                      "value": "<uuid>",
+                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
+                    }
+                  ]
+                },
+                "description": "Get a specific user using the user UUID"
+              },
+              "response": [
+                {
+                  "id": "f7221ea2-40b2-4a47-8a9d-718a114e0aa6",
+                  "name": "Ok",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"uuid\": \"<uuid>\",\n  \"applicationUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"institutionConsents\": [\n    {\n      \"institutionId\": \"<string>\"\n    },\n    {\n      \"institutionId\": \"<string>\"\n    }\n  ],\n  \"vopOptOut\": false\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-f7221ea2-40b2-4a47-8a9d-718a114e0aa6"
+                },
+                {
+                  "id": "489e4508-fc15-400b-bc78-6f50034da3d5",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:userUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":userUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "userUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"laborisa\": \"<string>\",\n          \"ullamco_53\": \"<string>\",\n          \"quis5b\": \"<string>\",\n          \"voluptate_ff\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aute_93\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"officia_7ad\": \"<string>\",\n        \"velit391\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"incididunt54f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"esse4\": \"<string>\",\n          \"et7dd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"amet_64\": \"<string>\",\n        \"ipsum_67\": \"<string>\",\n        \"nisi97\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:19:05.000Z",
+                  "updatedAt": "2026-10-21T20:19:05.000Z",
+                  "uid": "35240-489e4508-fc15-400b-bc78-6f50034da3d5"
+                }
+              ],
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-f6a05f7e-8ad8-411b-9567-fc189c7f783e"
+            }
+          ],
+          "id": "918d9f61-db15-4275-ace5-9743f01da8d1",
+          "createdAt": "2026-10-21T20:19:05.000Z",
+          "updatedAt": "2026-10-21T20:19:05.000Z",
+          "uid": "35240-918d9f61-db15-4275-ace5-9743f01da8d1"
+        },
+        {
+          "name": "Get Users",
+          "id": "f4d635c3-5ef5-4b72-a743-70594f9b9541",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "340cb21d-64dc-4af3-a60a-f0b7bfdbf17a",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "filter[applicationUserId]",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/users_example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "677bdbdd-0b0a-4827-90f8-c7eed9854190",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "filter[applicationUserId]",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "47541b60-39cd-4b51-a3b4-3b477acbab48",
-          "name": "Create User",
-          "request": {
-            "name": "Create User",
-            "description": {
-              "content": "Create a new user in your application",
-              "type": "text/plain"
-            },
             "url": {
-              "path": [
-                "users"
-              ],
+              "raw": "{{baseUrl}}/users?filter[applicationUserId]=<string>&filter[applicationUserId]=<string>",
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [],
-              "variable": []
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided.",
+                  "key": "filter[applicationUserId]",
+                  "value": "<string>"
+                },
+                {
+                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided.",
+                  "key": "filter[applicationUserId]",
+                  "value": "<string>"
+                }
+              ]
             },
+            "description": "Retrieves all users created in your application for a specified applicationUserId using the filter[applicationUserId] query parameter. If filter[applicationUserId] is not provided, the response will include up to 50,000 users."
+          },
+          "response": [
+            {
+              "id": "6fe1ce4e-b6e8-428a-b6c8-ce4609344d03",
+              "name": "Ok",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?filter[applicationUserId]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided.",
+                      "key": "filter[applicationUserId]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"uuid\": \"<uuid>\",\n    \"applicationUuid\": \"<uuid>\",\n    \"applicationUserId\": \"<string>\",\n    \"referenceId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"institutionConsents\": [\n      {\n        \"institutionId\": \"<string>\"\n      },\n      {\n        \"institutionId\": \"<string>\"\n      }\n    ],\n    \"vopOptOut\": false\n  },\n  {\n    \"uuid\": \"<uuid>\",\n    \"applicationUuid\": \"<uuid>\",\n    \"applicationUserId\": \"<string>\",\n    \"referenceId\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"institutionConsents\": [\n      {\n        \"institutionId\": \"<string>\"\n      },\n      {\n        \"institutionId\": \"<string>\"\n      }\n    ],\n    \"vopOptOut\": false\n  }\n]",
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-6fe1ce4e-b6e8-428a-b6c8-ce4609344d03"
+            },
+            {
+              "id": "ddb600c5-366d-48e8-9665-a33b3da80bc3",
+              "name": "Error Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?filter[applicationUserId]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided.",
+                      "key": "filter[applicationUserId]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"laborisa\": \"<string>\",\n          \"ullamco_53\": \"<string>\",\n          \"quis5b\": \"<string>\",\n          \"voluptate_ff\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aute_93\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"officia_7ad\": \"<string>\",\n        \"velit391\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"incididunt54f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"esse4\": \"<string>\",\n          \"et7dd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"amet_64\": \"<string>\",\n        \"ipsum_67\": \"<string>\",\n        \"nisi97\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-ddb600c5-366d-48e8-9665-a33b3da80bc3"
+            }
+          ],
+          "createdAt": "2026-10-21T20:19:05.000Z",
+          "updatedAt": "2026-10-21T20:19:05.000Z",
+          "uid": "35240-f4d635c3-5ef5-4b72-a743-70594f9b9541"
+        },
+        {
+          "name": "Create User",
+          "id": "3750df6e-cb6c-4bd7-bdd3-faa009053baa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -181,610 +631,150 @@
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"vopOptOut\": false\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Create a new user in your application"
           },
           "response": [
             {
-              "id": "ff30e07a-4d5a-498c-aaf6-8ce9dbed2a99",
+              "id": "4621713d-5d7f-40f5-9df2-42fd61266cba",
               "name": "Created",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "reference #/components/examples/create-user-example-request not found in the given specification",
+                  "raw": "{\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"vopOptOut\": false\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/create-user_example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"uuid\": \"<uuid>\",\n  \"applicationUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"institutionConsents\": [\n    {\n      \"institutionId\": \"<string>\"\n    },\n    {\n      \"institutionId\": \"<string>\"\n    }\n  ],\n  \"vopOptOut\": false\n}",
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-4621713d-5d7f-40f5-9df2-42fd61266cba"
             },
             {
-              "id": "65489cf6-8004-43e9-9446-ebcea721cae0",
+              "id": "66a2fac5-43e8-45f1-8295-e4cc5bb85344",
               "name": "Error Response",
               "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"vopOptOut\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/create-user-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"laborisa\": \"<string>\",\n          \"ullamco_53\": \"<string>\",\n          \"quis5b\": \"<string>\",\n          \"voluptate_ff\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aute_93\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"officia_7ad\": \"<string>\",\n        \"velit391\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"incididunt54f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"esse4\": \"<string>\",\n          \"et7dd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"amet_64\": \"<string>\",\n        \"ipsum_67\": \"<string>\",\n        \"nisi97\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:19:05.000Z",
+              "updatedAt": "2026-10-21T20:19:05.000Z",
+              "uid": "35240-66a2fac5-43e8-45f1-8295-e4cc5bb85344"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bb11a39a-ca35-4fa0-a6a0-4f6216080eef",
-          "name": "Update User",
-          "request": {
-            "name": "Update User",
-            "description": {
-              "content": "Update the users information",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "users",
-                ":userUuid"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "userUuid",
-                  "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json-patch+json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PATCH",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "[\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "2abce2b0-eb32-4526-adcd-79428530d77a",
-              "name": "Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "[\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"uuid\": \"c121ea6f-294f-14ea-9b8f-0badfb228d73\",\n  \"applicationUuid\": \"78d4c745-e307-401e-270a-ba181b827045\",\n  \"applicationUserId\": \"string\",\n  \"referenceId\": \"string\",\n  \"createdAt\": \"1988-03-26T10:03:39.337Z\",\n  \"institutionConsents\": [\n    {\n      \"institutionId\": \"string\"\n    },\n    {\n      \"institutionId\": \"string\"\n    }\n  ],\n  \"vopOptOut\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ab0bc604-2621-4f5e-beb2-0fa80d784ec7",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "[\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n]",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"tracingId\": \"74b13ce8ed51419f92c5d609e04532de\",\n    \"code\": 424,\n    \"institutionError\": {\n      \"errorMessage\": \"{\\\"Code\\\":\\\"500 Internal Server Error\\\",\\\"Id\\\":\\\"5ff8d331-4282-41e0-b5ef-1ac9ac39f009\\\",\\\"Message\\\":\\\"Technical Error. Please try again later\\\",\\\"Errors\\\":[{\\\"ErrorCode\\\":\\\"UK.OBIE.UnexpectedError\\\",\\\"Message\\\":\\\"There was a problem processing your request. Please try again later\\\"}]}\",\n      \"httpStatusCode\": 500\n    },\n    \"source\": \"INSTITUTION\",\n    \"status\": \"FAILED_DEPENDENCY\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a57c1083-23f6-44b2-84de-a1f5477d4b3f",
-          "name": "Delete User",
-          "request": {
-            "name": "Delete User",
-            "description": {
-              "content": "Delete a user from your application along with any sub-resources (including consent resources on institution APIs if they exist)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "users",
-                ":userUuid"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "userUuid",
-                  "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "eccdcbf1-a74c-48a9-a022-3ac1aca72e43",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/delete-user_example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "548a1628-57c3-4493-af59-dc474ae1dc74",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "36737b88-44cb-4058-9330-1f0b87ae62f3",
-          "name": "Get User",
-          "request": {
-            "name": "Get User",
-            "description": {
-              "content": "Get a specific user using the user UUID",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "users",
-                ":userUuid"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "userUuid",
-                  "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "aa6ec1b6-76cb-4e72-b1f8-20abab30429d",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/user_example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a6ef3ec4-3e84-4dff-ab5b-0ef59a8a9e4b",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "users",
-                    ":userUuid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "userUuid",
-                      "description": "(Required) __Mandatory__. The Yapily generated UUID for the user."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:19:05.000Z",
+          "updatedAt": "2026-10-21T20:19:05.000Z",
+          "uid": "35240-3750df6e-cb6c-4bd7-bdd3-faa009053baa"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.yapily.com",
-      "key": "baseUrl"
+      "id": "052c1b9c-8b1f-4255-af39-b62716d4bb1b",
+      "createdAt": "2026-10-21T20:19:05.000Z",
+      "updatedAt": "2026-10-21T20:19:05.000Z",
+      "uid": "35240-052c1b9c-8b1f-4255-af39-b62716d4bb1b"
     }
   ],
   "auth": {
@@ -792,21 +782,20 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4e0d5219-7c92-410b-b111-a66ed32edbd8",
-    "name": "Yapily Beneficiaries Application Beneficiaries Users API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.yapily.com"
     }
-  }
+  ]
 }

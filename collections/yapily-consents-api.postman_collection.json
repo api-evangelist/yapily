@@ -1,32 +1,26 @@
 {
+  "info": {
+    "_postman_id": "adc01755-1227-4aaf-8727-87b9a2e305e1",
+    "name": "Yapily Beneficiaries Application Beneficiaries Consents API",
+    "description": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:15:47.000Z",
+    "updatedAt": "2026-10-21T20:15:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-adc01755-1227-4aaf-8727-87b9a2e305e1"
+  },
   "item": [
     {
-      "id": "07d9e4a2-2f5f-46fd-9b54-835165ad6c5e",
-      "name": "Consents",
-      "description": {
-        "content": "The Consents endpoints are used to manage each `Consent` created by Yapily in response to an authorisation created for a user.\n\nThe `Consent` object contains data that identifies a user's consent for a specific `Institution` within a Yapily application. Other than the id of the consent, the `institution-id` for the corresponding `Institution` and the user identifiers (`user-uuid` and `application-user-id`), it contains various details that indicates how the `Consent` can be used.",
-        "type": "text/plain"
-      },
+      "name": "consent-auth-code",
       "item": [
         {
-          "id": "7a1e115d-5d5d-4707-882e-08e7d68e8750",
           "name": "Exchange Oauth2 Code",
+          "id": "cc9e7067-e738-4006-86b7-8becfe72e3be",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Exchange Oauth2 Code",
-            "description": {
-              "content": "Used to obtain a Yapily Consent object containing the `consentToken` once the user has authenticated and you have an OAuth2 authorisation code `auth-code` and state `auth-state`.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "consent-auth-code"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,146 +31,162 @@
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"authCode\": \"<string>\",\n  \"authState\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consent-auth-code",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "consent-auth-code"
+              ]
+            },
+            "description": "Used to obtain a Yapily Consent object containing the `consentToken` once the user has authenticated and you have an OAuth2 authorisation code `auth-code` and state `auth-state`."
           },
           "response": [
             {
-              "id": "d4260346-f97f-48a1-9209-ddc77948baa3",
+              "id": "ca74d264-d9f6-4ca2-9715-606bba03ec59",
               "name": "Ok",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "consent-auth-code"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"authCode\": \"6b965fbb-ff09-4afa-b897-90c34797cb8f\",\n  \"authState\": \"1270cb2ffc4842b78953afa2228e0a87\"\n}",
+                  "raw": "{\n  \"authCode\": \"<string>\",\n  \"authState\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consent-auth-code",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consent-auth-code"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/consent-auth-code-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"institutionId\": \"<string>\",\n  \"status\": \"UNKNOWN\",\n  \"createdAt\": \"<dateTime>\",\n  \"transactionFrom\": \"<dateTime>\",\n  \"transactionTo\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"timeToExpireInMillis\": \"<long>\",\n  \"timeToExpire\": \"<string>\",\n  \"featureScope\": [\n    \"CREATE_DOMESTIC_PERIODIC_PAYMENT\",\n    \"CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\"\n  ],\n  \"consentToken\": \"<string>\",\n  \"state\": \"<string>\",\n  \"authorizedAt\": \"<dateTime>\",\n  \"lastConfirmedAt\": \"<dateTime>\",\n  \"reconfirmBy\": \"<dateTime>\",\n  \"institutionConsentId\": \"<string>\",\n  \"isDeletedByInstitution\": \"<boolean>\"\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-ca74d264-d9f6-4ca2-9715-606bba03ec59"
             },
             {
-              "id": "2a600487-714c-4421-94aa-2f72cec6b5bd",
+              "id": "39643eb2-6b97-433f-b2d5-35ef832a0532",
               "name": "Error Response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "consent-auth-code"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"authCode\": \"6b965fbb-ff09-4afa-b897-90c34797cb8f\",\n  \"authState\": \"1270cb2ffc4842b78953afa2228e0a87\"\n}",
+                  "raw": "{\n  \"authCode\": \"<string>\",\n  \"authState\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consent-auth-code",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consent-auth-code"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id8\": \"<string>\",\n          \"proident9_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquip_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"cillum_3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"deserunt_3d\": \"<string>\",\n          \"est_e1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"elit_84\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sintba\": \"<string>\",\n        \"et_3\": \"<string>\",\n        \"ind\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-39643eb2-6b97-433f-b2d5-35ef832a0532"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-21T20:15:47.000Z",
+          "updatedAt": "2026-10-21T20:15:47.000Z",
+          "uid": "35240-cc9e7067-e738-4006-86b7-8becfe72e3be"
+        }
+      ],
+      "id": "f2d67297-6368-45e7-be5c-6708499f0133",
+      "createdAt": "2026-10-21T20:15:47.000Z",
+      "updatedAt": "2026-10-21T20:15:47.000Z",
+      "uid": "35240-f2d67297-6368-45e7-be5c-6708499f0133"
+    },
+    {
+      "name": "consent-one-time-token",
+      "item": [
+        {
+          "name": "Exchange One Time Token",
+          "id": "8c50dcf4-75a5-4ae8-8586-289751a28e27",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "165171ef-f21a-4328-aec0-bae2873b77bc",
-          "name": "Exchange One Time Token",
+          },
           "request": {
-            "name": "Exchange One Time Token",
-            "description": {
-              "content": "Exchange a One-time-token for the consent token",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "consent-one-time-token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -187,951 +197,975 @@
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"oneTimeToken\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consent-one-time-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "consent-one-time-token"
+              ]
+            },
+            "description": "Exchange a One-time-token for the consent token"
           },
           "response": [
             {
-              "id": "ee866036-a23e-4f7c-8182-89e792921853",
+              "id": "f53185c7-0713-4ee0-b09f-9cdad219be3f",
               "name": "Created",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "consent-one-time-token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"oneTimeToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJJTlNUSVRVVElPTiI6ImJidmEtc2FuZGJveCIsIlVVSUQiOiJmMzNmNGU4ZC1jMDQ0LTQ2YTktOTlkMC0wYmRlMzIyYTJjOTIifQ.4Qv3NJI6av2nKi1U3aNmm71cIwJ3TvRsIlYDafQUVv_Khy_e-8oEpV_BoP4V1CII12oT-Yq4cPveHILz8BOwjg\"\n}",
+                  "raw": "{\n  \"oneTimeToken\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/consent-one-time-token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consent-one-time-token"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/consent-one-time-token-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"userUuid\": \"<uuid>\",\n  \"applicationUserId\": \"<string>\",\n  \"referenceId\": \"<string>\",\n  \"institutionId\": \"<string>\",\n  \"status\": \"UNKNOWN\",\n  \"createdAt\": \"<dateTime>\",\n  \"transactionFrom\": \"<dateTime>\",\n  \"transactionTo\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"timeToExpireInMillis\": \"<long>\",\n  \"timeToExpire\": \"<string>\",\n  \"featureScope\": [\n    \"CREATE_DOMESTIC_PERIODIC_PAYMENT\",\n    \"CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\"\n  ],\n  \"consentToken\": \"<string>\",\n  \"state\": \"<string>\",\n  \"authorizedAt\": \"<dateTime>\",\n  \"lastConfirmedAt\": \"<dateTime>\",\n  \"reconfirmBy\": \"<dateTime>\",\n  \"institutionConsentId\": \"<string>\",\n  \"isDeletedByInstitution\": \"<boolean>\"\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-f53185c7-0713-4ee0-b09f-9cdad219be3f"
             },
             {
-              "id": "2edc5d9c-d039-488a-b78e-3e212169dea8",
+              "id": "88e25d1b-b0c5-4f89-884d-b72dfbe6799e",
               "name": "Error Response",
               "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oneTimeToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "path": [
-                    "consent-one-time-token"
-                  ],
+                  "raw": "{{baseUrl}}/consent-one-time-token",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                  "path": [
+                    "consent-one-time-token"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id8\": \"<string>\",\n          \"proident9_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquip_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"cillum_3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"deserunt_3d\": \"<string>\",\n          \"est_e1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"elit_84\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sintba\": \"<string>\",\n        \"et_3\": \"<string>\",\n        \"ind\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-88e25d1b-b0c5-4f89-884d-b72dfbe6799e"
+            }
+          ],
+          "createdAt": "2026-10-21T20:15:47.000Z",
+          "updatedAt": "2026-10-21T20:15:47.000Z",
+          "uid": "35240-8c50dcf4-75a5-4ae8-8586-289751a28e27"
+        }
+      ],
+      "id": "a52d6aa4-dba0-4eb3-a12a-92d21ebcda07",
+      "createdAt": "2026-10-21T20:15:47.000Z",
+      "updatedAt": "2026-10-21T20:15:47.000Z",
+      "uid": "35240-a52d6aa4-dba0-4eb3-a12a-92d21ebcda07"
+    },
+    {
+      "name": "consents",
+      "item": [
+        {
+          "name": "{consentId}",
+          "item": [
+            {
+              "name": "extend",
+              "item": [
+                {
+                  "name": "Extend Consent",
+                  "id": "7a0d0e38-e208-423c-8c55-6778ea392205",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"lastConfirmedAt\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId/extend",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId",
+                        "extend"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a2f081d8-f9ce-4890-ab91-62d4c7dcdcc8",
+                          "key": "consentId",
+                          "value": "<uuid>",
+                          "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                        }
+                      ]
+                    },
+                    "description": "Used to indicate to Yapily that reconfirmation has occurred for a given Consent, and to update lastUpdatedAt and reconfirmBy for that Consent. Returns the Consent."
+                  },
+                  "response": [
+                    {
+                      "id": "03bc6480-8733-4755-b1d5-20e9d8010636",
+                      "name": "Created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"lastConfirmedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/consents/:consentId/extend",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "consents",
+                            ":consentId",
+                            "extend"
+                          ],
+                          "variable": [
+                            {
+                              "key": "consentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"userUuid\": \"<uuid>\",\n    \"applicationUserId\": \"<string>\",\n    \"referenceId\": \"<string>\",\n    \"institutionId\": \"<string>\",\n    \"status\": \"INVALID\",\n    \"createdAt\": \"<dateTime>\",\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"timeToExpireInMillis\": \"<long>\",\n    \"timeToExpire\": \"<string>\",\n    \"featureScope\": [\n      \"READ_INTERNATIONAL_SINGLE_REFUND\",\n      \"INITIATE_DOMESTIC_PERIODIC_PAYMENT\"\n    ],\n    \"consentToken\": \"<string>\",\n    \"state\": \"<string>\",\n    \"authorizedAt\": \"<dateTime>\",\n    \"lastConfirmedAt\": \"<dateTime>\",\n    \"reconfirmBy\": \"<dateTime>\",\n    \"institutionConsentId\": \"<string>\",\n    \"isDeletedByInstitution\": \"<boolean>\"\n  },\n  \"links\": {\n    \"Ut9\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"nostrud_\": \"<string>\",\n        \"nisi__3\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"nisib9b\": \"<string>\",\n        \"culpa27\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"quise\": \"<string>\",\n          \"cillum69\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"in80\": \"<string>\",\n          \"Duis1\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"eadf\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"velit4\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"laboris_797\": \"<string>\",\n          \"magna48\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"dolor_ae0\": \"<string>\",\n        \"laborum_1\": \"<string>\",\n        \"pariatur_4\": \"<string>\",\n        \"in31\": \"<string>\",\n        \"doloreb09\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:15:47.000Z",
+                      "updatedAt": "2026-10-21T20:15:47.000Z",
+                      "uid": "35240-03bc6480-8733-4755-b1d5-20e9d8010636"
+                    },
+                    {
+                      "id": "9fecdaed-c416-4845-9e75-a0b2f1fb035b",
+                      "name": "Error Response. The supplied lastConfirmedAt date, Consent type, or Consent status is invalid.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"lastConfirmedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/consents/:consentId/extend",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "consents",
+                            ":consentId",
+                            "extend"
+                          ],
+                          "variable": [
+                            {
+                              "key": "consentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\",\n    \"issues\": [\n      {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\",\n        \"parameter\": \"<string>\",\n        \"message\": \"<string>\",\n        \"institutionError\": {\n          \"errorMessage\": \"<string>\",\n          \"httpStatusCode\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\",\n        \"parameter\": \"<string>\",\n        \"message\": \"<string>\",\n        \"institutionError\": {\n          \"errorMessage\": \"<string>\",\n          \"httpStatusCode\": \"<integer>\"\n        }\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:47.000Z",
+                      "updatedAt": "2026-10-21T20:15:47.000Z",
+                      "uid": "35240-9fecdaed-c416-4845-9e75-a0b2f1fb035b"
+                    },
+                    {
+                      "id": "2a977c55-e437-47dd-bb27-f7b866ff4124",
+                      "name": "Error Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"lastConfirmedAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/consents/:consentId/extend",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "consents",
+                            ":consentId",
+                            "extend"
+                          ],
+                          "variable": [
+                            {
+                              "key": "consentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\",\n    \"issues\": [\n      {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\",\n        \"parameter\": \"<string>\",\n        \"message\": \"<string>\",\n        \"institutionError\": {\n          \"errorMessage\": \"<string>\",\n          \"httpStatusCode\": \"<integer>\"\n        }\n      },\n      {\n        \"type\": \"<string>\",\n        \"code\": \"<string>\",\n        \"parameter\": \"<string>\",\n        \"message\": \"<string>\",\n        \"institutionError\": {\n          \"errorMessage\": \"<string>\",\n          \"httpStatusCode\": \"<integer>\"\n        }\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:47.000Z",
+                      "updatedAt": "2026-10-21T20:15:47.000Z",
+                      "uid": "35240-2a977c55-e437-47dd-bb27-f7b866ff4124"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:15:47.000Z",
+                  "updatedAt": "2026-10-21T20:15:47.000Z",
+                  "uid": "35240-7a0d0e38-e208-423c-8c55-6778ea392205"
+                }
+              ],
+              "id": "75b8abd2-d3d6-429f-ac75-cd7c825aa778",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-75b8abd2-d3d6-429f-ac75-cd7c825aa778"
+            },
+            {
+              "name": "Delete Consent",
+              "id": "76692f9e-d911-479c-a294-791fc472f1b9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"oneTimeToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJJTlNUSVRVVElPTiI6ImJidmEtc2FuZGJveCIsIlVVSUQiOiJmMzNmNGU4ZC1jMDQ0LTQ2YTktOTlkMC0wYmRlMzIyYTJjOTIifQ.4Qv3NJI6av2nKi1U3aNmm71cIwJ3TvRsIlYDafQUVv_Khy_e-8oEpV_BoP4V1CII12oT-Yq4cPveHILz8BOwjg\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                "url": {
+                  "raw": "{{baseUrl}}/consents/:consentId?forceDelete=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents",
+                    ":consentId"
+                  ],
+                  "query": [
+                    {
+                      "description": "__Optional__. Whether to force the deletion.",
+                      "key": "forceDelete",
+                      "value": "true"
                     }
-                  }
-                }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2b80ffd8-1fb1-4612-b1cf-f77b029daf2c",
+                      "key": "consentId",
+                      "value": "<uuid>",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "description": "Delete a consent using the consent Id"
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "7296a5ea-1d04-4352-be18-2a94f620d19b",
+                  "name": "Ok",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId?forceDelete=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "query": [
+                        {
+                          "description": "__Optional__. Whether to force the deletion.",
+                          "key": "forceDelete",
+                          "value": "true"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"deleteStatus\": \"SUCCESS\",\n    \"institutionId\": \"<string>\",\n    \"institutionConsentId\": \"<string>\",\n    \"creationDate\": \"<dateTime>\"\n  },\n  \"links\": {\n    \"irure_0\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"eiusmod9\": \"<string>\",\n        \"enim_c_d\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"voluptate_cc0\": \"<string>\",\n        \"laborum_63\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"ametb7b\": \"<string>\",\n          \"aliquip_b\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"veniamecc\": \"<string>\",\n          \"voluptate1\": \"<string>\",\n          \"elit_fc\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"irured1\": \"<string>\",\n        \"incididunt_1\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id7\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliqua_cbf\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sint7bb\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:15:47.000Z",
+                  "updatedAt": "2026-10-21T20:15:47.000Z",
+                  "uid": "35240-7296a5ea-1d04-4352-be18-2a94f620d19b"
+                },
+                {
+                  "id": "363fee08-eff7-4faf-bf9c-293a9084f07f",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId?forceDelete=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "query": [
+                        {
+                          "description": "__Optional__. Whether to force the deletion.",
+                          "key": "forceDelete",
+                          "value": "true"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id8\": \"<string>\",\n          \"proident9_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquip_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"cillum_3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"deserunt_3d\": \"<string>\",\n          \"est_e1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"elit_84\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sintba\": \"<string>\",\n        \"et_3\": \"<string>\",\n        \"ind\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:15:47.000Z",
+                  "updatedAt": "2026-10-21T20:15:47.000Z",
+                  "uid": "35240-363fee08-eff7-4faf-bf9c-293a9084f07f"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-76692f9e-d911-479c-a294-791fc472f1b9"
+            },
+            {
+              "name": "Get Consent",
+              "id": "db0c722f-dde0-4e0c-ba3c-25ce10c0a9c3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/consents/:consentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "consents",
+                    ":consentId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9ad5d864-f469-4a83-be8d-7fcae08efa6e",
+                      "key": "consentId",
+                      "value": "<uuid>",
+                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
+                    }
+                  ]
+                },
+                "description": "Get consent using the consent Id"
+              },
+              "response": [
+                {
+                  "id": "d7495ab0-738a-48ff-92d9-ef0574ca1982",
+                  "name": "Ok",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"userUuid\": \"<uuid>\",\n    \"applicationUserId\": \"<string>\",\n    \"referenceId\": \"<string>\",\n    \"institutionId\": \"<string>\",\n    \"status\": \"INVALID\",\n    \"createdAt\": \"<dateTime>\",\n    \"transactionFrom\": \"<dateTime>\",\n    \"transactionTo\": \"<dateTime>\",\n    \"expiresAt\": \"<dateTime>\",\n    \"timeToExpireInMillis\": \"<long>\",\n    \"timeToExpire\": \"<string>\",\n    \"featureScope\": [\n      \"READ_INTERNATIONAL_SINGLE_REFUND\",\n      \"INITIATE_DOMESTIC_PERIODIC_PAYMENT\"\n    ],\n    \"consentToken\": \"<string>\",\n    \"state\": \"<string>\",\n    \"authorizedAt\": \"<dateTime>\",\n    \"lastConfirmedAt\": \"<dateTime>\",\n    \"reconfirmBy\": \"<dateTime>\",\n    \"institutionConsentId\": \"<string>\",\n    \"isDeletedByInstitution\": \"<boolean>\"\n  },\n  \"links\": {\n    \"Ut9\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"nostrud_\": \"<string>\",\n        \"nisi__3\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"nisib9b\": \"<string>\",\n        \"culpa27\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"quise\": \"<string>\",\n          \"cillum69\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"in80\": \"<string>\",\n          \"Duis1\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"eadf\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"velit4\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"laboris_797\": \"<string>\",\n          \"magna48\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"dolor_ae0\": \"<string>\",\n        \"laborum_1\": \"<string>\",\n        \"pariatur_4\": \"<string>\",\n        \"in31\": \"<string>\",\n        \"doloreb09\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:15:47.000Z",
+                  "updatedAt": "2026-10-21T20:15:47.000Z",
+                  "uid": "35240-d7495ab0-738a-48ff-92d9-ef0574ca1982"
+                },
+                {
+                  "id": "7080454f-1a8d-447d-89f3-46e9d6ebf13a",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/consents/:consentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "consents",
+                        ":consentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "consentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id8\": \"<string>\",\n          \"proident9_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquip_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"cillum_3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"deserunt_3d\": \"<string>\",\n          \"est_e1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"elit_84\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sintba\": \"<string>\",\n        \"et_3\": \"<string>\",\n        \"ind\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:15:47.000Z",
+                  "updatedAt": "2026-10-21T20:15:47.000Z",
+                  "uid": "35240-7080454f-1a8d-447d-89f3-46e9d6ebf13a"
+                }
+              ],
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-db0c722f-dde0-4e0c-ba3c-25ce10c0a9c3"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e2ee42a0-748c-4a17-8a57-49b8a5224b0f",
+          "createdAt": "2026-10-21T20:15:47.000Z",
+          "updatedAt": "2026-10-21T20:15:47.000Z",
+          "uid": "35240-e2ee42a0-748c-4a17-8a57-49b8a5224b0f"
         },
         {
-          "id": "19843124-6a3e-4868-9011-1e71d69db674",
           "name": "Get Consents",
+          "id": "f25392d2-5b4f-41ee-b5ba-3045ede03ab4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Consents",
-            "description": {
-              "content": "Used to retrieve all the consents created for each user within an application. At least one of the following filters needs to be applied: filter[applicationUserId], filter[userUuid]=, limit=. ",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/consents?filter[applicationUserId]=<string>&filter[applicationUserId]=<string>&filter[userUuid]=<uuid>&filter[userUuid]=<uuid>&filter[institution]=<string>&filter[institution]=<string>&filter[status]=<string>&filter[status]=<string>&from=<string>&before=<string>&limit=<integer>&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "consents"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                   "key": "filter[applicationUserId]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                   "key": "filter[applicationUserId]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                   "key": "filter[userUuid]",
-                  "value": "<uuid>",
-                  "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided."
+                  "value": "<uuid>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                   "key": "filter[userUuid]",
-                  "value": "<uuid>",
-                  "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided."
+                  "value": "<uuid>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `Institution` provided.",
                   "key": "filter[institution]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `Institution` provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `Institution` provided.",
                   "key": "filter[institution]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `Institution` provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents).",
                   "key": "filter[status]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents)."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents).",
                   "key": "filter[status]",
-                  "value": "<string>",
-                  "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents)."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). ",
                   "key": "from",
-                  "value": "<string>",
-                  "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). "
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).",
                   "key": "before",
-                  "value": "<string>",
-                  "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ)."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                   "key": "limit",
-                  "value": "<integer>",
-                  "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided."
+                  "value": "<integer>"
                 },
                 {
-                  "disabled": false,
+                  "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results.",
                   "key": "offset",
-                  "value": "0",
-                  "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results."
+                  "value": "0"
                 }
-              ],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Used to retrieve all the consents created for each user within an application. At least one of the following filters needs to be applied: filter[applicationUserId], filter[userUuid]=, limit=."
           },
           "response": [
             {
-              "id": "a461ee2d-76b8-4e0c-87b2-cf4978916b1f",
+              "id": "eb6e71d9-619f-46b0-a977-cb2b5b7883df",
               "name": "Ok",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "consents"
-                  ],
+                  "raw": "{{baseUrl}}/consents?filter[applicationUserId]=<string>&filter[userUuid]=<uuid>&filter[institution]=<string>&filter[status]=<string>&from=<string>&before=<string>&limit=<integer>&offset=0",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "consents"
+                  ],
                   "query": [
                     {
+                      "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "filter[applicationUserId]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "filter[userUuid]",
                       "value": "<uuid>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `Institution` provided.",
                       "key": "filter[institution]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents).",
                       "key": "filter[status]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). ",
                       "key": "from",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).",
                       "key": "before",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results.",
                       "key": "offset",
                       "value": "0"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/consents-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\",\n    \"count\": \"<integer>\",\n    \"pagination\": {\n      \"totalCount\": \"<long>\",\n      \"self\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"-date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"next\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      }\n    }\n  },\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"userUuid\": \"<uuid>\",\n      \"applicationUserId\": \"<string>\",\n      \"referenceId\": \"<string>\",\n      \"institutionId\": \"<string>\",\n      \"status\": \"UNKNOWN\",\n      \"createdAt\": \"<dateTime>\",\n      \"transactionFrom\": \"<dateTime>\",\n      \"transactionTo\": \"<dateTime>\",\n      \"expiresAt\": \"<dateTime>\",\n      \"timeToExpireInMillis\": \"<long>\",\n      \"timeToExpire\": \"<string>\",\n      \"featureScope\": [\n        \"INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_COMMERCIAL\",\n        \"ACCOUNTS\"\n      ],\n      \"consentToken\": \"<string>\",\n      \"state\": \"<string>\",\n      \"authorizedAt\": \"<dateTime>\",\n      \"lastConfirmedAt\": \"<dateTime>\",\n      \"reconfirmBy\": \"<dateTime>\",\n      \"institutionConsentId\": \"<string>\",\n      \"isDeletedByInstitution\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"userUuid\": \"<uuid>\",\n      \"applicationUserId\": \"<string>\",\n      \"referenceId\": \"<string>\",\n      \"institutionId\": \"<string>\",\n      \"status\": \"CONSUMED\",\n      \"createdAt\": \"<dateTime>\",\n      \"transactionFrom\": \"<dateTime>\",\n      \"transactionTo\": \"<dateTime>\",\n      \"expiresAt\": \"<dateTime>\",\n      \"timeToExpireInMillis\": \"<long>\",\n      \"timeToExpire\": \"<string>\",\n      \"featureScope\": [\n        \"CREATE_DOMESTIC_SINGLE_PAYMENT\",\n        \"INITIATE_DOMESTIC_PERIODIC_PAYMENT\"\n      ],\n      \"consentToken\": \"<string>\",\n      \"state\": \"<string>\",\n      \"authorizedAt\": \"<dateTime>\",\n      \"lastConfirmedAt\": \"<dateTime>\",\n      \"reconfirmBy\": \"<dateTime>\",\n      \"institutionConsentId\": \"<string>\",\n      \"isDeletedByInstitution\": \"<boolean>\"\n    }\n  ],\n  \"links\": {\n    \"ut_ed\": \"<string>\",\n    \"officia_49\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"sint7\": \"<string>\",\n        \"ipsum_e\": \"<string>\",\n        \"Ut_ae\": \"<string>\",\n        \"ex9\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"id26\": \"<string>\",\n        \"sit5a3\": \"<string>\",\n        \"cupidatat6\": \"<string>\",\n        \"adipisicingf\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"enim_f\": \"<string>\",\n          \"sunt_51\": \"<string>\",\n          \"amet_f\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquipd08\": \"<string>\",\n          \"culpa880\": \"<string>\",\n          \"Excepteur2\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"in_e0\": \"<string>\",\n        \"Duis_d66\": \"<string>\",\n        \"consequat4cc\": \"<string>\",\n        \"commodob\": \"<string>\",\n        \"nulla_2\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"velita\": \"<string>\",\n          \"enim_bc_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"in_3\": \"<string>\",\n          \"id_3e\": \"<string>\",\n          \"ea_ff\": \"<string>\",\n          \"in_10\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"Duis_25\": \"<string>\",\n        \"sit3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"paging\": {\n    \"apiCall\": {},\n    \"data\": [\n      {\n        \"id\": \"<uuid>\",\n        \"userUuid\": \"<uuid>\",\n        \"applicationUserId\": \"<string>\",\n        \"referenceId\": \"<string>\",\n        \"institutionId\": \"<string>\",\n        \"status\": \"INVALID\",\n        \"createdAt\": \"<dateTime>\",\n        \"transactionFrom\": \"<dateTime>\",\n        \"transactionTo\": \"<dateTime>\",\n        \"expiresAt\": \"<dateTime>\",\n        \"timeToExpireInMillis\": \"<long>\",\n        \"timeToExpire\": \"<string>\",\n        \"featureScope\": [\n          \"EXISTING_BULK_PAYMENT_DETAILS\",\n          \"PERIODIC_PAYMENT_FREQUENCY_EXTENDED\"\n        ],\n        \"consentToken\": \"<string>\",\n        \"state\": \"<string>\",\n        \"authorizedAt\": \"<dateTime>\",\n        \"lastConfirmedAt\": \"<dateTime>\",\n        \"reconfirmBy\": \"<dateTime>\",\n        \"institutionConsentId\": \"<string>\",\n        \"isDeletedByInstitution\": \"<boolean>\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"userUuid\": \"<uuid>\",\n        \"applicationUserId\": \"<string>\",\n        \"referenceId\": \"<string>\",\n        \"institutionId\": \"<string>\",\n        \"status\": \"FAILED\",\n        \"createdAt\": \"<dateTime>\",\n        \"transactionFrom\": \"<dateTime>\",\n        \"transactionTo\": \"<dateTime>\",\n        \"expiresAt\": \"<dateTime>\",\n        \"timeToExpireInMillis\": \"<long>\",\n        \"timeToExpire\": \"<string>\",\n        \"featureScope\": [\n          \"CREATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT\",\n          \"INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT\"\n        ],\n        \"consentToken\": \"<string>\",\n        \"state\": \"<string>\",\n        \"authorizedAt\": \"<dateTime>\",\n        \"lastConfirmedAt\": \"<dateTime>\",\n        \"reconfirmBy\": \"<dateTime>\",\n        \"institutionConsentId\": \"<string>\",\n        \"isDeletedByInstitution\": \"<boolean>\"\n      }\n    ],\n    \"nextCursorHash\": \"<string>\",\n    \"nextLink\": \"<string>\",\n    \"pagingMap\": {\n      \"labore_d1\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"labore66\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"dolore_2\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"-date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      }\n    },\n    \"totalCount\": \"<long>\"\n  },\n  \"tracingId\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-eb6e71d9-619f-46b0-a977-cb2b5b7883df"
             },
             {
-              "id": "ed0bd92c-b9ff-458c-8f42-c16da7001a54",
+              "id": "2c6eca88-b7e4-4850-aa44-e12bc1ad7690",
               "name": "Error Response",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "consents"
-                  ],
+                  "raw": "{{baseUrl}}/consents?filter[applicationUserId]=<string>&filter[userUuid]=<uuid>&filter[institution]=<string>&filter[status]=<string>&from=<string>&before=<string>&limit=<integer>&offset=0",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "consents"
+                  ],
                   "query": [
                     {
+                      "description": "__Optional__. Filter records based on the list of `applicationUserId` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "filter[applicationUserId]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `userUuid` users provided. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "filter[userUuid]",
                       "value": "<uuid>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `Institution` provided.",
                       "key": "filter[institution]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Filter records based on the list of `Consent` [statuses](/api-reference/getConsents).",
                       "key": "filter[status]",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Returned transactions will be on or after this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ). ",
                       "key": "from",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. Returned transactions will be on or before this date (yyyy-MM-dd'T'HH:mm:ss.SSSZ).",
                       "key": "before",
                       "value": "<string>"
                     },
                     {
+                      "description": "__Optional__. The maximum number of transaction records to be returned. Must be between 1 and 1000. At least one of these filters filter[applicationUserId], filter[userUuid]=, limit= must be provided.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "__Optional__. The number of transaction records to be skipped. Used primarily with paginated results.",
                       "key": "offset",
                       "value": "0"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c0a4113d-fff2-434a-bc25-e60324d8fee8",
-          "name": "Delete Consent",
-          "request": {
-            "name": "Delete Consent",
-            "description": {
-              "content": "Delete a consent using the consent Id",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "consents",
-                ":consentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "forceDelete",
-                  "value": "true",
-                  "description": "__Optional__. Whether to force the deletion."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "consentId",
-                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "cfb5a25d-29f6-4318-8447-7ed77abd1e8a",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "forceDelete",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/consent-delete-example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3fde9ad9-2e3a-43a5-a62f-a86570c30c5f",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "forceDelete",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d63659c4-663e-455b-8a3a-242f062036cb",
-          "name": "Get Consent",
-          "request": {
-            "name": "Get Consent",
-            "description": {
-              "content": "Get consent using the consent Id",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "consents",
-                ":consentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "consentId",
-                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9c1384a7-aee3-4ef4-9005-2a051d7b160d",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/consent-get-example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a52b08af-af57-4532-abfb-33200f587944",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eba152ce-d73c-44d6-8013-f16d89d7e39f",
-          "name": "Extend Consent",
-          "request": {
-            "name": "Extend Consent",
-            "description": {
-              "content": "Used to indicate to Yapily that reconfirmation has occurred for a given Consent, and to update lastUpdatedAt and reconfirmBy for that Consent. Returns the Consent.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "consents",
-                ":consentId",
-                "extend"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "consentId",
-                  "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"lastConfirmedAt\": \"<dateTime>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "debe28d5-7536-46c9-9807-c6c0006942dc",
-              "name": "Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId",
-                    "extend"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/consent-extend-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/consent-get-example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3a8604e1-e5ed-487c-9653-acfbec151a17",
-              "name": "Error Response. The supplied lastConfirmedAt date, Consent type, or Consent status is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId",
-                    "extend"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/consent-extend-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/extend-consent-error-response-code-400 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0c129e2d-f5b7-4d7e-a641-d6ef2c72a04d",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "consents",
-                    ":consentId",
-                    "extend"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "consentId",
-                      "description": "(Required) __Mandatory__. The consent Id of the `Consent` to update."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/consent-extend-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"id8\": \"<string>\",\n          \"proident9_\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquip_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"cillum_3\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"deserunt_3d\": \"<string>\",\n          \"est_e1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"elit_84\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"sintba\": \"<string>\",\n        \"et_3\": \"<string>\",\n        \"ind\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:47.000Z",
+              "updatedAt": "2026-10-21T20:15:47.000Z",
+              "uid": "35240-2c6eca88-b7e4-4850-aa44-e12bc1ad7690"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:15:47.000Z",
+          "updatedAt": "2026-10-21T20:15:47.000Z",
+          "uid": "35240-f25392d2-5b4f-41ee-b5ba-3045ede03ab4"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.yapily.com",
-      "key": "baseUrl"
+      "id": "fe435778-66e5-46b5-a048-d0a35aaeee2f",
+      "createdAt": "2026-10-21T20:15:47.000Z",
+      "updatedAt": "2026-10-21T20:15:47.000Z",
+      "uid": "35240-fe435778-66e5-46b5-a048-d0a35aaeee2f"
     }
   ],
   "auth": {
@@ -1139,21 +1173,20 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "41e543ec-7212-4d96-92af-ece4eb7c88da",
-    "name": "Yapily Beneficiaries Application Beneficiaries Consents API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.yapily.com"
     }
-  }
+  ]
 }

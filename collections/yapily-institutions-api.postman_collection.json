@@ -1,292 +1,283 @@
 {
+  "info": {
+    "_postman_id": "8b3522f7-59ed-49dd-abbb-8ddf340a1805",
+    "name": "Yapily Beneficiaries Application Beneficiaries \u2026\u2026\u2026\u2026\u2026\u2026",
+    "description": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:15:39.000Z",
+    "updatedAt": "2026-10-21T20:15:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8b3522f7-59ed-49dd-abbb-8ddf340a1805"
+  },
   "item": [
     {
-      "id": "ac5fcd5a-e0ef-419a-af3f-9a09b54b6bda",
-      "name": "Institutions",
-      "description": {
-        "content": "An `Institution` object represents any Account Serving Payment Servicing Provider (ASPSP) that has been integrated and is accessible through the Yapily APIs (ASPSPs are entities that publish Read/Write APIs to permit, with customer consent, payments initiated by third party providers and/or make their customers financial data available to third party providers via their API endpoints).\n\nAny one of the following would be represented as Institution:\n\n- Traditional banks e.g. Santander\n- Neo-banks e.g. Monzo\n- Building societies e.g. Cumberland Building Society",
-        "type": "text/plain"
-      },
+      "name": "institutions",
       "item": [
         {
-          "id": "24cdd700-e656-4b91-87a4-4fc1c30c005c",
-          "name": "Get Institutions",
-          "request": {
-            "name": "Get Institutions",
-            "description": {
-              "content": "Used to retrieve all `Institutions` within an application",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "institutions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{institutionId}",
+          "item": [
             {
-              "id": "dd64a398-3a3a-49a4-aa08-1bf087b1c435",
-              "name": "Ok",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "institutions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Get Institution",
+              "id": "711cb538-e767-411f-8ed0-3454577dd733",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/institutions-example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ac5baaef-40fb-4771-9363-622bbab80d10",
-              "name": "Error Response",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "institutions"
-                  ],
+                  "raw": "{{baseUrl}}/institutions/:institutionId",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "institutions",
+                    ":institutionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d3153492-e272-4789-b68a-0ef54d72f32f",
+                      "key": "institutionId",
+                      "value": "<string>",
+                      "description": "(Required) __Mandatory__. The Yapily institution Id for the `Institution`."
+                    }
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Used to retrieves details of a specific `Institution` within an application"
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "c04d6ead-ad88-4494-ac28-490c023a5fb6",
+                  "name": "Ok",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/institutions/:institutionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "institutions",
+                        ":institutionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "institutionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"fullName\": \"<string>\",\n  \"countries\": [\n    {\n      \"displayName\": \"<string>\",\n      \"countryCode2\": \"<string>\",\n      \"bic\": \"<string>\"\n    },\n    {\n      \"displayName\": \"<string>\",\n      \"countryCode2\": \"<string>\",\n      \"bic\": \"<string>\"\n    }\n  ],\n  \"environmentType\": \"SANDBOX\",\n  \"credentialsType\": \"OAUTH2_NOSECRET\",\n  \"media\": [\n    {\n      \"source\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"features\": [\n    \"INITIATE_ONETIME_PRE_AUTHORISATION\",\n    \"CREATE_DOMESTIC_PERIODIC_PAYMENT\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:15:39.000Z",
+                  "updatedAt": "2026-10-21T20:15:39.000Z",
+                  "uid": "35240-c04d6ead-ad88-4494-ac28-490c023a5fb6"
+                },
+                {
+                  "id": "b4d1987e-674e-41ce-ada9-896ac5980d0e",
+                  "name": "Error Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/institutions/:institutionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "institutions",
+                        ":institutionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "institutionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"magna_2\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"Excepteur_95\": \"<string>\",\n          \"Excepteur_cc\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"laboris_e5\": \"<string>\",\n        \"Utb1_\": \"<string>\",\n        \"reprehenderit__2\": \"<string>\",\n        \"incididunt__\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"autec5b\": \"<string>\",\n          \"pariatur_749\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"non87\": \"<string>\",\n          \"et3f\": \"<string>\",\n          \"dolore_a\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"esse_e6\": \"<string>\",\n        \"culpa3ee\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:15:39.000Z",
+                  "updatedAt": "2026-10-21T20:15:39.000Z",
+                  "uid": "35240-b4d1987e-674e-41ce-ada9-896ac5980d0e"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:15:39.000Z",
+              "updatedAt": "2026-10-21T20:15:39.000Z",
+              "uid": "35240-711cb538-e767-411f-8ed0-3454577dd733"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3cb9d887-30c9-467a-932a-dcb874f76a19",
+          "createdAt": "2026-10-21T20:15:39.000Z",
+          "updatedAt": "2026-10-21T20:15:39.000Z",
+          "uid": "35240-3cb9d887-30c9-467a-932a-dcb874f76a19"
         },
         {
-          "id": "282156e3-f7b8-4b4c-accc-f7af1096ada3",
-          "name": "Get Institution",
+          "name": "Get Institutions",
+          "id": "fe3ac251-c0c9-4fcc-b9dc-314ed3a94216",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Institution",
-            "description": {
-              "content": "Used to retrieves details of a specific `Institution` within an application",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "institutions",
-                ":institutionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "institutionId",
-                  "description": "(Required) __Mandatory__. The Yapily institution Id for the `Institution`."
-                }
-              ]
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/institutions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "institutions"
+              ]
+            },
+            "description": "Used to retrieve all `Institutions` within an application"
           },
           "response": [
             {
-              "id": "79f3e686-bef6-4bd2-8bef-3cbf5932a7f3",
+              "id": "0a4f4453-0ec6-4fcf-a8fe-1a1e2acab9e2",
               "name": "Ok",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "institutions",
-                    ":institutionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "institutionId",
-                      "description": "(Required) __Mandatory__. The Yapily institution Id for the `Institution`."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/institutions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "institutions"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/institution-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\",\n    \"count\": \"<integer>\",\n    \"pagination\": {\n      \"totalCount\": \"<long>\",\n      \"self\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"next\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      }\n    }\n  },\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"fullName\": \"<string>\",\n      \"countries\": [\n        {\n          \"displayName\": \"<string>\",\n          \"countryCode2\": \"<string>\",\n          \"bic\": \"<string>\"\n        },\n        {\n          \"displayName\": \"<string>\",\n          \"countryCode2\": \"<string>\",\n          \"bic\": \"<string>\"\n        }\n      ],\n      \"environmentType\": \"MOCK\",\n      \"credentialsType\": \"OAUTH2_SIGNATURE\",\n      \"media\": [\n        {\n          \"source\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"source\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"features\": [\n        \"EXISTING_BULK_PAYMENT_DETAILS\",\n        \"INITIATE_DOMESTIC_VARIABLE_RECURRING_PAYMENT_SWEEPING\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"fullName\": \"<string>\",\n      \"countries\": [\n        {\n          \"displayName\": \"<string>\",\n          \"countryCode2\": \"<string>\",\n          \"bic\": \"<string>\"\n        },\n        {\n          \"displayName\": \"<string>\",\n          \"countryCode2\": \"<string>\",\n          \"bic\": \"<string>\"\n        }\n      ],\n      \"environmentType\": \"LIVE\",\n      \"credentialsType\": \"OPEN_BANKING_NO_KEY\",\n      \"media\": [\n        {\n          \"source\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"source\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"features\": [\n        \"INITIATE_ONETIME_PRE_AUTHORISATION\",\n        \"INITIATE_DOMESTIC_SINGLE_PAYMENT\"\n      ]\n    }\n  ],\n  \"links\": {\n    \"est_0\": \"<string>\",\n    \"id_e\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"deserunt__95\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"headers\": {\n        \"Excepteur_76e\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"qui_1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"occaecat_ab2\": \"<string>\",\n          \"elitd9a\": \"<string>\",\n          \"elitb\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"est_6cd\": \"<string>\",\n        \"elit8d\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sed83\": \"<string>\",\n          \"aliqua_65\": \"<string>\",\n          \"enim6_e\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"Lorem_244\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"eu_ee\": \"<string>\",\n        \"incididunt_7a\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"paging\": {\n    \"apiCall\": {},\n    \"data\": [\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"fullName\": \"<string>\",\n        \"countries\": [\n          {\n            \"displayName\": \"<string>\",\n            \"countryCode2\": \"<string>\",\n            \"bic\": \"<string>\"\n          },\n          {\n            \"displayName\": \"<string>\",\n            \"countryCode2\": \"<string>\",\n            \"bic\": \"<string>\"\n          }\n        ],\n        \"environmentType\": \"MOCK\",\n        \"credentialsType\": \"OPEN_BANKING_MANUAL\",\n        \"media\": [\n          {\n            \"source\": \"<string>\",\n            \"type\": \"<string>\"\n          },\n          {\n            \"source\": \"<string>\",\n            \"type\": \"<string>\"\n          }\n        ],\n        \"features\": [\n          \"ACCOUNTS_WITHOUT_BALANCE\",\n          \"ACCOUNT_SCHEDULED_PAYMENTS\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\",\n        \"fullName\": \"<string>\",\n        \"countries\": [\n          {\n            \"displayName\": \"<string>\",\n            \"countryCode2\": \"<string>\",\n            \"bic\": \"<string>\"\n          },\n          {\n            \"displayName\": \"<string>\",\n            \"countryCode2\": \"<string>\",\n            \"bic\": \"<string>\"\n          }\n        ],\n        \"environmentType\": \"SANDBOX\",\n        \"credentialsType\": \"OPEN_BANKING_UK_MANUAL\",\n        \"media\": [\n          {\n            \"source\": \"<string>\",\n            \"type\": \"<string>\"\n          },\n          {\n            \"source\": \"<string>\",\n            \"type\": \"<string>\"\n          }\n        ],\n        \"features\": [\n          \"INITIATE_DOMESTIC_PERIODIC_PAYMENT\",\n          \"INITIATE_EMBEDDED_ACCOUNT_REQUEST\"\n        ]\n      }\n    ],\n    \"nextCursorHash\": \"<string>\",\n    \"nextLink\": \"<string>\",\n    \"pagingMap\": {\n      \"proident861\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"-date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"adipisicing__2e\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      },\n      \"non_e\": {\n        \"from\": \"<dateTime>\",\n        \"before\": \"<dateTime>\",\n        \"limit\": \"<integer>\",\n        \"sort\": \"date\",\n        \"offset\": \"<integer>\",\n        \"cursor\": \"<string>\"\n      }\n    },\n    \"totalCount\": \"<long>\"\n  },\n  \"tracingId\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:15:39.000Z",
+              "updatedAt": "2026-10-21T20:15:39.000Z",
+              "uid": "35240-0a4f4453-0ec6-4fcf-a8fe-1a1e2acab9e2"
             },
             {
-              "id": "71952c30-9877-45ae-9848-2c5faa0cb66f",
+              "id": "6c65a6cb-2574-40c3-b0b7-67e96c45bd99",
               "name": "Error Response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "institutions",
-                    ":institutionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "institutionId",
-                      "description": "(Required) __Mandatory__. The Yapily institution Id for the `Institution`."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/institutions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "institutions"
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"magna_2\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"Excepteur_95\": \"<string>\",\n          \"Excepteur_cc\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"laboris_e5\": \"<string>\",\n        \"Utb1_\": \"<string>\",\n        \"reprehenderit__2\": \"<string>\",\n        \"incididunt__\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"autec5b\": \"<string>\",\n          \"pariatur_749\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"non87\": \"<string>\",\n          \"et3f\": \"<string>\",\n          \"dolore_a\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"esse_e6\": \"<string>\",\n        \"culpa3ee\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:39.000Z",
+              "updatedAt": "2026-10-21T20:15:39.000Z",
+              "uid": "35240-6c65a6cb-2574-40c3-b0b7-67e96c45bd99"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:15:39.000Z",
+          "updatedAt": "2026-10-21T20:15:39.000Z",
+          "uid": "35240-fe3ac251-c0c9-4fcc-b9dc-314ed3a94216"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.yapily.com",
-      "key": "baseUrl"
+      "id": "ec134e46-5d7d-490a-b448-ffaeb46318f7",
+      "createdAt": "2026-10-21T20:15:39.000Z",
+      "updatedAt": "2026-10-21T20:15:39.000Z",
+      "uid": "35240-ec134e46-5d7d-490a-b448-ffaeb46318f7"
     }
   ],
   "auth": {
@@ -294,21 +285,20 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c35f0fb3-6ed7-4a76-8526-d893fa5536ff",
-    "name": "Yapily Beneficiaries Application Beneficiaries Institutions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.yapily.com"
     }
-  }
+  ]
 }

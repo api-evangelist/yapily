@@ -1,313 +1,356 @@
 {
+  "info": {
+    "_postman_id": "a659f988-faf1-4bb0-b6a5-a8f1f3ce6f38",
+    "name": "Yapily Beneficiaries Application Beneficiaries Payments API",
+    "description": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:15:52.000Z",
+    "updatedAt": "2026-10-21T20:15:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a659f988-faf1-4bb0-b6a5-a8f1f3ce6f38"
+  },
   "item": [
     {
-      "id": "36f2f73e-f527-4401-a725-71b7d081f949",
-      "name": "Payments",
-      "description": {
-        "content": "In order to make a Payment on behalf of a user, you are required to request an [Authorisation](#tag/Authorisations) from the user to authorise the user's account to make the payment from. Once a `consent-token` is obtained, you can call the necessary Payments endpoint(s) to execute a payment.",
-        "type": "text/plain"
-      },
+      "name": "bulk-payments",
       "item": [
         {
-          "id": "a730d683-936e-477a-ac14-74cc3295c309",
-          "name": "Create Bulk Payment",
-          "request": {
-            "name": "Create Bulk Payment",
-            "description": {
-              "content": "Creates a bulk payment after obtaining the user's authorisation. \n\nFeature: `CREATE_BULK_PAYMENT`",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bulk-payments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
-                "key": "consent",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                "key": "psu-id",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                "key": "psu-corporate-id",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                "key": "psu-ip-address",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"payments\": [\n    {\n      \"amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"payee\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"accountType\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"<string>\"\n        },\n        \"merchantId\": \"<string>\",\n        \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n      },\n      \"paymentIdempotencyId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"payer\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"<string>\"\n        }\n      },\n      \"reference\": \"<string>\",\n      \"contextType\": \"OTHER\",\n      \"purposeCode\": \"<string>\",\n      \"periodicPayment\": {\n        \"frequency\": {\n          \"type\": \"<string>\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"numberOfPayments\": \"<integer>\",\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"internationalPayment\": {\n        \"currencyOfTransfer\": \"<string>\",\n        \"exchangeRateInformation\": {\n          \"rateType\": \"<string>\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\"\n        },\n        \"purpose\": \"<string>\",\n        \"priority\": \"<string>\",\n        \"chargeBearer\": \"<string>\"\n      },\n      \"paymentDateTime\": \"<dateTime>\",\n      \"readRefundAccount\": \"<boolean>\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"payee\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"accountType\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"<string>\"\n        },\n        \"merchantId\": \"<string>\",\n        \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n      },\n      \"paymentIdempotencyId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"payer\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"<string>\"\n        }\n      },\n      \"reference\": \"<string>\",\n      \"contextType\": \"OTHER\",\n      \"purposeCode\": \"<string>\",\n      \"periodicPayment\": {\n        \"frequency\": {\n          \"type\": \"<string>\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"numberOfPayments\": \"<integer>\",\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"internationalPayment\": {\n        \"currencyOfTransfer\": \"<string>\",\n        \"exchangeRateInformation\": {\n          \"rateType\": \"<string>\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\"\n        },\n        \"purpose\": \"<string>\",\n        \"priority\": \"<string>\",\n        \"chargeBearer\": \"<string>\"\n      },\n      \"paymentDateTime\": \"<dateTime>\",\n      \"readRefundAccount\": \"<boolean>\"\n    }\n  ],\n  \"idempotencyId\": \"<string>\",\n  \"originatorIdentificationNumber\": \"<string>\",\n  \"executionDateTime\": \"<dateTime>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{bulkPaymentId}",
+          "item": [
             {
-              "id": "f57bbfee-61ad-4084-ad71-63b77cb95a89",
-              "name": "Created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+              "name": "details",
+              "item": [
+                {
+                  "name": "Get Bulk Payment Status Details",
+                  "id": "f4c47e14-9369-43a4-b8e9-7f269ff8d3e0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId",
+                        "details"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8a0cea23-3bfb-411b-a2bd-bbfac4e8214b",
+                          "key": "bulkPaymentId",
+                          "value": "<string>",
+                          "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "description": "Retrieve details of each payment submitted for a given bulkPaymentId.\n\nFeature: `EXISTING_BULK_PAYMENT_DETAILS`"
                   },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "{consentToken}"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-id",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-corporate-id",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-ip-address",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/uk-bulk-payment-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/uk-bulk-payment-example-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4ab3cdf2-889e-49b4-9aa8-88bffb14e294",
-              "name": "Error Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "{consentToken}"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-id",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-corporate-id",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
-                    "key": "psu-ip-address",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "reference #/components/examples/uk-bulk-payment-example-request not found in the given specification",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4e9c6260-ea76-4a36-b905-e35b3148c47e",
-          "name": "Get Bulk Payment File Status",
-          "request": {
-            "name": "Get Bulk Payment File Status",
-            "description": {
-              "content": "Returns the bulk file status of the bulk payment for given bulkPaymentId",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bulk-payments",
-                ":bulkPaymentId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bulkPaymentId",
-                  "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                "key": "consent",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "96ed9f24-8cf8-4949-a299-cec3b5e294e6",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
+                      "id": "289c4413-f518-4daf-b874-98ffebec2a6b",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulk-payments",
+                            ":bulkPaymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bulkPaymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<string>\",\n    \"consentId\": \"<string>\",\n    \"payments\": [\n      {\n        \"id\": \"<string>\",\n        \"status\": \"DECLINED\",\n        \"statusDetails\": {\n          \"code\": \"<string>\",\n          \"reason\": \"<string>\"\n        }\n      },\n      {\n        \"id\": \"<string>\",\n        \"status\": \"UNKNOWN\",\n        \"statusDetails\": {\n          \"code\": \"<string>\",\n          \"reason\": \"<string>\"\n        }\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-289c4413-f518-4daf-b874-98ffebec2a6b"
+                    },
+                    {
+                      "id": "03655787-c707-4075-94e8-dc0589d7d85a",
+                      "name": "Required parameter missing or invalid",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulk-payments",
+                            ":bulkPaymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bulkPaymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-03655787-c707-4075-94e8-dc0589d7d85a"
+                    },
+                    {
+                      "id": "57d2ae10-3f20-4a2b-8266-39d19bcc3092",
+                      "name": "Authentication Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulk-payments",
+                            ":bulkPaymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bulkPaymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-57d2ae10-3f20-4a2b-8266-39d19bcc3092"
+                    },
+                    {
+                      "id": "14949291-4bc6-4c13-a3ff-1ab1da182f79",
+                      "name": "Bulk payment not found for provided id",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulk-payments",
+                            ":bulkPaymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bulkPaymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-14949291-4bc6-4c13-a3ff-1ab1da182f79"
+                    },
+                    {
+                      "id": "6d46e49c-0515-45dd-b88b-462321a8b78f",
+                      "name": "An unexpected error occurred.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bulk-payments",
+                            ":bulkPaymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bulkPaymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-6d46e49c-0515-45dd-b88b-462321a8b78f"
                     }
-                  ]
-                },
+                  ],
+                  "createdAt": "2026-10-21T20:15:52.000Z",
+                  "updatedAt": "2026-10-21T20:15:52.000Z",
+                  "uid": "35240-f4c47e14-9369-43a4-b8e9-7f269ff8d3e0"
+                }
+              ],
+              "id": "b705288b-56f2-4247-8983-6823ff33f243",
+              "createdAt": "2026-10-21T20:15:52.000Z",
+              "updatedAt": "2026-10-21T20:15:52.000Z",
+              "uid": "35240-b705288b-56f2-4247-8983-6823ff33f243"
+            },
+            {
+              "name": "Get Bulk Payment File Status",
+              "id": "9fcc87ed-1566-4387-903d-9d15b882de44",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
                     "key": "consent",
                     "value": "<string>"
@@ -317,645 +360,328 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"meta\": {\n    \"tracingId\": \"27b47dca-fb0f-4448-b470-1cd2d5516d0f\"\n  },\n  \"data\": {\n    \"id\": \"76ad88c7-6e99-4a16-a277-e428a73d1e86\",\n    \"consentId\": \"5daeb980-5ff5-49db-b7a0-e93dd9c93533\",\n    \"statusDetails\": {\n      \"status\": \"COMPLETED\",\n      \"updatedAt\": \"2024-07-25T18:14:52.672Z\"\n    },\n    \"createdAt\": \"2024-07-25T18:14:52.672Z\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "61c895b4-f044-4417-bfa5-ca36e2278ef0",
-              "name": "Required parameter missing or invalid",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "bulk-payments",
                     ":bulkPaymentId"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "7ecb578a-a129-46be-a49b-fb6bd71a8050",
                       "key": "bulkPaymentId",
+                      "value": "<string>",
                       "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Returns the bulk file status of the bulk payment for given bulkPaymentId"
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "734bad74-0e74-42b2-879a-47bca7a90283",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
+                  "id": "04d3d45b-c4e0-4934-a3d6-6acb77b4b7e2",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bulkPaymentId"
+                        }
+                      ]
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
                   },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a7bcdde8-2e40-459e-bfcb-060324379e08",
-              "name": "Bulk payment not found for provided id",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<string>\",\n    \"consentId\": \"<string>\",\n    \"statusDetails\": {\n      \"status\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\"\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:15:53.000Z",
+                  "updatedAt": "2026-10-21T20:15:53.000Z",
+                  "uid": "35240-04d3d45b-c4e0-4934-a3d6-6acb77b4b7e2"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0a7ec863-9522-40c5-a80c-6aa201c3a36b",
-              "name": "An unexpected error occurred.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "id": "64587ddb-b014-4c82-8b26-7ed7bc51cea8",
+                  "name": "Required parameter missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bulkPaymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted."
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:15:53.000Z",
+                  "updatedAt": "2026-10-21T20:15:53.000Z",
+                  "uid": "35240-64587ddb-b014-4c82-8b26-7ed7bc51cea8"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "811f3db0-fd3d-4de5-aa05-e007e867fe36",
+                  "name": "Authentication Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bulkPaymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:15:53.000Z",
+                  "updatedAt": "2026-10-21T20:15:53.000Z",
+                  "uid": "35240-811f3db0-fd3d-4de5-aa05-e007e867fe36"
+                },
+                {
+                  "id": "c5a07867-040b-4207-b6b0-1b0a796c69ce",
+                  "name": "Bulk payment not found for provided id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bulkPaymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:15:53.000Z",
+                  "updatedAt": "2026-10-21T20:15:53.000Z",
+                  "uid": "35240-c5a07867-040b-4207-b6b0-1b0a796c69ce"
+                },
+                {
+                  "id": "a405ab24-f9ef-466f-89c2-cf1e99a09ace",
+                  "name": "An unexpected error occurred.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bulk-payments/:bulkPaymentId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bulk-payments",
+                        ":bulkPaymentId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bulkPaymentId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:15:53.000Z",
+                  "updatedAt": "2026-10-21T20:15:53.000Z",
+                  "uid": "35240-a405ab24-f9ef-466f-89c2-cf1e99a09ace"
                 }
               ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:15:52.000Z",
+              "updatedAt": "2026-10-21T20:15:52.000Z",
+              "uid": "35240-9fcc87ed-1566-4387-903d-9d15b882de44"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "08c41aef-8fe4-44df-9f34-28d7db35d09b",
+          "createdAt": "2026-10-21T20:15:52.000Z",
+          "updatedAt": "2026-10-21T20:15:52.000Z",
+          "uid": "35240-08c41aef-8fe4-44df-9f34-28d7db35d09b"
         },
         {
-          "id": "748b1ec4-6a90-4762-b778-1164cba593d0",
-          "name": "Get Bulk Payment Status Details",
-          "request": {
-            "name": "Get Bulk Payment Status Details",
-            "description": {
-              "content": "Retrieve details of each payment submitted for a given bulkPaymentId. \n\nFeature: `EXISTING_BULK_PAYMENT_DETAILS`",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bulk-payments",
-                ":bulkPaymentId",
-                "details"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bulkPaymentId",
-                  "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                "key": "consent",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+          "name": "Create Bulk Payment",
+          "id": "df83f527-24d4-4635-b715-9e19e6cab0f4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
           },
-          "response": [
-            {
-              "id": "786c4029-a220-48a0-92ff-8aad73c35e73",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/bulk-payment-details-by-id-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "94fa2579-b86f-4b24-a10c-b11e299c2d9b",
-              "name": "Required parameter missing or invalid",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "07b10d4e-8e11-4eb6-bf50-7aa8ab730fe4",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "255d7e15-a6ce-4e85-bf2d-16f3164b4227",
-              "name": "Bulk payment not found for provided id",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "db297472-8ed5-47f2-a5be-3bb99ae9d789",
-              "name": "An unexpected error occurred.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bulk-payments",
-                    ":bulkPaymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkPaymentId",
-                      "description": "(Required) __Mandatory__. Bulk payment id returned when bulk payment request was submitted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) __Mandatory__. The `consent token` containing the user's authorisation to make the request.",
-                    "key": "consent",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7cc128b6-c86f-4625-9255-686a3b5436e0",
-          "name": "Create Payment",
           "request": {
-            "name": "Create Payment",
-            "description": {
-              "content": "Creates a payment after obtaining the user's authorisation. \n\nFeatures:\n\n- `CREATE_DOMESTIC_PERIODIC_PAYMENT`\n- `CREATE_DOMESTIC_SCHEDULED_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_PAYMENT`\n- `CREATE_INTERNATIONAL_PERIODIC_PAYMENT`\n- `CREATE_INTERNATIONAL_SCHEDULED_PAYMENT`\n- `CREATE_INTERNATIONAL_SINGLE_PAYMENT`",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "payments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                 "key": "consent",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-id",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-corporate-id",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-ip-address",
                 "value": "<string>"
@@ -969,408 +695,633 @@
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"payee\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"accountType\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"<string>\"\n    },\n    \"merchantId\": \"<string>\",\n    \"merchantCategoryCode\": \"<^\\\\d{4}$>\"\n  },\n  \"paymentIdempotencyId\": \"<string>\",\n  \"type\": \"<string>\",\n  \"payer\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"<string>\"\n    }\n  },\n  \"reference\": \"<string>\",\n  \"contextType\": \"OTHER\",\n  \"purposeCode\": \"<string>\",\n  \"periodicPayment\": {\n    \"frequency\": {\n      \"type\": \"<string>\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"numberOfPayments\": \"<integer>\",\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"internationalPayment\": {\n    \"currencyOfTransfer\": \"<string>\",\n    \"exchangeRateInformation\": {\n      \"rateType\": \"<string>\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\"\n    },\n    \"purpose\": \"<string>\",\n    \"priority\": \"<string>\",\n    \"chargeBearer\": \"<string>\"\n  },\n  \"paymentDateTime\": \"<dateTime>\",\n  \"readRefundAccount\": \"<boolean>\"\n}",
+              "raw": "{\n  \"payments\": [\n    {\n      \"amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"payee\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ABA\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"accountType\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"CORRESPONDENCE\"\n        },\n        \"merchantId\": \"<string>\",\n        \"merchantCategoryCode\": \"<string>\"\n      },\n      \"paymentIdempotencyId\": \"<string>\",\n      \"type\": \"INTERNATIONAL_SCHEDULED_PAYMENT\",\n      \"payer\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"CLABE\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"BUSINESS\"\n        }\n      },\n      \"reference\": \"<string>\",\n      \"contextType\": \"OTHER\",\n      \"purposeCode\": \"<string>\",\n      \"periodicPayment\": {\n        \"frequency\": {\n          \"type\": \"EVERY_TWO_WEEKS\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"numberOfPayments\": \"<integer>\",\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"internationalPayment\": {\n        \"currencyOfTransfer\": \"<string>\",\n        \"exchangeRateInformation\": {\n          \"rateType\": \"AGREED\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\"\n        },\n        \"purpose\": \"<string>\",\n        \"priority\": \"NORMAL\",\n        \"chargeBearer\": \"SLEV\"\n      },\n      \"paymentDateTime\": \"<dateTime>\",\n      \"readRefundAccount\": \"<boolean>\"\n    }\n  ],\n  \"idempotencyId\": \"ku$AlC\\\\z$JZ{cAxVZ@U~/bz7MwJ9|\",\n  \"originatorIdentificationNumber\": \"<string>\",\n  \"executionDateTime\": \"<dateTime>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bulk-payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bulk-payments"
+              ]
+            },
+            "description": "Creates a bulk payment after obtaining the user's authorisation.\n\nFeature: `CREATE_BULK_PAYMENT`"
           },
           "response": [
             {
-              "id": "f68fec72-f3f7-4843-8b89-4855a85b3f78",
+              "id": "4651dc16-3c17-4836-9955-a5794edaa4b4",
               "name": "Created",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                     "key": "consent",
-                    "value": "{consentToken}"
+                    "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-corporate-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-ip-address",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "reference #/components/examples/eur-domestic-single-payment-example-request not found in the given specification",
+                  "raw": "{\n  \"payments\": [\n    {\n      \"amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"payee\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ABA\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"accountType\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"CORRESPONDENCE\"\n        },\n        \"merchantId\": \"<string>\",\n        \"merchantCategoryCode\": \"<string>\"\n      },\n      \"paymentIdempotencyId\": \"<string>\",\n      \"type\": \"INTERNATIONAL_SCHEDULED_PAYMENT\",\n      \"payer\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"CLABE\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"BUSINESS\"\n        }\n      },\n      \"reference\": \"<string>\",\n      \"contextType\": \"OTHER\",\n      \"purposeCode\": \"<string>\",\n      \"periodicPayment\": {\n        \"frequency\": {\n          \"type\": \"EVERY_TWO_WEEKS\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"numberOfPayments\": \"<integer>\",\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"internationalPayment\": {\n        \"currencyOfTransfer\": \"<string>\",\n        \"exchangeRateInformation\": {\n          \"rateType\": \"AGREED\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\"\n        },\n        \"purpose\": \"<string>\",\n        \"priority\": \"NORMAL\",\n        \"chargeBearer\": \"SLEV\"\n      },\n      \"paymentDateTime\": \"<dateTime>\",\n      \"readRefundAccount\": \"<boolean>\"\n    }\n  ],\n  \"idempotencyId\": \"ku$AlC\\\\z$JZ{cAxVZ@U~/bz7MwJ9|\",\n  \"originatorIdentificationNumber\": \"<string>\",\n  \"executionDateTime\": \"<dateTime>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulk-payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulk-payments"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/eur-domestic-single-payment-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<string>\",\n    \"institutionConsentId\": \"<string>\",\n    \"institutionInteractionId\": \"<string>\",\n    \"paymentIdempotencyId\": \"<string>\",\n    \"paymentLifecycleId\": \"<string>\",\n    \"paymentScheme\": \"<string>\",\n    \"status\": \"INACTIVE\",\n    \"statusDetails\": {\n      \"status\": \"DECLINED\",\n      \"statusReason\": \"<string>\",\n      \"statusReasonDescription\": \"<string>\",\n      \"statusUpdateDate\": \"<dateTime>\",\n      \"multiAuthorisationStatus\": {\n        \"status\": \"<string>\",\n        \"numberOfAuthorisationRequired\": \"<integer>\",\n        \"numberOfAuthorisationReceived\": \"<integer>\",\n        \"lastUpdatedDateTime\": \"<dateTime>\",\n        \"expirationDateTime\": \"<dateTime>\"\n      },\n      \"isoStatus\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"IBAN\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"RESIDENTIAL\"\n      }\n    },\n    \"payeeDetails\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"SORT_CODE\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"POSTAL\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<string>\"\n    },\n    \"reference\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"amountDetails\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\",\n    \"firstPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"firstPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"numberOfPayments\": \"<integer>\",\n    \"previousPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"previousPaymentDateTime\": \"<dateTime>\",\n    \"chargeDetails\": [\n      {\n        \"chargeAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"chargeType\": \"<string>\",\n        \"chargeTo\": \"<string>\"\n      }\n    ],\n    \"scheduledPaymentType\": \"<string>\",\n    \"scheduledPaymentDateTime\": \"<dateTime>\",\n    \"frequency\": {\n      \"frequencyType\": \"ANNUAL\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"currencyOfTransfer\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"priority\": \"NORMAL\",\n    \"exchangeRate\": {\n      \"rateType\": \"AGREED\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\",\n      \"exchangeRateExpiryDate\": \"<dateTime>\"\n    },\n    \"refundAccount\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"ACCOUNT_NUMBER\",\n          \"identification\": \"<string>\"\n        }\n      ]\n    },\n    \"bulkAmountSum\": \"<number>\"\n  },\n  \"links\": {\n    \"ullamco_cb\": \"<string>\",\n    \"laborisd\": \"<string>\",\n    \"pariatur01\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"Ut_e\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"enim_bd\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"eu_ac\": \"<string>\",\n          \"non_c_7\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"quis_4\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:15:53.000Z",
+              "updatedAt": "2026-10-21T20:15:53.000Z",
+              "uid": "35240-4651dc16-3c17-4836-9955-a5794edaa4b4"
             },
             {
-              "id": "6849b47c-fede-4619-a8c8-8e3c230d2975",
+              "id": "2e503dbe-51ea-4da9-a19a-16316db0a303",
               "name": "Error Response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                     "key": "consent",
-                    "value": "{consentToken}"
+                    "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-corporate-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-ip-address",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "reference #/components/examples/eur-domestic-single-payment-example-request not found in the given specification",
+                  "raw": "{\n  \"payments\": [\n    {\n      \"amount\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"payee\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"ABA\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"accountType\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"CORRESPONDENCE\"\n        },\n        \"merchantId\": \"<string>\",\n        \"merchantCategoryCode\": \"<string>\"\n      },\n      \"paymentIdempotencyId\": \"<string>\",\n      \"type\": \"INTERNATIONAL_SCHEDULED_PAYMENT\",\n      \"payer\": {\n        \"accountIdentifications\": [\n          {\n            \"type\": \"CLABE\",\n            \"identification\": \"<string>\"\n          }\n        ],\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLines\": [\n            \"<string>\"\n          ],\n          \"streetName\": \"<string>\",\n          \"buildingNumber\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"townName\": \"<string>\",\n          \"county\": [\n            \"<string>\"\n          ],\n          \"country\": \"<string>\",\n          \"department\": \"<string>\",\n          \"subDepartment\": \"<string>\",\n          \"addressType\": \"BUSINESS\"\n        }\n      },\n      \"reference\": \"<string>\",\n      \"contextType\": \"OTHER\",\n      \"purposeCode\": \"<string>\",\n      \"periodicPayment\": {\n        \"frequency\": {\n          \"type\": \"EVERY_TWO_WEEKS\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"numberOfPayments\": \"<integer>\",\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        }\n      },\n      \"internationalPayment\": {\n        \"currencyOfTransfer\": \"<string>\",\n        \"exchangeRateInformation\": {\n          \"rateType\": \"AGREED\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\"\n        },\n        \"purpose\": \"<string>\",\n        \"priority\": \"NORMAL\",\n        \"chargeBearer\": \"SLEV\"\n      },\n      \"paymentDateTime\": \"<dateTime>\",\n      \"readRefundAccount\": \"<boolean>\"\n    }\n  ],\n  \"idempotencyId\": \"ku$AlC\\\\z$JZ{cAxVZ@U~/bz7MwJ9|\",\n  \"originatorIdentificationNumber\": \"<string>\",\n  \"executionDateTime\": \"<dateTime>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bulk-payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bulk-payments"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt0\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"incididunt_905\": \"<string>\",\n          \"euc\": \"<string>\",\n          \"aliquip34\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"occaecat_7\": \"<string>\",\n        \"qui_c\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt_e\": \"<string>\",\n          \"laborumce1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquipd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"proidenta7_\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:53.000Z",
+              "updatedAt": "2026-10-21T20:15:53.000Z",
+              "uid": "35240-2e503dbe-51ea-4da9-a19a-16316db0a303"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:15:52.000Z",
+          "updatedAt": "2026-10-21T20:15:52.000Z",
+          "uid": "35240-df83f527-24d4-4635-b715-9e19e6cab0f4"
+        }
+      ],
+      "id": "e4ade561-4470-4f49-b2c1-8f6ab9a9b021",
+      "createdAt": "2026-10-21T20:15:52.000Z",
+      "updatedAt": "2026-10-21T20:15:52.000Z",
+      "uid": "35240-e4ade561-4470-4f49-b2c1-8f6ab9a9b021"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "{paymentId}",
+          "item": [
+            {
+              "name": "details",
+              "item": [
+                {
+                  "name": "Get Payment Details",
+                  "id": "ea97e141-3c32-485f-b6f9-270f6ecd1a94",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                        "key": "consent",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                        "key": "psu-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                        "key": "psu-corporate-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                        "key": "psu-ip-address",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/:paymentId/details",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        ":paymentId",
+                        "details"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5ff74eb2-af74-46ea-8acb-f64e749f9a6a",
+                          "key": "paymentId",
+                          "value": "<string>",
+                          "description": "(Required) __Mandatory__. The payment Id of the payment."
+                        }
+                      ]
+                    },
+                    "description": "Returns the details of a payment.\n\nMost commonly used to check for payment status updates.\n\nFeature: `EXISTING_PAYMENTS_DETAILS`"
+                  },
+                  "response": [
+                    {
+                      "id": "43506ce3-190b-4d01-bd43-4d6f1800f5c1",
+                      "name": "Ok",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-id",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-corporate-id",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-ip-address",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/:paymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            ":paymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "paymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"payments\": [\n      {\n        \"id\": \"<string>\",\n        \"institutionConsentId\": \"<string>\",\n        \"paymentIdempotencyId\": \"<string>\",\n        \"paymentLifecycleId\": \"<string>\",\n        \"status\": \"PENDING\",\n        \"statusDetails\": {\n          \"status\": \"ACTIVE\",\n          \"statusReason\": \"<string>\",\n          \"statusReasonDescription\": \"<string>\",\n          \"statusUpdateDate\": \"<dateTime>\",\n          \"multiAuthorisationStatus\": {\n            \"status\": \"<string>\",\n            \"numberOfAuthorisationRequired\": \"<integer>\",\n            \"numberOfAuthorisationReceived\": \"<integer>\",\n            \"lastUpdatedDateTime\": \"<dateTime>\",\n            \"expirationDateTime\": \"<dateTime>\"\n          },\n          \"isoStatus\": {\n            \"code\": \"PATC\",\n            \"name\": \"<string>\"\n          }\n        },\n        \"payer\": {\n          \"accountIdentifications\": [\n            {\n              \"type\": \"ROLL_NUMBER\",\n              \"identification\": \"<string>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"address\": {\n            \"addressLines\": [\n              \"<string>\"\n            ],\n            \"streetName\": \"<string>\",\n            \"buildingNumber\": \"<string>\",\n            \"postCode\": \"<string>\",\n            \"townName\": \"<string>\",\n            \"county\": [\n              \"<string>\"\n            ],\n            \"country\": \"<string>\",\n            \"department\": \"<string>\",\n            \"subDepartment\": \"<string>\",\n            \"addressType\": \"DELIVERY_TO\"\n          }\n        },\n        \"payeeDetails\": {\n          \"accountIdentifications\": [\n            {\n              \"type\": \"EMAIL\",\n              \"identification\": \"<string>\"\n            }\n          ],\n          \"name\": \"<string>\",\n          \"accountType\": \"<string>\",\n          \"address\": {\n            \"addressLines\": [\n              \"<string>\"\n            ],\n            \"streetName\": \"<string>\",\n            \"buildingNumber\": \"<string>\",\n            \"postCode\": \"<string>\",\n            \"townName\": \"<string>\",\n            \"county\": [\n              \"<string>\"\n            ],\n            \"country\": \"<string>\",\n            \"department\": \"<string>\",\n            \"subDepartment\": \"<string>\",\n            \"addressType\": \"PO_BOX\"\n          },\n          \"merchantId\": \"<string>\",\n          \"merchantCategoryCode\": \"<string>\"\n        },\n        \"reference\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\",\n        \"amountDetails\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\",\n        \"firstPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"firstPaymentDateTime\": \"<dateTime>\",\n        \"nextPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"nextPaymentDateTime\": \"<dateTime>\",\n        \"finalPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"finalPaymentDateTime\": \"<dateTime>\",\n        \"numberOfPayments\": \"<integer>\",\n        \"previousPaymentAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"previousPaymentDateTime\": \"<dateTime>\",\n        \"chargeDetails\": [\n          {\n            \"chargeAmount\": {\n              \"amount\": \"<number>\",\n              \"currency\": \"<string>\"\n            },\n            \"chargeType\": \"<string>\",\n            \"chargeTo\": \"<string>\"\n          }\n        ],\n        \"scheduledPaymentType\": \"<string>\",\n        \"scheduledPaymentDateTime\": \"<dateTime>\",\n        \"frequency\": {\n          \"frequencyType\": \"CALENDAR_DAY\",\n          \"intervalWeek\": \"<integer>\",\n          \"intervalMonth\": \"<integer>\",\n          \"executionDay\": \"<integer>\"\n        },\n        \"currencyOfTransfer\": \"<string>\",\n        \"purpose\": \"<string>\",\n        \"priority\": \"URGENT\",\n        \"exchangeRate\": {\n          \"rateType\": \"ACTUAL\",\n          \"unitCurrency\": \"<string>\",\n          \"rate\": \"<number>\",\n          \"foreignExchangeContractReference\": \"<string>\",\n          \"exchangeRateExpiryDate\": \"<dateTime>\"\n        },\n        \"refundAccount\": {\n          \"name\": \"<string>\",\n          \"accountIdentifications\": [\n            {\n              \"type\": \"CLABE\",\n              \"identification\": \"<string>\"\n            }\n          ]\n        },\n        \"bulkAmountSum\": \"<number>\"\n      }\n    ]\n  },\n  \"links\": {\n    \"ad02\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"do_28\": \"<string>\",\n        \"exercitation_2\": \"<string>\",\n        \"Excepteurebd\": \"<string>\",\n        \"sit2\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"aute6\": \"<string>\",\n          \"nulla_7d\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"et_4\": \"<string>\",\n          \"pariatur_4\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"nullaf\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-43506ce3-190b-4d01-bd43-4d6f1800f5c1"
+                    },
+                    {
+                      "id": "725bd337-5304-4a7a-9dfe-94c3a06f9f5d",
+                      "name": "Error Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
+                            "key": "consent",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-id",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-corporate-id",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
+                            "key": "psu-ip-address",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/:paymentId/details",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            ":paymentId",
+                            "details"
+                          ],
+                          "variable": [
+                            {
+                              "key": "paymentId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt0\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"incididunt_905\": \"<string>\",\n          \"euc\": \"<string>\",\n          \"aliquip34\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"occaecat_7\": \"<string>\",\n        \"qui_c\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt_e\": \"<string>\",\n          \"laborumce1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquipd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"proidenta7_\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:15:53.000Z",
+                      "updatedAt": "2026-10-21T20:15:53.000Z",
+                      "uid": "35240-725bd337-5304-4a7a-9dfe-94c3a06f9f5d"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:15:52.000Z",
+                  "updatedAt": "2026-10-21T20:15:52.000Z",
+                  "uid": "35240-ea97e141-3c32-485f-b6f9-270f6ecd1a94"
+                }
+              ],
+              "id": "9f86c9fa-5718-4e45-911c-012a88187c7d",
+              "createdAt": "2026-10-21T20:15:52.000Z",
+              "updatedAt": "2026-10-21T20:15:52.000Z",
+              "uid": "35240-9f86c9fa-5718-4e45-911c-012a88187c7d"
+            }
+          ],
+          "id": "f8af5aa6-1fe6-4299-8f06-217848e1f44e",
+          "createdAt": "2026-10-21T20:15:52.000Z",
+          "updatedAt": "2026-10-21T20:15:52.000Z",
+          "uid": "35240-f8af5aa6-1fe6-4299-8f06-217848e1f44e"
         },
         {
-          "id": "333c6ed1-acf6-434a-857c-8b38a24fa84f",
-          "name": "Get Payment Details",
+          "name": "Create Payment",
+          "id": "7f35a9d9-03eb-44ed-b8fe-11d415f2d0e6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Payment Details",
-            "description": {
-              "content": "Returns the details of a payment. \n\nMost commonly used to check for payment status updates. \n\nFeature: `EXISTING_PAYMENTS_DETAILS`",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "payments",
-                ":paymentId",
-                "details"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "paymentId",
-                  "description": "(Required) __Mandatory__. The payment Id of the payment."
-                }
-              ]
-            },
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                 "key": "consent",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-id",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-corporate-id",
                 "value": "<string>"
               },
               {
-                "disabled": false,
                 "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                 "key": "psu-ip-address",
                 "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
               },
               {
                 "key": "Accept",
                 "value": "application/json;charset=UTF-8"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"payee\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"IBAN\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"accountType\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"UNKNOWN\"\n    },\n    \"merchantId\": \"<string>\",\n    \"merchantCategoryCode\": \"<string>\"\n  },\n  \"paymentIdempotencyId\": \"<string>\",\n  \"type\": \"DOMESTIC_PERIODIC_PAYMENT\",\n  \"payer\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"ABA_WIRE\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"BUSINESS\"\n    }\n  },\n  \"reference\": \"<string>\",\n  \"contextType\": \"OTHER\",\n  \"purposeCode\": \"<string>\",\n  \"periodicPayment\": {\n    \"frequency\": {\n      \"type\": \"SEMIANNUAL\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"numberOfPayments\": \"<integer>\",\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"internationalPayment\": {\n    \"currencyOfTransfer\": \"<string>\",\n    \"exchangeRateInformation\": {\n      \"rateType\": \"INDICATIVE\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\"\n    },\n    \"purpose\": \"<string>\",\n    \"priority\": \"NORMAL\",\n    \"chargeBearer\": \"SHAR\"\n  },\n  \"paymentDateTime\": \"<dateTime>\",\n  \"readRefundAccount\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            },
+            "description": "Creates a payment after obtaining the user's authorisation.\n\nFeatures:\n\n- `CREATE_DOMESTIC_PERIODIC_PAYMENT`\n- `CREATE_DOMESTIC_SCHEDULED_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_INSTANT_PAYMENT`\n- `CREATE_DOMESTIC_SINGLE_PAYMENT`\n- `CREATE_INTERNATIONAL_PERIODIC_PAYMENT`\n- `CREATE_INTERNATIONAL_SCHEDULED_PAYMENT`\n- `CREATE_INTERNATIONAL_SINGLE_PAYMENT`"
           },
           "response": [
             {
-              "id": "0461b718-b304-4dc6-9e54-d08d23e51b70",
-              "name": "Ok",
+              "id": "b52ec1c3-9a8e-44d6-bdb8-124be29c9a08",
+              "name": "Created",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) __Mandatory__. The payment Id of the payment."
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                     "key": "consent",
-                    "value": "{consentToken}"
+                    "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-corporate-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-ip-address",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"payee\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"IBAN\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"accountType\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"UNKNOWN\"\n    },\n    \"merchantId\": \"<string>\",\n    \"merchantCategoryCode\": \"<string>\"\n  },\n  \"paymentIdempotencyId\": \"<string>\",\n  \"type\": \"DOMESTIC_PERIODIC_PAYMENT\",\n  \"payer\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"ABA_WIRE\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"BUSINESS\"\n    }\n  },\n  \"reference\": \"<string>\",\n  \"contextType\": \"OTHER\",\n  \"purposeCode\": \"<string>\",\n  \"periodicPayment\": {\n    \"frequency\": {\n      \"type\": \"SEMIANNUAL\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"numberOfPayments\": \"<integer>\",\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"internationalPayment\": {\n    \"currencyOfTransfer\": \"<string>\",\n    \"exchangeRateInformation\": {\n      \"rateType\": \"INDICATIVE\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\"\n    },\n    \"purpose\": \"<string>\",\n    \"priority\": \"NORMAL\",\n    \"chargeBearer\": \"SHAR\"\n  },\n  \"paymentDateTime\": \"<dateTime>\",\n  \"readRefundAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
               },
-              "status": "OK",
-              "code": 200,
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/eur-single-domestic-payment-details-example-response not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"meta\": {\n    \"tracingId\": \"<string>\"\n  },\n  \"data\": {\n    \"id\": \"<string>\",\n    \"institutionConsentId\": \"<string>\",\n    \"paymentIdempotencyId\": \"<string>\",\n    \"paymentLifecycleId\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"statusDetails\": {\n      \"status\": \"UNKNOWN\",\n      \"statusReason\": \"<string>\",\n      \"statusReasonDescription\": \"<string>\",\n      \"statusUpdateDate\": \"<dateTime>\",\n      \"multiAuthorisationStatus\": {\n        \"status\": \"<string>\",\n        \"numberOfAuthorisationRequired\": \"<integer>\",\n        \"numberOfAuthorisationReceived\": \"<integer>\",\n        \"lastUpdatedDateTime\": \"<dateTime>\",\n        \"expirationDateTime\": \"<dateTime>\"\n      },\n      \"isoStatus\": {\n        \"code\": \"ACTC\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"payer\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"PAN\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"DELIVERY_TO\"\n      }\n    },\n    \"payeeDetails\": {\n      \"accountIdentifications\": [\n        {\n          \"type\": \"BSB\",\n          \"identification\": \"<string>\"\n        }\n      ],\n      \"name\": \"<string>\",\n      \"accountType\": \"<string>\",\n      \"address\": {\n        \"addressLines\": [\n          \"<string>\"\n        ],\n        \"streetName\": \"<string>\",\n        \"buildingNumber\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"townName\": \"<string>\",\n        \"county\": [\n          \"<string>\"\n        ],\n        \"country\": \"<string>\",\n        \"department\": \"<string>\",\n        \"subDepartment\": \"<string>\",\n        \"addressType\": \"UNKNOWN\"\n      },\n      \"merchantId\": \"<string>\",\n      \"merchantCategoryCode\": \"<string>\"\n    },\n    \"reference\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"amountDetails\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"createdAt\": \"<dateTime>\",\n    \"firstPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"firstPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"numberOfPayments\": \"<integer>\",\n    \"previousPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"previousPaymentDateTime\": \"<dateTime>\",\n    \"chargeDetails\": [\n      {\n        \"chargeAmount\": {\n          \"amount\": \"<number>\",\n          \"currency\": \"<string>\"\n        },\n        \"chargeType\": \"<string>\",\n        \"chargeTo\": \"<string>\"\n      }\n    ],\n    \"scheduledPaymentType\": \"<string>\",\n    \"scheduledPaymentDateTime\": \"<dateTime>\",\n    \"frequency\": {\n      \"frequencyType\": \"ANNUAL\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"currencyOfTransfer\": \"<string>\",\n    \"purpose\": \"<string>\",\n    \"priority\": \"URGENT\",\n    \"exchangeRate\": {\n      \"rateType\": \"ACTUAL\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\",\n      \"exchangeRateExpiryDate\": \"<dateTime>\"\n    },\n    \"refundAccount\": {\n      \"name\": \"<string>\",\n      \"accountIdentifications\": [\n        {\n          \"type\": \"BLZ\",\n          \"identification\": \"<string>\"\n        }\n      ]\n    },\n    \"bulkAmountSum\": \"<number>\"\n  },\n  \"links\": {\n    \"magna_5\": \"<string>\",\n    \"dolor_5\": \"<string>\",\n    \"pariatur1\": \"<string>\",\n    \"sint_193\": \"<string>\"\n  },\n  \"forwardedData\": [\n    {\n      \"headers\": {\n        \"anim3\": \"<string>\"\n      },\n      \"url\": \"<string>\"\n    }\n  ],\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"labore80a\": \"<string>\",\n          \"cupidatat__00\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"Ut4c0\": \"<string>\",\n          \"magna_b82\": \"<string>\",\n          \"ut_\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"consectetur2\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ],\n  \"tracingId\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:15:53.000Z",
+              "updatedAt": "2026-10-21T20:15:53.000Z",
+              "uid": "35240-b52ec1c3-9a8e-44d6-bdb8-124be29c9a08"
             },
             {
-              "id": "ae365bd9-8a5d-429f-abb8-01597a2a1e39",
+              "id": "75460b94-4a38-40d4-8312-0c90fafb2fea",
               "name": "Error Response",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "payments",
-                    ":paymentId",
-                    "details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "paymentId",
-                      "description": "(Required) __Mandatory__. The payment Id of the payment."
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) __Mandatory__. The `consent-token` containing the user's authorisation to make the request.",
                     "key": "consent",
-                    "value": "{consentToken}"
+                    "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a personal account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. Represents the user's login ID for the `Institution` to a business account. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-corporate-id",
                     "value": "<string>"
                   },
                   {
-                    "disabled": false,
                     "description": "__Conditional__. The IP address of the PSU. \n\nSee [PSU identifiers](/open-banking-flow/user-authorisation/psu-identifiers) to see if this header is required.",
                     "key": "psu-ip-address",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"payee\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"IBAN\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"accountType\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"UNKNOWN\"\n    },\n    \"merchantId\": \"<string>\",\n    \"merchantCategoryCode\": \"<string>\"\n  },\n  \"paymentIdempotencyId\": \"<string>\",\n  \"type\": \"DOMESTIC_PERIODIC_PAYMENT\",\n  \"payer\": {\n    \"accountIdentifications\": [\n      {\n        \"type\": \"ABA_WIRE\",\n        \"identification\": \"<string>\"\n      }\n    ],\n    \"name\": \"<string>\",\n    \"address\": {\n      \"addressLines\": [\n        \"<string>\"\n      ],\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"county\": [\n        \"<string>\"\n      ],\n      \"country\": \"<string>\",\n      \"department\": \"<string>\",\n      \"subDepartment\": \"<string>\",\n      \"addressType\": \"BUSINESS\"\n    }\n  },\n  \"reference\": \"<string>\",\n  \"contextType\": \"OTHER\",\n  \"purposeCode\": \"<string>\",\n  \"periodicPayment\": {\n    \"frequency\": {\n      \"type\": \"SEMIANNUAL\",\n      \"intervalWeek\": \"<integer>\",\n      \"intervalMonth\": \"<integer>\",\n      \"executionDay\": \"<integer>\"\n    },\n    \"numberOfPayments\": \"<integer>\",\n    \"nextPaymentDateTime\": \"<dateTime>\",\n    \"nextPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    },\n    \"finalPaymentDateTime\": \"<dateTime>\",\n    \"finalPaymentAmount\": {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"internationalPayment\": {\n    \"currencyOfTransfer\": \"<string>\",\n    \"exchangeRateInformation\": {\n      \"rateType\": \"INDICATIVE\",\n      \"unitCurrency\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"foreignExchangeContractReference\": \"<string>\"\n    },\n    \"purpose\": \"<string>\",\n    \"priority\": \"NORMAL\",\n    \"chargeBearer\": \"SHAR\"\n  },\n  \"paymentDateTime\": \"<dateTime>\",\n  \"readRefundAccount\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json;charset=UTF-8"
                 }
               ],
-              "body": "\"reference #/components/examples/error-response-code-401 not found in the given specification\"",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"institutionError\": {\n      \"errorMessage\": \"<string>\",\n      \"httpStatusCode\": \"<integer>\"\n    },\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tracingId\": \"<string>\"\n  },\n  \"raw\": [\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt0\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"incididunt_905\": \"<string>\",\n          \"euc\": \"<string>\",\n          \"aliquip34\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"occaecat_7\": \"<string>\",\n        \"qui_c\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    },\n    {\n      \"request\": {\n        \"method\": \"<string>\",\n        \"url\": \"<string>\",\n        \"requestInstant\": \"<dateTime>\",\n        \"headers\": {\n          \"sunt_e\": \"<string>\",\n          \"laborumce1\": \"<string>\"\n        },\n        \"body\": {},\n        \"bodyParameters\": {\n          \"aliquipd\": \"<string>\"\n        },\n        \"startTime\": \"<dateTime>\",\n        \"startedAt\": \"<dateTime>\"\n      },\n      \"duration\": \"<string>\",\n      \"headers\": {\n        \"proidenta7_\": \"<string>\"\n      },\n      \"resultCode\": \"<integer>\",\n      \"result\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:15:53.000Z",
+              "updatedAt": "2026-10-21T20:15:53.000Z",
+              "uid": "35240-75460b94-4a38-40d4-8312-0c90fafb2fea"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:15:52.000Z",
+          "updatedAt": "2026-10-21T20:15:52.000Z",
+          "uid": "35240-7f35a9d9-03eb-44ed-b8fe-11d415f2d0e6"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.yapily.com",
-      "key": "baseUrl"
+      "id": "929b2183-2bf5-4168-9677-20ceecf71550",
+      "createdAt": "2026-10-21T20:15:52.000Z",
+      "updatedAt": "2026-10-21T20:15:52.000Z",
+      "uid": "35240-929b2183-2bf5-4168-9677-20ceecf71550"
     }
   ],
   "auth": {
@@ -1378,21 +1329,20 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "d65d6547-aca7-4cb1-af7c-c8b24105e505",
-    "name": "Yapily Beneficiaries Application Beneficiaries Payments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.yapily.com"
     }
-  }
+  ]
 }

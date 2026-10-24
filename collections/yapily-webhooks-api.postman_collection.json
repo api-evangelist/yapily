@@ -1,1328 +1,1446 @@
 {
+  "info": {
+    "_postman_id": "2784c80b-b88c-4c5e-b16e-afca5a97c926",
+    "name": "Yapily Platform Webhooks API",
+    "description": "Manage Applications, Users, Application Management, Constraints, and Webhooks for the Yapily Open Banking platform.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:19:17.000Z",
+    "updatedAt": "2026-10-21T20:19:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2784c80b-b88c-4c5e-b16e-afca5a97c926"
+  },
   "item": [
     {
-      "id": "aa0e83eb-9f02-4632-b38e-dffbc7a7faef",
-      "name": "Webhooks",
-      "description": {
-        "content": "Webhook endpoints",
-        "type": "text/plain"
-      },
+      "name": "webhook",
       "item": [
         {
-          "id": "d281453b-fb3c-4e4f-a626-1059b1fe534b",
-          "name": "Get Webhook Categories",
-          "request": {
-            "name": "Get Webhook Categories",
-            "description": {
-              "content": "Retrieve a comprehensive list of event categories that can be registered for webhook notifications in your application. These event categories can be used to subscribe a webhook to specific events, enabling your application to receive real-time notifications when these events occur.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhook",
-                "events",
-                "categories"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "events",
+          "item": [
             {
-              "id": "843fcf9b-bdc8-408e-ad76-a9ce79b3297d",
-              "name": "Event Categories",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    "categories"
+              "name": "categories",
+              "item": [
+                {
+                  "name": "Get Webhook Categories",
+                  "id": "a305297a-2a48-4203-84ea-9ef4774cc57b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events/categories",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events",
+                        "categories"
+                      ]
+                    },
+                    "description": "Retrieve a comprehensive list of event categories that can be registered for webhook notifications in your application. These event categories can be used to subscribe a webhook to specific events, enabling your application to receive real-time notifications when these events occur."
+                  },
+                  "response": [
+                    {
+                      "id": "9a237b7e-97f3-485d-baa7-3d5962e3d491",
+                      "name": "Event Categories",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/categories",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            "categories"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"metadata\": {\n    \"tracingId\": \"<uuid>\"\n  },\n  \"data\": {\n    \"categories\": [\n      {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-9a237b7e-97f3-485d-baa7-3d5962e3d491"
+                    },
+                    {
+                      "id": "426e8a0b-65f6-4e3a-87b6-f643bf5cd2c7",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/categories",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            "categories"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-426e8a0b-65f6-4e3a-87b6-f643bf5cd2c7"
+                    },
+                    {
+                      "id": "7b750d13-ec82-4c1f-81b1-a173f835134a",
+                      "name": "Authentication Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/categories",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            "categories"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-7b750d13-ec82-4c1f-81b1-a173f835134a"
+                    },
+                    {
+                      "id": "eb4d9003-102e-4d20-b5af-4f19555731a1",
+                      "name": "Unexpected Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/categories",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            "categories"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-eb4d9003-102e-4d20-b5af-4f19555731a1"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-a305297a-2a48-4203-84ea-9ef4774cc57b"
+                }
+              ],
+              "id": "6d389e9c-bc74-450f-86b2-bf2439084191",
+              "createdAt": "2026-10-21T20:19:18.000Z",
+              "updatedAt": "2026-10-21T20:19:18.000Z",
+              "uid": "35240-6d389e9c-bc74-450f-86b2-bf2439084191"
+            },
+            {
+              "name": "{webhook_id}",
+              "item": [
+                {
+                  "name": "Delete Webhook Event",
+                  "id": "e415a9f8-dbf0-4766-a2bf-62c321b750c1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2b47c346-4538-4ad7-ae24-d063b7705da0",
+                          "key": "webhook_id"
+                        }
+                      ]
+                    },
+                    "description": "Delete a webhook event for a specified webhook ID, unregistering it from receiving any further notifications for the subscribed event categories in your application."
+                  },
+                  "response": [
+                    {
+                      "id": "471d5ce0-90a8-43cf-854e-6f5e543486c0",
+                      "name": "Deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"metadata\": {\n    \"tracingId\": \"<uuid>\"\n  },\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"applicationId\": \"<uuid>\",\n    \"categories\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"callbackUrl\": {\n      \"main\": {\n        \"url\": \"<string>\"\n      },\n      \"backup\": {\n        \"url\": \"<string>\"\n      }\n    },\n    \"metadata\": {\n      \"ipsume67\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-471d5ce0-90a8-43cf-854e-6f5e543486c0"
+                    },
+                    {
+                      "id": "889303c7-5be0-4d5b-9a9c-867818435103",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-889303c7-5be0-4d5b-9a9c-867818435103"
+                    },
+                    {
+                      "id": "f721d002-0cac-44ca-a260-ca8b0b2fee4f",
+                      "name": "Authentication Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-f721d002-0cac-44ca-a260-ca8b0b2fee4f"
+                    },
+                    {
+                      "id": "ba5b85cf-76cb-414d-8844-0710e51239f7",
+                      "name": "Webhook ID not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-ba5b85cf-76cb-414d-8844-0710e51239f7"
+                    },
+                    {
+                      "id": "83747bea-9439-41a6-b4f5-ac31d3ad92b1",
+                      "name": "Unexpected Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/events/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "events",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-83747bea-9439-41a6-b4f5-ac31d3ad92b1"
+                    }
                   ],
-                  "query": [],
-                  "variable": []
-                },
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-e415a9f8-dbf0-4766-a2bf-62c321b750c1"
+                }
+              ],
+              "id": "6c1c1485-f90b-430b-9ce1-ef6a5b246d9a",
+              "createdAt": "2026-10-21T20:19:18.000Z",
+              "updatedAt": "2026-10-21T20:19:18.000Z",
+              "uid": "35240-6c1c1485-f90b-430b-9ce1-ef6a5b246d9a"
+            },
+            {
+              "name": "Register Webhook Event",
+              "id": "47bc28fc-ffc5-4049-937d-7758628a6602",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"metadata\": {\n    \"tracingId\": \"f2425b79-974d-43f8-a5a2-ec771b2d9297\"\n  },\n  \"data\": {\n    \"categories\": [\n      {\n        \"name\": \"payment.state.success\",\n        \"description\": \"An event sent when payment reaches a terminal successful status\"\n      },\n      {\n        \"name\": \"payment.state.failed\",\n        \"description\": \"An event sent when payment reaches a terminal failed status\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "891877c6-81e2-4e44-9c82-2c11d516adf3",
-              "name": "Validation Error",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    "categories"
-                  ],
+                  "raw": "{{baseUrl}}/webhook/events",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "webhook",
+                    "events"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+                "description": "Register a webhook to one or multiple event categories to receive real-time notifications when specific events occur in your application."
+              },
+              "response": [
+                {
+                  "id": "5bd864ee-f908-465e-acf5-49be1a62c3dc",
+                  "name": "201 response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
                   },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-5bd864ee-f908-465e-acf5-49be1a62c3dc"
+                },
+                {
+                  "id": "a2bbf150-131c-436c-b24c-155afb169433",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-a2bbf150-131c-436c-b24c-155afb169433"
+                },
+                {
+                  "id": "5588a260-67f9-48a7-a016-d1bba41435f7",
+                  "name": "Authentication Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-5588a260-67f9-48a7-a016-d1bba41435f7"
+                },
+                {
+                  "id": "03ebb084-62df-4942-983a-601115a50282",
+                  "name": "Maximum number of registered webhooks has been reached",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-03ebb084-62df-4942-983a-601115a50282"
+                },
+                {
+                  "id": "fdedba85-48e9-4081-8290-6194140afe84",
+                  "name": "Unexpected Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"ea_bf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-fdedba85-48e9-4081-8290-6194140afe84"
+                }
+              ],
+              "createdAt": "2026-10-21T20:19:18.000Z",
+              "updatedAt": "2026-10-21T20:19:18.000Z",
+              "uid": "35240-47bc28fc-ffc5-4049-937d-7758628a6602"
+            },
+            {
+              "name": "Retrieve All Webhook Events",
+              "id": "5ea6ad56-1fff-4241-a4cb-231e669c0bc7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8c77210b-2b5c-4986-afad-a8608c6e6d81",
-              "name": "Authentication Error",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    "categories"
-                  ],
+                  "raw": "{{baseUrl}}/webhook/events",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c78f506d-25cf-4bad-aed8-aaec53115c70",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "webhook",
-                    "events",
-                    "categories"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                    "events"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieve the list of registered webhooks for your application"
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "ea508dbf-3e95-46f5-a047-e5eb1b42464f",
+                  "name": "Registered Webhooks",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"metadata\": {\n    \"tracingId\": \"<uuid>\"\n  },\n  \"data\": {\n    \"active\": [\n      {\n        \"id\": \"<uuid>\",\n        \"applicationId\": \"<uuid>\",\n        \"categories\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"callbackUrl\": {\n          \"main\": {\n            \"url\": \"<string>\"\n          },\n          \"backup\": {\n            \"url\": \"<string>\"\n          }\n        },\n        \"metadata\": {\n          \"do14\": \"<string>\",\n          \"ut_0d\": \"<string>\",\n          \"enim__\": \"<string>\"\n        },\n        \"status\": \"active\"\n      },\n      {\n        \"id\": \"<uuid>\",\n        \"applicationId\": \"<uuid>\",\n        \"categories\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"callbackUrl\": {\n          \"main\": {\n            \"url\": \"<string>\"\n          },\n          \"backup\": {\n            \"url\": \"<string>\"\n          }\n        },\n        \"metadata\": {\n          \"consectetur_373\": \"<string>\",\n          \"animb\": \"<string>\",\n          \"sunt_30c\": \"<string>\"\n        },\n        \"status\": \"paused\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-ea508dbf-3e95-46f5-a047-e5eb1b42464f"
+                },
+                {
+                  "id": "a937ed59-cc69-4e9b-a414-bd55494c4aa3",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-a937ed59-cc69-4e9b-a414-bd55494c4aa3"
+                },
+                {
+                  "id": "91a3bea0-52c1-4a65-b1f8-a18309e9b26d",
+                  "name": "Authentication Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-91a3bea0-52c1-4a65-b1f8-a18309e9b26d"
+                },
+                {
+                  "id": "5e7ee164-697f-4421-9104-096789f1f5bf",
+                  "name": "Unexpected Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-5e7ee164-697f-4421-9104-096789f1f5bf"
                 }
               ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:19:18.000Z",
+              "updatedAt": "2026-10-21T20:19:18.000Z",
+              "uid": "35240-5ea6ad56-1fff-4241-a4cb-231e669c0bc7"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "328bda14-949d-45e8-9a3b-e36cfc5e7ee9",
+          "createdAt": "2026-10-21T20:19:18.000Z",
+          "updatedAt": "2026-10-21T20:19:18.000Z",
+          "uid": "35240-328bda14-949d-45e8-9a3b-e36cfc5e7ee9"
         },
         {
-          "id": "29712c72-261f-4913-bbe1-0f8a9e901d3e",
-          "name": "Register Webhook Event",
-          "request": {
-            "name": "Register Webhook Event",
-            "description": {
-              "content": "Register a webhook to one or multiple event categories to receive real-time notifications when specific events occur in your application.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhook",
-                "events"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "secrets",
+          "item": [
             {
-              "id": "061ea768-a23d-4349-94aa-fc916089b427",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
+              "name": "{webhook_id}",
+              "item": [
+                {
+                  "name": "Reset Webhook Secret",
+                  "id": "86b7c8df-20a3-4dee-8d7f-194faa6a3298",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"delay\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook",
+                        "secrets",
+                        ":webhook_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "499cd8e6-f683-4435-8d0a-3152bad6bdf5",
+                          "key": "webhook_id"
+                        }
+                      ]
+                    },
+                    "description": "Reset webhook secret for a webhook that is already registered to your application"
+                  },
+                  "response": [
+                    {
+                      "id": "d97e7a98-a494-4666-bb3e-a1a9cba91a34",
+                      "name": "201 response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"delay\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "secrets",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-d97e7a98-a494-4666-bb3e-a1a9cba91a34"
+                    },
+                    {
+                      "id": "51a32296-4c80-4dfe-8bbe-7fe36d11d12d",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"delay\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "secrets",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-51a32296-4c80-4dfe-8bbe-7fe36d11d12d"
+                    },
+                    {
+                      "id": "828b72a5-a228-49de-ade8-fef211f230a0",
+                      "name": "Authentication Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"delay\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "secrets",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-828b72a5-a228-49de-ade8-fef211f230a0"
+                    },
+                    {
+                      "id": "9577c2cc-c37e-4096-a726-954276a22962",
+                      "name": "Webhook ID not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"delay\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "secrets",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-9577c2cc-c37e-4096-a726-954276a22962"
+                    },
+                    {
+                      "id": "b4abc842-0645-4d59-9bd1-64ef704da448",
+                      "name": "Unexpected Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"delay\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/webhook/secrets/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "webhook",
+                            "secrets",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "webhook_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"tracingId\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"issues\": [\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"code\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ],\n    \"supportUrl\": \"<string>\",\n    \"source\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:19:18.000Z",
+                      "updatedAt": "2026-10-21T20:19:18.000Z",
+                      "uid": "35240-b4abc842-0645-4d59-9bd1-64ef704da448"
                     }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  ],
+                  "createdAt": "2026-10-21T20:19:18.000Z",
+                  "updatedAt": "2026-10-21T20:19:18.000Z",
+                  "uid": "35240-86b7c8df-20a3-4dee-8d7f-194faa6a3298"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "bedbfe25-6239-405a-a97e-34f94fed0b50",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fe87ed33-4ba3-4058-a9e9-0b7c0ca0337b",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6989e370-7160-4d04-9027-7726e20481c3",
-              "name": "Maximum number of registered webhooks has been reached",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Acceptable",
-              "code": 406,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/406-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6626130c-cd5f-424a-9cc9-4f3078f91de0",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"applicationId\": \"<uuid>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"callbackUrl\": {\n    \"main\": {\n      \"url\": \"<string>\"\n    },\n    \"backup\": {\n      \"url\": \"<string>\"\n    }\n  },\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "709b6336-37d9-4756-bce5-bd4d0a2a4cdf",
-          "name": "Retrieve All Webhook Events",
-          "request": {
-            "name": "Retrieve All Webhook Events",
-            "description": {
-              "content": "Retrieve the list of registered webhooks for your application",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhook",
-                "events"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "eae8eead-cf3d-4251-a314-d363890e2040",
-              "name": "Registered Webhooks",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"metadata\": {\n    \"tracingId\": \"1d654196-11ab-5040-47c0-9c659f8de0f4\"\n  },\n  \"data\": {\n    \"active\": [\n      {\n        \"id\": \"8dc6a7b8-61a0-b966-1498-f5280daeab13\",\n        \"applicationId\": \"2f11cbda-bfc2-b4ae-1a32-b0a2eb7f339b\",\n        \"categories\": [\n          \"string\",\n          \"string\"\n        ],\n        \"callbackUrl\": {\n          \"main\": {\n            \"url\": \"string\"\n          },\n          \"backup\": {\n            \"url\": \"string\"\n          }\n        },\n        \"metadata\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\",\n          \"key_3\": \"<string>\"\n        },\n        \"status\": \"paused\"\n      },\n      {\n        \"id\": \"da8a8242-5b9b-b339-bc2c-50e3752f7497\",\n        \"applicationId\": \"d9257c98-9125-de2f-cd19-6dfa1ee8dca7\",\n        \"categories\": [\n          \"string\",\n          \"string\"\n        ],\n        \"callbackUrl\": {\n          \"main\": {\n            \"url\": \"string\"\n          },\n          \"backup\": {\n            \"url\": \"string\"\n          }\n        },\n        \"metadata\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\",\n          \"key_3\": \"<string>\",\n          \"key_4\": \"<string>\"\n        },\n        \"status\": \"active\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e2763a04-1ff2-41ab-98c4-01556ffb4fcb",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c176d80d-b6fc-4d11-8a41-929759d3d4ad",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "12b2ccd7-3cf1-4364-addc-87719eeaa577",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "8b3768ca-f00d-404a-bfd3-d61bef9cfc43",
+              "createdAt": "2026-10-21T20:19:18.000Z",
+              "updatedAt": "2026-10-21T20:19:18.000Z",
+              "uid": "35240-8b3768ca-f00d-404a-bfd3-d61bef9cfc43"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ced2268e-1014-4067-9c07-ce69de431f35",
-          "name": "Delete Webhook Event",
-          "request": {
-            "name": "Delete Webhook Event",
-            "description": {
-              "content": "Delete a webhook event for a specified webhook ID, unregistering it from receiving any further notifications for the subscribed event categories in your application.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhook",
-                "events",
-                ":webhook_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "aef4dcd2-3c7d-4d66-8a04-7a7c1545b635",
-              "name": "Deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"metadata\": {\n    \"tracingId\": \"58cd688a-1dc1-3306-c40a-3def7e746c1f\"\n  },\n  \"data\": {\n    \"id\": \"3f77c4b3-bd72-9fca-4693-a28defb27bc7\",\n    \"applicationId\": \"74bd109a-4a3c-8d84-8b15-7885c44f2d34\",\n    \"categories\": [\n      \"string\",\n      \"string\"\n    ],\n    \"callbackUrl\": {\n      \"main\": {\n        \"url\": \"string\"\n      },\n      \"backup\": {\n        \"url\": \"string\"\n      }\n    },\n    \"metadata\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "07c5155f-d428-4aaa-9b94-776dc3c267bf",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9f2e1a9e-9113-47e6-a626-3b209b827ec4",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d6da0fcd-0d62-48cb-959f-1ee75ef1f9bd",
-              "name": "Webhook ID not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "12316377-e09b-458a-bc4f-2799119ef796",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "events",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0e416403-c1a8-43a6-9f5b-913780d07c97",
-          "name": "Reset Webhook Secret",
-          "request": {
-            "name": "Reset Webhook Secret",
-            "description": {
-              "content": "Reset webhook secret for a webhook that is already registered to your application",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhook",
-                "secrets",
-                ":webhook_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"delay\": \"<number>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "06235504-b3c9-4541-9fe2-6bc9d0447217",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "secrets",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"delay\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c277be33-d535-4f22-9aaf-daed5f78d9de",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "secrets",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"delay\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/400-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "306078b1-e62f-450f-adf2-0d683d4da19c",
-              "name": "Authentication Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "secrets",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"delay\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/401-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8daff1c9-85f7-41e3-b5b7-5562c770a85a",
-              "name": "Webhook ID not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "secrets",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"delay\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/404-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "695fe4bd-281b-4550-8a97-35c978df4056",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhook",
-                    "secrets",
-                    ":webhook_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: basic",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"delay\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"reference #/components/examples/500-error-response not found in the given specification\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2b5d24ca-ae22-4dde-8dab-7dec3336da69",
+          "createdAt": "2026-10-21T20:19:18.000Z",
+          "updatedAt": "2026-10-21T20:19:18.000Z",
+          "uid": "35240-2b5d24ca-ae22-4dde-8dab-7dec3336da69"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.yapily.com",
-      "key": "baseUrl"
+      "id": "26cf57a0-736f-4f1f-aa39-57e45ffaabe0",
+      "createdAt": "2026-10-21T20:19:18.000Z",
+      "updatedAt": "2026-10-21T20:19:18.000Z",
+      "uid": "35240-26cf57a0-736f-4f1f-aa39-57e45ffaabe0"
     }
   ],
   "auth": {
@@ -1330,21 +1448,20 @@
     "basic": [
       {
         "key": "username",
-        "value": "{{basicAuthUsername}}"
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
       },
       {
         "key": "password",
-        "value": "{{basicAuthPassword}}"
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "dade149c-1c13-4ef5-9507-96eb73787c46",
-    "name": "Yapily Beneficiaries Application Beneficiaries Webhooks API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Application and User Beneficiaries endpoints for managing reusable payment counterparties.\n\nContact Support:\n Name: Yapily Support\n Email: support@yapily.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.yapily.com"
     }
-  }
+  ]
 }
